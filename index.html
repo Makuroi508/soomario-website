@@ -440,62 +440,86 @@
     </div>
 
     <script>
-        (function() {
-            const API = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
-            
-            async function loadWidget() {
-                try {
-                    const res = await fetch(`${API}?accountId=00004&password=pvbx`);
-                    const data = await res.json();
-                    if (data.success) {
-                        updateWidget(data);
-                    } else {
-                        document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-red-400">Data temporarily unavailable</div>';
-                    }
-                } catch (err) {
-                    console.error('Widget error:', err);
+    (function() {
+        const API = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
+        
+        async function loadWidget() {
+            try {
+                // NO MORE accountId/password!
+                const res = await fetch(API);
+                const data = await res.json();
+                
+                console.log('API Response:', data); // Debug log
+                
+                if (data.success) {
+                    updateWidget(data);
+                } else {
+                    console.error('API error:', data.error);
                     document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-red-400">Data temporarily unavailable</div>';
                 }
+            } catch (err) {
+                console.error('Widget error:', err);
+                document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-red-400">Connection error</div>';
             }
+        }
+        
+        function updateWidget(data) {
+            const s = data.stats;
             
-            function updateWidget(data) {
-                const s = data.stats;
-                document.getElementById('widgetLoading').style.display = 'none';
-                document.getElementById('widgetContent').style.display = 'block';
-                document.getElementById('widgetUpdateTime').textContent = `Updated ${new Date().toLocaleTimeString()}`;
-                document.getElementById('widgetEquity').textContent = `$${parseFloat(s.currentEquity).toFixed(2)}`;
-                document.getElementById('widgetStarting').textContent = `$${parseFloat(s.startingCapital).toFixed(2)}`;
-                
-                const roi = parseFloat(s.roiPercent);
-                const pos = roi >= 0;
-                const ret = document.getElementById('widgetReturn');
-                ret.textContent = `${pos ? '+' : ''}$${s.totalReturn}`;
-                ret.className = `font-display text-4xl md:text-5xl mb-2 ${pos ? 'text-green-400' : 'text-red-400'}`;
-                
-                document.getElementById('widgetROI').innerHTML = `
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${pos ? 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' : 'M13 17h8m0 0V9m0 8l-8-8-4 4-6-6'}"/>
-                    </svg>
-                    <span class="font-serif text-sm">${pos ? '+' : ''}${s.roiPercent}%</span>
-                `;
-                document.getElementById('widgetROI').className = `flex items-center justify-center gap-2 ${pos ? 'text-green-400' : 'text-red-400'}`;
-                
-                document.getElementById('widgetWinRate').textContent = `${s.winRate}%`;
-                document.getElementById('widgetWinDetail').textContent = `${s.profitableTrades} of ${s.totalTrades} trades`;
-                document.getElementById('widgetTotal').textContent = s.totalTrades;
-                
-                const wr = parseFloat(s.currentWeekReturn);
-                const wk = document.getElementById('widgetWeek');
-                wk.textContent = `${wr >= 0 ? '+' : ''}$${s.currentWeekReturn}`;
-                wk.className = `font-display text-4xl md:text-5xl mb-2 ${wr >= 0 ? 'text-green-400' : 'text-red-400'}`;
-                document.getElementById('widgetWeekNum').textContent = s.weekNumber || 1;
-                
-                document.getElementById('widgetDD').textContent = `-${s.maxDrawdown}%`;
-                document.getElementById('widgetAvgWin').textContent = `$${s.avgWin}`;
-                document.getElementById('widgetSharpe').textContent = s.sharpeRatio;
-                
-                const trades = data.trades.slice(-3).reverse().map(t => {
-                    const pnl = parseFloat(t.closedPnl);
+            document.getElementById('widgetLoading').style.display = 'none';
+            document.getElementById('widgetContent').style.display = 'block';
+            
+            // Update timestamp
+            document.getElementById('widgetUpdateTime').textContent = `Updated ${new Date().toLocaleTimeString()}`;
+            
+            // Current Equity
+            document.getElementById('widgetEquity').textContent = `$${parseFloat(s.currentEquity).toFixed(2)}`;
+            document.getElementById('widgetStarting').textContent = `$3,103.00`; // Hardcoded starting capital
+            
+            // Total Return
+            const roi = parseFloat(s.roiPercent);
+            const pos = roi >= 0;
+            const ret = document.getElementById('widgetReturn');
+            ret.textContent = `${pos ? '+' : ''}$${s.totalReturn}`;
+            ret.className = `font-display text-4xl md:text-5xl mb-2 ${pos ? 'text-green-400' : 'text-red-400'}`;
+            
+            // ROI Percentage
+            document.getElementById('widgetROI').innerHTML = `
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${pos ? 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' : 'M13 17h8m0 0V9m0 8l-8-8-4 4-6-6'}"/>
+                </svg>
+                <span class="font-serif text-sm">${pos ? '+' : ''}${s.roiPercent}%</span>
+            `;
+            document.getElementById('widgetROI').className = `flex items-center justify-center gap-2 ${pos ? 'text-green-400' : 'text-red-400'}`;
+            
+            // Win Rate
+            document.getElementById('widgetWinRate').textContent = `${s.winRate}%`;
+            document.getElementById('widgetWinDetail').textContent = `${s.profitableTrades} of ${s.totalTrades} trades`;
+            document.getElementById('widgetTotal').textContent = s.totalTrades;
+            
+            // This Week - FIXED!
+            const weekReturn = s.currentWeekReturn || '0.00';
+            const wr = parseFloat(weekReturn);
+            const wk = document.getElementById('widgetWeek');
+            wk.textContent = `${wr >= 0 ? '+' : ''}$${weekReturn}`;
+            wk.className = `font-display text-4xl md:text-5xl mb-2 ${wr >= 0 ? 'text-green-400' : 'text-red-400'}`;
+            
+            // Week number calculation
+            const weeksSinceStart = Math.floor((new Date() - new Date('2024-12-30')) / (7 * 24 * 60 * 60 * 1000));
+            document.getElementById('widgetWeekNum').textContent = weeksSinceStart;
+            
+            // Additional stats
+            document.getElementById('widgetDD').textContent = `-${s.maxDrawdown}%`;
+            document.getElementById('widgetAvgWin').textContent = `$${s.avgWin}`;
+            document.getElementById('widgetSharpe').textContent = s.sharpeRatio;
+            
+            // Recent Trades - FIXED! Using recentTrades instead of trades
+            const recentTrades = data.recentTrades || [];
+            if (recentTrades.length === 0) {
+                document.getElementById('widgetTrades').innerHTML = '<div class="text-center text-gray-500 font-serif">No recent trades</div>';
+            } else {
+                const trades = recentTrades.slice(-3).reverse().map(t => {
+                    const pnl = parseFloat(t.pnl);
                     const prof = pnl >= 0;
                     const lng = t.direction.toLowerCase().includes('long');
                     return `
@@ -505,17 +529,22 @@
                                 <div class="font-serif text-xs text-gray-500">${t.time}</div>
                                 <div class="font-display text-xs px-2 py-1 rounded ${lng ? 'bg-green-400/10 text-green-400' : 'bg-red-400/10 text-red-400'}">${t.direction}</div>
                             </div>
-                            <div class="font-display text-sm font-bold ${prof ? 'text-green-400' : 'text-red-400'}">${prof ? '+' : ''}$${t.closedPnl}</div>
+                            <div class="font-display text-sm font-bold ${prof ? 'text-green-400' : 'text-red-400'}">${prof ? '+' : ''}$${t.pnl}</div>
                         </div>
                     `;
                 }).join('');
                 document.getElementById('widgetTrades').innerHTML = trades;
             }
-            
-            loadWidget();
-            setInterval(loadWidget, 30000);
-        })();
+        }
+        
+        // Initial load
+        loadWidget();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadWidget, 30000);
+    })();
     </script>
+
 </section>
 <!-- END LIVE PERFORMANCE WIDGET -->
 
