@@ -555,7 +555,14 @@
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
-                console.log('API Response:', data); // Debug logging
+                console.log('=== FULL API RESPONSE ===');
+                console.log('data:', data);
+                console.log('data.stats:', data.stats);
+                console.log('data.strategyStats:', data.strategyStats);
+                console.log('data.weeklyPerformance:', data.weeklyPerformance);
+                console.log('data.equityCurve (first 5):', data.equityCurve ? data.equityCurve.slice(0, 5) : 'MISSING');
+                console.log('data.allTrades (first trade):', data.allTrades ? data.allTrades[0] : 'MISSING');
+                console.log('=========================');
                 
                 if (!data || !data.stats) {
                     throw new Error('Invalid data format from API');
@@ -851,6 +858,12 @@
                 const direction = trade.direction || 'LONG';
                 const closeTime = trade.closeTime || Date.now();
                 
+                // Check if direction contains "Long" or "Short" (handles both "LONG" and "Close Long")
+                const isLong = direction.toUpperCase().includes('LONG');
+                const directionLabel = isLong ? 'LONG' : 'SHORT';
+                
+                console.log('Trade direction:', direction, '-> isLong:', isLong, '-> label:', directionLabel);
+                
                 return `
                     <tr>
                         <td>${new Date(closeTime).toLocaleDateString()}</td>
@@ -860,8 +873,8 @@
                             </span>
                         </td>
                         <td>
-                            <span class="direction-badge ${direction === 'LONG' ? 'direction-long' : 'direction-short'}">
-                                ${direction}
+                            <span class="direction-badge ${isLong ? 'direction-long' : 'direction-short'}">
+                                ${directionLabel}
                             </span>
                         </td>
                         <td>$${entryPrice.toFixed(2)}</td>
@@ -928,7 +941,13 @@
 
             return (allTrades || []).filter(trade => {
                 const matchesStrategy = strategyFilter === 'all' || (trade.strategy || '') === strategyFilter;
-                const matchesDirection = directionFilter === 'all' || (trade.direction || '') === directionFilter;
+                
+                // Handle both "LONG"/"SHORT" and "Close Long"/"Close Short" formats
+                const tradeDirection = (trade.direction || '').toUpperCase();
+                const matchesDirection = directionFilter === 'all' || 
+                    (directionFilter === 'LONG' && tradeDirection.includes('LONG')) ||
+                    (directionFilter === 'SHORT' && tradeDirection.includes('SHORT'));
+                
                 const matchesSearch = searchText === '' || 
                     (trade.strategy || '').toLowerCase().includes(searchText) ||
                     (trade.direction || '').toLowerCase().includes(searchText) ||
