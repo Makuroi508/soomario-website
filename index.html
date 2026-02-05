@@ -490,52 +490,15 @@
             document.getElementById('widgetWinDetail').textContent = `${s.profitableTrades} of ${s.totalTrades} trades`;
             document.getElementById('widgetTotal').textContent = s.totalTrades;
             
-            // This Week
-            const weekReturn = s.currentWeekReturn || '0.00';
-            const weekValue = parseFloat(weekReturn);
-            const weekPositive = weekValue >= 0;
-            const weekEl = document.getElementById('widgetWeek');
-            weekEl.textContent = `${weekPositive ? '+' : ''}$${weekReturn}`;
-            weekEl.className = `font-display text-4xl md:text-5xl mb-2 ${weekPositive ? 'text-green-400' : 'text-red-400'}`;
             
-            // Week number
-            const weeksSinceStart = Math.floor((new Date() - new Date('2024-12-30')) / (7 * 24 * 60 * 60 * 1000));
-            document.getElementById('widgetWeekNum').textContent = weeksSinceStart;
-            
+            // Profit Factor
+            const profitFactor = parseFloat(s.profitFactor) || 0;
+            document.getElementById('widgetProfitFactor').textContent = profitFactor.toFixed(2);
+
             // Stats boxes
             document.getElementById('widgetDD').textContent = `-${s.maxDrawdown}%`;
             document.getElementById('widgetAvgWin').textContent = `$${s.avgWin}`;
             document.getElementById('widgetSharpe').textContent = s.sharpeRatio;
-            
-            // Recent Trades - FIXED: using recentTrades from API
-            const tradesData = data.recentTrades || [];
-            
-            if (tradesData.length === 0) {
-                document.getElementById('widgetTrades').innerHTML = 
-                    '<div class="text-center text-gray-500 font-serif py-4">No recent trades available</div>';
-            } else {
-                // Get last 3 trades
-                const lastThree = tradesData.slice(-3).reverse();
-                
-                const tradesHTML = lastThree.map(t => {
-                    const pnl = parseFloat(t.pnl);
-                    const isProfitable = pnl >= 0;
-                    const isLong = t.direction.toLowerCase().includes('long');
-                    
-                    return `
-                        <div class="trade-row-widget flex items-center justify-between py-3 px-4 bg-[#0f0a1a]/50 rounded-lg border border-[#C9A961]/10">
-                            <div class="flex items-center gap-4 flex-wrap">
-                                <div class="font-display text-sm font-bold ${isLong ? 'text-green-400' : 'text-red-400'}">${t.coin}</div>
-                                <div class="font-serif text-xs text-gray-500">${t.time}</div>
-                                <div class="font-display text-xs px-2 py-1 rounded ${isLong ? 'bg-green-400/10 text-green-400' : 'bg-red-400/10 text-red-400'}">${t.direction}</div>
-                            </div>
-                            <div class="font-display text-sm font-bold ${isProfitable ? 'text-green-400' : 'text-red-400'}">${isProfitable ? '+' : ''}$${t.pnl}</div>
-                        </div>
-                    `;
-                }).join('');
-                
-                document.getElementById('widgetTrades').innerHTML = tradesHTML;
-            }
         }
         
         // Initial load
