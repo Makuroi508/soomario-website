@@ -555,6 +555,12 @@
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
+                console.log('API Response:', data); // Debug logging
+                
+                if (!data || !data.stats) {
+                    throw new Error('Invalid data format from API');
+                }
+                
                 updateTopStats(data.stats);
                 updateEquityChart(data.equityCurve);
                 updateStrategyCards(data.strategyStats);
@@ -567,48 +573,60 @@
             } catch (error) {
                 console.error('Error fetching data:', error);
                 document.getElementById('lastUpdate').textContent = 
-                    `Error loading data - Retrying...`;
+                    `Error loading data - Retrying in 30 seconds...`;
+                document.getElementById('statsGrid').innerHTML = 
+                    '<div class="loading">⚠️ Error loading data. Check console for details.</div>';
             }
         }
 
         // Update Top Stats Bar
         function updateTopStats(stats) {
+            // Convert strings to numbers
+            const currentEquity = parseFloat(stats.currentEquity);
+            const totalPnL = parseFloat(stats.totalPnL);
+            const roiPercent = parseFloat(stats.roiPercent);
+            const winRate = parseFloat(stats.winRate);
+            const profitFactor = parseFloat(stats.profitFactor);
+            const maxDrawdown = parseFloat(stats.maxDrawdown);
+            const avgWin = parseFloat(stats.avgWin);
+            const sharpeRatio = parseFloat(stats.sharpeRatio);
+            
             const statsHTML = `
                 <div class="stat-card">
                     <div class="stat-label">Current Equity</div>
-                    <div class="stat-value">$${stats.currentEquity.toFixed(2)}</div>
+                    <div class="stat-value">$${currentEquity.toFixed(2)}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Total Return</div>
-                    <div class="stat-value ${stats.totalPnL >= 0 ? 'positive' : 'negative'}">
-                        ${stats.totalPnL >= 0 ? '+' : ''}$${stats.totalPnL.toFixed(2)}
+                    <div class="stat-value ${totalPnL >= 0 ? 'positive' : 'negative'}">
+                        ${totalPnL >= 0 ? '+' : ''}$${totalPnL.toFixed(2)}
                         <div style="font-size: 1rem; margin-top: 5px;">
-                            (${stats.totalPnL >= 0 ? '+' : ''}${stats.roiPercent.toFixed(2)}%)
+                            (${totalPnL >= 0 ? '+' : ''}${roiPercent.toFixed(2)}%)
                         </div>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Win Rate</div>
-                    <div class="stat-value">${stats.winRate.toFixed(1)}%</div>
+                    <div class="stat-value">${winRate.toFixed(1)}%</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Profit Factor</div>
-                    <div class="stat-value ${stats.profitFactor >= 1 ? 'positive' : 'negative'}">
-                        ${stats.profitFactor.toFixed(2)}
+                    <div class="stat-value ${profitFactor >= 1 ? 'positive' : 'negative'}">
+                        ${profitFactor.toFixed(2)}
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Max Drawdown</div>
-                    <div class="stat-value negative">${stats.maxDrawdown.toFixed(2)}%</div>
+                    <div class="stat-value negative">${maxDrawdown.toFixed(2)}%</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Avg Win</div>
-                    <div class="stat-value positive">$${stats.avgWin.toFixed(2)}</div>
+                    <div class="stat-value positive">$${avgWin.toFixed(2)}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Sharpe Ratio</div>
-                    <div class="stat-value ${stats.sharpeRatio >= 0 ? 'positive' : 'negative'}">
-                        ${stats.sharpeRatio.toFixed(2)}
+                    <div class="stat-value ${sharpeRatio >= 0 ? 'positive' : 'negative'}">
+                        ${sharpeRatio.toFixed(2)}
                     </div>
                 </div>
             `;
@@ -624,13 +642,16 @@
                 equityChart.destroy();
             }
 
+            // Convert strings to numbers
+            const equityData = equityCurve.map(val => parseFloat(val));
+
             equityChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: equityCurve.map((point, i) => i === 0 ? 'Start' : `Trade ${i}`),
+                    labels: equityData.map((point, i) => i === 0 ? 'Start' : `Trade ${i}`),
                     datasets: [{
                         label: 'Portfolio Equity',
-                        data: equityCurve,
+                        data: equityData,
                         borderColor: '#FFD700',
                         backgroundColor: 'rgba(255, 215, 0, 0.1)',
                         borderWidth: 3,
@@ -713,35 +734,42 @@
         function updateStrategyCards(strategyStats) {
             const strategyHTML = Object.entries(strategyStats).map(([name, stats]) => {
                 const color = strategyColors[name] || '#9370DB';
-                const isProfit = stats.totalPnL >= 0;
+                
+                // Convert strings to numbers
+                const trades = parseInt(stats.trades);
+                const wins = parseInt(stats.wins);
+                const winRate = parseFloat(stats.winRate);
+                const totalPnL = parseFloat(stats.totalPnL);
+                const profitFactor = parseFloat(stats.profitFactor);
+                const isProfit = totalPnL >= 0;
                 
                 return `
                     <div class="strategy-card" style="border-color: ${color};">
                         <div class="strategy-header">
                             <div class="strategy-name" style="color: ${color};">${name}</div>
                             <div class="strategy-badge" style="background: ${color}20; color: ${color};">
-                                ${stats.winRate.toFixed(1)}% WR
+                                ${winRate.toFixed(1)}% WR
                             </div>
                         </div>
                         <div class="strategy-stats">
                             <div class="strategy-stat">
                                 <div class="strategy-stat-label">Trades</div>
-                                <div class="strategy-stat-value">${stats.trades}</div>
+                                <div class="strategy-stat-value">${trades}</div>
                             </div>
                             <div class="strategy-stat">
                                 <div class="strategy-stat-label">Wins</div>
-                                <div class="strategy-stat-value" style="color: #00ff88;">${stats.wins}</div>
+                                <div class="strategy-stat-value" style="color: #00ff88;">${wins}</div>
                             </div>
                             <div class="strategy-stat">
                                 <div class="strategy-stat-label">Total P&L</div>
                                 <div class="strategy-stat-value ${isProfit ? 'positive' : 'negative'}">
-                                    ${isProfit ? '+' : ''}$${stats.totalPnL.toFixed(2)}
+                                    ${isProfit ? '+' : ''}$${totalPnL.toFixed(2)}
                                 </div>
                             </div>
                             <div class="strategy-stat">
                                 <div class="strategy-stat-label">Profit Factor</div>
-                                <div class="strategy-stat-value ${stats.profitFactor >= 1 ? 'positive' : 'negative'}">
-                                    ${stats.profitFactor.toFixed(2)}
+                                <div class="strategy-stat-value ${profitFactor >= 1 ? 'positive' : 'negative'}">
+                                    ${profitFactor.toFixed(2)}
                                 </div>
                             </div>
                         </div>
@@ -755,7 +783,12 @@
         // Update Weekly Performance
         function updateWeeklyPerformance(weeklyData) {
             const weeklyHTML = weeklyData.map(week => {
-                const isProfit = week.totalPnL >= 0;
+                // Convert strings to numbers
+                const trades = parseInt(week.trades);
+                const wins = parseInt(week.wins);
+                const winRate = parseFloat(week.winRate);
+                const totalPnL = parseFloat(week.totalPnL);
+                const isProfit = totalPnL >= 0;
                 
                 return `
                     <div class="week-card">
@@ -763,20 +796,20 @@
                         <div class="week-stats">
                             <div class="week-stat">
                                 <div class="week-stat-label">Trades</div>
-                                <div class="week-stat-value">${week.trades}</div>
+                                <div class="week-stat-value">${trades}</div>
                             </div>
                             <div class="week-stat">
                                 <div class="week-stat-label">Wins</div>
-                                <div class="week-stat-value" style="color: #00ff88;">${week.wins}</div>
+                                <div class="week-stat-value" style="color: #00ff88;">${wins}</div>
                             </div>
                             <div class="week-stat">
                                 <div class="week-stat-label">Win Rate</div>
-                                <div class="week-stat-value">${week.winRate.toFixed(1)}%</div>
+                                <div class="week-stat-value">${winRate.toFixed(1)}%</div>
                             </div>
                             <div class="week-stat">
                                 <div class="week-stat-label">P&L</div>
                                 <div class="week-stat-value ${isProfit ? 'positive' : 'negative'}">
-                                    ${isProfit ? '+' : ''}$${week.totalPnL.toFixed(2)}
+                                    ${isProfit ? '+' : ''}$${totalPnL.toFixed(2)}
                                 </div>
                             </div>
                         </div>
@@ -803,7 +836,12 @@
             }
 
             const tradesHTML = trades.map(trade => {
-                const isProfit = trade.pnl >= 0;
+                // Convert strings to numbers
+                const entryPrice = parseFloat(trade.entryPrice);
+                const exitPrice = parseFloat(trade.exitPrice);
+                const size = parseFloat(trade.size);
+                const pnl = parseFloat(trade.pnl);
+                const isProfit = pnl >= 0;
                 const strategy = trade.strategy;
                 const color = strategyColors[strategy] || '#9370DB';
                 
@@ -820,11 +858,11 @@
                                 ${trade.direction}
                             </span>
                         </td>
-                        <td>$${trade.entryPrice.toFixed(2)}</td>
-                        <td>$${trade.exitPrice.toFixed(2)}</td>
-                        <td>${trade.size.toFixed(4)}</td>
+                        <td>$${entryPrice.toFixed(2)}</td>
+                        <td>$${exitPrice.toFixed(2)}</td>
+                        <td>${size.toFixed(4)}</td>
                         <td class="trade-profit ${isProfit ? 'positive' : 'negative'}">
-                            ${isProfit ? '+' : ''}$${trade.pnl.toFixed(2)}
+                            ${isProfit ? '+' : ''}$${pnl.toFixed(2)}
                         </td>
                     </tr>
                 `;
@@ -859,6 +897,10 @@
                     if (column === 'date') {
                         aVal = new Date(a.closeTime).getTime();
                         bVal = new Date(b.closeTime).getTime();
+                    } else if (column === 'entryPrice' || column === 'exitPrice' || column === 'size' || column === 'pnl') {
+                        // Convert strings to numbers for numeric columns
+                        aVal = parseFloat(aVal);
+                        bVal = parseFloat(bVal);
                     }
                     
                     if (currentSort.direction === 'asc') {
