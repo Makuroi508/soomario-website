@@ -581,15 +581,17 @@
 
         // Update Top Stats Bar
         function updateTopStats(stats) {
-            // Convert strings to numbers
-            const currentEquity = parseFloat(stats.currentEquity);
-            const totalPnL = parseFloat(stats.totalPnL);
-            const roiPercent = parseFloat(stats.roiPercent);
-            const winRate = parseFloat(stats.winRate);
-            const profitFactor = parseFloat(stats.profitFactor);
-            const maxDrawdown = parseFloat(stats.maxDrawdown);
-            const avgWin = parseFloat(stats.avgWin);
-            const sharpeRatio = parseFloat(stats.sharpeRatio);
+            // Super defensive parsing - handles strings, numbers, null, undefined
+            const currentEquity = Number(stats.currentEquity) || 0;
+            const totalPnL = Number(stats.totalPnL) || 0;
+            const roiPercent = Number(stats.roiPercent) || 0;
+            const winRate = Number(stats.winRate) || 0;
+            const profitFactor = Number(stats.profitFactor) || 0;
+            const maxDrawdown = Number(stats.maxDrawdown) || 0;
+            const avgWin = Number(stats.avgWin) || 0;
+            const sharpeRatio = Number(stats.sharpeRatio) || 0;
+            
+            console.log('Parsed Stats:', { currentEquity, totalPnL, roiPercent, winRate, profitFactor, maxDrawdown, avgWin, sharpeRatio });
             
             const statsHTML = `
                 <div class="stat-card">
@@ -642,8 +644,10 @@
                 equityChart.destroy();
             }
 
-            // Convert strings to numbers
-            const equityData = equityCurve.map(val => parseFloat(val));
+            // Super defensive - convert any format to numbers
+            const equityData = (equityCurve || []).map(val => Number(val) || 0);
+            
+            console.log('Equity Data Points:', equityData.length, 'First:', equityData[0], 'Last:', equityData[equityData.length-1]);
 
             equityChart = new Chart(ctx, {
                 type: 'line',
@@ -732,15 +736,15 @@
 
         // Update Strategy Cards
         function updateStrategyCards(strategyStats) {
-            const strategyHTML = Object.entries(strategyStats).map(([name, stats]) => {
+            const strategyHTML = Object.entries(strategyStats || {}).map(([name, stats]) => {
                 const color = strategyColors[name] || '#9370DB';
                 
-                // Convert strings to numbers
-                const trades = parseInt(stats.trades);
-                const wins = parseInt(stats.wins);
-                const winRate = parseFloat(stats.winRate);
-                const totalPnL = parseFloat(stats.totalPnL);
-                const profitFactor = parseFloat(stats.profitFactor);
+                // Super defensive parsing
+                const trades = Number(stats.trades) || 0;
+                const wins = Number(stats.wins) || 0;
+                const winRate = Number(stats.winRate) || 0;
+                const totalPnL = Number(stats.totalPnL) || 0;
+                const profitFactor = Number(stats.profitFactor) || 0;
                 const isProfit = totalPnL >= 0;
                 
                 return `
@@ -782,17 +786,17 @@
 
         // Update Weekly Performance
         function updateWeeklyPerformance(weeklyData) {
-            const weeklyHTML = weeklyData.map(week => {
-                // Convert strings to numbers
-                const trades = parseInt(week.trades);
-                const wins = parseInt(week.wins);
-                const winRate = parseFloat(week.winRate);
-                const totalPnL = parseFloat(week.totalPnL);
+            const weeklyHTML = (weeklyData || []).map(week => {
+                // Super defensive parsing
+                const trades = Number(week.trades) || 0;
+                const wins = Number(week.wins) || 0;
+                const winRate = Number(week.winRate) || 0;
+                const totalPnL = Number(week.totalPnL) || 0;
                 const isProfit = totalPnL >= 0;
                 
                 return `
                     <div class="week-card">
-                        <div class="week-header">Week ${week.week}</div>
+                        <div class="week-header">Week ${week.week || '?'}</div>
                         <div class="week-stats">
                             <div class="week-stat">
                                 <div class="week-stat-label">Trades</div>
@@ -830,32 +834,34 @@
         function renderTrades(trades) {
             const tbody = document.getElementById('tradesBody');
             
-            if (trades.length === 0) {
+            if (!trades || trades.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 30px;">No trades found</td></tr>';
                 return;
             }
 
             const tradesHTML = trades.map(trade => {
-                // Convert strings to numbers
-                const entryPrice = parseFloat(trade.entryPrice);
-                const exitPrice = parseFloat(trade.exitPrice);
-                const size = parseFloat(trade.size);
-                const pnl = parseFloat(trade.pnl);
+                // Super defensive parsing
+                const entryPrice = Number(trade.entryPrice) || 0;
+                const exitPrice = Number(trade.exitPrice) || 0;
+                const size = Number(trade.size) || 0;
+                const pnl = Number(trade.pnl) || 0;
                 const isProfit = pnl >= 0;
-                const strategy = trade.strategy;
+                const strategy = trade.strategy || 'Unknown';
                 const color = strategyColors[strategy] || '#9370DB';
+                const direction = trade.direction || 'LONG';
+                const closeTime = trade.closeTime || Date.now();
                 
                 return `
                     <tr>
-                        <td>${new Date(trade.closeTime).toLocaleDateString()}</td>
+                        <td>${new Date(closeTime).toLocaleDateString()}</td>
                         <td>
                             <span class="strategy-badge-sm" style="background: ${color}20; color: ${color};">
                                 ${strategy}
                             </span>
                         </td>
                         <td>
-                            <span class="direction-badge ${trade.direction === 'LONG' ? 'direction-long' : 'direction-short'}">
-                                ${trade.direction}
+                            <span class="direction-badge ${direction === 'LONG' ? 'direction-long' : 'direction-short'}">
+                                ${direction}
                             </span>
                         </td>
                         <td>$${entryPrice.toFixed(2)}</td>
@@ -895,12 +901,12 @@
                     let bVal = b[column];
                     
                     if (column === 'date') {
-                        aVal = new Date(a.closeTime).getTime();
-                        bVal = new Date(b.closeTime).getTime();
+                        aVal = new Date(a.closeTime || 0).getTime();
+                        bVal = new Date(b.closeTime || 0).getTime();
                     } else if (column === 'entryPrice' || column === 'exitPrice' || column === 'size' || column === 'pnl') {
-                        // Convert strings to numbers for numeric columns
-                        aVal = parseFloat(aVal);
-                        bVal = parseFloat(bVal);
+                        // Super defensive number conversion
+                        aVal = Number(aVal) || 0;
+                        bVal = Number(bVal) || 0;
                     }
                     
                     if (currentSort.direction === 'asc') {
@@ -920,13 +926,13 @@
             const directionFilter = document.getElementById('directionFilter').value;
             const searchText = document.getElementById('searchInput').value.toLowerCase();
 
-            return allTrades.filter(trade => {
-                const matchesStrategy = strategyFilter === 'all' || trade.strategy === strategyFilter;
-                const matchesDirection = directionFilter === 'all' || trade.direction === directionFilter;
+            return (allTrades || []).filter(trade => {
+                const matchesStrategy = strategyFilter === 'all' || (trade.strategy || '') === strategyFilter;
+                const matchesDirection = directionFilter === 'all' || (trade.direction || '') === directionFilter;
                 const matchesSearch = searchText === '' || 
-                    trade.strategy.toLowerCase().includes(searchText) ||
-                    trade.direction.toLowerCase().includes(searchText) ||
-                    trade.pnl.toString().includes(searchText);
+                    (trade.strategy || '').toLowerCase().includes(searchText) ||
+                    (trade.direction || '').toLowerCase().includes(searchText) ||
+                    String(trade.pnl || '').includes(searchText);
 
                 return matchesStrategy && matchesDirection && matchesSearch;
             });
