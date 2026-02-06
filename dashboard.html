@@ -590,7 +590,7 @@
         function updateTopStats(stats) {
             // Super defensive parsing - handles strings, numbers, null, undefined
             const currentEquity = Number(stats.currentEquity) || 0;
-            const totalPnL = Number(stats.totalPnL) || 0;
+            const totalPnL = Number(stats.totalReturn) || 0;  // FIXED: Use totalReturn not totalPnL
             const roiPercent = Number(stats.roiPercent) || 0;
             const winRate = Number(stats.winRate) || 0;
             const profitFactor = Number(stats.profitFactor) || 0;
@@ -651,8 +651,8 @@
                 equityChart.destroy();
             }
 
-            // Super defensive - convert any format to numbers
-            const equityData = (equityCurve || []).map(val => Number(val) || 0);
+            // FIXED: Extract equity values from objects {date: 'Start', equity: 3103, trades: 0}
+            const equityData = (equityCurve || []).map(item => Number(item.equity) || 0);
             
             console.log('Equity Data Points:', equityData.length, 'First:', equityData[0], 'Last:', equityData[equityData.length-1]);
 
@@ -743,16 +743,24 @@
 
         // Update Strategy Cards
         function updateStrategyCards(strategyStats) {
+            // Debug: Log first strategy to see available fields
+            const firstStrategy = Object.entries(strategyStats || {})[0];
+            if (firstStrategy) {
+                console.log('First strategy stats:', firstStrategy[0], firstStrategy[1]);
+            }
+            
             const strategyHTML = Object.entries(strategyStats || {}).map(([name, stats]) => {
                 const color = strategyColors[name] || '#9370DB';
                 
-                // Super defensive parsing
+                // Super defensive parsing - try multiple possible field names
                 const trades = Number(stats.trades) || 0;
                 const wins = Number(stats.wins) || 0;
                 const winRate = Number(stats.winRate) || 0;
-                const totalPnL = Number(stats.totalPnL) || 0;
+                const totalPnL = Number(stats.totalPnL || stats.pnl || stats.totalReturn) || 0;  // FIXED: Try multiple field names
                 const profitFactor = Number(stats.profitFactor) || 0;
                 const isProfit = totalPnL >= 0;
+                
+                console.log(`Strategy ${name} P&L:`, totalPnL, 'from:', stats.totalPnL, stats.pnl, stats.totalReturn);
                 
                 return `
                     <div class="strategy-card" style="border-color: ${color};">
@@ -798,7 +806,7 @@
                 const trades = Number(week.trades) || 0;
                 const wins = Number(week.wins) || 0;
                 const winRate = Number(week.winRate) || 0;
-                const totalPnL = Number(week.totalPnL) || 0;
+                const totalPnL = Number(week.pnl) || 0;  // FIXED: Use 'pnl' not 'totalPnL'
                 const isProfit = totalPnL >= 0;
                 
                 return `
@@ -848,25 +856,22 @@
 
             const tradesHTML = trades.map(trade => {
                 // Super defensive parsing
-                const entryPrice = Number(trade.entryPrice) || 0;
-                const exitPrice = Number(trade.exitPrice) || 0;
+                const price = Number(trade.price) || 0;  // FIXED: Use 'price' field
                 const size = Number(trade.size) || 0;
                 const pnl = Number(trade.pnl) || 0;
                 const isProfit = pnl >= 0;
                 const strategy = trade.strategy || 'Unknown';
                 const color = strategyColors[strategy] || '#9370DB';
                 const direction = trade.direction || 'LONG';
-                const closeTime = trade.closeTime || Date.now();
+                const timestamp = trade.timestamp || Date.now();  // FIXED: Use 'timestamp' not 'closeTime'
                 
                 // Check if direction contains "Long" or "Short" (handles both "LONG" and "Close Long")
                 const isLong = direction.toUpperCase().includes('LONG');
                 const directionLabel = isLong ? 'LONG' : 'SHORT';
                 
-                console.log('Trade direction:', direction, '-> isLong:', isLong, '-> label:', directionLabel);
-                
                 return `
                     <tr>
-                        <td>${new Date(closeTime).toLocaleDateString()}</td>
+                        <td>${new Date(timestamp).toLocaleDateString()}</td>
                         <td>
                             <span class="strategy-badge-sm" style="background: ${color}20; color: ${color};">
                                 ${strategy}
@@ -877,8 +882,8 @@
                                 ${directionLabel}
                             </span>
                         </td>
-                        <td>$${entryPrice.toFixed(2)}</td>
-                        <td>$${exitPrice.toFixed(2)}</td>
+                        <td>$${price.toFixed(2)}</td>
+                        <td>$${price.toFixed(2)}</td>
                         <td>${size.toFixed(4)}</td>
                         <td class="trade-profit ${isProfit ? 'positive' : 'negative'}">
                             ${isProfit ? '+' : ''}$${pnl.toFixed(2)}
@@ -914,9 +919,13 @@
                     let bVal = b[column];
                     
                     if (column === 'date') {
-                        aVal = new Date(a.closeTime || 0).getTime();
-                        bVal = new Date(b.closeTime || 0).getTime();
-                    } else if (column === 'entryPrice' || column === 'exitPrice' || column === 'size' || column === 'pnl') {
+                        aVal = new Date(a.timestamp || 0).getTime();  // FIXED: Use 'timestamp'
+                        bVal = new Date(b.timestamp || 0).getTime();
+                    } else if (column === 'entryPrice' || column === 'exitPrice') {
+                        // FIXED: Both use 'price' field
+                        aVal = Number(a.price) || 0;
+                        bVal = Number(b.price) || 0;
+                    } else if (column === 'size' || column === 'pnl') {
                         // Super defensive number conversion
                         aVal = Number(aVal) || 0;
                         bVal = Number(bVal) || 0;
