@@ -743,24 +743,36 @@
 
         // Update Strategy Cards
         function updateStrategyCards(strategyStats) {
-            // Debug: Log first strategy to see available fields
-            const firstStrategy = Object.entries(strategyStats || {})[0];
-            if (firstStrategy) {
-                console.log('First strategy stats:', firstStrategy[0], firstStrategy[1]);
-            }
+            // Debug: Log ALL fields for each strategy
+            console.log('=== STRATEGY STATS FULL DEBUG ===');
+            Object.entries(strategyStats || {}).forEach(([name, stats]) => {
+                console.log(`${name}:`, JSON.stringify(stats, null, 2));
+            });
+            console.log('=================================');
             
             const strategyHTML = Object.entries(strategyStats || {}).map(([name, stats]) => {
                 const color = strategyColors[name] || '#9370DB';
                 
-                // Super defensive parsing - try multiple possible field names
+                // Super defensive parsing - try ALL possible field names
                 const trades = Number(stats.trades) || 0;
                 const wins = Number(stats.wins) || 0;
                 const winRate = Number(stats.winRate) || 0;
-                const totalPnL = Number(stats.totalPnL || stats.pnl || stats.totalReturn) || 0;  // FIXED: Try multiple field names
+                
+                // Try every possible P&L field name
+                const totalPnL = Number(
+                    stats.totalPnL || 
+                    stats.pnl || 
+                    stats.totalReturn || 
+                    stats.totalPnl ||
+                    stats.netPnl ||
+                    stats.profit ||
+                    stats.totalProfit
+                ) || 0;
+                
                 const profitFactor = Number(stats.profitFactor) || 0;
                 const isProfit = totalPnL >= 0;
                 
-                console.log(`Strategy ${name} P&L:`, totalPnL, 'from:', stats.totalPnL, stats.pnl, stats.totalReturn);
+                console.log(`${name} P&L attempt:`, totalPnL, 'Available fields:', Object.keys(stats));
                 
                 return `
                     <div class="strategy-card" style="border-color: ${color};">
@@ -841,6 +853,14 @@
 
         // Update Trade History
         function updateTradeHistory(trades) {
+            console.log(`=== TRADE HISTORY ===`);
+            console.log(`Total trades received: ${trades ? trades.length : 0}`);
+            if (trades && trades.length > 0) {
+                console.log('Most recent trade:', trades[0]);
+                console.log('Oldest trade:', trades[trades.length - 1]);
+            }
+            console.log('=====================');
+            
             allTrades = trades;
             renderTrades(trades);
         }
@@ -854,20 +874,40 @@
                 return;
             }
 
-            const tradesHTML = trades.map(trade => {
+            console.log(`=== RENDERING ${trades.length} TRADES ===`);
+            console.log('First trade:', trades[0]);
+            console.log('Last trade:', trades[trades.length - 1]);
+
+            const tradesHTML = trades.map((trade, index) => {
                 // Super defensive parsing
-                const price = Number(trade.price) || 0;  // FIXED: Use 'price' field
+                const closePrice = Number(trade.price) || 0;
                 const size = Number(trade.size) || 0;
                 const pnl = Number(trade.pnl) || 0;
                 const isProfit = pnl >= 0;
                 const strategy = trade.strategy || 'Unknown';
                 const color = strategyColors[strategy] || '#9370DB';
                 const direction = trade.direction || 'LONG';
-                const timestamp = trade.timestamp || Date.now();  // FIXED: Use 'timestamp' not 'closeTime'
+                const timestamp = trade.timestamp || Date.now();
                 
-                // Check if direction contains "Long" or "Short" (handles both "LONG" and "Close Long")
+                // Check if direction contains "Long" or "Short"
                 const isLong = direction.toUpperCase().includes('LONG');
                 const directionLabel = isLong ? 'LONG' : 'SHORT';
+                
+                // CALCULATE entry price from close price and P&L
+                // For LONG: Entry = Close - (PnL / Size)
+                // For SHORT: Entry = Close + (PnL / Size)
+                let entryPrice = closePrice;
+                if (size !== 0) {
+                    if (isLong) {
+                        entryPrice = closePrice - (pnl / size);
+                    } else {
+                        entryPrice = closePrice + (pnl / size);
+                    }
+                }
+                
+                if (index === 0) {
+                    console.log(`Trade calculation: Close=$${closePrice}, Size=${size}, PnL=$${pnl}, Direction=${directionLabel} -> Entry=$${entryPrice.toFixed(2)}`);
+                }
                 
                 return `
                     <tr>
@@ -882,8 +922,8 @@
                                 ${directionLabel}
                             </span>
                         </td>
-                        <td>$${price.toFixed(2)}</td>
-                        <td>$${price.toFixed(2)}</td>
+                        <td>$${entryPrice.toFixed(2)}</td>
+                        <td>$${closePrice.toFixed(2)}</td>
                         <td>${size.toFixed(4)}</td>
                         <td class="trade-profit ${isProfit ? 'positive' : 'negative'}">
                             ${isProfit ? '+' : ''}$${pnl.toFixed(2)}
@@ -919,14 +959,26 @@
                     let bVal = b[column];
                     
                     if (column === 'date') {
-                        aVal = new Date(a.timestamp || 0).getTime();  // FIXED: Use 'timestamp'
+                        aVal = new Date(a.timestamp || 0).getTime();
                         bVal = new Date(b.timestamp || 0).getTime();
-                    } else if (column === 'entryPrice' || column === 'exitPrice') {
-                        // FIXED: Both use 'price' field
+                    } else if (column === 'entryPrice') {
+                        // Calculate entry price for sorting
+                        const aClose = Number(a.price) || 0;
+                        const aPnl = Number(a.pnl) || 0;
+                        const aSize = Number(a.size) || 1;
+                        const aIsLong = (a.direction || '').toUpperCase().includes('LONG');
+                        aVal = aIsLong ? (aClose - aPnl / aSize) : (aClose + aPnl / aSize);
+                        
+                        const bClose = Number(b.price) || 0;
+                        const bPnl = Number(b.pnl) || 0;
+                        const bSize = Number(b.size) || 1;
+                        const bIsLong = (b.direction || '').toUpperCase().includes('LONG');
+                        bVal = bIsLong ? (bClose - bPnl / bSize) : (bClose + bPnl / bSize);
+                    } else if (column === 'exitPrice') {
+                        // Exit price is just the close price
                         aVal = Number(a.price) || 0;
                         bVal = Number(b.price) || 0;
                     } else if (column === 'size' || column === 'pnl') {
-                        // Super defensive number conversion
                         aVal = Number(aVal) || 0;
                         bVal = Number(bVal) || 0;
                     }
