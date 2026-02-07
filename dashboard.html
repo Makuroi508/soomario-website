@@ -552,27 +552,29 @@
         // Fetch and display data
         async function fetchData() {
             try {
-                const response = await fetch(API_URL);
+                // FIX: Add cache buster to URL to prevent stale data
+                const uniqueUrl = `${API_URL}?t=${Date.now()}`;
+                const response = await fetch(uniqueUrl);
                 const data = await response.json();
                 
-                console.log('=== FULL API RESPONSE ===');
-                console.log('data:', data);
-                console.log('data.stats:', data.stats);
-                console.log('data.strategyStats:', data.strategyStats);
-                console.log('data.weeklyPerformance:', data.weeklyPerformance);
-                console.log('data.equityCurve (first 5):', data.equityCurve ? data.equityCurve.slice(0, 5) : 'MISSING');
-                console.log('data.allTrades (first trade):', data.allTrades ? data.allTrades[0] : 'MISSING');
-                console.log('=========================');
+                console.log('✅ Data fetched at:', new Date().toLocaleTimeString());
+                console.log('📊 Total trades received:', data.allTrades?.length || 0);
                 
                 if (!data || !data.stats) {
                     throw new Error('Invalid data format from API');
                 }
                 
+                // Store trades globally for filtering
+                allTrades = data.allTrades;
+                
                 updateTopStats(data.stats);
                 updateEquityChart(data.equityCurve);
-                updateStrategyCards(data.strategyStats);
+                
+                // FIX: Pass allTrades to calculate strategy stats client-side
+                updateStrategyCards(data.strategyStats, data.allTrades);
+                
                 updateWeeklyPerformance(data.weeklyPerformance);
-                updateTradeHistory(data.allTrades);
+                renderTrades(allTrades);
                 
                 document.getElementById('lastUpdate').textContent = 
                     `Last Updated: ${new Date().toLocaleString()}`;
@@ -741,39 +743,36 @@
             });
         }
 
-        // Update Strategy Cards
-        function updateStrategyCards(strategyStats) {
-            // Debug: Log ALL fields for each strategy
-            console.log('=== STRATEGY STATS FULL DEBUG ===');
-            Object.entries(strategyStats || {}).forEach(([name, stats]) => {
-                console.log(`${name}:`, JSON.stringify(stats, null, 2));
-            });
-            console.log('=================================');
+        // FIX: Calculate Strategy P&L Client-Side
+        function updateStrategyCards(apiStrategyStats, trades) {
+            console.log('🎯 Calculating strategy stats from', trades.length, 'trades');
             
-            const strategyHTML = Object.entries(strategyStats || {}).map(([name, stats]) => {
+            // 1. Calculate stats manually from the trades list
+            const calculatedStats = {};
+            
+            trades.forEach(t => {
+                const strat = t.strategy || 'Other';
+                if (!calculatedStats[strat]) {
+                    calculatedStats[strat] = { pnl: 0, wins: 0, count: 0 };
+                }
+                calculatedStats[strat].pnl += Number(t.pnl) || 0;
+                calculatedStats[strat].count++;
+                if (Number(t.pnl) > 0) calculatedStats[strat].wins++;
+            });
+
+            console.log('💰 Calculated P&L by strategy:', calculatedStats);
+
+            // 2. Merge with API data (for colors/names) and render
+            const strategyHTML = Object.entries(apiStrategyStats || {}).map(([name, stats]) => {
                 const color = strategyColors[name] || '#9370DB';
+                const calc = calculatedStats[name] || { pnl: 0, wins: 0, count: 0 };
                 
-                // Super defensive parsing - try ALL possible field names
-                const trades = Number(stats.trades) || 0;
-                const wins = Number(stats.wins) || 0;
-                const winRate = Number(stats.winRate) || 0;
-                
-                // Try every possible P&L field name
-                const totalPnL = Number(
-                    stats.totalPnL || 
-                    stats.pnl || 
-                    stats.totalReturn || 
-                    stats.totalPnl ||
-                    stats.netPnl ||
-                    stats.profit ||
-                    stats.totalProfit
-                ) || 0;
-                
+                // Use calculated values
+                const totalPnL = calc.pnl;
+                const tradeCount = calc.count;
+                const winRate = tradeCount > 0 ? (calc.wins / tradeCount * 100) : 0;
                 const profitFactor = Number(stats.profitFactor) || 0;
-                const isProfit = totalPnL >= 0;
-                
-                console.log(`${name} P&L attempt:`, totalPnL, 'Available fields:', Object.keys(stats));
-                
+
                 return `
                     <div class="strategy-card" style="border-color: ${color};">
                         <div class="strategy-header">
@@ -785,16 +784,16 @@
                         <div class="strategy-stats">
                             <div class="strategy-stat">
                                 <div class="strategy-stat-label">Trades</div>
-                                <div class="strategy-stat-value">${trades}</div>
+                                <div class="strategy-stat-value">${tradeCount}</div>
                             </div>
                             <div class="strategy-stat">
                                 <div class="strategy-stat-label">Wins</div>
-                                <div class="strategy-stat-value" style="color: #00ff88;">${wins}</div>
+                                <div class="strategy-stat-value" style="color: #00ff88;">${calc.wins}</div>
                             </div>
                             <div class="strategy-stat">
                                 <div class="strategy-stat-label">Total P&L</div>
-                                <div class="strategy-stat-value ${isProfit ? 'positive' : 'negative'}">
-                                    ${isProfit ? '+' : ''}$${totalPnL.toFixed(2)}
+                                <div class="strategy-stat-value ${totalPnL >= 0 ? 'positive' : 'negative'}">
+                                    ${totalPnL >= 0 ? '+' : ''}$${totalPnL.toFixed(2)}
                                 </div>
                             </div>
                             <div class="strategy-stat">
@@ -874,15 +873,12 @@
                 return;
             }
 
-            console.log(`=== RENDERING ${trades.length} TRADES ===`);
-            console.log('First trade:', trades[0]);
-            console.log('Last trade:', trades[trades.length - 1]);
-
             const tradesHTML = trades.map((trade, index) => {
-                // Super defensive parsing
+                // Parse trade data
                 const closePrice = Number(trade.price) || 0;
                 const size = Number(trade.size) || 0;
                 const pnl = Number(trade.pnl) || 0;
+                const fee = Number(trade.fee) || 0;
                 const isProfit = pnl >= 0;
                 const strategy = trade.strategy || 'Unknown';
                 const color = strategyColors[strategy] || '#9370DB';
@@ -893,20 +889,29 @@
                 const isLong = direction.toUpperCase().includes('LONG');
                 const directionLabel = isLong ? 'LONG' : 'SHORT';
                 
-                // CALCULATE entry price from close price and P&L
-                // For LONG: Entry = Close - (PnL / Size)
-                // For SHORT: Entry = Close + (PnL / Size)
+                // FIX: Entry Price Calculation with Fee Adjustment
+                // We must add the fee back to PnL to get "Gross PnL" for the price delta
+                // Gross PnL = (Exit - Entry) * Size (for Long)
                 let entryPrice = closePrice;
-                if (size !== 0) {
+                if (size > 0) {
+                    const grossPnL = pnl + fee; 
                     if (isLong) {
-                        entryPrice = closePrice - (pnl / size);
+                        entryPrice = closePrice - (grossPnL / size);
                     } else {
-                        entryPrice = closePrice + (pnl / size);
+                        entryPrice = closePrice + (grossPnL / size);
                     }
                 }
                 
+                // Debug first trade
                 if (index === 0) {
-                    console.log(`Trade calculation: Close=$${closePrice}, Size=${size}, PnL=$${pnl}, Direction=${directionLabel} -> Entry=$${entryPrice.toFixed(2)}`);
+                    console.log('📝 First trade entry calculation:');
+                    console.log('  Close Price:', closePrice);
+                    console.log('  Net P&L:', pnl);
+                    console.log('  Fee:', fee);
+                    console.log('  Gross P&L:', pnl + fee);
+                    console.log('  Size:', size);
+                    console.log('  Direction:', directionLabel);
+                    console.log('  → Entry Price:', entryPrice.toFixed(2));
                 }
                 
                 return `
