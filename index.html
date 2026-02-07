@@ -3,686 +3,850 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soomario Strategies - Professional Algorithmic Trading</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>Soomario Elite Dashboard - Live Performance</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        .font-display { font-family: 'Orbitron', sans-serif; }
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-        .font-heading { font-family: 'Cinzel', serif; }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #C9A961 0%, #F4E4C1 50%, #C9A961 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #1a0033 0%, #0a001a 50%, #1a0033 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-header p {
+            font-family: 'Orbitron', sans-serif;
+            color: #9370DB;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* Navigation */
+        .nav-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #9370DB, #663399);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(147, 112, 219, 0.4);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.2), rgba(75, 0, 130, 0.1));
+            border: 2px solid rgba(147, 112, 219, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: #9370DB;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+        }
+
+        .stat-value.positive {
+            color: #00ff88;
+        }
+
+        .stat-value.negative {
+            color: #ff4444;
+        }
+
+        /* Chart Section */
+        .chart-section {
+            background: rgba(147, 112, 219, 0.1);
+            border: 2px solid rgba(147, 112, 219, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-section h2 {
+            font-family: 'Cinzel', serif;
+            color: #FFD700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #equityChart {
+            max-height: 400px;
+        }
+
+        /* Strategy Performance */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin: 40px 0 30px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
-        .gradient-gold {
-            background: linear-gradient(135deg, #C9A961 0%, #F4E4C1 50%, #C9A961 100%);
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
         }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #C9A961 0%, #F4E4C1 50%, #C9A961 100%);
-            background-size: 200% 200%;
-            transition: all 0.3s;
+
+        .strategy-card {
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.15), rgba(75, 0, 130, 0.1));
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 20px;
         }
-        
-        .btn-primary:hover {
-            background-position: right center;
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(201, 169, 97, 0.4);
+
+        .strategy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .strategy-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(201, 169, 97, 0.3);
+
+        .strategy-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
-        
-        html {
-            scroll-behavior: smooth;
+
+        .strategy-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
-        
-        .nav-link {
-            position: relative;
+
+        .strategy-stat {
+            text-align: center;
         }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #C9A961;
-            transition: width 0.3s;
+
+        .strategy-stat-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: #9370DB;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
-        
-        .nav-link:hover::after {
+
+        .strategy-stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        /* Weekly Performance */
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .week-card {
+            background: rgba(147, 112, 219, 0.1);
+            border: 2px solid rgba(147, 112, 219, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .week-header {
+            font-family: 'Orbitron', sans-serif;
+            color: #9370DB;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .week-stats {
+            display: grid;
+            gap: 10px;
+        }
+
+        .week-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .week-stat-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: #9370DB;
+        }
+
+        .week-stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #FFD700;
+        }
+
+        /* Trade History */
+        .trade-history {
+            background: rgba(147, 112, 219, 0.1);
+            border: 2px solid rgba(147, 112, 219, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .trade-history h2 {
+            font-family: 'Cinzel', serif;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 10px 15px;
+            background: rgba(147, 112, 219, 0.2);
+            border: 1px solid rgba(147, 112, 219, 0.4);
+            border-radius: 6px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .filters input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
             width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(147, 112, 219, 0.3);
+            padding: 12px;
+            text-align: left;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: #FFD700;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background: rgba(147, 112, 219, 0.5);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(147, 112, 219, 0.2);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        tr:hover {
+            background: rgba(147, 112, 219, 0.1);
+        }
+
+        .strategy-badge-sm {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .direction-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .direction-long {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .direction-short {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+        }
+
+        .trade-profit {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        /* Update Time */
+        .update-time {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            color: #9370DB;
+            font-size: 0.85rem;
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(147, 112, 219, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            color: #9370DB;
+            padding: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
-<body class="bg-[#1a1625] text-white">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-[#1a1625]/95 backdrop-blur-lg shadow-lg">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-gradient-to-br from-[#2F2A52] to-[#4A3F7A] rounded-full flex items-center justify-center">
-                    <span class="text-[#C9A961] font-display font-bold text-xl">S</span>
-                </div>
-                <div>
-                    <div class="font-heading text-xl tracking-wider">SOOMARIO</div>
-                    <div class="font-display text-[10px] text-[#C9A961] tracking-widest">STRATEGIES</div>
-                </div>
-            </div>
-            
-            <div class="hidden md:flex space-x-8 font-display text-sm">
-                <a href="#services" class="nav-link text-gray-300 hover:text-[#C9A961]">Services</a>
-                <a href="#pricing" class="nav-link text-gray-300 hover:text-[#C9A961]">Pricing</a>
-                <a href="#performance" class="nav-link text-gray-300 hover:text-[#C9A961]">Performance</a>
-                <a href="#faq" class="nav-link text-gray-300 hover:text-[#C9A961]">FAQ</a>
-            </div>
-            
-            <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn-primary text-[#1a1625] px-6 py-2.5 rounded-lg font-display font-bold text-sm">
-                Join Discord
-            </a>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav-section">
+            <a href="index.html" class="back-button">← Back to Home</a>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
-            <div class="mb-8 inline-block">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">EST. 2024</div>
-                <div class="h-px w-32 mx-auto gradient-gold"></div>
-            </div>
-            
-            <h1 class="font-heading text-5xl md:text-8xl mb-6 tracking-tight">
-                <span class="gradient-text">ALGORITHMIC</span><br>
-                <span class="text-white">MASTERY</span>
-            </h1>
-            
-            <p class="font-serif text-xl md:text-3xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Professional-grade trading strategies delivering institutional returns to individual investors
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
-                <a href="#services" class="btn-primary text-[#1a1625] px-10 py-4 rounded-lg font-display font-bold text-lg">
-                    Explore Services →
-                </a>
-                <a href="#pricing" class="border-2 border-[#C9A961] text-[#C9A961] px-10 py-4 rounded-lg font-display font-bold text-lg hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
-                    View Pricing
-                </a>
-            </div>
-            
-            <!-- Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-20">
-                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-lg p-6">
-                    <div class="font-display text-4xl gradient-text mb-2">597%</div>
-                    <div class="font-serif text-gray-400">ROI on Deployed Capital</div>
-                </div>
-                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-lg p-6">
-                    <div class="font-display text-4xl gradient-text mb-2">330-370%</div>
-                    <div class="font-serif text-gray-400">Elite Annual Returns</div>
-                </div>
-                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-lg p-6">
-                    <div class="font-display text-4xl gradient-text mb-2">84%</div>
-                    <div class="font-serif text-gray-400">Elite Win Rate</div>
-                </div>
-            </div>
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1>🎯 SOOMARIO ELITE DASHBOARD</h1>
+            <p>LIVE PERFORMANCE TRACKER</p>
         </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 bg-gradient-to-b from-[#1a1625] to-[#0f0a1a]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">THREE PATHS TO SUCCESS</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">Choose Your Strategy</span>
-                </h2>
-                <p class="font-serif text-xl text-gray-300 max-w-2xl mx-auto">
-                    Each service engineered for different capital levels, goals, and trading preferences
-                </p>
-            </div>
+        <!-- Top Stats -->
+        <div id="statsGrid" class="stats-grid">
+            <div class="loading">Loading performance data...</div>
+        </div>
+
+        <!-- Equity Curve -->
+        <div class="chart-section">
+            <h2>📈 Equity Curve</h2>
+            <canvas id="equityChart"></canvas>
+        </div>
+
+        <!-- Strategy Performance -->
+        <h2 class="section-title">🎯 Strategy Performance</h2>
+        <div id="strategyGrid" class="strategy-grid">
+            <div class="loading">Loading strategies...</div>
+        </div>
+
+        <!-- Weekly Performance -->
+        <h2 class="section-title">📅 Weekly Performance</h2>
+        <div id="weeklyGrid" class="weekly-grid">
+            <div class="loading">Loading weekly data...</div>
+        </div>
+
+        <!-- Trade History -->
+        <div class="trade-history">
+            <h2>📋 Complete Trade History</h2>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Accumulator -->
-                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/50 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                        </svg>
-                    </div>
-                    
-                    <h3 class="font-heading text-2xl mb-3">ACCUMULATOR</h3>
-                    <p class="font-serif text-gray-400 mb-6">Smart accumulation signals for stocks and major cryptocurrencies</p>
-                    
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">14 assets (NVDA, TSLA, BTC, SOL, etc.)</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">Telegram signals, manual execution</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">597% ROI on deployed capital</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">Start with $500 + monthly adds</span>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-[#C9A961]/20 pt-6">
-                        <div class="flex items-baseline justify-between mb-4">
-                            <div>
-                                <div class="font-display text-4xl gradient-text">$50</div>
-                                <div class="font-serif text-sm text-gray-400">per month</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-display text-sm line-through text-gray-500">$100</div>
-                                <div class="font-serif text-xs text-[#C9A961]">Early Bird</div>
-                            </div>
-                        </div>
-                        
-                        <button class="w-full btn-primary text-[#1a1625] py-3 rounded-lg font-display font-bold">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
+            <div class="filters">
+                <select id="strategyFilter">
+                    <option value="all">All Strategies</option>
+                    <option value="HYPE">HYPE</option>
+                    <option value="LTC">LTC</option>
+                    <option value="SLV">SLV</option>
+                    <option value="CRV">CRV</option>
+                    <option value="AVAX">AVAX</option>
+                </select>
                 
-                <!-- Elite - Featured -->
-                <div class="card-hover bg-gradient-to-br from-[#C9A961]/20 to-[#2F2A52]/50 border-2 border-[#C9A961] rounded-2xl p-8 transform md:scale-105 relative">
-                    <div class="absolute -top-4 -right-4 gradient-gold text-[#1a1625] px-6 py-2 rounded-lg font-display text-xs font-bold transform rotate-12">
-                        MOST POPULAR
-                    </div>
-                    
-                    <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    
-                    <h3 class="font-heading text-2xl mb-3">ELITE</h3>
-                    <p class="font-serif text-gray-400 mb-6">Complete package: Copy trading + all signal services</p>
-                    
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">5-strategy automated copy trading</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">ALL Max Pain signals included</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">ALL Accumulator signals included</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">330-370% annual returns</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">84% win rate, priority support</span>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-[#C9A961]/20 pt-6">
-                        <div class="flex items-baseline justify-between mb-4">
-                            <div>
-                                <div class="font-display text-4xl gradient-text">$180</div>
-                                <div class="font-serif text-sm text-gray-400">per month</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-display text-sm line-through text-gray-500">$219</div>
-                                <div class="font-serif text-xs text-[#C9A961]">Early Bird</div>
-                            </div>
-                        </div>
-                        
-                        <button class="w-full btn-primary text-[#1a1625] py-3 rounded-lg font-display font-bold">
-                            Get Elite Access
-                        </button>
-                    </div>
-                </div>
+                <select id="directionFilter">
+                    <option value="all">All Directions</option>
+                    <option value="LONG">Long</option>
+                    <option value="SHORT">Short</option>
+                </select>
                 
-                <!-- Max Pain -->
-                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/50 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
-                    </div>
-                    
-                    <h3 class="font-heading text-2xl mb-3">MAX PAIN</h3>
-                    <p class="font-serif text-gray-400 mb-6">Maximum diversification with 20 crypto strategies</p>
-                    
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">20 independent strategies</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">Signals OR OKX copy trading</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">105-125% annual returns</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">Tiered leverage 3x-8x</span>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-[#C9A961]/20 pt-6">
-                        <div class="mb-4">
-                            <div class="font-display text-2xl gradient-text mb-2">$50/mo signals</div>
-                            <div class="font-serif text-xs text-gray-400 mb-3">OR</div>
-                            <div class="font-display text-2xl gradient-text">$0 + 20% profit</div>
-                            <div class="font-serif text-sm text-gray-400">copy trading</div>
-                        </div>
-                        
-                        <button class="w-full btn-primary text-[#1a1625] py-3 rounded-lg font-display font-bold">
-                            Choose Option
-                        </button>
-                    </div>
-                </div>
+                <input type="text" id="searchInput" placeholder="Search trades...">
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="date">Date</th>
+                            <th class="sortable" data-sort="strategy">Strategy</th>
+                            <th class="sortable" data-sort="direction">Direction</th>
+                            <th class="sortable" data-sort="entryPrice">Entry Price</th>
+                            <th class="sortable" data-sort="exitPrice">Exit Price</th>
+                            <th class="sortable" data-sort="size">Size</th>
+                            <th class="sortable" data-sort="pnl">P&L</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tradesBody">
+                        <tr><td colspan="7" class="loading">Loading trades...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
 
-    <!-- LIVE PERFORMANCE WIDGET -->
-<section class="relative py-24 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625] overflow-hidden" id="live-performance">
-    <style>
-        @keyframes pulse-widget {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.3); }
-        }
-        
-        .live-dot-widget {
-            animation: pulse-widget 2s infinite;
-        }
-        
-        .trade-row-widget {
-            transition: all 0.3s;
-        }
-        
-        .trade-row-widget:hover {
-            background: rgba(201, 169, 97, 0.1);
-            transform: translateX(5px);
-        }
-    </style>
-
-    <div class="absolute top-0 left-0 w-96 h-96 bg-[#C9A961] rounded-full blur-3xl opacity-5"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#2F2A52] rounded-full blur-3xl opacity-10"></div>
-
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div id="widgetLoading" class="text-center py-12">
-            <div class="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-[#C9A961] to-transparent animate-pulse mb-4"></div>
-            <div class="font-display text-[#C9A961]">Loading live data...</div>
-        </div>
-
-        <div id="widgetContent" style="display: none;">
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center gap-3 mb-4">
-                    <div class="w-3 h-3 bg-red-500 rounded-full live-dot-widget"></div>
-                    <div class="font-display text-sm tracking-[0.3em] text-[#C9A961]">LIVE ELITE PERFORMANCE</div>
-                </div>
-                <h2 class="font-heading text-4xl md:text-5xl mb-4">
-                    <span class="gradient-text">Real-Time Trading Results</span>
-                </h2>
-                <p class="font-serif text-lg text-gray-400">
-                    Account 00004 - Elite 5-Strategy Portfolio - <span id="widgetUpdateTime">Loading...</span>
-                </p>
-            </div>
-
-            <div class="bg-gradient-to-br from-[#2F2A52]/50 to-[#1a1625] border-2 border-[#C9A961]/40 rounded-3xl p-8 md:p-12 mb-8 shadow-2xl">
-                <div class="grid md:grid-cols-4 gap-8">
-                    <div class="text-center">
-                        <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">CURRENT EQUITY</div>
-                        <div class="font-display text-4xl md:text-5xl gradient-text mb-2" id="widgetEquity">$0.00</div>
-                        <div class="font-serif text-xs text-gray-500">Started: <span id="widgetStarting">$0.00</span></div>
-                    </div>
-                    <div class="text-center">
-                        <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">TOTAL RETURN</div>
-                        <div class="font-display text-4xl md:text-5xl mb-2" id="widgetReturn">$0.00</div>
-                        <div class="flex items-center justify-center gap-2" id="widgetROI"></div>
-                    </div>
-                    <div class="text-center">
-                        <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">WIN RATE</div>
-                        <div class="font-display text-4xl md:text-5xl text-[#C9A961] mb-2" id="widgetWinRate">0%</div>
-                        <div class="font-serif text-xs text-gray-500" id="widgetWinDetail">0 of 0 trades</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">PROFIT FACTOR</div>
-                        <div class="font-display text-4xl md:text-5xl text-[#C9A961] mb-2" id="widgetProfitFactor">0.00</div>
-                        <div class="font-serif text-xs text-gray-500">Win $ ÷ Loss $</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-6">
-                    <div class="font-display text-xs text-gray-400 mb-3 tracking-wider">MAX DRAWDOWN</div>
-                    <div class="font-display text-2xl text-red-400" id="widgetDD">0%</div>
-                </div>
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-6">
-                    <div class="font-display text-xs text-gray-400 mb-3 tracking-wider">AVG WIN</div>
-                    <div class="font-display text-2xl text-green-400" id="widgetAvgWin">$0.00</div>
-                </div>
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-6">
-                    <div class="font-display text-xs text-gray-400 mb-3 tracking-wider">SHARPE RATIO</div>
-                    <div class="font-display text-2xl text-[#C9A961]" id="widgetSharpe">0.00</div>
-                </div>
-            </div>
-
-            <div class="text-center">
-                <a href="#pricing" class="inline-flex items-center gap-3 btn-primary text-[#1a1625] px-10 py-4 rounded-xl font-display font-bold text-lg">
-                    <span>See Pricing</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
-                </a>
-                <p class="font-serif text-sm text-gray-500 mt-4">
-                    Live Elite 5-Strategy Portfolio Performance
-                </p>
-            </div>
+        <!-- Update Time -->
+        <div class="update-time" id="lastUpdate">
+            Connecting to API...
         </div>
     </div>
 
     <script>
-    (function() {
-        const API = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
         
-        async function loadWidget() {
+        let allTrades = [];
+        let currentSort = { column: 'date', direction: 'desc' };
+        let equityChart = null;
+
+        const strategyColors = {
+            'HYPE': '#FF00FF',
+            'LTC': '#00FFFF',
+            'SLV': '#FFD700',
+            'CRV': '#00FF00',
+            'AVAX': '#FF6B6B'
+        };
+
+        // Fetch and display data
+        async function fetchData() {
             try {
-                // Fetch WITHOUT accountId/password
-                const res = await fetch(API);
-                const data = await res.json();
+                // FIX: Add cache buster to URL to prevent stale data
+                const uniqueUrl = `${API_URL}?t=${Date.now()}`;
+                const response = await fetch(uniqueUrl);
+                const data = await response.json();
                 
-                console.log('API Response:', data); // Debug - check browser console
+                console.log('✅ Data fetched at:', new Date().toLocaleTimeString());
+                console.log('📊 Total trades received:', data.allTrades?.length || 0);
                 
-                if (data.success) {
-                    updateWidget(data);
-                } else {
-                    console.error('API returned error:', data.error);
-                    document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-red-400">Data unavailable</div>';
+                if (!data || !data.stats) {
+                    throw new Error('Invalid data format from API');
                 }
-            } catch (err) {
-                console.error('Widget fetch error:', err);
-                document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-red-400">Connection error</div>';
+                
+                // Store trades globally for filtering
+                allTrades = data.allTrades;
+                
+                updateTopStats(data.stats);
+                updateEquityChart(data.equityCurve);
+                
+                // FIX: Pass allTrades to calculate strategy stats client-side
+                updateStrategyCards(data.strategyStats, data.allTrades);
+                
+                updateWeeklyPerformance(data.weeklyPerformance);
+                renderTrades(allTrades);
+                
+                document.getElementById('lastUpdate').textContent = 
+                    `Last Updated: ${new Date().toLocaleString()}`;
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('lastUpdate').textContent = 
+                    `Error loading data - Retrying in 30 seconds...`;
+                document.getElementById('statsGrid').innerHTML = 
+                    '<div class="loading">⚠️ Error loading data. Check console for details.</div>';
             }
         }
-        
-        function updateWidget(data) {
-            const s = data.stats;
-            
-            // Hide loading, show content
-            document.getElementById('widgetLoading').style.display = 'none';
-            document.getElementById('widgetContent').style.display = 'block';
-            
-            // Timestamp
-            document.getElementById('widgetUpdateTime').textContent = `Updated ${new Date().toLocaleTimeString()}`;
-            
-            // Current Equity
-            document.getElementById('widgetEquity').textContent = `$${parseFloat(s.currentEquity).toFixed(2)}`;
-            document.getElementById('widgetStarting').textContent = `$3,103.00`;
-            
-            // Total Return
-            const roi = parseFloat(s.roiPercent);
-            const isPositive = roi >= 0;
-            const returnEl = document.getElementById('widgetReturn');
-            returnEl.textContent = `${isPositive ? '+' : ''}$${s.totalReturn}`;
-            returnEl.className = `font-display text-4xl md:text-5xl mb-2 ${isPositive ? 'text-green-400' : 'text-red-400'}`;
-            
-            // ROI with arrow
-            document.getElementById('widgetROI').innerHTML = `
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${isPositive ? 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' : 'M13 17h8m0 0V9m0 8l-8-8-4 4-6-6'}"/>
-                </svg>
-                <span class="font-serif text-sm">${isPositive ? '+' : ''}${s.roiPercent}%</span>
-            `;
-            document.getElementById('widgetROI').className = `flex items-center justify-center gap-2 ${isPositive ? 'text-green-400' : 'text-red-400'}`;
-            
-            // Win Rate
-            document.getElementById('widgetWinRate').textContent = `${s.winRate}%`;
-            document.getElementById('widgetWinDetail').textContent = `${s.profitableTrades} of ${s.totalTrades} trades`;
-            
-            
-            
-            // Profit Factor
-            const profitFactor = parseFloat(s.profitFactor) || 0;
-            document.getElementById('widgetProfitFactor').textContent = profitFactor.toFixed(2);
 
-            // Stats boxes
-            document.getElementById('widgetDD').textContent = `-${s.maxDrawdown}%`;
-            document.getElementById('widgetAvgWin').textContent = `$${s.avgWin}`;
-            document.getElementById('widgetSharpe').textContent = s.sharpeRatio;
-        }
-        
-        // Initial load
-        loadWidget();
-        
-        // Auto-refresh every 30 seconds
-        setInterval(loadWidget, 30000);
-    })();
-    </script>
-</section>
-<!-- END LIVE PERFORMANCE WIDGET -->
-
-    
-
-
-
-    
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-24 bg-[#0f0a1a]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">TRANSPARENT PRICING</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">Early Bird Special</span>
-                </h2>
-                <p class="font-serif text-xl text-gray-300 max-w-2xl mx-auto">
-                    Lock in founder pricing. First 100 clients per service pay early bird rates forever.
-                </p>
-            </div>
-            
-            <div class="bg-[#2F2A52]/30 border border-[#C9A961]/30 rounded-2xl p-8 mb-12">
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <h3 class="font-heading text-xl mb-4 text-[#C9A961]">Accumulator</h3>
-                        <div class="font-display text-5xl gradient-text mb-2">$50</div>
-                        <div class="font-serif text-sm text-gray-500 line-through mb-4">$100/month</div>
-                        <div class="font-serif text-gray-400 text-sm">Stock/crypto signals</div>
-                    </div>
-                    <div class="border-2 border-[#C9A961] rounded-xl p-6 bg-[#C9A961]/10">
-                        <div class="gradient-gold text-[#1a1625] text-xs font-display font-bold px-3 py-1 rounded inline-block mb-2">BEST VALUE</div>
-                        <h3 class="font-heading text-xl mb-4 text-[#C9A961]">Elite</h3>
-                        <div class="font-display text-5xl gradient-text mb-2">$180</div>
-                        <div class="font-serif text-sm text-gray-500 line-through mb-4">$219/month</div>
-                        <div class="font-serif text-gray-400 text-sm">All services included</div>
-                    </div>
-                    <div>
-                        <h3 class="font-heading text-xl mb-4 text-[#C9A961]">Max Pain</h3>
-                        <div class="font-display text-4xl gradient-text mb-2">$50</div>
-                        <div class="font-serif text-sm text-gray-400 mb-1">or</div>
-                        <div class="font-display text-3xl gradient-text mb-2">20% profit</div>
-                        <div class="font-serif text-gray-400 text-sm">Signals or copy trading</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <div class="inline-block bg-[#2F2A52]/30 border border-[#C9A961]/30 rounded-lg p-6">
-                    <div class="font-display text-sm text-[#C9A961] mb-2">EARLY BIRD GUARANTEE</div>
-                    <p class="font-serif text-gray-300">
-                        Lock in early bird pricing forever. First 100 clients never see a price increase.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Performance Section -->
-    <section id="performance" class="py-24 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">PROVEN RESULTS</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">Data-Driven Excellence</span>
-                </h2>
-                <p class="font-serif text-xl text-gray-300 max-w-2xl mx-auto">
-                    Every strategy rigorously backtested across 2-6 years of market data
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <h3 class="font-heading text-2xl mb-6 text-[#C9A961]">Accumulator Performance</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">NVDA ROI</span>
-                            <span class="font-display text-xl gradient-text">1,384%</span>
-                        </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">Portfolio Win Rate</span>
-                            <span class="font-display text-xl gradient-text">80-100%</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-serif text-gray-400">vs Traditional DCA</span>
-                            <span class="font-display text-xl gradient-text">5.36x More</span>
-                        </div>
-                    </div>
-                </div>
+        // Update Top Stats Bar
+        function updateTopStats(stats) {
+            const createCard = (label, value, subValue = '', isPositive = null) => {
+                let colorClass = '';
+                if (isPositive === true) colorClass = 'positive';
+                if (isPositive === false) colorClass = 'negative';
                 
-                <div class="bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <h3 class="font-heading text-2xl mb-6 text-[#C9A961]">Elite Copy Trading</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">Annual Return</span>
-                            <span class="font-display text-xl gradient-text">330-370%</span>
+                return `
+                    <div class="stat-card">
+                        <div class="stat-label">${label}</div>
+                        <div class="stat-value ${colorClass}">
+                            ${value}
+                            ${subValue ? `<div style="font-size: 1rem; margin-top: 5px;">${subValue}</div>` : ''}
                         </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">Win Rate</span>
-                            <span class="font-display text-xl gradient-text">84%</span>
+                    </div>`;
+            };
+
+            const html = [
+                createCard('Current Equity', `$${Number(stats.currentEquity).toFixed(2)}`),
+                createCard('Total Return', 
+                    `${Number(stats.totalReturn) >= 0 ? '+' : ''}$${Number(stats.totalReturn).toFixed(2)}`,
+                    `(${Number(stats.roiPercent).toFixed(2)}%)`,
+                    Number(stats.totalReturn) >= 0
+                ),
+                createCard('Win Rate', `${Number(stats.winRate).toFixed(1)}%`),
+                createCard('Profit Factor', Number(stats.profitFactor).toFixed(2), '', Number(stats.profitFactor) >= 1),
+                createCard('Max Drawdown', `-${Number(stats.maxDrawdown).toFixed(2)}%`, '', false),
+                createCard('Avg Win', `$${Number(stats.avgWin).toFixed(2)}`, '', true),
+                createCard('Sharpe Ratio', Number(stats.sharpeRatio).toFixed(2), '', Number(stats.sharpeRatio) > 0)
+            ].join('');
+
+            document.getElementById('statsGrid').innerHTML = html;
+        }
+
+        // Update Equity Chart
+        function updateEquityChart(equityCurve) {
+            const ctx = document.getElementById('equityChart').getContext('2d');
+            if (equityChart) equityChart.destroy();
+
+            const equityData = (equityCurve || []).map(item => Number(item.equity) || 0);
+            const labels = (equityCurve || []).map((_, i) => i === 0 ? 'Start' : `Trade ${i}`);
+
+            equityChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Portfolio Equity',
+                        data: equityData,
+                        borderColor: '#FFD700',
+                        backgroundColor: (context) => {
+                            const ctx = context.chart.ctx;
+                            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                            gradient.addColorStop(0, 'rgba(255, 215, 0, 0.2)');
+                            gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+                            return gradient;
+                        },
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    interaction: { intersect: false, mode: 'index' },
+                    scales: {
+                        y: { 
+                            grid: { color: 'rgba(147, 112, 219, 0.1)' }, 
+                            ticks: { color: '#9370DB' } 
+                        },
+                        x: { display: false }
+                    }
+                }
+            });
+        }
+
+        // FIX: Calculate Strategy P&L Client-Side
+        function updateStrategyCards(apiStrategyStats, trades) {
+            console.log('🎯 Calculating strategy stats from', trades.length, 'trades');
+            
+            // 1. Calculate stats manually from the trades list
+            const calculatedStats = {};
+            
+            trades.forEach(t => {
+                const strat = t.strategy || 'Other';
+                if (!calculatedStats[strat]) {
+                    calculatedStats[strat] = { pnl: 0, wins: 0, count: 0 };
+                }
+                calculatedStats[strat].pnl += Number(t.pnl) || 0;
+                calculatedStats[strat].count++;
+                if (Number(t.pnl) > 0) calculatedStats[strat].wins++;
+            });
+
+            console.log('💰 Calculated P&L by strategy:', calculatedStats);
+
+            // 2. Merge with API data (for colors/names) and render
+            const strategyHTML = Object.entries(apiStrategyStats || {}).map(([name, stats]) => {
+                const color = strategyColors[name] || '#9370DB';
+                const calc = calculatedStats[name] || { pnl: 0, wins: 0, count: 0 };
+                
+                // Use calculated values
+                const totalPnL = calc.pnl;
+                const tradeCount = calc.count;
+                const winRate = tradeCount > 0 ? (calc.wins / tradeCount * 100) : 0;
+                const profitFactor = Number(stats.profitFactor) || 0;
+
+                return `
+                    <div class="strategy-card" style="border-color: ${color};">
+                        <div class="strategy-header">
+                            <div class="strategy-name" style="color: ${color};">${name}</div>
+                            <div class="strategy-badge" style="background: ${color}20; color: ${color};">
+                                ${winRate.toFixed(1)}% WR
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-serif text-gray-400">Backtest Period</span>
-                            <span class="font-display text-xl gradient-text">2-6 Years</span>
+                        <div class="strategy-stats">
+                            <div class="strategy-stat">
+                                <div class="strategy-stat-label">Trades</div>
+                                <div class="strategy-stat-value">${tradeCount}</div>
+                            </div>
+                            <div class="strategy-stat">
+                                <div class="strategy-stat-label">Wins</div>
+                                <div class="strategy-stat-value" style="color: #00ff88;">${calc.wins}</div>
+                            </div>
+                            <div class="strategy-stat">
+                                <div class="strategy-stat-label">Total P&L</div>
+                                <div class="strategy-stat-value ${totalPnL >= 0 ? 'positive' : 'negative'}">
+                                    ${totalPnL >= 0 ? '+' : ''}$${totalPnL.toFixed(2)}
+                                </div>
+                            </div>
+                            <div class="strategy-stat">
+                                <div class="strategy-stat-label">Profit Factor</div>
+                                <div class="strategy-stat-value ${profitFactor >= 1 ? 'positive' : 'negative'}">
+                                    ${profitFactor.toFixed(2)}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                `;
+            }).join('');
+            
+            document.getElementById('strategyGrid').innerHTML = strategyHTML;
+        }
 
-    <!-- FAQ -->
-    <section id="faq" class="py-24 bg-[#0f0a1a]">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">QUESTIONS</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">FAQ</span>
-                </h2>
-            </div>
-            
-            <div class="space-y-6">
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-[#C9A961]">Can I start with one service and upgrade later?</h3>
-                    <p class="font-serif text-gray-300">Yes! Many clients start with Accumulator or Max Pain, then upgrade to Elite when ready for full automation.</p>
-                </div>
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-[#C9A961]">How do I lock in early bird pricing?</h3>
-                    <p class="font-serif text-gray-300">Subscribe while 'First 100' spots remain. Your rate is locked forever as long as you stay subscribed.</p>
-                </div>
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-[#C9A961]">Which service has the highest returns?</h3>
-                    <p class="font-serif text-gray-300">Elite copy trading (330-370% annual), but requires $10K+ capital. Accumulator offers 200-300% starting at just $500.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        // Update Weekly Performance
+        function updateWeeklyPerformance(weeklyData) {
+            const weeklyHTML = (weeklyData || []).map(week => {
+                const pnl = Number(week.pnl);
+                return `
+                    <div class="week-card">
+                        <div class="week-header">Week of ${week.week}</div>
+                        <div class="week-stats">
+                            <div class="week-stat">
+                                <div class="week-stat-label">Trades</div>
+                                <div class="week-stat-value">${week.trades}</div>
+                            </div>
+                            <div class="week-stat">
+                                <div class="week-stat-label">Wins</div>
+                                <div class="week-stat-value">${week.wins}</div>
+                            </div>
+                            <div class="week-stat">
+                                <div class="week-stat-label">Win Rate</div>
+                                <div class="week-stat-value">${week.winRate}%</div>
+                            </div>
+                            <div class="week-stat">
+                                <div class="week-stat-label">P&L</div>
+                                <div class="week-stat-value ${pnl >= 0 ? 'positive' : 'negative'}">
+                                    ${pnl >= 0 ? '+' : ''}$${pnl.toFixed(2)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('weeklyGrid').innerHTML = weeklyHTML;
+        }
 
-    <!-- Final CTA -->
-    <section class="py-24 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                <span class="gradient-text">Ready to Start?</span>
-            </h2>
-            <p class="font-serif text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-                Join the first 100 clients and lock in early bird pricing forever
-            </p>
+        // Render Trades with Filtering and Sorting
+        function renderTrades(trades) {
+            const tbody = document.getElementById('tradesBody');
             
-            <div class="flex flex-col md:flex-row gap-6 justify-center">
-                <button class="btn-primary text-[#1a1625] px-12 py-4 rounded-lg font-display font-bold text-lg">
-                    Subscribe Now
-                </button>
-                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="border-2 border-[#C9A961] text-[#C9A961] px-12 py-4 rounded-lg font-display font-bold text-lg hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
-                    Join Discord
-                </a>
-            </div>
-        </div>
-    </section>
+            if (!trades || trades.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 30px;">No trades found</td></tr>';
+                return;
+            }
 
-    <!-- Footer -->
-    <footer class="bg-[#0f0a1a] border-t border-[#C9A961]/20 py-12">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="font-heading text-xl tracking-wider mb-2">SOOMARIO</div>
-            <div class="font-display text-[10px] text-[#C9A961] tracking-widest mb-6">STRATEGIES</div>
+            const tradesHTML = trades.map((trade, index) => {
+                // Parse trade data
+                const closePrice = Number(trade.price) || 0;
+                const size = Number(trade.size) || 0;
+                const pnl = Number(trade.pnl) || 0;
+                const fee = Number(trade.fee) || 0;
+                const isProfit = pnl >= 0;
+                const strategy = trade.strategy || 'Unknown';
+                const color = strategyColors[strategy] || '#9370DB';
+                const direction = trade.direction || 'LONG';
+                const timestamp = trade.timestamp || Date.now();
+                
+                // Check if direction contains "Long" or "Short"
+                const isLong = direction.toUpperCase().includes('LONG');
+                const directionLabel = isLong ? 'LONG' : 'SHORT';
+                
+                // FIX: Entry Price Calculation with Fee Adjustment
+                // We must add the fee back to PnL to get "Gross PnL" for the price delta
+                // Gross PnL = (Exit - Entry) * Size (for Long)
+                let entryPrice = closePrice;
+                if (size > 0) {
+                    const grossPnL = pnl + fee; 
+                    if (isLong) {
+                        entryPrice = closePrice - (grossPnL / size);
+                    } else {
+                        entryPrice = closePrice + (grossPnL / size);
+                    }
+                }
+                
+                // Debug first trade
+                if (index === 0) {
+                    console.log('📝 First trade entry calculation:');
+                    console.log('  Close Price:', closePrice);
+                    console.log('  Net P&L:', pnl);
+                    console.log('  Fee:', fee);
+                    console.log('  Gross P&L:', pnl + fee);
+                    console.log('  Size:', size);
+                    console.log('  Direction:', directionLabel);
+                    console.log('  → Entry Price:', entryPrice.toFixed(2));
+                }
+                
+                return `
+                    <tr>
+                        <td>${new Date(timestamp).toLocaleDateString()}</td>
+                        <td>
+                            <span class="strategy-badge-sm" style="background: ${color}20; color: ${color};">
+                                ${strategy}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="direction-badge ${isLong ? 'direction-long' : 'direction-short'}">
+                                ${directionLabel}
+                            </span>
+                        </td>
+                        <td>$${entryPrice.toFixed(2)}</td>
+                        <td>$${closePrice.toFixed(2)}</td>
+                        <td>${size.toFixed(4)}</td>
+                        <td class="trade-profit ${isProfit ? 'positive' : 'negative'}">
+                            ${isProfit ? '+' : ''}$${pnl.toFixed(2)}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
             
-            <div class="flex justify-center space-x-8 mb-8 font-serif text-sm text-gray-400">
-                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="hover:text-[#C9A961] transition-colors">Discord</a>
-                <a href="https://twitter.com/SoomarioStrat" target="_blank" class="hover:text-[#C9A961] transition-colors">Twitter</a>
-                <a href="https://soomario.carrd.co/" target="_blank" class="hover:text-[#C9A961] transition-colors">Current Site</a>
-            </div>
-            
-            <p class="font-serif text-sm text-gray-400">© 2024-2026 Soomario Strategies. All rights reserved.</p>
-            <p class="font-serif text-xs text-gray-500 mt-2">
-                Trading involves substantial risk of loss. Past performance does not guarantee future results.
-            </p>
-        </div>
-    </footer>
+            tbody.innerHTML = tradesHTML;
+        }
+
+        // Filtering
+        function getFilteredTrades() {
+            const stratFilter = document.getElementById('strategyFilter').value;
+            const dirFilter = document.getElementById('directionFilter').value;
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            return allTrades.filter(t => {
+                const matchStrat = stratFilter === 'all' || t.strategy === stratFilter;
+                const matchDir = dirFilter === 'all' || t.direction.toUpperCase().includes(dirFilter);
+                const matchSearch = !search || JSON.stringify(t).toLowerCase().includes(search);
+                return matchStrat && matchDir && matchSearch;
+            });
+        }
+
+        // Event Listeners for Filters
+        document.getElementById('strategyFilter').addEventListener('change', () => renderTrades(getFilteredTrades()));
+        document.getElementById('directionFilter').addEventListener('change', () => renderTrades(getFilteredTrades()));
+        document.getElementById('searchInput').addEventListener('input', () => renderTrades(getFilteredTrades()));
+
+        // Sorting Logic
+        document.querySelectorAll('th.sortable').forEach(th => {
+            th.addEventListener('click', () => {
+                const col = th.dataset.sort;
+                currentSort.direction = (currentSort.column === col && currentSort.direction === 'desc') ? 'asc' : 'desc';
+                currentSort.column = col;
+                
+                // Visual update
+                document.querySelectorAll('th').forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
+                th.classList.add(`sorted-${currentSort.direction}`);
+
+                // Sort
+                allTrades.sort((a, b) => {
+                    let valA = a[col], valB = b[col];
+                    if (col === 'date') { 
+                        valA = a.timestamp; 
+                        valB = b.timestamp; 
+                    }
+                    if (col === 'pnl' || col === 'size') { 
+                        valA = Number(valA); 
+                        valB = Number(valB); 
+                    }
+                    
+                    return currentSort.direction === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
+                });
+                renderTrades(getFilteredTrades());
+            });
+        });
+
+        // Start
+        fetchData();
+        setInterval(fetchData, 30000);
+    </script>
 </body>
 </html>
