@@ -839,7 +839,7 @@
             document.getElementById('weeklyGrid').innerHTML = weeklyHTML;
         }
 
-        // Render Trades
+        // Render Trades (WITH TIME ADDED)
         function renderTrades(trades) {
             const tbody = document.getElementById('tradesBody');
             
@@ -862,6 +862,16 @@
                 const isLong = direction.toUpperCase().includes('LONG');
                 const directionLabel = isLong ? 'LONG' : 'SHORT';
                 
+                // Format date with time (HH:MM)
+                const tradeDate = new Date(timestamp);
+                const dateStr = tradeDate.toLocaleDateString();
+                const timeStr = tradeDate.toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: false 
+                });
+                const dateTimeStr = `${dateStr} ${timeStr}`;
+                
                 let entryPrice = closePrice;
                 if (size > 0) {
                     const grossPnL = pnl + fee; 
@@ -874,7 +884,7 @@
                 
                 return `
                     <tr>
-                        <td>${new Date(timestamp).toLocaleDateString()}</td>
+                        <td>${dateTimeStr}</td>
                         <td>
                             <span class="strategy-badge-sm" style="background: ${color}20; color: ${color};">
                                 ${strategy}
