@@ -839,64 +839,6 @@
             document.getElementById('weeklyGrid').innerHTML = weeklyHTML;
         }
 
-        // Render Trades
-        function renderTrades(trades) {
-            const tbody = document.getElementById('tradesBody');
-            
-            if (!trades || trades.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 30px;">No trades found</td></tr>';
-                return;
-            }
-
-            const tradesHTML = trades.map((trade, index) => {
-                const closePrice = Number(trade.price) || 0;
-                const size = Number(trade.size) || 0;
-                const pnl = Number(trade.pnl) || 0;
-                const fee = Number(trade.fee) || 0;
-                const isProfit = pnl >= 0;
-                const strategy = trade.strategy || 'Unknown';
-                const color = strategyColors[strategy] || '#9370DB';
-                const direction = trade.direction || 'LONG';
-                const timestamp = trade.timestamp || Date.now();
-                
-                const isLong = direction.toUpperCase().includes('LONG');
-                const directionLabel = isLong ? 'LONG' : 'SHORT';
-                
-                let entryPrice = closePrice;
-                if (size > 0) {
-                    const grossPnL = pnl + fee; 
-                    if (isLong) {
-                        entryPrice = closePrice - (grossPnL / size);
-                    } else {
-                        entryPrice = closePrice + (grossPnL / size);
-                    }
-                }
-                
-                return `
-                    <tr>
-                        <td>${new Date(timestamp).toLocaleDateString()}</td>
-                        <td>
-                            <span class="strategy-badge-sm" style="background: ${color}20; color: ${color};">
-                                ${strategy}
-                            </span>
-                        </td>
-                        <td>
-                            <span class="direction-badge ${isLong ? 'direction-long' : 'direction-short'}">
-                                ${directionLabel}
-                            </span>
-                        </td>
-                        <td>$${entryPrice.toFixed(2)}</td>
-                        <td>$${closePrice.toFixed(2)}</td>
-                        <td>${size.toFixed(4)}</td>
-                        <td class="trade-profit ${isProfit ? 'positive' : 'negative'}">
-                            ${isProfit ? '+' : ''}$${pnl.toFixed(2)}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            tbody.innerHTML = tradesHTML;
-        }
 
         // Sorting
         document.querySelectorAll('th.sortable').forEach(th => {
