@@ -862,16 +862,6 @@
                 const isLong = direction.toUpperCase().includes('LONG');
                 const directionLabel = isLong ? 'LONG' : 'SHORT';
                 
-                // Format date with time
-                const tradeDate = new Date(timestamp);
-                const dateStr = tradeDate.toLocaleDateString();
-                const timeStr = tradeDate.toLocaleTimeString('en-US', { 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: false 
-                });
-                const dateTimeStr = `${dateStr} ${timeStr}`;
-                
                 let entryPrice = closePrice;
                 if (size > 0) {
                     const grossPnL = pnl + fee; 
@@ -884,7 +874,7 @@
                 
                 return `
                     <tr>
-                        <td>${dateTimeStr}</td>
+                        <td>${new Date(timestamp).toLocaleDateString()}</td>
                         <td>
                             <span class="strategy-badge-sm" style="background: ${color}20; color: ${color};">
                                 ${strategy}
