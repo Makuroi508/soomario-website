@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soomario Strategies Whitepaper - Professional Algorithmic Trading</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        .font-display { font-family: 'Orbitron', sans-serif; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .font-heading { font-family: 'Cinzel', serif; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #C9A961 0%, #F4E4C1 50%, #C9A961 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-gold {
+            background: linear-gradient(135deg, #C9A961 0%, #F4E4C1 50%, #C9A961 100%);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .section-fade {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-card {
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+        }
+        
+        .toc-link {
+            transition: all 0.2s;
+        }
+        
+        .toc-link:hover {
+            padding-left: 1rem;
+            color: #C9A961;
+        }
+        
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-[#1a1625] text-white">
+    
+    <!-- Navigation -->
+    <nav class="no-print fixed top-0 w-full z-50 bg-[#1a1625]/95 backdrop-blur-lg shadow-lg border-b border-[#C9A961]/20">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="soomario-logo.png" alt="Soomario Logo" class="h-12 w-12">
+                <div>
+                    <div class="font-heading text-xl tracking-wider">SOOMARIO</div>
+                    <div class="font-display text-[10px] text-[#C9A961] tracking-widest">WHITEPAPER</div>
+                </div>
+            </div>
+            
+            <a href="index.html" class="gradient-gold text-[#1a1625] px-6 py-2.5 rounded-lg font-display font-bold text-sm hover:opacity-90 transition-opacity">
+                Back to Site
+            </a>
+        </div>
+    </nav>
+
+    <!-- Cover Section -->
+    <section id="cover" class="min-h-screen flex items-center justify-center pt-20 pb-16 section-fade">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="mb-8">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">VERSION 1.1 • FEBRUARY 2026</div>
+                <div class="h-px w-32 mx-auto gradient-gold"></div>
+            </div>
+            
+            <h1 class="font-heading text-6xl md:text-8xl mb-6 tracking-tight">
+                <span class="gradient-text">SOOMARIO</span><br>
+                <span class="text-white">STRATEGIES</span>
+            </h1>
+            
+            <p class="font-serif text-2xl md:text-4xl text-gray-300 mb-12 leading-relaxed">
+                Professional Algorithmic Trading Solutions<br>
+                <span class="text-xl md:text-2xl text-gray-400">for the Modern Investor</span>
+            </p>
+            
+            <!-- Key Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+                <div class="stat-card bg-[#2F2A52]/40 backdrop-blur-sm border-2 border-[#C9A961]/30 rounded-xl p-8">
+                    <div class="font-display text-5xl gradient-text mb-3">597%</div>
+                    <div class="font-serif text-gray-400">ROI on Deployed Capital</div>
+                </div>
+                <div class="stat-card bg-[#2F2A52]/40 backdrop-blur-sm border-2 border-[#C9A961]/30 rounded-xl p-8">
+                    <div class="font-display text-5xl gradient-text mb-3">330-370%</div>
+                    <div class="font-serif text-gray-400">Elite Annual Returns</div>
+                </div>
+                <div class="stat-card bg-[#2F2A52]/40 backdrop-blur-sm border-2 border-[#C9A961]/30 rounded-xl p-8">
+                    <div class="font-display text-5xl gradient-text mb-3">84%</div>
+                    <div class="font-serif text-gray-400">Elite Win Rate</div>
+                </div>
+            </div>
+            
+            <div class="font-serif text-gray-500 text-sm">
+                Website: <a href="https://soomario.com" class="text-[#C9A961] hover:underline">soomario.com</a> | 
+                Discord: <a href="#" class="text-[#C9A961] hover:underline">Community</a> | 
+                X: <a href="https://twitter.com/SoomarioStrat" class="text-[#C9A961] hover:underline">@SoomarioStrat</a>
+            </div>
+            
+            <div class="mt-12">
+                <a href="#toc" class="inline-block text-[#C9A961] animate-bounce">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section id="toc" class="py-20 bg-gradient-to-b from-[#1a1625] to-[#0f0a1a]">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="mb-12 text-center">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">CONTENTS</div>
+                <h2 class="font-heading text-4xl md:text-5xl gradient-text">Table of Contents</h2>
+            </div>
+            
+            <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-2xl p-8">
+                <div class="space-y-4">
+                    <a href="#executive-summary" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961] pb-3 border-b border-[#C9A961]/10">
+                        <span class="font-heading text-[#C9A961]">I.</span> Executive Summary
+                    </a>
+                    <a href="#philosophy" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961] pb-3 border-b border-[#C9A961]/10">
+                        <span class="font-heading text-[#C9A961]">II.</span> The Soomario Philosophy
+                    </a>
+                    <a href="#elite" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961] pb-3 border-b border-[#C9A961]/10">
+                        <span class="font-heading text-[#C9A961]">III.</span> Soomario Elite - The Premium Package
+                    </a>
+                    <a href="#accumulator" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961] pb-3 border-b border-[#C9A961]/10">
+                        <span class="font-heading text-[#C9A961]">IV.</span> Soomario Accumulator - Smart Accumulation
+                    </a>
+                    <a href="#maxpain" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961] pb-3 border-b border-[#C9A961]/10">
+                        <span class="font-heading text-[#C9A961]">V.</span> Soomario Max Pain - Maximum Diversification
+                    </a>
+                    <a href="#comparison" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961] pb-3 border-b border-[#C9A961]/10">
+                        <span class="font-heading text-[#C9A961]">VI.</span> Comparative Analysis
+                    </a>
+                    <a href="#implementation" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961] pb-3 border-b border-[#C9A961]/10">
+                        <span class="font-heading text-[#C9A961]">VII.</span> Implementation & Access
+                    </a>
+                    <a href="#appendices" class="toc-link block font-serif text-lg text-gray-300 hover:text-[#C9A961]">
+                        <span class="font-heading text-[#C9A961]">VIII.</span> Appendices
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- I. Executive Summary -->
+    <section id="executive-summary" class="py-20 bg-[#0f0a1a]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION I</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">Executive Summary</h2>
+            </div>
+            
+            <!-- 1.1 About Soomario -->
+            <div class="mb-12">
+                <h3 class="font-heading text-3xl text-[#C9A961] mb-6">1.1 About Soomario</h3>
+                <div class="font-serif text-lg text-gray-300 leading-relaxed space-y-4">
+                    <p>Soomario is a systematic trading platform that provides professional-grade algorithmic trading strategies to individual investors. Our mission is simple: deliver institutional-quality returns through data-driven, automated trading systems.</p>
+                    <p>We built Soomario because we saw a gap in the market. On one side, you have passive index funds with modest returns. On the other, complex trading platforms requiring full-time attention and expertise. We created something in between—sophisticated strategies that work automatically or via clear signals, requiring minimal oversight while targeting exceptional returns.</p>
+                </div>
+            </div>
+            
+            <!-- 1.2 Three Services -->
+            <div class="mb-12">
+                <h3 class="font-heading text-3xl text-[#C9A961] mb-6">1.2 The Three-Service Approach</h3>
+                <p class="font-serif text-lg text-gray-300 leading-relaxed mb-8">Rather than overwhelming clients with dozens of options, we offer three carefully designed services, each optimized for different goals and delivery methods:</p>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border-2 border-[#C9A961]">
+                        <thead class="bg-[#2F2A52]">
+                            <tr>
+                                <th class="font-heading text-[#C9A961] px-6 py-4 text-left">Service</th>
+                                <th class="font-heading text-[#C9A961] px-6 py-4 text-left">Delivery Method</th>
+                                <th class="font-heading text-[#C9A961] px-6 py-4 text-left">Expected Annual Return</th>
+                                <th class="font-heading text-[#C9A961] px-6 py-4 text-left">Monthly Cost</th>
+                                <th class="font-heading text-[#C9A961] px-6 py-4 text-left">Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-serif text-gray-300">
+                            <tr class="border-t border-[#C9A961]/20">
+                                <td class="px-6 py-4 font-semibold">Accumulator</td>
+                                <td class="px-6 py-4">Telegram Signals</td>
+                                <td class="px-6 py-4">200-300%</td>
+                                <td class="px-6 py-4">$50-$100</td>
+                                <td class="px-6 py-4">Stock + crypto signal followers</td>
+                            </tr>
+                            <tr class="border-t border-[#C9A961]/20 bg-[#2F2A52]/20">
+                                <td class="px-6 py-4 font-semibold">Elite</td>
+                                <td class="px-6 py-4">Copy Trading + All Signals</td>
+                                <td class="px-6 py-4">330-370%</td>
+                                <td class="px-6 py-4">$219</td>
+                                <td class="px-6 py-4">Premium all-inclusive clients</td>
+                            </tr>
+                            <tr class="border-t border-[#C9A961]/20">
+                                <td class="px-6 py-4 font-semibold">Max Pain</td>
+                                <td class="px-6 py-4">Signals OR Copy Trading</td>
+                                <td class="px-6 py-4">105-125%</td>
+                                <td class="px-6 py-4">$50-$100 OR 20% profit</td>
+                                <td class="px-6 py-4">Diversification seekers</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 1.3 Performance Snapshot -->
+            <div class="mb-12">
+                <h3 class="font-heading text-3xl text-[#C9A961] mb-6">1.3 Performance Snapshot</h3>
+                
+                <div class="space-y-6">
+                    <!-- Elite Box -->
+                    <div class="bg-gradient-to-br from-[#2F2A52]/50 to-[#1a1625] border-2 border-[#C9A961] rounded-xl p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-2xl gradient-text">SOOMARIO ELITE</h4>
+                                <p class="font-serif text-sm text-gray-400">5-strategy hybrid copy trading + all signals</p>
+                            </div>
+                        </div>
+                        <div class="font-serif text-gray-300 leading-relaxed">
+                            <p><span class="text-[#C9A961] font-semibold">Annual Return:</span> 330-370% | <span class="text-[#C9A961] font-semibold">Win Rate:</span> 84% | <span class="text-[#C9A961] font-semibold">Proven Track Record:</span> 2-6 years across components</p>
+                            <p class="mt-2"><span class="text-[#C9A961] font-semibold">Includes:</span> Elite copy trading + Max Pain signals + Soomario Accumulators</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Accumulator Box -->
+                    <div class="bg-[#2F2A52]/30 border border-[#C9A961]/30 rounded-xl p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-2xl gradient-text">SOOMARIO ACCUMULATOR</h4>
+                                <p class="font-serif text-sm text-gray-400">14-asset systematic accumulation signals</p>
+                            </div>
+                        </div>
+                        <div class="font-serif text-gray-300 leading-relaxed">
+                            <p><span class="text-[#C9A961] font-semibold">ROI on Deployed Capital:</span> 597% | <span class="text-[#C9A961] font-semibold">Win Rate:</span> 80-100% (varies by asset)</p>
+                            <p class="mt-2"><span class="text-[#C9A961] font-semibold">Backtested Period:</span> 3+ years | <span class="text-[#C9A961] font-semibold">Delivery:</span> Telegram signals for manual execution</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Max Pain Box -->
+                    <div class="bg-[#2F2A52]/30 border border-[#C9A961]/30 rounded-xl p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-2xl gradient-text">SOOMARIO MAX PAIN</h4>
+                                <p class="font-serif text-sm text-gray-400">20-strategy portfolio</p>
+                            </div>
+                        </div>
+                        <div class="font-serif text-gray-300 leading-relaxed">
+                            <p><span class="text-[#C9A961] font-semibold">Annual Return:</span> 105-125% | <span class="text-[#C9A961] font-semibold">Average Concurrent Positions:</span> 2.5-3.0</p>
+                            <p class="mt-2"><span class="text-[#C9A961] font-semibold">Total Strategies:</span> 20 independent systems | <span class="text-[#C9A961] font-semibold">Delivery:</span> Telegram signals OR OKX copy trading</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 1.4 Who Soomario Is For -->
+            <div class="mb-12">
+                <h3 class="font-heading text-3xl text-[#C9A961] mb-6">1.4 Who Soomario Is For</h3>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-8">
+                        <h4 class="font-heading text-xl text-[#C9A961] mb-4">✓ You're in the right place if you:</h4>
+                        <ul class="font-serif text-gray-300 space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[#C9A961] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Want exceptional returns without managing every trade yourself</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[#C9A961] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Understand crypto/stock markets but prefer systematic approaches</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[#C9A961] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Can handle short-term volatility for long-term gains</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[#C9A961] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Have $500-$50,000+ to allocate to algorithmic trading</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[#C9A961] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Want the flexibility of signals OR full automation</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-[#2F2A52]/30 border border-red-500/20 rounded-xl p-8">
+                        <h4 class="font-heading text-xl text-red-400 mb-4">✗ This might not be for you if you:</h4>
+                        <ul class="font-serif text-gray-300 space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                                <span>Need guaranteed returns (nothing in trading is guaranteed)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                                <span>Can't tolerate 15-35% drawdowns during corrections</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                                <span>Want to manually manage every single decision</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                                <span>Prefer traditional buy-and-hold index investing</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- II. Philosophy Section -->
+    <section id="philosophy" class="py-20 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION II</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">The Soomario Philosophy</h2>
+            </div>
+            
+            <div class="space-y-12">
+                <div>
+                    <h3 class="font-heading text-3xl text-[#C9A961] mb-6">2.1 Why Three Services?</h3>
+                    <div class="font-serif text-lg text-gray-300 leading-relaxed space-y-4">
+                        <p>We designed three distinct services instead of one because different traders have different needs:</p>
+                        <p><span class="text-[#C9A961] font-semibold">Accumulator</span> provides opportunities across stocks and major cryptocurrencies for those who want to execute trades manually while following proven strategies.</p>
+                        <p><span class="text-[#C9A961] font-semibold">Elite</span> is the all-inclusive premium package for clients who want everything - copy trading for the flagship strategy plus access to all signal services.</p>
+                        <p><span class="text-[#C9A961] font-semibold">Max Pain</span> offers choice - follow signals manually or let OKX copy trading handle everything automatically, with 20 strategies for maximum diversification.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-heading text-3xl text-[#C9A961] mb-6">2.2 Data-Driven Development</h3>
+                    <p class="font-serif text-lg text-gray-300 leading-relaxed mb-6">Every strategy in our portfolio underwent rigorous backtesting before deployment:</p>
+                    
+                    <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-8">
+                        <h4 class="font-heading text-xl text-[#C9A961] mb-6">Our Process:</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full gradient-gold flex items-center justify-center font-display font-bold text-[#1a1625]">1</div>
+                                <div>
+                                    <h5 class="font-heading text-[#C9A961] mb-1">Strategy Development</h5>
+                                    <p class="font-serif text-gray-400 text-sm">Create trading logic based on proven technical indicators</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full gradient-gold flex items-center justify-center font-display font-bold text-[#1a1625]">2</div>
+                                <div>
+                                    <h5 class="font-heading text-[#C9A961] mb-1">Backtesting</h5>
+                                    <p class="font-serif text-gray-400 text-sm">Test against 2-6 years of historical data</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full gradient-gold flex items-center justify-center font-display font-bold text-[#1a1625]">3</div>
+                                <div>
+                                    <h5 class="font-heading text-[#C9A961] mb-1">Validation</h5>
+                                    <p class="font-serif text-gray-400 text-sm">Require minimum 20-30 trades for statistical significance</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full gradient-gold flex items-center justify-center font-display font-bold text-[#1a1625]">4</div>
+                                <div>
+                                    <h5 class="font-heading text-[#C9A961] mb-1">Paper Trading</h5>
+                                    <p class="font-serif text-gray-400 text-sm">Run in simulation to verify backtest accuracy</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full gradient-gold flex items-center justify-center font-display font-bold text-[#1a1625]">5</div>
+                                <div>
+                                    <h5 class="font-heading text-[#C9A961] mb-1">Live Deployment</h5>
+                                    <p class="font-serif text-gray-400 text-sm">Start with small capital, scale gradually</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full gradient-gold flex items-center justify-center font-display font-bold text-[#1a1625]">6</div>
+                                <div>
+                                    <h5 class="font-heading text-[#C9A961] mb-1">Continuous Monitoring</h5>
+                                    <p class="font-serif text-gray-400 text-sm">Track performance, adjust if needed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-heading text-3xl text-[#C9A961] mb-6">2.3 Risk Management Principles</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-[#2F2A52]/30 border-l-4 border-[#C9A961] rounded-r-xl p-6">
+                            <h4 class="font-heading text-lg text-[#C9A961] mb-3">Position Sizing</h4>
+                            <p class="font-serif text-gray-300">Every strategy uses dynamic position sizing based on available capital. No single position can exceed predetermined limits, protecting against catastrophic losses.</p>
+                        </div>
+                        <div class="bg-[#2F2A52]/30 border-l-4 border-[#C9A961] rounded-r-xl p-6">
+                            <h4 class="font-heading text-lg text-[#C9A961] mb-3">Leverage Matching</h4>
+                            <p class="font-serif text-gray-300">We match leverage to proven risk profiles. Low drawdown strategies get higher leverage (up to 8x). High drawdown strategies get conservative leverage (3x).</p>
+                        </div>
+                        <div class="bg-[#2F2A52]/30 border-l-4 border-[#C9A961] rounded-r-xl p-6">
+                            <h4 class="font-heading text-lg text-[#C9A961] mb-3">Circuit Breakers</h4>
+                            <p class="font-serif text-gray-300">Automated systems pause new entries when margin ratios exceed thresholds to prevent cascade liquidations during extreme volatility.</p>
+                        </div>
+                        <div class="bg-[#2F2A52]/30 border-l-4 border-[#C9A961] rounded-r-xl p-6">
+                            <h4 class="font-heading text-lg text-[#C9A961] mb-3">Diversification</h4>
+                            <p class="font-serif text-gray-300">Elite uses 5 strategies across 5 different assets. Accumulator covers 14 assets with 0.05 average correlation. Max Pain employs 20 strategies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Placeholder sections for remaining content -->
+    <section id="elite" class="py-20 bg-[#0f0a1a]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION III</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">Soomario Elite</h2>
+            </div>
+            <p class="font-serif text-lg text-gray-300 leading-relaxed">[Complete Elite section with all 5 strategies, performance tables, pricing details - approximately 7 pages of content]</p>
+        </div>
+    </section>
+
+    <section id="accumulator" class="py-20 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION IV</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">Soomario Accumulator</h2>
+            </div>
+            <p class="font-serif text-lg text-gray-300 leading-relaxed">[Complete Accumulator section with all 14 assets, DCA comparisons, performance data - approximately 5 pages]</p>
+        </div>
+    </section>
+
+    <section id="maxpain" class="py-20 bg-[#0f0a1a]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION V</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">Soomario Max Pain</h2>
+            </div>
+            <p class="font-serif text-lg text-gray-300 leading-relaxed">[Complete Max Pain section with 20-strategy breakdown, tier details - approximately 7 pages]</p>
+        </div>
+    </section>
+
+    <section id="comparison" class="py-20 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION VI</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">Comparative Analysis</h2>
+            </div>
+            <p class="font-serif text-lg text-gray-300 leading-relaxed">[Service comparison tables, portfolio combinations - approximately 2 pages]</p>
+        </div>
+    </section>
+
+    <section id="implementation" class="py-20 bg-[#0f0a1a]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION VII</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">Implementation & Access</h2>
+            </div>
+            <p class="font-serif text-lg text-gray-300 leading-relaxed">[Getting started guides, capital requirements - approximately 4 pages]</p>
+        </div>
+    </section>
+
+    <section id="appendices" class="py-20 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12">
+                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">SECTION VIII</div>
+                <h2 class="font-heading text-5xl md:text-6xl gradient-text mb-8">Appendices</h2>
+            </div>
+            <p class="font-serif text-lg text-gray-300 leading-relaxed">[Glossary, performance tables, risk disclosures - approximately 8 pages]</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0f0a1a] border-t border-[#C9A961]/20 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="font-heading text-xl tracking-wider mb-2">SOOMARIO STRATEGIES</div>
+            <div class="font-display text-[10px] text-[#C9A961] tracking-widest mb-6">WHITEPAPER V1.1</div>
+            
+            <p class="font-serif text-sm text-gray-400 mb-2">© 2024-2026 Soomario Strategies. All rights reserved.</p>
+            <p class="font-serif text-xs text-gray-500">
+                Trading involves substantial risk of loss. Past performance does not guarantee future results.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+            class="no-print fixed bottom-8 right-8 w-12 h-12 gradient-gold rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all">
+        <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+</body>
+</html>
