@@ -194,8 +194,18 @@ body {
   font-size: var(--fs-section-ct); color: var(--mid); font-weight: 400;
 }
 
-/* ── CHART ── */
-.chart-wrap { position: relative; height: 210px; }
+/* ── CHART TABS ── */
+.chart-tabs { display: flex; gap: 4px; }
+.ctab {
+  font-family: 'Orbitron', sans-serif; font-size: 10px;
+  letter-spacing: 1px; padding: 5px 12px;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 5px; color: var(--dim); cursor: pointer; transition: all .2s;
+}
+.ctab:hover  { color: var(--mid); border-color: var(--mid); }
+.ctab.active { color: var(--gold); border-color: rgba(232,196,106,.5); background: rgba(232,196,106,.06); }
+
+
 .chart-note { font-size: var(--fs-chart-note); color: var(--mid); margin-top: 12px; }
 
 /* ── TABLE ── */
@@ -391,13 +401,21 @@ body {
   <div class="row g21">
     <div class="card">
       <div class="stitle">
-        Vault Equity — Live Snapshots
-        <span class="stitle-count" id="curve-pts">Snapshots build as you watch</span>
+        <span id="chart-title">Vault Equity — Per Trade</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="stitle-count" id="curve-pts"></span>
+          <div class="chart-tabs">
+            <button class="ctab active" id="tab-trade" onclick="switchTab('trade')">Per Trade</button>
+            <button class="ctab"        id="tab-live"  onclick="switchTab('live')">Live</button>
+          </div>
+        </div>
       </div>
       <div class="chart-wrap">
         <canvas id="chart-equity"></canvas>
       </div>
-      <p class="chart-note">Snapshots saved every 30 seconds in your browser via localStorage.</p>
+      <p class="chart-note" id="chart-note-text">
+        Each point represents account equity after a closed trade — oldest to newest.
+      </p>
     </div>
 
     <div class="card">
@@ -568,7 +586,7 @@ function calcMetrics(closed) {
   };
 }
 
-// ── EQUITY CURVE ──────────────────────────────────────────────────────────
+// ── EQUITY CURVE (localStorage — live snapshots) ──────────────────────────
 function getCurve() {
   try { return JSON.parse(localStorage.getItem(CURVE_KEY) || '[]'); } catch { return []; }
 }
@@ -585,29 +603,94 @@ function pushCurve(equity) {
   return trimmed;
 }
 
+// ── PER-TRADE EQUITY CURVE ────────────────────────────────────────────────
+// Builds equity progression from closed trades (oldest → newest).
+// Starting equity = current equity - unrealised - total realised PnL
+function buildTradeChart(closed, currentEquity, unrealised) {
+  if (!closed.length) return { labels: [], data: [] };
+
+  // Sort oldest → newest
+  const sorted = [...closed].sort((a, b) => a.time - b.time);
+
+  // Reconstruct starting equity
+  const totalRealised = sorted.reduce((s, t) => s + t.pnl, 0);
+  const startEquity   = currentEquity - unrealised - totalRealised;
+
+  const labels = [];
+  const data   = [];
+  let running  = startEquity;
+
+  // Add start point
+  labels.push('Start');
+  data.push(round(running, 2));
+
+  for (const t of sorted) {
+    running += t.pnl;
+    const d  = new Date(t.time);
+    const lbl = d.toLocaleDateString('en-US', {month:'short', day:'numeric'}) + ' ' +
+                d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    labels.push(`${t.coin} (${t.side})\n${lbl}`);
+    data.push(round(running, 2));
+  }
+
+  return { labels, data };
+}
+
 // ── CHART ─────────────────────────────────────────────────────────────────
 let chartInst = null;
-function renderChart(curve) {
-  const ctx    = document.getElementById('chart-equity').getContext('2d');
-  const labels = curve.map(p => p.t);
-  const data   = curve.map(p => p.v);
+let activeTab = 'trade';   // 'trade' | 'live'
+let lastClosed   = [];
+let lastEquity   = 0;
+let lastUnreal   = 0;
+let lastLiveCurve = [];
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('tab-trade').classList.toggle('active', tab === 'trade');
+  document.getElementById('tab-live').classList.toggle('active',  tab === 'live');
+
+  if (tab === 'trade') {
+    document.getElementById('chart-title').textContent = 'Vault Equity — Per Trade';
+    document.getElementById('chart-note-text').textContent =
+      'Each point represents account equity after a closed trade — oldest to newest.';
+    const { labels, data } = buildTradeChart(lastClosed, lastEquity, lastUnreal);
+    updateChart(labels, data, labels.length <= 30);
+    document.getElementById('curve-pts').textContent =
+      data.length > 1 ? (data.length - 1) + ' trade' + (data.length - 1 !== 1 ? 's' : '') : 'Waiting for trades';
+  } else {
+    document.getElementById('chart-title').textContent = 'Vault Equity — Live Snapshots';
+    document.getElementById('chart-note-text').textContent =
+      'Snapshots saved every 30 seconds in your browser via localStorage.';
+    updateChart(lastLiveCurve.map(p => p.t), lastLiveCurve.map(p => p.v), lastLiveCurve.length <= 30);
+    document.getElementById('curve-pts').textContent =
+      lastLiveCurve.length + ' snapshot' + (lastLiveCurve.length !== 1 ? 's' : '') + ' this session';
+  }
+}
+
+function updateChart(labels, data, showPoints) {
+  const ctx = document.getElementById('chart-equity').getContext('2d');
+
   if (chartInst) {
     chartInst.data.labels = labels;
     chartInst.data.datasets[0].data = data;
+    chartInst.data.datasets[0].pointRadius = showPoints ? 4 : 0;
     chartInst.update('none');
     return;
   }
+
   const grad = ctx.createLinearGradient(0, 0, 0, 210);
   grad.addColorStop(0,  'rgba(232,196,106,.22)');
   grad.addColorStop(.7, 'rgba(232,196,106,.03)');
   grad.addColorStop(1,  'rgba(232,196,106,0)');
+
   chartInst = new Chart(ctx, {
     type: 'line',
     data: { labels, datasets: [{
       data, borderColor: '#e8c46a', borderWidth: 2,
-      backgroundColor: grad, fill: true, tension: 0.4,
-      pointRadius: data.length > 30 ? 0 : 3,
-      pointHoverRadius: 5, pointBackgroundColor: '#e8c46a',
+      backgroundColor: grad, fill: true, tension: 0.35,
+      pointRadius: showPoints ? 4 : 0,
+      pointHoverRadius: 6, pointBackgroundColor: '#e8c46a',
+      pointBorderColor: '#13102a', pointBorderWidth: 2,
     }]},
     options: {
       responsive: true, maintainAspectRatio: false,
@@ -619,12 +702,21 @@ function renderChart(curve) {
           titleColor: '#8880a8', bodyColor: '#f4eedd',
           titleFont: {family:'Orbitron', size:10},
           bodyFont:  {family:'Orbitron', size:13},
-          callbacks: { label: c => ' $' + c.parsed.y.toLocaleString('en-US',{minimumFractionDigits:2}) }
+          callbacks: {
+            title: items => items[0].label.replace('\n', ' — '),
+            label: c => ' $' + c.parsed.y.toLocaleString('en-US', {minimumFractionDigits:2})
+          }
         }
       },
       scales: {
         x: { grid:  {color:'rgba(50,48,90,.6)', drawBorder:false},
-             ticks: {color:'#8880a8', font:{family:'Orbitron',size:10}, maxTicksLimit:8} },
+             ticks: {color:'#8880a8', font:{family:'Orbitron',size:9}, maxTicksLimit:8,
+                     callback: (v, i, arr) => {
+                       // For per-trade: show coin name only
+                       const lbl = chartInst?.data.labels[i] || '';
+                       const first = lbl.split('\n')[0];
+                       return first.length > 12 ? first.substring(0,12) : first;
+                     }} },
         y: { grid:  {color:'rgba(50,48,90,.6)', drawBorder:false},
              ticks: {color:'#8880a8', font:{family:'Orbitron',size:10},
                      callback: v => '$'+v.toLocaleString()} }
@@ -632,6 +724,7 @@ function renderChart(curve) {
     }
   });
 }
+
 
 // ── HELPERS ───────────────────────────────────────────────────────────────
 const round  = (n, d=2) => Math.round(n * 10**d) / 10**d;
@@ -670,10 +763,29 @@ function render({ vault, state, fills }) {
   const closed     = parseFills(fills);
   const metrics    = calcMetrics(closed);
 
-  if (equity > 0) {
-    const curve = pushCurve(equity);
-    renderChart(curve);
-    set('curve-pts', curve.length + ' snapshot' + (curve.length !== 1 ? 's' : '') + ' this session');
+  // If API returns 0 for allTimePnl, compute from fills + unrealised
+  if (allTimePnl === 0 && metrics && metrics.totalPnl !== 0) {
+    allTimePnl = round(metrics.totalPnl + unrealised, 2);
+  }
+
+  // Store for tab switching
+  lastClosed    = closed;
+  lastEquity    = equity;
+  lastUnreal    = unrealised;
+
+  // Live snapshot
+  if (equity > 0) lastLiveCurve = pushCurve(equity);
+
+  // Render active chart tab
+  if (activeTab === 'trade') {
+    const { labels, data } = buildTradeChart(closed, equity, unrealised);
+    updateChart(labels, data, data.length <= 30);
+    document.getElementById('curve-pts').textContent =
+      data.length > 1 ? (data.length - 1) + ' trade' + (data.length - 1 !== 1 ? 's' : '') : 'Waiting for trades';
+  } else {
+    updateChart(lastLiveCurve.map(p => p.t), lastLiveCurve.map(p => p.v), lastLiveCurve.length <= 30);
+    document.getElementById('curve-pts').textContent =
+      lastLiveCurve.length + ' snapshot' + (lastLiveCurve.length !== 1 ? 's' : '') + ' this session';
   }
 
   // Row 1
@@ -769,7 +881,11 @@ async function refresh() {
 }
 
 const storedCurve = getCurve();
-if (storedCurve.length > 1) renderChart(storedCurve);
+// Boot the live curve from localStorage so it renders immediately on page load
+if (storedCurve.length > 1) {
+  lastLiveCurve = storedCurve;
+  // Default tab is 'trade' — chart will populate on first refresh() call
+}
 
 refresh();
 setInterval(refresh, 30_000);
