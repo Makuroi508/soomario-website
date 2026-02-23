@@ -5,28 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Soomario — Max Pain Vault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <style>
 :root {
-  --bg:       #0b0917;
-  --s1:       #13102a;
-  --s2:       #1b183a;
-  --s3:       #222045;
-  --border:   #32305a;
-  --gold:     #e8c46a;
-  --gold2:    #faefd4;
-  --purple:   #a89df0;
-  --green:    #3ddc84;
-  --red:      #ff6b6b;
-  --cyan:     #22d3ee;
-  --text:     #f4eedd;
-  --dim:      #8880a8;
-  --mid:      #c0b8d8;
-  --radius:   10px;
+  /* ── COLOURS ───────────────────────────────────── */
+  --bg:     #0b0917;
+  --s1:     #13102a;
+  --s2:     #1b183a;
+  --s3:     #222045;
+  --border: #32305a;
+  --gold:   #e8c46a;
+  --gold2:  #faefd4;
+  --purple: #a89df0;
+  --green:  #3ddc84;
+  --red:    #ff6b6b;
+  --cyan:   #22d3ee;
+  --text:   #f4eedd;
+  --dim:    #8880a8;
+  --mid:    #c0b8d8;
+  --radius: 10px;
+
+  /* ══════════════════════════════════════════════════════════════
+     FONT SIZES — all UI text sizes live here.
+     Increase or decrease these numbers to rescale the dashboard.
+     Current values are set at ~125% of the original design.
+     ══════════════════════════════════════════════════════════════ */
+
+  /* Navigation */
+  --fs-nav-brand:  18px;    /* "SOOMARIO" wordmark */
+  --fs-nav-sub:    10px;    /* "MAX PAIN VAULT" tagline */
+  --fs-nav-link:   11px;    /* nav button text */
+  --fs-live-pill:  11px;    /* LIVE / OFFLINE indicator */
+
+  /* Metric cards */
+  --fs-lbl:        11px;    /* card labels (VAULT EQUITY, WIN RATE…) */
+  --fs-val-lg:     34px;    /* large values ($1,056, -$7.73) */
+  --fs-val-md:     24px;    /* medium values (50%, 0.34) */
+  --fs-val-sm:     18px;    /* small values in sidebar */
+  --fs-sub:        15px;    /* sub-line beneath main value */
+  --fs-note:       14px;    /* small note / warning line */
+
+  /* Section headers */
+  --fs-section:    12px;    /* section title (OPEN POSITIONS…) */
+  --fs-section-ct: 11px;    /* right-side badge count */
+
+  /* Table */
+  --fs-tbl-hdr:    11px;    /* column header text */
+  --fs-tbl-cell:   16px;    /* table body cells */
+  --fs-coin:       17px;    /* coin symbol in table & trade rows */
+  --fs-side:       11px;    /* LONG / SHORT badge */
+  --fs-tbl-pnl:    16px;    /* unrealised PnL in table */
+
+  /* Closed trade rows */
+  --fs-trade-date:  12px;   /* date */
+  --fs-trade-price: 15px;   /* entry price */
+  --fs-trade-pnl:   15px;   /* realised PnL */
+
+  /* Misc */
+  --fs-vault-addr: 11px;    /* vault address string */
+  --fs-vault-btn:  11px;    /* DEPOSIT / EXPLORER buttons */
+  --fs-chart-note: 14px;    /* note below equity chart */
+  --fs-empty:      17px;    /* empty-state placeholder */
+  --fs-foot:       11px;    /* page footer */
 }
 
+/* ── RESET ── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -34,61 +79,63 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  padding: 0;
   background-image:
-    radial-gradient(ellipse 60% 40% at 15% 0%, rgba(124,111,207,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 30% at 85% 100%, rgba(201,169,97,0.05) 0%, transparent 50%);
+    radial-gradient(ellipse 60% 40% at 15%  0%, rgba(124,111,207,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 85% 100%, rgba(201,169, 97,.05) 0%, transparent 50%);
 }
 
 /* ── NAV ── */
 .nav {
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 32px;
-  background: rgba(13,11,23,0.92);
+  background: rgba(11,9,23,.94);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 100;
 }
-.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
 .nav-brand-text .t1 {
-  font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700;
+  font-family: 'Cinzel', serif;
+  font-size: var(--fs-nav-brand); font-weight: 700;
   color: var(--text); letter-spacing: 2px; display: block;
 }
 .nav-brand-text .t2 {
-  font-family: 'Orbitron', sans-serif; font-size: 8px;
-  color: var(--gold); letter-spacing: 3px; display: block; margin-top: 2px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-nav-sub);
+  color: var(--gold); letter-spacing: 3px; display: block; margin-top: 3px;
 }
 .nav-right { display: flex; align-items: center; gap: 16px; }
 .live-pill {
-  display: flex; align-items: center; gap: 7px;
-  font-family: 'Orbitron', sans-serif; font-size: 9px;
-  color: var(--mid); letter-spacing: 2px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-live-pill); color: var(--mid); letter-spacing: 2px;
 }
 .dot {
-  width: 7px; height: 7px; border-radius: 50%;
+  width: 8px; height: 8px; border-radius: 50%;
   background: var(--green); box-shadow: 0 0 10px var(--green);
-  animation: blink 2s ease-in-out infinite;
-  transition: background 0.3s;
+  animation: blink 2s ease-in-out infinite; transition: background .3s;
 }
 .dot.err { background: var(--red); box-shadow: 0 0 10px var(--red); }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
 
 .nav-link {
-  font-family: 'Orbitron', sans-serif; font-size: 9px;
-  color: var(--mid); letter-spacing: 2px; text-decoration: none;
-  padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-nav-link);
+  color: var(--mid); letter-spacing: 1.5px; text-decoration: none;
+  padding: 7px 14px; border: 1px solid var(--border); border-radius: 7px;
   transition: all .2s;
 }
-.nav-link:hover { color: var(--gold); border-color: rgba(232,196,106,0.5); }
+.nav-link:hover { color: var(--gold); border-color: rgba(232,196,106,.5); }
 
 /* ── MAIN ── */
 .main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 60px; }
 
 /* ── ERROR BANNER ── */
 .error-banner {
-  background: rgba(229,62,62,0.1); border: 1px solid rgba(229,62,62,0.3);
+  background: rgba(255,107,107,.1); border: 1px solid rgba(255,107,107,.3);
   border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px;
-  font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--red);
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-nav-link); color: var(--red);
   letter-spacing: 1px; display: none; align-items: center; gap: 10px;
 }
 .error-banner.show { display: flex; }
@@ -96,9 +143,7 @@ body {
 /* ── GRID ── */
 .row { display: grid; gap: 14px; margin-bottom: 14px; }
 .g4  { grid-template-columns: repeat(4, 1fr); }
-.g3  { grid-template-columns: repeat(3, 1fr); }
 .g21 { grid-template-columns: 2.2fr 1fr; }
-.g2  { grid-template-columns: 1fr 1fr; }
 .g1  { grid-template-columns: 1fr; }
 
 /* ── CARD ── */
@@ -109,153 +154,148 @@ body {
 }
 .card-accent {
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--accent, var(--border)) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent, var(--accent, var(--border)), transparent);
 }
 
-/* Label / value / sub */
+/* ── LABEL / VALUE / SUB / NOTE ── */
 .lbl {
-  font-family: 'Orbitron', sans-serif; font-size: 10px;
-  letter-spacing: 2px; text-transform: uppercase; color: var(--mid);
-  margin-bottom: 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-lbl); letter-spacing: 2px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 12px;
 }
 .val {
   font-family: 'Orbitron', sans-serif; font-weight: 700;
-  font-size: 30px; line-height: 1; transition: color .3s;
+  font-size: var(--fs-val-lg); line-height: 1.05; transition: color .3s;
 }
-.val.md { font-size: 22px; }
-.val.sm { font-size: 17px; }
-.sub { font-size: 13px; color: var(--mid); margin-top: 8px; font-style: italic; }
-.note { font-size: 12px; color: var(--dim); margin-top: 8px; font-style: italic; line-height: 1.5; }
+.val.md { font-size: var(--fs-val-md); }
+.val.sm { font-size: var(--fs-val-sm); }
+/* No italics anywhere — sub and note use normal weight */
+.sub  { font-size: var(--fs-sub);  color: var(--mid); margin-top: 9px; }
+.note { font-size: var(--fs-note); color: var(--dim); margin-top: 8px; line-height: 1.5; }
 
-/* colors */
+/* ── COLOUR HELPERS ── */
 .c-gold   { color: var(--gold)   !important; }
 .c-green  { color: var(--green)  !important; }
 .c-red    { color: var(--red)    !important; }
 .c-cyan   { color: var(--cyan)   !important; }
 .c-purple { color: var(--purple) !important; }
-.c-dim    { color: var(--dim)    !important; }
+.c-mid    { color: var(--mid)    !important; }
 
 /* ── SECTION TITLE ── */
 .stitle {
-  font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600;
+  font-family: 'Cinzel', serif;
+  font-size: var(--fs-section); font-weight: 600;
   letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold2);
   margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center;
 }
 .stitle-count {
-  font-family: 'Orbitron', sans-serif; font-size: 9px;
-  color: var(--mid); font-weight: 400;
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-section-ct); color: var(--mid); font-weight: 400;
 }
 
 /* ── CHART ── */
-.chart-wrap { position: relative; height: 200px; }
+.chart-wrap { position: relative; height: 210px; }
+.chart-note { font-size: var(--fs-chart-note); color: var(--mid); margin-top: 12px; }
 
-/* ── OPEN POSITIONS TABLE ── */
-.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+/* ── TABLE ── */
+.tbl { width: 100%; border-collapse: collapse; }
 .tbl th {
-  font-family: 'Orbitron', sans-serif; font-size: 9px;
-  letter-spacing: 2px; text-transform: uppercase; color: var(--mid);
-  padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border);
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-tbl-hdr); letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--mid); padding: 8px 12px; text-align: left;
+  border-bottom: 1px solid var(--border);
 }
 .tbl td {
-  padding: 13px 12px; border-bottom: 1px solid rgba(50,48,90,0.5);
-  font-family: 'Cormorant Garamond', serif; font-size: 15px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-tbl-cell);
+  padding: 13px 12px; border-bottom: 1px solid rgba(50,48,90,.5);
 }
 .tbl tr:last-child td { border-bottom: none; }
-.tbl tr:hover td { background: rgba(201,169,97,0.04); }
-.coin-label {
-  font-family: 'Cinzel', serif; font-weight: 700; font-size: 16px; color: var(--text);
-}
-.side-long  { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--green);letter-spacing:1px; }
-.side-short { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--red);letter-spacing:1px; }
+.tbl tr:hover td { background: rgba(232,196,106,.03); }
+.coin-label { font-family:'Cinzel',serif; font-weight:700; font-size:var(--fs-coin); color:var(--text); }
+.side-long  { font-family:'Orbitron',sans-serif; font-size:var(--fs-side); font-weight:700; color:var(--green); letter-spacing:1px; }
+.side-short { font-family:'Orbitron',sans-serif; font-size:var(--fs-side); font-weight:700; color:var(--red);   letter-spacing:1px; }
+.tbl-pnl    { font-family:'Orbitron',sans-serif; font-size:var(--fs-tbl-pnl); font-weight:700; }
+.tbl-lev    { font-family:'Orbitron',sans-serif; font-size:var(--fs-side); }
 
 /* ── CLOSED TRADE ROWS ── */
-.trades-wrap { max-height: 440px; overflow-y: auto; }
+.trades-wrap { max-height: 460px; overflow-y: auto; }
 .trades-wrap::-webkit-scrollbar { width: 3px; }
 .trades-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 .trade-row {
   display: grid;
-  grid-template-columns: 80px 58px 130px 1fr auto;
-  gap: 10px; align-items: center;
-  padding: 12px 16px;
+  grid-template-columns: 86px 64px 150px 1fr auto;
+  gap: 12px; align-items: center;
+  padding: 13px 16px;
   background: var(--s2); border: 1px solid var(--border);
-  border-radius: 7px; margin-bottom: 6px;
-  transition: background .15s;
+  border-radius: 7px; margin-bottom: 6px; transition: background .15s;
 }
 .trade-row:hover { background: var(--s3); }
 .trade-row:last-child { margin-bottom: 0; }
-.t-coin  { font-family:'Cinzel',serif;font-weight:700;font-size:15px;color:var(--text); }
-.t-side  { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px; }
-.t-date  { font-family:'Orbitron',sans-serif;font-size:10px;color:var(--mid); }
-.t-price { font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--mid); }
-.t-pnl   { font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;text-align:right; }
+.t-coin  { font-family:'Cinzel',serif;              font-weight:700; font-size:var(--fs-coin);         color:var(--text); }
+.t-side  { font-family:'Orbitron',sans-serif;       font-weight:700; font-size:var(--fs-side);         letter-spacing:1px; }
+.t-date  { font-family:'Orbitron',sans-serif;                        font-size:var(--fs-trade-date);   color:var(--mid); }
+.t-price { font-family:'Cormorant Garamond',serif;                   font-size:var(--fs-trade-price);  color:var(--mid); }
+.t-pnl   { font-family:'Orbitron',sans-serif;       font-weight:700; font-size:var(--fs-trade-pnl);   text-align:right; }
 
-/* ── MINI STATS GRID ── */
+/* ── SIDEBAR ── */
 .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-/* ── EMPTY STATE ── */
-.empty {
-  text-align: center; padding: 28px 0;
-  font-family:'Cormorant Garamond',serif;
-  font-size:16px; font-style:italic; color:var(--mid);
+.vault-addr {
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--fs-vault-addr); color: var(--mid);
+  word-break: break-all; line-height: 1.9; margin-top: 6px;
 }
-
-/* ── VAULT LINK BUTTON ── */
 .vault-btn {
   display: block; text-align: center; margin-top: 12px;
-  font-family:'Orbitron',sans-serif; font-size:10px;
-  color: var(--gold); letter-spacing:2px; text-decoration:none;
-  padding: 11px 14px;
-  border: 1px solid rgba(232,196,106,0.4); border-radius: 7px;
-  transition: all .2s; background: transparent;
+  font-family: 'Orbitron', sans-serif; font-size: var(--fs-vault-btn);
+  color: var(--gold); letter-spacing: 2px; text-decoration: none;
+  padding: 12px 14px;
+  border: 1px solid rgba(232,196,106,.4); border-radius: 7px;
+  transition: all .2s;
 }
-.vault-btn:hover {
-  background: rgba(232,196,106,0.1); border-color: rgba(232,196,106,0.7);
-}
+.vault-btn:hover { background: rgba(232,196,106,.1); border-color: rgba(232,196,106,.7); }
+.vault-btn.dim { color: var(--mid); border-color: var(--border); }
+.vault-btn.dim:hover { background: rgba(192,184,216,.06); border-color: var(--mid); }
 
-/* ── GOLD DIVIDER ── */
+/* ── DIVIDER ── */
 .divider {
-  height: 1px; margin: 12px 0;
-  background: linear-gradient(90deg, transparent, rgba(201,169,97,0.2), transparent);
+  height: 1px; margin: 14px 0;
+  background: linear-gradient(90deg, transparent, rgba(201,169,97,.2), transparent);
 }
 
-/* ── FOOT ── */
+/* ── EMPTY ── */
+.empty {
+  text-align: center; padding: 28px 0;
+  font-size: var(--fs-empty); color: var(--mid);
+}
+
+/* ── FOOTER ── */
 .foot {
-  font-family:'Orbitron',sans-serif; font-size:9px;
-  color:var(--mid); text-align:center; margin-top:24px; letter-spacing:1px;
-}
-
-/* ── LOADING SHIMMER ── */
-@keyframes shimmer {
-  0%{background-position:-400px 0}
-  100%{background-position:400px 0}
-}
-.shimmer {
-  background: linear-gradient(90deg, var(--s2) 25%, var(--border) 50%, var(--s2) 75%);
-  background-size: 400px 100%; animation: shimmer 1.5s infinite;
-  border-radius: 4px; display: inline-block;
+  font-family: 'Orbitron', sans-serif; font-size: var(--fs-foot);
+  color: var(--mid); text-align: center; margin-top: 24px; letter-spacing: 1px;
 }
 
 /* ── RESPONSIVE ── */
-@media(max-width:1100px){
-  .g4 { grid-template-columns:repeat(2,1fr); }
-  .g21 { grid-template-columns:1fr; }
+@media(max-width:1100px) {
+  .g4  { grid-template-columns: repeat(2,1fr); }
+  .g21 { grid-template-columns: 1fr; }
 }
-@media(max-width:700px){
-  .main { padding:16px 14px 40px; }
-  .g4,.g3,.g2,.g21 { grid-template-columns:1fr; }
-  .trade-row { grid-template-columns:70px 50px 1fr auto; }
-  .t-date { display:none; }
+@media(max-width:680px) {
+  .main { padding: 14px 12px 40px; }
+  .g4, .g21 { grid-template-columns: 1fr; }
+  .trade-row { grid-template-columns: 76px 58px 1fr auto; }
+  .t-date { display: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- ══ NAV ══════════════════════════════════════════════════════════════════ -->
+<!-- ── NAV ─────────────────────────────────────────────────────────────── -->
 <nav class="nav">
   <a class="nav-brand" href="index.html">
-    <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+    <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
       <circle cx="24" cy="24" r="22" stroke="#2a2145" stroke-width="1.5"/>
       <circle cx="24" cy="24" r="8"  stroke="#C9A961" stroke-width="1.5"/>
       <circle cx="24" cy="24" r="3"  fill="#C9A961"/>
@@ -263,10 +303,10 @@ body {
       <line x1="24" y1="38" x2="24" y2="46" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
       <line x1="2"  y1="24" x2="10" y2="24" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
       <line x1="38" y1="24" x2="46" y2="24" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="7"  y1="7"  x2="13" y2="13" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
-      <line x1="35" y1="35" x2="41" y2="41" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
-      <line x1="41" y1="7"  x2="35" y2="13" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
-      <line x1="7"  y1="41" x2="13" y2="35" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
+      <line x1="7"  y1="7"  x2="13" y2="13" stroke="#7c6fcf" stroke-width="1" stroke-linecap="round"/>
+      <line x1="35" y1="35" x2="41" y2="41" stroke="#7c6fcf" stroke-width="1" stroke-linecap="round"/>
+      <line x1="41" y1="7"  x2="35" y2="13" stroke="#7c6fcf" stroke-width="1" stroke-linecap="round"/>
+      <line x1="7"  y1="41" x2="13" y2="35" stroke="#7c6fcf" stroke-width="1" stroke-linecap="round"/>
     </svg>
     <div class="nav-brand-text">
       <span class="t1">SOOMARIO</span>
@@ -283,12 +323,11 @@ body {
   </div>
 </nav>
 
-<!-- ══ MAIN ══════════════════════════════════════════════════════════════════ -->
+<!-- ── MAIN ────────────────────────────────────────────────────────────── -->
 <div class="main">
 
-  <!-- Error banner -->
   <div class="error-banner" id="err-banner">
-    ⚠ &nbsp; Could not reach Hyperliquid API. Check your connection and refresh.
+    ⚠ &nbsp;Could not reach Hyperliquid API — check your connection and refresh.
   </div>
 
   <!-- Row 1: Primary vault metrics -->
@@ -348,7 +387,7 @@ body {
     </div>
   </div>
 
-  <!-- Row 3: Chart + vault sidebar -->
+  <!-- Row 3: Chart + sidebar -->
   <div class="row g21">
     <div class="card">
       <div class="stitle">
@@ -358,9 +397,7 @@ body {
       <div class="chart-wrap">
         <canvas id="chart-equity"></canvas>
       </div>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--mid);margin-top:10px;font-style:italic">
-        Snapshots recorded every 30 seconds in your browser session via localStorage.
-      </p>
+      <p class="chart-note">Snapshots saved every 30 seconds in your browser via localStorage.</p>
     </div>
 
     <div class="card">
@@ -380,21 +417,17 @@ body {
         </div>
         <div>
           <div class="lbl">Strategy</div>
-          <div class="val sm" style="color:var(--mid)">v3.2</div>
+          <div class="val sm c-mid">v3.2</div>
         </div>
       </div>
       <div class="divider"></div>
-      <div>
-        <div class="lbl">Vault Address</div>
-        <code style="font-family:'Orbitron',sans-serif;font-size:9px;color:var(--mid);word-break:break-all;line-height:2">
-          0x843e160b4e7c453b38b14ac085a976db448d1b93
-        </code>
-      </div>
+      <div class="lbl">Vault Address</div>
+      <div class="vault-addr">0x843e160b4e7c453b38b14ac085a976db448d1b93</div>
       <div class="divider"></div>
       <a class="vault-btn" href="https://app.hyperliquid.xyz/join/SMR" target="_blank">
         DEPOSIT INTO VAULT ↗
       </a>
-      <a class="vault-btn" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" style="margin-top:8px;color:var(--mid);border-color:var(--border)">
+      <a class="vault-btn dim" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank">
         VIEW ON EXPLORER ↗
       </a>
     </div>
@@ -411,13 +444,9 @@ body {
         <table class="tbl">
           <thead>
             <tr>
-              <th>Coin</th>
-              <th>Side</th>
-              <th>Size</th>
-              <th>Entry Price</th>
-              <th>Notional</th>
-              <th>Leverage</th>
-              <th>Unrealised PnL</th>
+              <th>Coin</th><th>Side</th><th>Size</th>
+              <th>Entry Price</th><th>Notional</th>
+              <th>Leverage</th><th>Unrealised PnL</th>
             </tr>
           </thead>
           <tbody id="pos-tbody">
@@ -445,29 +474,24 @@ body {
     Soomario Max Pain Vault · Data from Hyperliquid public API · Refreshes every 30s
   </div>
 
-</div><!-- /main -->
+</div>
 
 <script>
-// ══════════════════════════════════════════════════════════════════════════
-// CONFIG
-// ══════════════════════════════════════════════════════════════════════════
-const VAULT   = '0x843e160b4e7c453b38b14ac085a976db448d1b93';
-const HL_API  = 'https://api.hyperliquid.xyz/info';
-const CURVE_KEY = 'smr_equity_curve';   // localStorage key
+// ── CONFIG ────────────────────────────────────────────────────────────────
+const VAULT     = '0x843e160b4e7c453b38b14ac085a976db448d1b93';
+const HL_API    = 'https://api.hyperliquid.xyz/info';
+const CURVE_KEY = 'smr_equity_curve';
 
-// ══════════════════════════════════════════════════════════════════════════
-// HYPERLIQUID API
-// ══════════════════════════════════════════════════════════════════════════
+// ── HYPERLIQUID API ───────────────────────────────────────────────────────
 async function hlPost(payload) {
   const r = await fetch(HL_API, {
-    method:  'POST',
+    method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify(payload),
+    body: JSON.stringify(payload),
   });
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.json();
 }
-
 async function fetchAll() {
   const [vault, state, fills] = await Promise.all([
     hlPost({ type: 'vaultDetails',       vaultAddress: VAULT }),
@@ -477,9 +501,7 @@ async function fetchAll() {
   return { vault, state, fills: Array.isArray(fills) ? fills : [] };
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// PARSE
-// ══════════════════════════════════════════════════════════════════════════
+// ── PARSE ─────────────────────────────────────────────────────────────────
 function parsePositions(state) {
   const out = [];
   try {
@@ -487,276 +509,209 @@ function parsePositions(state) {
       const pos  = ap.position || {};
       const size = parseFloat(pos.szi || 0);
       if (!size) continue;
-      const entryPx   = parseFloat(pos.entryPx  || 0);
+      const entryPx   = parseFloat(pos.entryPx       || 0);
       const unrealPnl = parseFloat(pos.unrealizedPnl || 0);
       const lev       = pos.leverage?.value ?? pos.leverage ?? '?';
       const notional  = Math.abs(size) * entryPx;
       const pnlPct    = notional > 0 ? unrealPnl / notional * 100 : 0;
-      out.push({
-        coin:    pos.coin || '?',
-        side:    size > 0 ? 'LONG' : 'SHORT',
-        size:    Math.abs(size),
-        entryPx, notional, unrealPnl, lev,
-        pnlPct:  round(pnlPct, 2),
-      });
+      out.push({ coin: pos.coin || '?', side: size > 0 ? 'LONG' : 'SHORT',
+                 size: Math.abs(size), entryPx, notional, unrealPnl, lev,
+                 pnlPct: round(pnlPct, 2) });
     }
   } catch {}
   return out;
 }
 
 function parseFills(fills) {
-  // Group by orderId → only closing fills carry closedPnl
   const orders = {};
   for (const f of fills) {
     const oid = String(f.oid || f.orderId || '');
     if (!oid) continue;
-    const dir     = f.dir || '';
-    const isClose = dir.includes('Close');
+    const dir = f.dir || '';
     if (!orders[oid]) {
-      orders[oid] = {
-        coin:    f.coin || '?',
-        side:    dir.includes('Long') ? 'LONG' : 'SHORT',
-        pnl:     0,
-        px:      parseFloat(f.px || 0),
-        time:    f.time || 0,
-        isClose: false,
-      };
+      orders[oid] = { coin: f.coin || '?',
+                      side: dir.includes('Long') ? 'LONG' : 'SHORT',
+                      pnl: 0, px: parseFloat(f.px || 0),
+                      time: f.time || 0, isClose: false };
     }
-    if (isClose) {
-      orders[oid].pnl     += parseFloat(f.closedPnl || 0);
-      orders[oid].isClose  = true;
+    if (dir.includes('Close')) {
+      orders[oid].pnl    += parseFloat(f.closedPnl || 0);
+      orders[oid].isClose = true;
     }
   }
   return Object.values(orders)
     .filter(t => t.isClose)
-    .sort((a, b) => b.time - a.time);   // newest first
+    .sort((a, b) => b.time - a.time);
 }
 
 function calcMetrics(closed) {
-  const pnls   = closed.map(t => t.pnl).filter(p => p !== 0);
-  const n      = pnls.length;
+  const pnls = closed.map(t => t.pnl).filter(p => p !== 0);
+  const n = pnls.length;
   if (!n) return null;
-
   const wins   = pnls.filter(p => p > 0);
   const losses = pnls.filter(p => p < 0);
-  const gw     = wins.reduce((a,b)=>a+b, 0);
-  const gl     = Math.abs(losses.reduce((a,b)=>a+b, 0));
-
+  const gw = wins.reduce((a,b)=>a+b,0);
+  const gl = Math.abs(losses.reduce((a,b)=>a+b,0));
   let pf = null;
   if (gl > 0) pf = round(gw / gl, 2);
   else if (gw > 0) pf = 999;
-
-  let sharpe = null;
-  if (n >= 3) {
-    const mean = pnls.reduce((a,b)=>a+b,0)/n;
-    const std  = Math.sqrt(pnls.reduce((a,b)=>a+(b-mean)**2,0)/n);
-    if (std > 0 && closed.length >= 2) {
-      const days = Math.max((closed[0].time - closed[closed.length-1].time)/86400000, 1);
-      const tpy  = n/days*365;
-      sharpe = round(mean/std*Math.sqrt(tpy), 2);
-    }
-  }
-
   return {
     total:    n,
     totalPnl: round(pnls.reduce((a,b)=>a+b,0), 2),
-    winRate:  round(wins.length/n*100, 1),
-    avgWin:   wins.length   ? round(gw/wins.length, 2)             : 0,
-    avgLoss:  losses.length ? round(losses.reduce((a,b)=>a+b,0)/losses.length, 2) : 0,
+    winRate:  round(wins.length / n * 100, 1),
+    avgWin:   wins.length   ? round(gw / wins.length, 2) : 0,
+    avgLoss:  losses.length ? round(losses.reduce((a,b)=>a+b,0) / losses.length, 2) : 0,
     best:     round(Math.max(...pnls), 2),
     worst:    round(Math.min(...pnls), 2),
-    pf, sharpe,
+    pf,
     note: n < 10 ? `Only ${n} closed trades — ratios stabilise at 10+` : '',
   };
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// EQUITY CURVE (localStorage)
-// ══════════════════════════════════════════════════════════════════════════
+// ── EQUITY CURVE ──────────────────────────────────────────────────────────
 function getCurve() {
-  try { return JSON.parse(localStorage.getItem(CURVE_KEY) || '[]'); }
-  catch { return []; }
+  try { return JSON.parse(localStorage.getItem(CURVE_KEY) || '[]'); } catch { return []; }
 }
-
 function pushCurve(equity) {
   const curve = getCurve();
-  const label = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-  // Don't duplicate within same minute
+  const label = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
   if (curve.length && curve[curve.length-1].t === label) {
     curve[curve.length-1].v = equity;
   } else {
     curve.push({t: label, v: equity});
   }
-  // Keep last 200 snapshots (~100 minutes at 30s interval)
   const trimmed = curve.slice(-200);
   try { localStorage.setItem(CURVE_KEY, JSON.stringify(trimmed)); } catch {}
   return trimmed;
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// CHART
-// ══════════════════════════════════════════════════════════════════════════
+// ── CHART ─────────────────────────────────────────────────────────────────
 let chartInst = null;
-
 function renderChart(curve) {
-  const ctx = document.getElementById('chart-equity').getContext('2d');
+  const ctx    = document.getElementById('chart-equity').getContext('2d');
   const labels = curve.map(p => p.t);
   const data   = curve.map(p => p.v);
-
   if (chartInst) {
-    chartInst.data.labels   = labels;
+    chartInst.data.labels = labels;
     chartInst.data.datasets[0].data = data;
     chartInst.update('none');
     return;
   }
-
-  const grad = ctx.createLinearGradient(0, 0, 0, 200);
-  grad.addColorStop(0,   'rgba(201,169,97,0.22)');
-  grad.addColorStop(0.7, 'rgba(201,169,97,0.03)');
-  grad.addColorStop(1,   'rgba(201,169,97,0)');
-
+  const grad = ctx.createLinearGradient(0, 0, 0, 210);
+  grad.addColorStop(0,  'rgba(232,196,106,.22)');
+  grad.addColorStop(.7, 'rgba(232,196,106,.03)');
+  grad.addColorStop(1,  'rgba(232,196,106,0)');
   chartInst = new Chart(ctx, {
     type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        data,
-        borderColor:     '#C9A961',
-        borderWidth:     2,
-        backgroundColor: grad,
-        fill:            true,
-        tension:         0.4,
-        pointRadius:     data.length > 30 ? 0 : 3,
-        pointHoverRadius: 5,
-        pointBackgroundColor: '#C9A961',
-      }]
-    },
+    data: { labels, datasets: [{
+      data, borderColor: '#e8c46a', borderWidth: 2,
+      backgroundColor: grad, fill: true, tension: 0.4,
+      pointRadius: data.length > 30 ? 0 : 3,
+      pointHoverRadius: 5, pointBackgroundColor: '#e8c46a',
+    }]},
     options: {
       responsive: true, maintainAspectRatio: false,
-      animation:  { duration: 400 },
+      animation: { duration: 400 },
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#13101f',
-          borderColor:     '#242038',
-          borderWidth:     1,
-          titleColor:      '#544d6e',
-          bodyColor:       '#e8e0d0',
-          titleFont:  { family:'Orbitron', size:9 },
-          bodyFont:   { family:'Orbitron', size:12 },
-          callbacks: {
-            label: ctx => ' $' + ctx.parsed.y.toLocaleString('en-US',{minimumFractionDigits:2})
-          }
+          backgroundColor: '#13102a', borderColor: '#32305a', borderWidth: 1,
+          titleColor: '#8880a8', bodyColor: '#f4eedd',
+          titleFont: {family:'Orbitron', size:10},
+          bodyFont:  {family:'Orbitron', size:13},
+          callbacks: { label: c => ' $' + c.parsed.y.toLocaleString('en-US',{minimumFractionDigits:2}) }
         }
       },
       scales: {
-        x: {
-          grid:  { color:'rgba(36,32,56,0.8)', drawBorder:false },
-          ticks: { color:'#544d6e', font:{family:'Orbitron',size:8}, maxTicksLimit:8 }
-        },
-        y: {
-          grid:  { color:'rgba(36,32,56,0.8)', drawBorder:false },
-          ticks: { color:'#544d6e', font:{family:'Orbitron',size:8},
-                   callback: v => '$'+v.toLocaleString() }
-        }
+        x: { grid:  {color:'rgba(50,48,90,.6)', drawBorder:false},
+             ticks: {color:'#8880a8', font:{family:'Orbitron',size:10}, maxTicksLimit:8} },
+        y: { grid:  {color:'rgba(50,48,90,.6)', drawBorder:false},
+             ticks: {color:'#8880a8', font:{family:'Orbitron',size:10},
+                     callback: v => '$'+v.toLocaleString()} }
       }
     }
   });
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// HELPERS
-// ══════════════════════════════════════════════════════════════════════════
-const round = (n, d=2) => Math.round(n * 10**d) / 10**d;
-const fmt   = (n, d=2) => n == null ? '—' : Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-const sign  = n => n >= 0 ? '+' : '−';
-const col   = n => n >= 0 ? 'var(--green)' : 'var(--red)';
+// ── HELPERS ───────────────────────────────────────────────────────────────
+const round  = (n, d=2) => Math.round(n * 10**d) / 10**d;
+const fmt    = (n, d=2) => n == null ? '—' :
+  Math.abs(n).toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
+const col    = n => n >= 0 ? 'var(--green)' : 'var(--red)';
 const fmtUsd = (n, d=2) => (n >= 0 ? '+' : '−') + '$' + fmt(n, d);
 
 function set(id, text, color) {
   const el = document.getElementById(id);
   if (!el) return;
-  if (text !== undefined) el.textContent = text;
-  if (color)              el.style.color = color;
+  if (text  !== undefined) el.textContent = text;
+  if (color !== undefined) el.style.color = color;
 }
-
 function fmtDate(ms) {
   if (!ms) return '—';
   const d = new Date(ms);
-  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' +
-         d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString('en-US', {month:'short', day:'numeric'}) + ' ' +
+         d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════════════════════════════════════
+// ── RENDER ────────────────────────────────────────────────────────────────
 function render({ vault, state, fills }) {
-
-  // ── vault equity ──
   let equity = 0, allTimePnl = 0, depositors = 0;
   try {
     equity     = parseFloat(vault.vaultEquity || 0);
     allTimePnl = parseFloat(vault.allTimePnl  || 0);
     depositors = (vault.depositors || []).length;
   } catch {}
-
-  // Fallback equity from clearinghouse
   if (!equity) {
     try { equity = parseFloat(state.crossMarginSummary?.accountValue || 0); } catch {}
   }
 
-  // ── positions ──
-  const positions = parsePositions(state);
-  const unrealised = positions.reduce((a,p)=>a+p.unrealPnl, 0);
+  const positions  = parsePositions(state);
+  const unrealised = positions.reduce((a,p) => a + p.unrealPnl, 0);
+  const closed     = parseFills(fills);
+  const metrics    = calcMetrics(closed);
 
-  // ── fills / closed trades ──
-  const closed  = parseFills(fills);
-  const metrics = calcMetrics(closed);
-
-  // ── equity curve ──
   if (equity > 0) {
     const curve = pushCurve(equity);
     renderChart(curve);
-    set('curve-pts', curve.length + ' snapshot' + (curve.length!==1?'s':'') + ' this session');
+    set('curve-pts', curve.length + ' snapshot' + (curve.length !== 1 ? 's' : '') + ' this session');
   }
 
-  // ─────────────────────────────────────────────────
-  // Top row
-  set('equity',         '$' + fmt(equity),         'var(--gold)');
+  // Row 1
+  set('equity',         '$' + fmt(equity),   'var(--gold)');
   set('depositors-sub', depositors + ' depositors');
   set('dep-count',      depositors || '—');
-  set('all-time-pnl',   fmtUsd(allTimePnl),        col(allTimePnl));
-  set('unrealised',     fmtUsd(unrealised),         col(unrealised));
-  set('open-count-sub', positions.length + ' open position' + (positions.length!==1?'s':''));
+  set('all-time-pnl',   fmtUsd(allTimePnl),  col(allTimePnl));
+  set('unrealised',     fmtUsd(unrealised),   col(unrealised));
+  set('open-count-sub', positions.length + ' open position' + (positions.length !== 1 ? 's' : ''));
   set('open-pos-count', positions.length || '—');
 
+  // Row 2
   if (metrics) {
-    set('total-trades',  metrics.total);
-    set('realised-sub',  'Realised PnL: ' + fmtUsd(metrics.totalPnl));
-    // Metrics row
-    set('win-rate',  metrics.winRate + '%', metrics.winRate >= 70 ? 'var(--green)' : metrics.winRate >= 50 ? 'var(--gold)' : 'var(--red)');
-    set('wr-sub',    metrics.total + ' closed trades');
-    set('wr-note',   metrics.note || '');
-    set('pf',  metrics.pf === 999 ? '∞' : metrics.pf != null ? String(metrics.pf) : '—',
-               metrics.pf >= 2 ? 'var(--green)' : metrics.pf >= 1 ? 'var(--gold)' : 'var(--red)');
-    set('pf-sub', metrics.pf === 999 ? 'All wins, no losses' :
-                  metrics.pf >= 2    ? 'Excellent (>2.0)' :
-                  metrics.pf >= 1.5  ? 'Good (>1.5)' :
-                  metrics.pf >= 1    ? 'Profitable (>1.0)' : 'Unprofitable');
-    set('avg-win',      metrics.avgWin > 0 ? '+$' + fmt(metrics.avgWin) : '—', 'var(--green)');
+    set('total-trades', metrics.total);
+    set('realised-sub', 'Realised PnL: ' + fmtUsd(metrics.totalPnl));
+    set('win-rate', metrics.winRate + '%',
+        metrics.winRate >= 70 ? 'var(--green)' : metrics.winRate >= 50 ? 'var(--gold)' : 'var(--red)');
+    set('wr-sub',  metrics.total + ' closed trades');
+    set('wr-note', metrics.note || '');
+    set('pf', metrics.pf === 999 ? '∞' : metrics.pf != null ? String(metrics.pf) : '—',
+        metrics.pf >= 2 ? 'var(--green)' : metrics.pf >= 1 ? 'var(--gold)' : 'var(--red)');
+    set('pf-sub', metrics.pf === 999 ? 'All wins, no losses'  :
+                  metrics.pf >= 2    ? 'Excellent (>2.0)'     :
+                  metrics.pf >= 1.5  ? 'Good (>1.5)'          :
+                  metrics.pf >= 1    ? 'Profitable (>1.0)'    : 'Unprofitable');
+    set('avg-win',      metrics.avgWin  > 0 ? '+$' + fmt(metrics.avgWin)              : '—', 'var(--green)');
     set('avg-loss-sub', metrics.avgLoss < 0 ? 'Avg loss: −$' + fmt(Math.abs(metrics.avgLoss)) : 'Avg loss: —');
-    set('best-trade',   metrics.best > 0    ? '+$' + fmt(metrics.best)             : '—', 'var(--green)');
+    set('best-trade',   metrics.best  > 0   ? '+$' + fmt(metrics.best)                : '—', 'var(--green)');
     set('worst-trade',  metrics.worst < 0   ? 'Worst: −$' + fmt(Math.abs(metrics.worst)) : 'Worst: —', 'var(--red)');
   } else {
-    set('total-trades',  '—');
-    set('realised-sub',  'No closed trades yet');
+    set('total-trades', '—');
+    set('realised-sub', 'No closed trades yet');
   }
 
-  // ── Open positions table ──────────────────────────────────────────────
+  // Open positions
   const posBody = document.getElementById('pos-tbody');
   document.getElementById('pos-count-badge').textContent =
-    positions.length > 0 ? positions.length + ' active' : '';
-
+    positions.length ? positions.length + ' active' : '';
   if (!positions.length) {
     posBody.innerHTML = '<tr><td colspan="7" class="empty">No open positions right now</td></tr>';
   } else {
@@ -767,21 +722,20 @@ function render({ vault, state, fills }) {
         <td>${p.size.toFixed(4)}</td>
         <td>$${fmt(p.entryPx, 4)}</td>
         <td>$${fmt(p.notional)}</td>
-        <td style="font-family:'Orbitron',sans-serif;font-size:10px">${p.lev}x</td>
-        <td style="color:${col(p.unrealPnl)};font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700">
+        <td class="tbl-lev">${p.lev}x</td>
+        <td class="tbl-pnl" style="color:${col(p.unrealPnl)}">
           ${fmtUsd(p.unrealPnl)}
-          <span style="font-size:10px;opacity:.6"> (${sign(p.pnlPct)}${Math.abs(p.pnlPct)}%)</span>
+          <span style="font-size:var(--fs-side);opacity:.7"> (${p.pnlPct>=0?'+':'−'}${Math.abs(p.pnlPct)}%)</span>
         </td>
       </tr>`).join('');
   }
 
-  // ── Closed trades list ───────────────────────────────────────────────
-  const tradesList = document.getElementById('trades-list');
+  // Closed trades
   document.getElementById('trades-count-badge').textContent =
-    closed.length > 0 ? closed.length + ' trades loaded' : '';
-
+    closed.length ? closed.length + ' trades loaded' : '';
+  const tradesList = document.getElementById('trades-list');
   if (!closed.length) {
-    tradesList.innerHTML = '<div class="empty">No closed trades found. Hyperliquid returns recent fills only — history builds over time.</div>';
+    tradesList.innerHTML = '<div class="empty">No closed trades found. History builds over time as Hyperliquid returns fills.</div>';
   } else {
     tradesList.innerHTML = closed.slice(0, 100).map(t => `
       <div class="trade-row">
@@ -793,7 +747,7 @@ function render({ vault, state, fills }) {
       </div>`).join('');
   }
 
-  // ── Status bar ──────────────────────────────────────────────────────
+  // Status
   document.getElementById('dot').classList.remove('err');
   document.getElementById('live-ts').textContent = 'LIVE';
   document.getElementById('err-banner').classList.remove('show');
@@ -802,13 +756,10 @@ function render({ vault, state, fills }) {
     '  ·  Soomario Max Pain Vault  ·  Live data via Hyperliquid public API';
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// MAIN LOOP
-// ══════════════════════════════════════════════════════════════════════════
+// ── MAIN LOOP ─────────────────────────────────────────────────────────────
 async function refresh() {
   try {
-    const data = await fetchAll();
-    render(data);
+    render(await fetchAll());
   } catch (err) {
     console.error('Dashboard error:', err);
     document.getElementById('dot').classList.add('err');
@@ -817,12 +768,11 @@ async function refresh() {
   }
 }
 
-// On load: render stored curve immediately for instant display
 const storedCurve = getCurve();
 if (storedCurve.length > 1) renderChart(storedCurve);
 
 refresh();
-setInterval(refresh, 30_000);   // every 30 seconds
+setInterval(refresh, 30_000);
 </script>
 </body>
 </html>
