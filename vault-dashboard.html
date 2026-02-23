@@ -10,19 +10,20 @@
 
 <style>
 :root {
-  --bg:       #0d0b17;
-  --s1:       #13101f;
-  --s2:       #181429;
-  --border:   #242038;
-  --gold:     #C9A961;
-  --gold2:    #F4E4C1;
-  --purple:   #7c6fcf;
-  --green:    #1DB954;
-  --red:      #e53e3e;
-  --cyan:     #00B4C8;
-  --text:     #e8e0d0;
-  --dim:      #544d6e;
-  --mid:      #9a90b0;
+  --bg:       #0b0917;
+  --s1:       #13102a;
+  --s2:       #1b183a;
+  --s3:       #222045;
+  --border:   #32305a;
+  --gold:     #e8c46a;
+  --gold2:    #faefd4;
+  --purple:   #a89df0;
+  --green:    #3ddc84;
+  --red:      #ff6b6b;
+  --cyan:     #22d3ee;
+  --text:     #f4eedd;
+  --dim:      #8880a8;
+  --mid:      #c0b8d8;
   --radius:   10px;
 }
 
@@ -61,7 +62,7 @@ body {
 .live-pill {
   display: flex; align-items: center; gap: 7px;
   font-family: 'Orbitron', sans-serif; font-size: 9px;
-  color: var(--dim); letter-spacing: 2px;
+  color: var(--mid); letter-spacing: 2px;
 }
 .dot {
   width: 7px; height: 7px; border-radius: 50%;
@@ -74,11 +75,11 @@ body {
 
 .nav-link {
   font-family: 'Orbitron', sans-serif; font-size: 9px;
-  color: var(--dim); letter-spacing: 2px; text-decoration: none;
+  color: var(--mid); letter-spacing: 2px; text-decoration: none;
   padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
   transition: all .2s;
 }
-.nav-link:hover { color: var(--gold); border-color: rgba(201,169,97,0.4); }
+.nav-link:hover { color: var(--gold); border-color: rgba(232,196,106,0.5); }
 
 /* ── MAIN ── */
 .main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 60px; }
@@ -103,7 +104,7 @@ body {
 /* ── CARD ── */
 .card {
   background: var(--s1); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 20px 22px;
+  border-radius: var(--radius); padding: 22px 24px;
   position: relative; overflow: hidden;
 }
 .card-accent {
@@ -113,18 +114,18 @@ body {
 
 /* Label / value / sub */
 .lbl {
-  font-family: 'Orbitron', sans-serif; font-size: 8.5px;
-  letter-spacing: 2.5px; text-transform: uppercase; color: var(--dim);
-  margin-bottom: 10px;
+  font-family: 'Orbitron', sans-serif; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--mid);
+  margin-bottom: 12px;
 }
 .val {
   font-family: 'Orbitron', sans-serif; font-weight: 700;
-  font-size: 26px; line-height: 1; transition: color .3s;
+  font-size: 30px; line-height: 1; transition: color .3s;
 }
-.val.md { font-size: 19px; }
-.val.sm { font-size: 15px; }
-.sub { font-size: 12px; color: var(--dim); margin-top: 6px; font-style: italic; }
-.note { font-size: 11px; color: var(--dim); margin-top: 8px; font-style: italic; line-height: 1.5; }
+.val.md { font-size: 22px; }
+.val.sm { font-size: 17px; }
+.sub { font-size: 13px; color: var(--mid); margin-top: 8px; font-style: italic; }
+.note { font-size: 12px; color: var(--dim); margin-top: 8px; font-style: italic; line-height: 1.5; }
 
 /* colors */
 .c-gold   { color: var(--gold)   !important; }
@@ -136,37 +137,37 @@ body {
 
 /* ── SECTION TITLE ── */
 .stitle {
-  font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600;
-  letter-spacing: 2.5px; text-transform: uppercase; color: var(--mid);
-  margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold2);
+  margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center;
 }
 .stitle-count {
   font-family: 'Orbitron', sans-serif; font-size: 9px;
-  color: var(--dim); font-weight: 400;
+  color: var(--mid); font-weight: 400;
 }
 
 /* ── CHART ── */
 .chart-wrap { position: relative; height: 200px; }
 
 /* ── OPEN POSITIONS TABLE ── */
-.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
 .tbl th {
-  font-family: 'Orbitron', sans-serif; font-size: 8px;
-  letter-spacing: 2px; text-transform: uppercase; color: var(--dim);
-  padding: 6px 10px; text-align: left; border-bottom: 1px solid var(--border);
+  font-family: 'Orbitron', sans-serif; font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--mid);
+  padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border);
 }
 .tbl td {
-  padding: 11px 10px; border-bottom: 1px solid rgba(36,32,56,0.5);
-  font-family: 'Cormorant Garamond', serif; font-size: 14px;
+  padding: 13px 12px; border-bottom: 1px solid rgba(50,48,90,0.5);
+  font-family: 'Cormorant Garamond', serif; font-size: 15px;
 }
 .tbl tr:last-child td { border-bottom: none; }
-.tbl tr:hover td { background: rgba(201,169,97,0.025); }
+.tbl tr:hover td { background: rgba(201,169,97,0.04); }
 .coin-label {
-  font-family: 'Cinzel', serif; font-weight: 700; font-size: 15px; color: var(--text);
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: 16px; color: var(--text);
 }
-.side-long  { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--green); }
-.side-short { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--red); }
+.side-long  { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--green);letter-spacing:1px; }
+.side-short { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--red);letter-spacing:1px; }
 
 /* ── CLOSED TRADE ROWS ── */
 .trades-wrap { max-height: 440px; overflow-y: auto; }
@@ -175,42 +176,42 @@ body {
 
 .trade-row {
   display: grid;
-  grid-template-columns: 76px 52px 100px 1fr auto;
+  grid-template-columns: 80px 58px 130px 1fr auto;
   gap: 10px; align-items: center;
-  padding: 10px 14px;
+  padding: 12px 16px;
   background: var(--s2); border: 1px solid var(--border);
-  border-radius: 7px; margin-bottom: 5px;
+  border-radius: 7px; margin-bottom: 6px;
   transition: background .15s;
 }
-.trade-row:hover { background: rgba(36,32,56,0.9); }
+.trade-row:hover { background: var(--s3); }
 .trade-row:last-child { margin-bottom: 0; }
-.t-coin { font-family:'Cinzel',serif;font-weight:700;font-size:14px; }
-.t-side { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700; }
-.t-date { font-family:'Orbitron',sans-serif;font-size:9px;color:var(--dim); }
-.t-price { font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--mid); }
-.t-pnl  { font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;text-align:right; }
+.t-coin  { font-family:'Cinzel',serif;font-weight:700;font-size:15px;color:var(--text); }
+.t-side  { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px; }
+.t-date  { font-family:'Orbitron',sans-serif;font-size:10px;color:var(--mid); }
+.t-price { font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--mid); }
+.t-pnl   { font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;text-align:right; }
 
 /* ── MINI STATS GRID ── */
-.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
 /* ── EMPTY STATE ── */
 .empty {
   text-align: center; padding: 28px 0;
   font-family:'Cormorant Garamond',serif;
-  font-size:15px; font-style:italic; color:var(--dim);
+  font-size:16px; font-style:italic; color:var(--mid);
 }
 
 /* ── VAULT LINK BUTTON ── */
 .vault-btn {
-  display: block; text-align: center; margin-top: 16px;
-  font-family:'Orbitron',sans-serif; font-size:9px;
+  display: block; text-align: center; margin-top: 12px;
+  font-family:'Orbitron',sans-serif; font-size:10px;
   color: var(--gold); letter-spacing:2px; text-decoration:none;
-  padding: 9px 14px;
-  border: 1px solid rgba(201,169,97,0.3); border-radius: 7px;
+  padding: 11px 14px;
+  border: 1px solid rgba(232,196,106,0.4); border-radius: 7px;
   transition: all .2s; background: transparent;
 }
 .vault-btn:hover {
-  background: rgba(201,169,97,0.08); border-color: rgba(201,169,97,0.6);
+  background: rgba(232,196,106,0.1); border-color: rgba(232,196,106,0.7);
 }
 
 /* ── GOLD DIVIDER ── */
@@ -221,8 +222,8 @@ body {
 
 /* ── FOOT ── */
 .foot {
-  font-family:'Orbitron',sans-serif; font-size:8.5px;
-  color:var(--dim); text-align:center; margin-top:24px; letter-spacing:1px;
+  font-family:'Orbitron',sans-serif; font-size:9px;
+  color:var(--mid); text-align:center; margin-top:24px; letter-spacing:1px;
 }
 
 /* ── LOADING SHIMMER ── */
@@ -357,7 +358,7 @@ body {
       <div class="chart-wrap">
         <canvas id="chart-equity"></canvas>
       </div>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--dim);margin-top:10px;font-style:italic">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--mid);margin-top:10px;font-style:italic">
         Snapshots recorded every 30 seconds in your browser session via localStorage.
       </p>
     </div>
@@ -370,8 +371,8 @@ body {
           <div class="val sm c-gold" id="dep-count">—</div>
         </div>
         <div>
-          <div class="lbl">10% Profit Share</div>
-          <div class="val sm" style="color:var(--mid)">On Profits</div>
+          <div class="lbl">Profit Share</div>
+          <div class="val sm c-gold">10%</div>
         </div>
         <div>
           <div class="lbl">Open Positions</div>
@@ -379,13 +380,13 @@ body {
         </div>
         <div>
           <div class="lbl">Strategy</div>
-          <div class="val sm" style="color:var(--mid);font-size:12px">v3.2 Balanced</div>
+          <div class="val sm" style="color:var(--mid)">v3.2</div>
         </div>
       </div>
       <div class="divider"></div>
       <div>
         <div class="lbl">Vault Address</div>
-        <code style="font-family:'Orbitron',sans-serif;font-size:9px;color:var(--dim);word-break:break-all;line-height:1.8">
+        <code style="font-family:'Orbitron',sans-serif;font-size:9px;color:var(--mid);word-break:break-all;line-height:2">
           0x843e160b4e7c453b38b14ac085a976db448d1b93
         </code>
       </div>
@@ -394,7 +395,7 @@ body {
         DEPOSIT INTO VAULT ↗
       </a>
       <a class="vault-btn" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" style="margin-top:8px;color:var(--mid);border-color:var(--border)">
-        EXPLORER ↗
+        VIEW ON EXPLORER ↗
       </a>
     </div>
   </div>
