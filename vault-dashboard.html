@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soomario — Max Pain Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<style>
+:root {
+  --bg:       #0d0b17;
+  --s1:       #13101f;
+  --s2:       #181429;
+  --border:   #242038;
+  --gold:     #C9A961;
+  --gold2:    #F4E4C1;
+  --purple:   #7c6fcf;
+  --green:    #1DB954;
+  --red:      #e53e3e;
+  --cyan:     #00B4C8;
+  --text:     #e8e0d0;
+  --dim:      #544d6e;
+  --mid:      #9a90b0;
+  --radius:   10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 15% 0%, rgba(124,111,207,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 85% 100%, rgba(201,169,97,0.05) 0%, transparent 50%);
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px;
+  background: rgba(13,11,23,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-brand-text .t1 {
+  font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700;
+  color: var(--text); letter-spacing: 2px; display: block;
+}
+.nav-brand-text .t2 {
+  font-family: 'Orbitron', sans-serif; font-size: 8px;
+  color: var(--gold); letter-spacing: 3px; display: block; margin-top: 2px;
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.live-pill {
+  display: flex; align-items: center; gap: 7px;
+  font-family: 'Orbitron', sans-serif; font-size: 9px;
+  color: var(--dim); letter-spacing: 2px;
+}
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 10px var(--green);
+  animation: blink 2s ease-in-out infinite;
+  transition: background 0.3s;
+}
+.dot.err { background: var(--red); box-shadow: 0 0 10px var(--red); }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+.nav-link {
+  font-family: 'Orbitron', sans-serif; font-size: 9px;
+  color: var(--dim); letter-spacing: 2px; text-decoration: none;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+  transition: all .2s;
+}
+.nav-link:hover { color: var(--gold); border-color: rgba(201,169,97,0.4); }
+
+/* ── MAIN ── */
+.main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 60px; }
+
+/* ── ERROR BANNER ── */
+.error-banner {
+  background: rgba(229,62,62,0.1); border: 1px solid rgba(229,62,62,0.3);
+  border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px;
+  font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--red);
+  letter-spacing: 1px; display: none; align-items: center; gap: 10px;
+}
+.error-banner.show { display: flex; }
+
+/* ── GRID ── */
+.row { display: grid; gap: 14px; margin-bottom: 14px; }
+.g4  { grid-template-columns: repeat(4, 1fr); }
+.g3  { grid-template-columns: repeat(3, 1fr); }
+.g21 { grid-template-columns: 2.2fr 1fr; }
+.g2  { grid-template-columns: 1fr 1fr; }
+.g1  { grid-template-columns: 1fr; }
+
+/* ── CARD ── */
+.card {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 22px;
+  position: relative; overflow: hidden;
+}
+.card-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent, var(--border)) 50%, transparent 100%);
+}
+
+/* Label / value / sub */
+.lbl {
+  font-family: 'Orbitron', sans-serif; font-size: 8.5px;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--dim);
+  margin-bottom: 10px;
+}
+.val {
+  font-family: 'Orbitron', sans-serif; font-weight: 700;
+  font-size: 26px; line-height: 1; transition: color .3s;
+}
+.val.md { font-size: 19px; }
+.val.sm { font-size: 15px; }
+.sub { font-size: 12px; color: var(--dim); margin-top: 6px; font-style: italic; }
+.note { font-size: 11px; color: var(--dim); margin-top: 8px; font-style: italic; line-height: 1.5; }
+
+/* colors */
+.c-gold   { color: var(--gold)   !important; }
+.c-green  { color: var(--green)  !important; }
+.c-red    { color: var(--red)    !important; }
+.c-cyan   { color: var(--cyan)   !important; }
+.c-purple { color: var(--purple) !important; }
+.c-dim    { color: var(--dim)    !important; }
+
+/* ── SECTION TITLE ── */
+.stitle {
+  font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--mid);
+  margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.stitle-count {
+  font-family: 'Orbitron', sans-serif; font-size: 9px;
+  color: var(--dim); font-weight: 400;
+}
+
+/* ── CHART ── */
+.chart-wrap { position: relative; height: 200px; }
+
+/* ── OPEN POSITIONS TABLE ── */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th {
+  font-family: 'Orbitron', sans-serif; font-size: 8px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--dim);
+  padding: 6px 10px; text-align: left; border-bottom: 1px solid var(--border);
+}
+.tbl td {
+  padding: 11px 10px; border-bottom: 1px solid rgba(36,32,56,0.5);
+  font-family: 'Cormorant Garamond', serif; font-size: 14px;
+}
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:hover td { background: rgba(201,169,97,0.025); }
+.coin-label {
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: 15px; color: var(--text);
+}
+.side-long  { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--green); }
+.side-short { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:var(--red); }
+
+/* ── CLOSED TRADE ROWS ── */
+.trades-wrap { max-height: 440px; overflow-y: auto; }
+.trades-wrap::-webkit-scrollbar { width: 3px; }
+.trades-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.trade-row {
+  display: grid;
+  grid-template-columns: 76px 52px 100px 1fr auto;
+  gap: 10px; align-items: center;
+  padding: 10px 14px;
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 7px; margin-bottom: 5px;
+  transition: background .15s;
+}
+.trade-row:hover { background: rgba(36,32,56,0.9); }
+.trade-row:last-child { margin-bottom: 0; }
+.t-coin { font-family:'Cinzel',serif;font-weight:700;font-size:14px; }
+.t-side { font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700; }
+.t-date { font-family:'Orbitron',sans-serif;font-size:9px;color:var(--dim); }
+.t-price { font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--mid); }
+.t-pnl  { font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;text-align:right; }
+
+/* ── MINI STATS GRID ── */
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ── EMPTY STATE ── */
+.empty {
+  text-align: center; padding: 28px 0;
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px; font-style:italic; color:var(--dim);
+}
+
+/* ── VAULT LINK BUTTON ── */
+.vault-btn {
+  display: block; text-align: center; margin-top: 16px;
+  font-family:'Orbitron',sans-serif; font-size:9px;
+  color: var(--gold); letter-spacing:2px; text-decoration:none;
+  padding: 9px 14px;
+  border: 1px solid rgba(201,169,97,0.3); border-radius: 7px;
+  transition: all .2s; background: transparent;
+}
+.vault-btn:hover {
+  background: rgba(201,169,97,0.08); border-color: rgba(201,169,97,0.6);
+}
+
+/* ── GOLD DIVIDER ── */
+.divider {
+  height: 1px; margin: 12px 0;
+  background: linear-gradient(90deg, transparent, rgba(201,169,97,0.2), transparent);
+}
+
+/* ── FOOT ── */
+.foot {
+  font-family:'Orbitron',sans-serif; font-size:8.5px;
+  color:var(--dim); text-align:center; margin-top:24px; letter-spacing:1px;
+}
+
+/* ── LOADING SHIMMER ── */
+@keyframes shimmer {
+  0%{background-position:-400px 0}
+  100%{background-position:400px 0}
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--s2) 25%, var(--border) 50%, var(--s2) 75%);
+  background-size: 400px 100%; animation: shimmer 1.5s infinite;
+  border-radius: 4px; display: inline-block;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .g4 { grid-template-columns:repeat(2,1fr); }
+  .g21 { grid-template-columns:1fr; }
+}
+@media(max-width:700px){
+  .main { padding:16px 14px 40px; }
+  .g4,.g3,.g2,.g21 { grid-template-columns:1fr; }
+  .trade-row { grid-template-columns:70px 50px 1fr auto; }
+  .t-date { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <a class="nav-brand" href="index.html">
+    <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="22" stroke="#2a2145" stroke-width="1.5"/>
+      <circle cx="24" cy="24" r="8"  stroke="#C9A961" stroke-width="1.5"/>
+      <circle cx="24" cy="24" r="3"  fill="#C9A961"/>
+      <line x1="24" y1="2"  x2="24" y2="10" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24" y1="38" x2="24" y2="46" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="2"  y1="24" x2="10" y2="24" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="38" y1="24" x2="46" y2="24" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7"  y1="7"  x2="13" y2="13" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
+      <line x1="35" y1="35" x2="41" y2="41" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
+      <line x1="41" y1="7"  x2="35" y2="13" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
+      <line x1="7"  y1="41" x2="13" y2="35" stroke="#7c6fcf" stroke-width="1"   stroke-linecap="round"/>
+    </svg>
+    <div class="nav-brand-text">
+      <span class="t1">SOOMARIO</span>
+      <span class="t2">MAX PAIN VAULT</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a class="nav-link" href="maxpain.html">← Strategy</a>
+    <a class="nav-link" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank">View on Hyperliquid ↗</a>
+    <div class="live-pill">
+      <div class="dot" id="dot"></div>
+      <span id="live-ts">CONNECTING</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ MAIN ══════════════════════════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- Error banner -->
+  <div class="error-banner" id="err-banner">
+    ⚠ &nbsp; Could not reach Hyperliquid API. Check your connection and refresh.
+  </div>
+
+  <!-- Row 1: Primary vault metrics -->
+  <div class="row g4">
+    <div class="card" style="--accent:var(--gold)">
+      <div class="card-accent"></div>
+      <div class="lbl">Vault Equity</div>
+      <div class="val c-gold" id="equity">—</div>
+      <div class="sub" id="depositors-sub">Loading…</div>
+    </div>
+    <div class="card" style="--accent:var(--green)">
+      <div class="card-accent"></div>
+      <div class="lbl">All-Time PnL</div>
+      <div class="val" id="all-time-pnl">—</div>
+      <div class="sub">Since vault inception</div>
+    </div>
+    <div class="card" style="--accent:var(--cyan)">
+      <div class="card-accent"></div>
+      <div class="lbl">Unrealised PnL</div>
+      <div class="val" id="unrealised">—</div>
+      <div class="sub" id="open-count-sub">— open positions</div>
+    </div>
+    <div class="card" style="--accent:var(--purple)">
+      <div class="card-accent"></div>
+      <div class="lbl">Total Closed Trades</div>
+      <div class="val c-purple" id="total-trades">—</div>
+      <div class="sub" id="realised-sub">Realised PnL: —</div>
+    </div>
+  </div>
+
+  <!-- Row 2: Performance metrics -->
+  <div class="row g4">
+    <div class="card" style="--accent:var(--green)">
+      <div class="card-accent"></div>
+      <div class="lbl">Win Rate</div>
+      <div class="val md" id="win-rate">—</div>
+      <div class="sub" id="wr-sub">Closed trades</div>
+      <div class="note" id="wr-note"></div>
+    </div>
+    <div class="card" style="--accent:var(--gold)">
+      <div class="card-accent"></div>
+      <div class="lbl">Profit Factor</div>
+      <div class="val md c-gold" id="pf">—</div>
+      <div class="sub" id="pf-sub">Gross wins / losses</div>
+    </div>
+    <div class="card" style="--accent:var(--cyan)">
+      <div class="card-accent"></div>
+      <div class="lbl">Avg Win</div>
+      <div class="val md c-green" id="avg-win">—</div>
+      <div class="sub" id="avg-loss-sub">Avg loss: —</div>
+    </div>
+    <div class="card" style="--accent:var(--purple)">
+      <div class="card-accent"></div>
+      <div class="lbl">Best / Worst Trade</div>
+      <div class="val md c-green" id="best-trade">—</div>
+      <div class="sub c-red" id="worst-trade">Worst: —</div>
+    </div>
+  </div>
+
+  <!-- Row 3: Chart + vault sidebar -->
+  <div class="row g21">
+    <div class="card">
+      <div class="stitle">
+        Vault Equity — Live Snapshots
+        <span class="stitle-count" id="curve-pts">Snapshots build as you watch</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chart-equity"></canvas>
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:var(--dim);margin-top:10px;font-style:italic">
+        Snapshots recorded every 30 seconds in your browser session via localStorage.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="stitle">Vault Details</div>
+      <div class="mini-grid">
+        <div>
+          <div class="lbl">Depositors</div>
+          <div class="val sm c-gold" id="dep-count">—</div>
+        </div>
+        <div>
+          <div class="lbl">10% Profit Share</div>
+          <div class="val sm" style="color:var(--mid)">On Profits</div>
+        </div>
+        <div>
+          <div class="lbl">Open Positions</div>
+          <div class="val sm" id="open-pos-count">—</div>
+        </div>
+        <div>
+          <div class="lbl">Strategy</div>
+          <div class="val sm" style="color:var(--mid);font-size:12px">v3.2 Balanced</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <div class="lbl">Vault Address</div>
+        <code style="font-family:'Orbitron',sans-serif;font-size:9px;color:var(--dim);word-break:break-all;line-height:1.8">
+          0x843e160b4e7c453b38b14ac085a976db448d1b93
+        </code>
+      </div>
+      <div class="divider"></div>
+      <a class="vault-btn" href="https://app.hyperliquid.xyz/join/SMR" target="_blank">
+        DEPOSIT INTO VAULT ↗
+      </a>
+      <a class="vault-btn" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" style="margin-top:8px;color:var(--mid);border-color:var(--border)">
+        EXPLORER ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- Row 4: Open Positions -->
+  <div class="row g1">
+    <div class="card">
+      <div class="stitle">
+        Open Positions
+        <span class="stitle-count" id="pos-count-badge"></span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Coin</th>
+              <th>Side</th>
+              <th>Size</th>
+              <th>Entry Price</th>
+              <th>Notional</th>
+              <th>Leverage</th>
+              <th>Unrealised PnL</th>
+            </tr>
+          </thead>
+          <tbody id="pos-tbody">
+            <tr><td colspan="7" class="empty">Loading positions…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 5: Closed Trades -->
+  <div class="row g1">
+    <div class="card">
+      <div class="stitle">
+        Closed Trades
+        <span class="stitle-count" id="trades-count-badge">Most recent 100</span>
+      </div>
+      <div class="trades-wrap" id="trades-list">
+        <div class="empty">Loading trade history…</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot" id="foot-ts">
+    Soomario Max Pain Vault · Data from Hyperliquid public API · Refreshes every 30s
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════════════════════════
+const VAULT   = '0x843e160b4e7c453b38b14ac085a976db448d1b93';
+const HL_API  = 'https://api.hyperliquid.xyz/info';
+const CURVE_KEY = 'smr_equity_curve';   // localStorage key
+
+// ══════════════════════════════════════════════════════════════════════════
+// HYPERLIQUID API
+// ══════════════════════════════════════════════════════════════════════════
+async function hlPost(payload) {
+  const r = await fetch(HL_API, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload),
+  });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+async function fetchAll() {
+  const [vault, state, fills] = await Promise.all([
+    hlPost({ type: 'vaultDetails',       vaultAddress: VAULT }),
+    hlPost({ type: 'clearinghouseState', user: VAULT }),
+    hlPost({ type: 'userFills',          user: VAULT }),
+  ]);
+  return { vault, state, fills: Array.isArray(fills) ? fills : [] };
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// PARSE
+// ══════════════════════════════════════════════════════════════════════════
+function parsePositions(state) {
+  const out = [];
+  try {
+    for (const ap of (state.assetPositions || [])) {
+      const pos  = ap.position || {};
+      const size = parseFloat(pos.szi || 0);
+      if (!size) continue;
+      const entryPx   = parseFloat(pos.entryPx  || 0);
+      const unrealPnl = parseFloat(pos.unrealizedPnl || 0);
+      const lev       = pos.leverage?.value ?? pos.leverage ?? '?';
+      const notional  = Math.abs(size) * entryPx;
+      const pnlPct    = notional > 0 ? unrealPnl / notional * 100 : 0;
+      out.push({
+        coin:    pos.coin || '?',
+        side:    size > 0 ? 'LONG' : 'SHORT',
+        size:    Math.abs(size),
+        entryPx, notional, unrealPnl, lev,
+        pnlPct:  round(pnlPct, 2),
+      });
+    }
+  } catch {}
+  return out;
+}
+
+function parseFills(fills) {
+  // Group by orderId → only closing fills carry closedPnl
+  const orders = {};
+  for (const f of fills) {
+    const oid = String(f.oid || f.orderId || '');
+    if (!oid) continue;
+    const dir     = f.dir || '';
+    const isClose = dir.includes('Close');
+    if (!orders[oid]) {
+      orders[oid] = {
+        coin:    f.coin || '?',
+        side:    dir.includes('Long') ? 'LONG' : 'SHORT',
+        pnl:     0,
+        px:      parseFloat(f.px || 0),
+        time:    f.time || 0,
+        isClose: false,
+      };
+    }
+    if (isClose) {
+      orders[oid].pnl     += parseFloat(f.closedPnl || 0);
+      orders[oid].isClose  = true;
+    }
+  }
+  return Object.values(orders)
+    .filter(t => t.isClose)
+    .sort((a, b) => b.time - a.time);   // newest first
+}
+
+function calcMetrics(closed) {
+  const pnls   = closed.map(t => t.pnl).filter(p => p !== 0);
+  const n      = pnls.length;
+  if (!n) return null;
+
+  const wins   = pnls.filter(p => p > 0);
+  const losses = pnls.filter(p => p < 0);
+  const gw     = wins.reduce((a,b)=>a+b, 0);
+  const gl     = Math.abs(losses.reduce((a,b)=>a+b, 0));
+
+  let pf = null;
+  if (gl > 0) pf = round(gw / gl, 2);
+  else if (gw > 0) pf = 999;
+
+  let sharpe = null;
+  if (n >= 3) {
+    const mean = pnls.reduce((a,b)=>a+b,0)/n;
+    const std  = Math.sqrt(pnls.reduce((a,b)=>a+(b-mean)**2,0)/n);
+    if (std > 0 && closed.length >= 2) {
+      const days = Math.max((closed[0].time - closed[closed.length-1].time)/86400000, 1);
+      const tpy  = n/days*365;
+      sharpe = round(mean/std*Math.sqrt(tpy), 2);
+    }
+  }
+
+  return {
+    total:    n,
+    totalPnl: round(pnls.reduce((a,b)=>a+b,0), 2),
+    winRate:  round(wins.length/n*100, 1),
+    avgWin:   wins.length   ? round(gw/wins.length, 2)             : 0,
+    avgLoss:  losses.length ? round(losses.reduce((a,b)=>a+b,0)/losses.length, 2) : 0,
+    best:     round(Math.max(...pnls), 2),
+    worst:    round(Math.min(...pnls), 2),
+    pf, sharpe,
+    note: n < 10 ? `Only ${n} closed trades — ratios stabilise at 10+` : '',
+  };
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// EQUITY CURVE (localStorage)
+// ══════════════════════════════════════════════════════════════════════════
+function getCurve() {
+  try { return JSON.parse(localStorage.getItem(CURVE_KEY) || '[]'); }
+  catch { return []; }
+}
+
+function pushCurve(equity) {
+  const curve = getCurve();
+  const label = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  // Don't duplicate within same minute
+  if (curve.length && curve[curve.length-1].t === label) {
+    curve[curve.length-1].v = equity;
+  } else {
+    curve.push({t: label, v: equity});
+  }
+  // Keep last 200 snapshots (~100 minutes at 30s interval)
+  const trimmed = curve.slice(-200);
+  try { localStorage.setItem(CURVE_KEY, JSON.stringify(trimmed)); } catch {}
+  return trimmed;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// CHART
+// ══════════════════════════════════════════════════════════════════════════
+let chartInst = null;
+
+function renderChart(curve) {
+  const ctx = document.getElementById('chart-equity').getContext('2d');
+  const labels = curve.map(p => p.t);
+  const data   = curve.map(p => p.v);
+
+  if (chartInst) {
+    chartInst.data.labels   = labels;
+    chartInst.data.datasets[0].data = data;
+    chartInst.update('none');
+    return;
+  }
+
+  const grad = ctx.createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0,   'rgba(201,169,97,0.22)');
+  grad.addColorStop(0.7, 'rgba(201,169,97,0.03)');
+  grad.addColorStop(1,   'rgba(201,169,97,0)');
+
+  chartInst = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data,
+        borderColor:     '#C9A961',
+        borderWidth:     2,
+        backgroundColor: grad,
+        fill:            true,
+        tension:         0.4,
+        pointRadius:     data.length > 30 ? 0 : 3,
+        pointHoverRadius: 5,
+        pointBackgroundColor: '#C9A961',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation:  { duration: 400 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#13101f',
+          borderColor:     '#242038',
+          borderWidth:     1,
+          titleColor:      '#544d6e',
+          bodyColor:       '#e8e0d0',
+          titleFont:  { family:'Orbitron', size:9 },
+          bodyFont:   { family:'Orbitron', size:12 },
+          callbacks: {
+            label: ctx => ' $' + ctx.parsed.y.toLocaleString('en-US',{minimumFractionDigits:2})
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid:  { color:'rgba(36,32,56,0.8)', drawBorder:false },
+          ticks: { color:'#544d6e', font:{family:'Orbitron',size:8}, maxTicksLimit:8 }
+        },
+        y: {
+          grid:  { color:'rgba(36,32,56,0.8)', drawBorder:false },
+          ticks: { color:'#544d6e', font:{family:'Orbitron',size:8},
+                   callback: v => '$'+v.toLocaleString() }
+        }
+      }
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════════════════════
+const round = (n, d=2) => Math.round(n * 10**d) / 10**d;
+const fmt   = (n, d=2) => n == null ? '—' : Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const sign  = n => n >= 0 ? '+' : '−';
+const col   = n => n >= 0 ? 'var(--green)' : 'var(--red)';
+const fmtUsd = (n, d=2) => (n >= 0 ? '+' : '−') + '$' + fmt(n, d);
+
+function set(id, text, color) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (text !== undefined) el.textContent = text;
+  if (color)              el.style.color = color;
+}
+
+function fmtDate(ms) {
+  if (!ms) return '—';
+  const d = new Date(ms);
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' +
+         d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════════════════════════
+function render({ vault, state, fills }) {
+
+  // ── vault equity ──
+  let equity = 0, allTimePnl = 0, depositors = 0;
+  try {
+    equity     = parseFloat(vault.vaultEquity || 0);
+    allTimePnl = parseFloat(vault.allTimePnl  || 0);
+    depositors = (vault.depositors || []).length;
+  } catch {}
+
+  // Fallback equity from clearinghouse
+  if (!equity) {
+    try { equity = parseFloat(state.crossMarginSummary?.accountValue || 0); } catch {}
+  }
+
+  // ── positions ──
+  const positions = parsePositions(state);
+  const unrealised = positions.reduce((a,p)=>a+p.unrealPnl, 0);
+
+  // ── fills / closed trades ──
+  const closed  = parseFills(fills);
+  const metrics = calcMetrics(closed);
+
+  // ── equity curve ──
+  if (equity > 0) {
+    const curve = pushCurve(equity);
+    renderChart(curve);
+    set('curve-pts', curve.length + ' snapshot' + (curve.length!==1?'s':'') + ' this session');
+  }
+
+  // ─────────────────────────────────────────────────
+  // Top row
+  set('equity',         '$' + fmt(equity),         'var(--gold)');
+  set('depositors-sub', depositors + ' depositors');
+  set('dep-count',      depositors || '—');
+  set('all-time-pnl',   fmtUsd(allTimePnl),        col(allTimePnl));
+  set('unrealised',     fmtUsd(unrealised),         col(unrealised));
+  set('open-count-sub', positions.length + ' open position' + (positions.length!==1?'s':''));
+  set('open-pos-count', positions.length || '—');
+
+  if (metrics) {
+    set('total-trades',  metrics.total);
+    set('realised-sub',  'Realised PnL: ' + fmtUsd(metrics.totalPnl));
+    // Metrics row
+    set('win-rate',  metrics.winRate + '%', metrics.winRate >= 70 ? 'var(--green)' : metrics.winRate >= 50 ? 'var(--gold)' : 'var(--red)');
+    set('wr-sub',    metrics.total + ' closed trades');
+    set('wr-note',   metrics.note || '');
+    set('pf',  metrics.pf === 999 ? '∞' : metrics.pf != null ? String(metrics.pf) : '—',
+               metrics.pf >= 2 ? 'var(--green)' : metrics.pf >= 1 ? 'var(--gold)' : 'var(--red)');
+    set('pf-sub', metrics.pf === 999 ? 'All wins, no losses' :
+                  metrics.pf >= 2    ? 'Excellent (>2.0)' :
+                  metrics.pf >= 1.5  ? 'Good (>1.5)' :
+                  metrics.pf >= 1    ? 'Profitable (>1.0)' : 'Unprofitable');
+    set('avg-win',      metrics.avgWin > 0 ? '+$' + fmt(metrics.avgWin) : '—', 'var(--green)');
+    set('avg-loss-sub', metrics.avgLoss < 0 ? 'Avg loss: −$' + fmt(Math.abs(metrics.avgLoss)) : 'Avg loss: —');
+    set('best-trade',   metrics.best > 0    ? '+$' + fmt(metrics.best)             : '—', 'var(--green)');
+    set('worst-trade',  metrics.worst < 0   ? 'Worst: −$' + fmt(Math.abs(metrics.worst)) : 'Worst: —', 'var(--red)');
+  } else {
+    set('total-trades',  '—');
+    set('realised-sub',  'No closed trades yet');
+  }
+
+  // ── Open positions table ──────────────────────────────────────────────
+  const posBody = document.getElementById('pos-tbody');
+  document.getElementById('pos-count-badge').textContent =
+    positions.length > 0 ? positions.length + ' active' : '';
+
+  if (!positions.length) {
+    posBody.innerHTML = '<tr><td colspan="7" class="empty">No open positions right now</td></tr>';
+  } else {
+    posBody.innerHTML = positions.map(p => `
+      <tr>
+        <td><span class="coin-label">${p.coin}</span></td>
+        <td><span class="${p.side==='LONG'?'side-long':'side-short'}">${p.side}</span></td>
+        <td>${p.size.toFixed(4)}</td>
+        <td>$${fmt(p.entryPx, 4)}</td>
+        <td>$${fmt(p.notional)}</td>
+        <td style="font-family:'Orbitron',sans-serif;font-size:10px">${p.lev}x</td>
+        <td style="color:${col(p.unrealPnl)};font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700">
+          ${fmtUsd(p.unrealPnl)}
+          <span style="font-size:10px;opacity:.6"> (${sign(p.pnlPct)}${Math.abs(p.pnlPct)}%)</span>
+        </td>
+      </tr>`).join('');
+  }
+
+  // ── Closed trades list ───────────────────────────────────────────────
+  const tradesList = document.getElementById('trades-list');
+  document.getElementById('trades-count-badge').textContent =
+    closed.length > 0 ? closed.length + ' trades loaded' : '';
+
+  if (!closed.length) {
+    tradesList.innerHTML = '<div class="empty">No closed trades found. Hyperliquid returns recent fills only — history builds over time.</div>';
+  } else {
+    tradesList.innerHTML = closed.slice(0, 100).map(t => `
+      <div class="trade-row">
+        <span class="t-coin">${t.coin}</span>
+        <span class="t-side ${t.side==='LONG'?'c-green':'c-red'}">${t.side}</span>
+        <span class="t-date">${fmtDate(t.time)}</span>
+        <span class="t-price">@ $${fmt(t.px, 4)}</span>
+        <span class="t-pnl" style="color:${col(t.pnl)}">${fmtUsd(t.pnl)}</span>
+      </div>`).join('');
+  }
+
+  // ── Status bar ──────────────────────────────────────────────────────
+  document.getElementById('dot').classList.remove('err');
+  document.getElementById('live-ts').textContent = 'LIVE';
+  document.getElementById('err-banner').classList.remove('show');
+  document.getElementById('foot-ts').textContent =
+    'Last updated: ' + new Date().toLocaleTimeString() +
+    '  ·  Soomario Max Pain Vault  ·  Live data via Hyperliquid public API';
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// MAIN LOOP
+// ══════════════════════════════════════════════════════════════════════════
+async function refresh() {
+  try {
+    const data = await fetchAll();
+    render(data);
+  } catch (err) {
+    console.error('Dashboard error:', err);
+    document.getElementById('dot').classList.add('err');
+    document.getElementById('live-ts').textContent = 'OFFLINE';
+    document.getElementById('err-banner').classList.add('show');
+  }
+}
+
+// On load: render stored curve immediately for instant display
+const storedCurve = getCurve();
+if (storedCurve.length > 1) renderChart(storedCurve);
+
+refresh();
+setInterval(refresh, 30_000);   // every 30 seconds
+</script>
+</body>
+</html>
