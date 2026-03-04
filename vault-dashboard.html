@@ -10,7 +10,6 @@
 
 <style>
 :root {
-  /* ── COLOURS ───────────────────────────────────── */
   --bg:     #0b0917;
   --s1:     #13102a;
   --s2:     #1b183a;
@@ -27,51 +26,33 @@
   --mid:    #c0b8d8;
   --radius: 10px;
 
-  /* ══════════════════════════════════════════════════════════════
-     FONT SIZES — all UI text sizes live here.
-     Increase or decrease these numbers to rescale the dashboard.
-     Current values are set at ~125% of the original design.
-     ══════════════════════════════════════════════════════════════ */
-
-  /* Navigation */
-  --fs-nav-brand:  18px;    /* "SOOMARIO" wordmark */
-  --fs-nav-sub:    10px;    /* "MAX PAIN VAULT" tagline */
-  --fs-nav-link:   11px;    /* nav button text */
-  --fs-live-pill:  11px;    /* LIVE / OFFLINE indicator */
-
-  /* Metric cards */
-  --fs-lbl:        11px;    /* card labels (VAULT EQUITY, WIN RATE…) */
-  --fs-val-lg:     34px;    /* large values ($1,056, -$7.73) */
-  --fs-val-md:     24px;    /* medium values (50%, 0.34) */
-  --fs-val-sm:     18px;    /* small values in sidebar */
-  --fs-sub:        15px;    /* sub-line beneath main value */
-  --fs-note:       14px;    /* small note / warning line */
-
-  /* Section headers */
-  --fs-section:    12px;    /* section title (OPEN POSITIONS…) */
-  --fs-section-ct: 11px;    /* right-side badge count */
-
-  /* Table */
-  --fs-tbl-hdr:    11px;    /* column header text */
-  --fs-tbl-cell:   16px;    /* table body cells */
-  --fs-coin:       17px;    /* coin symbol in table & trade rows */
-  --fs-side:       11px;    /* LONG / SHORT badge */
-  --fs-tbl-pnl:    16px;    /* unrealised PnL in table */
-
-  /* Closed trade rows */
-  --fs-trade-date:  12px;   /* date */
-  --fs-trade-price: 15px;   /* entry price */
-  --fs-trade-pnl:   15px;   /* realised PnL */
-
-  /* Misc */
-  --fs-vault-addr: 11px;    /* vault address string */
-  --fs-vault-btn:  11px;    /* DEPOSIT / EXPLORER buttons */
-  --fs-chart-note: 14px;    /* note below equity chart */
-  --fs-empty:      17px;    /* empty-state placeholder */
-  --fs-foot:       11px;    /* page footer */
+  --fs-nav-brand:  18px;
+  --fs-nav-sub:    10px;
+  --fs-nav-link:   11px;
+  --fs-live-pill:  11px;
+  --fs-lbl:        11px;
+  --fs-val-lg:     34px;
+  --fs-val-md:     24px;
+  --fs-val-sm:     18px;
+  --fs-sub:        15px;
+  --fs-note:       14px;
+  --fs-section:    12px;
+  --fs-section-ct: 11px;
+  --fs-tbl-hdr:    11px;
+  --fs-tbl-cell:   16px;
+  --fs-coin:       17px;
+  --fs-side:       11px;
+  --fs-tbl-pnl:    16px;
+  --fs-trade-date:  12px;
+  --fs-trade-price: 15px;
+  --fs-trade-pnl:   15px;
+  --fs-vault-addr: 11px;
+  --fs-vault-btn:  11px;
+  --fs-chart-note: 14px;
+  --fs-empty:      17px;
+  --fs-foot:       11px;
 }
 
-/* ── RESET ── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -84,7 +65,6 @@ body {
     radial-gradient(ellipse 40% 30% at 85% 100%, rgba(201,169, 97,.05) 0%, transparent 50%);
 }
 
-/* ── NAV ── */
 .nav {
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 32px;
@@ -127,10 +107,8 @@ body {
 }
 .nav-link:hover { color: var(--gold); border-color: rgba(232,196,106,.5); }
 
-/* ── MAIN ── */
 .main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 60px; }
 
-/* ── ERROR BANNER ── */
 .error-banner {
   background: rgba(255,107,107,.1); border: 1px solid rgba(255,107,107,.3);
   border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px;
@@ -140,13 +118,11 @@ body {
 }
 .error-banner.show { display: flex; }
 
-/* ── GRID ── */
 .row { display: grid; gap: 14px; margin-bottom: 14px; }
 .g4  { grid-template-columns: repeat(4, 1fr); }
 .g21 { grid-template-columns: 2.2fr 1fr; }
 .g1  { grid-template-columns: 1fr; }
 
-/* ── CARD ── */
 .card {
   background: var(--s1); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 22px 24px;
@@ -157,7 +133,6 @@ body {
   background: linear-gradient(90deg, transparent, var(--accent, var(--border)), transparent);
 }
 
-/* ── LABEL / VALUE / SUB / NOTE ── */
 .lbl {
   font-family: 'Orbitron', sans-serif;
   font-size: var(--fs-lbl); letter-spacing: 2px; text-transform: uppercase;
@@ -169,11 +144,9 @@ body {
 }
 .val.md { font-size: var(--fs-val-md); }
 .val.sm { font-size: var(--fs-val-sm); }
-/* No italics anywhere — sub and note use normal weight */
 .sub  { font-size: var(--fs-sub);  color: var(--mid); margin-top: 9px; }
 .note { font-size: var(--fs-note); color: var(--dim); margin-top: 8px; line-height: 1.5; }
 
-/* ── COLOUR HELPERS ── */
 .c-gold   { color: var(--gold)   !important; }
 .c-green  { color: var(--green)  !important; }
 .c-red    { color: var(--red)    !important; }
@@ -181,7 +154,6 @@ body {
 .c-purple { color: var(--purple) !important; }
 .c-mid    { color: var(--mid)    !important; }
 
-/* ── SECTION TITLE ── */
 .stitle {
   font-family: 'Cinzel', serif;
   font-size: var(--fs-section); font-weight: 600;
@@ -194,7 +166,6 @@ body {
   font-size: var(--fs-section-ct); color: var(--mid); font-weight: 400;
 }
 
-/* ── CHART TABS ── */
 .chart-tabs { display: flex; gap: 4px; }
 .ctab {
   font-family: 'Orbitron', sans-serif; font-size: 10px;
@@ -205,10 +176,8 @@ body {
 .ctab:hover  { color: var(--mid); border-color: var(--mid); }
 .ctab.active { color: var(--gold); border-color: rgba(232,196,106,.5); background: rgba(232,196,106,.06); }
 
-
 .chart-note { font-size: var(--fs-chart-note); color: var(--mid); margin-top: 12px; }
 
-/* ── TABLE ── */
 .tbl { width: 100%; border-collapse: collapse; }
 .tbl th {
   font-family: 'Orbitron', sans-serif;
@@ -229,7 +198,6 @@ body {
 .tbl-pnl    { font-family:'Orbitron',sans-serif; font-size:var(--fs-tbl-pnl); font-weight:700; }
 .tbl-lev    { font-family:'Orbitron',sans-serif; font-size:var(--fs-side); }
 
-/* ── CLOSED TRADE ROWS ── */
 .trades-wrap { max-height: 460px; overflow-y: auto; }
 .trades-wrap::-webkit-scrollbar { width: 3px; }
 .trades-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -250,7 +218,6 @@ body {
 .t-price { font-family:'Cormorant Garamond',serif;                   font-size:var(--fs-trade-price);  color:var(--mid); }
 .t-pnl   { font-family:'Orbitron',sans-serif;       font-weight:700; font-size:var(--fs-trade-pnl);   text-align:right; }
 
-/* ── SIDEBAR ── */
 .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .vault-addr {
   font-family: 'Orbitron', sans-serif;
@@ -269,25 +236,21 @@ body {
 .vault-btn.dim { color: var(--mid); border-color: var(--border); }
 .vault-btn.dim:hover { background: rgba(192,184,216,.06); border-color: var(--mid); }
 
-/* ── DIVIDER ── */
 .divider {
   height: 1px; margin: 14px 0;
   background: linear-gradient(90deg, transparent, rgba(201,169,97,.2), transparent);
 }
 
-/* ── EMPTY ── */
 .empty {
   text-align: center; padding: 28px 0;
   font-size: var(--fs-empty); color: var(--mid);
 }
 
-/* ── FOOTER ── */
 .foot {
   font-family: 'Orbitron', sans-serif; font-size: var(--fs-foot);
   color: var(--mid); text-align: center; margin-top: 24px; letter-spacing: 1px;
 }
 
-/* ── RESPONSIVE ── */
 @media(max-width:1100px) {
   .g4  { grid-template-columns: repeat(2,1fr); }
   .g21 { grid-template-columns: 1fr; }
@@ -302,7 +265,6 @@ body {
 </head>
 <body>
 
-<!-- ── NAV ─────────────────────────────────────────────────────────────── -->
 <nav class="nav">
   <a class="nav-brand" href="index.html">
     <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
@@ -333,14 +295,12 @@ body {
   </div>
 </nav>
 
-<!-- ── MAIN ────────────────────────────────────────────────────────────── -->
 <div class="main">
 
   <div class="error-banner" id="err-banner">
     ⚠ &nbsp;Could not reach Hyperliquid API — check your connection and refresh.
   </div>
 
-  <!-- Row 1: Primary vault metrics -->
   <div class="row g4">
     <div class="card" style="--accent:var(--gold)">
       <div class="card-accent"></div>
@@ -368,7 +328,6 @@ body {
     </div>
   </div>
 
-  <!-- Row 2: Performance metrics -->
   <div class="row g4">
     <div class="card" style="--accent:var(--green)">
       <div class="card-accent"></div>
@@ -397,7 +356,6 @@ body {
     </div>
   </div>
 
-  <!-- Row 3: Chart + sidebar -->
   <div class="row g21">
     <div class="card">
       <div class="stitle">
@@ -451,7 +409,6 @@ body {
     </div>
   </div>
 
-  <!-- Row 4: Open Positions -->
   <div class="row g1">
     <div class="card">
       <div class="stitle">
@@ -475,7 +432,6 @@ body {
     </div>
   </div>
 
-  <!-- Row 5: Closed Trades -->
   <div class="row g1">
     <div class="card">
       <div class="stitle">
@@ -495,12 +451,10 @@ body {
 </div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────
 const VAULT     = '0x843e160b4e7c453b38b14ac085a976db448d1b93';
 const HL_API    = 'https://api.hyperliquid.xyz/info';
 const CURVE_KEY = 'smr_equity_curve';
 
-// ── HYPERLIQUID API ───────────────────────────────────────────────────────
 async function hlPost(payload) {
   const r = await fetch(HL_API, {
     method: 'POST',
@@ -519,7 +473,6 @@ async function fetchAll() {
   return { vault, state, fills: Array.isArray(fills) ? fills : [] };
 }
 
-// ── PARSE ─────────────────────────────────────────────────────────────────
 function parsePositions(state) {
   const out = [];
   try {
@@ -586,7 +539,6 @@ function calcMetrics(closed) {
   };
 }
 
-// ── EQUITY CURVE (localStorage — live snapshots) ──────────────────────────
 function getCurve() {
   try { return JSON.parse(localStorage.getItem(CURVE_KEY) || '[]'); } catch { return []; }
 }
@@ -603,27 +555,16 @@ function pushCurve(equity) {
   return trimmed;
 }
 
-// ── PER-TRADE EQUITY CURVE ────────────────────────────────────────────────
-// Builds equity progression from closed trades (oldest → newest).
-// Starting equity = current equity - unrealised - total realised PnL
 function buildTradeChart(closed, currentEquity, unrealised) {
   if (!closed.length) return { labels: [], data: [] };
-
-  // Sort oldest → newest
   const sorted = [...closed].sort((a, b) => a.time - b.time);
-
-  // Reconstruct starting equity
   const totalRealised = sorted.reduce((s, t) => s + t.pnl, 0);
   const startEquity   = currentEquity - unrealised - totalRealised;
-
   const labels = [];
   const data   = [];
   let running  = startEquity;
-
-  // Add start point
   labels.push('Start');
   data.push(round(running, 2));
-
   for (const t of sorted) {
     running += t.pnl;
     const d  = new Date(t.time);
@@ -632,13 +573,11 @@ function buildTradeChart(closed, currentEquity, unrealised) {
     labels.push(`${t.coin} (${t.side})\n${lbl}`);
     data.push(round(running, 2));
   }
-
   return { labels, data };
 }
 
-// ── CHART ─────────────────────────────────────────────────────────────────
 let chartInst = null;
-let activeTab = 'trade';   // 'trade' | 'live'
+let activeTab = 'trade';
 let lastClosed   = [];
 let lastEquity   = 0;
 let lastUnreal   = 0;
@@ -648,7 +587,6 @@ function switchTab(tab) {
   activeTab = tab;
   document.getElementById('tab-trade').classList.toggle('active', tab === 'trade');
   document.getElementById('tab-live').classList.toggle('active',  tab === 'live');
-
   if (tab === 'trade') {
     document.getElementById('chart-title').textContent = 'Vault Equity — Per Trade';
     document.getElementById('chart-note-text').textContent =
@@ -669,7 +607,6 @@ function switchTab(tab) {
 
 function updateChart(labels, data, showPoints) {
   const ctx = document.getElementById('chart-equity').getContext('2d');
-
   if (chartInst) {
     chartInst.data.labels = labels;
     chartInst.data.datasets[0].data = data;
@@ -677,12 +614,10 @@ function updateChart(labels, data, showPoints) {
     chartInst.update('none');
     return;
   }
-
   const grad = ctx.createLinearGradient(0, 0, 0, 210);
   grad.addColorStop(0,  'rgba(232,196,106,.22)');
   grad.addColorStop(.7, 'rgba(232,196,106,.03)');
   grad.addColorStop(1,  'rgba(232,196,106,0)');
-
   chartInst = new Chart(ctx, {
     type: 'line',
     data: { labels, datasets: [{
@@ -711,8 +646,7 @@ function updateChart(labels, data, showPoints) {
       scales: {
         x: { grid:  {color:'rgba(50,48,90,.6)', drawBorder:false},
              ticks: {color:'#8880a8', font:{family:'Orbitron',size:9}, maxTicksLimit:8,
-                     callback: (v, i, arr) => {
-                       // For per-trade: show coin name only
+                     callback: (v, i) => {
                        const lbl = chartInst?.data.labels[i] || '';
                        const first = lbl.split('\n')[0];
                        return first.length > 12 ? first.substring(0,12) : first;
@@ -725,8 +659,6 @@ function updateChart(labels, data, showPoints) {
   });
 }
 
-
-// ── HELPERS ───────────────────────────────────────────────────────────────
 const round  = (n, d=2) => Math.round(n * 10**d) / 10**d;
 const fmt    = (n, d=2) => n == null ? '—' :
   Math.abs(n).toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
@@ -746,13 +678,29 @@ function fmtDate(ms) {
          d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 }
 
-// ── RENDER ────────────────────────────────────────────────────────────────
 function render({ vault, state, fills }) {
   let equity = 0, allTimePnl = 0, depositors = 0;
   try {
     equity     = parseFloat(vault.vaultEquity || 0);
     allTimePnl = parseFloat(vault.allTimePnl  || 0);
-    depositors = (vault.depositors || []).length;
+
+    // ── DEPOSITOR COUNT FIX ───────────────────────────────────────────────
+    // Hyperliquid's vaultDetails returns depositors as an array of *external*
+    // depositors — the vault leader/owner is tracked separately and is NOT
+    // included in that array. We need to add 1 for the leader when equity > 0.
+    //
+    // We also handle: array (normal), number (some API versions), or missing.
+    if (Array.isArray(vault.depositors)) {
+      depositors = vault.depositors.length;
+    } else if (typeof vault.depositors === 'number') {
+      depositors = vault.depositors;
+    } else {
+      depositors = 0;
+    }
+    // Always count the leader as depositor #1 when the vault has equity
+    if (equity > 0) depositors = Math.max(depositors + 1, 1);
+    // ─────────────────────────────────────────────────────────────────────
+
   } catch {}
   if (!equity) {
     try { equity = parseFloat(state.crossMarginSummary?.accountValue || 0); } catch {}
@@ -763,20 +711,16 @@ function render({ vault, state, fills }) {
   const closed     = parseFills(fills);
   const metrics    = calcMetrics(closed);
 
-  // If API returns 0 for allTimePnl, compute from fills + unrealised
   if (allTimePnl === 0 && metrics && metrics.totalPnl !== 0) {
     allTimePnl = round(metrics.totalPnl + unrealised, 2);
   }
 
-  // Store for tab switching
   lastClosed    = closed;
   lastEquity    = equity;
   lastUnreal    = unrealised;
 
-  // Live snapshot
   if (equity > 0) lastLiveCurve = pushCurve(equity);
 
-  // Render active chart tab
   if (activeTab === 'trade') {
     const { labels, data } = buildTradeChart(closed, equity, unrealised);
     updateChart(labels, data, data.length <= 30);
@@ -790,8 +734,9 @@ function render({ vault, state, fills }) {
 
   // Row 1
   set('equity',         '$' + fmt(equity),   'var(--gold)');
-  set('depositors-sub', depositors + ' depositors');
-  set('dep-count',      depositors || '—');
+  // ── FIX: use String() so "0" shows correctly, not "—" ──
+  set('depositors-sub', depositors + (depositors === 1 ? ' depositor' : ' depositors'));
+  set('dep-count',      depositors != null ? String(depositors) : '—');
   set('all-time-pnl',   fmtUsd(allTimePnl),  col(allTimePnl));
   set('unrealised',     fmtUsd(unrealised),   col(unrealised));
   set('open-count-sub', positions.length + ' open position' + (positions.length !== 1 ? 's' : ''));
@@ -859,7 +804,6 @@ function render({ vault, state, fills }) {
       </div>`).join('');
   }
 
-  // Status
   document.getElementById('dot').classList.remove('err');
   document.getElementById('live-ts').textContent = 'LIVE';
   document.getElementById('err-banner').classList.remove('show');
@@ -868,7 +812,6 @@ function render({ vault, state, fills }) {
     '  ·  Soomario Max Pain Vault  ·  Live data via Hyperliquid public API';
 }
 
-// ── MAIN LOOP ─────────────────────────────────────────────────────────────
 async function refresh() {
   try {
     render(await fetchAll());
@@ -881,10 +824,8 @@ async function refresh() {
 }
 
 const storedCurve = getCurve();
-// Boot the live curve from localStorage so it renders immediately on page load
 if (storedCurve.length > 1) {
   lastLiveCurve = storedCurve;
-  // Default tab is 'trade' — chart will populate on first refresh() call
 }
 
 refresh();
