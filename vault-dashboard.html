@@ -684,27 +684,26 @@ function render({ vault, state, fills }) {
     equity     = parseFloat(vault.vaultEquity || 0);
     allTimePnl = parseFloat(vault.allTimePnl  || 0);
 
-    // ── DEPOSITOR COUNT FIX ───────────────────────────────────────────────
-    // Hyperliquid's vaultDetails returns depositors as an array of *external*
-    // depositors — the vault leader/owner is tracked separately and is NOT
-    // included in that array. We need to add 1 for the leader when equity > 0.
-    //
-    // We also handle: array (normal), number (some API versions), or missing.
+    // Count depositors from vaultDetails response
     if (Array.isArray(vault.depositors)) {
       depositors = vault.depositors.length;
     } else if (typeof vault.depositors === 'number') {
       depositors = vault.depositors;
+    } else if (vault.followers && Array.isArray(vault.followers)) {
+      depositors = vault.followers.length;
     } else {
       depositors = 0;
     }
-    // Always count the leader as depositor #1 when the vault has equity
-    if (equity > 0) depositors = Math.max(depositors + 1, 1);
-    // ─────────────────────────────────────────────────────────────────────
+  } catch(e) { console.warn('vaultDetails parse error:', e); }
 
-  } catch {}
+  // Fallback equity from clearinghouseState if vaultDetails didn't have it
   if (!equity) {
-    try { equity = parseFloat(state.crossMarginSummary?.accountValue || 0); } catch {}
+    try { equity = parseFloat(state.crossMarginSummary?.accountValue || state.marginSummary?.accountValue || 0); } catch {}
   }
+
+  // Now that equity is finalized, count the leader as depositor #1
+  if (equity > 0) depositors = Math.max(depositors + 1, 1);
+  console.log('Vault debug:', { vaultEquity: vault?.vaultEquity, depositorsRaw: vault?.depositors, depositorsCount: depositors, equity });
 
   const positions  = parsePositions(state);
   const unrealised = positions.reduce((a,p) => a + p.unrealPnl, 0);
