@@ -525,10 +525,11 @@
                 <select class="filter-select" id="strategyFilter">
                     <option value="all">All Strategies</option>
                     <option value="HYPE">HYPE</option>
-                    <option value="LTC">LTC</option>
-                    <option value="SLV">SLV</option>
-                    <option value="CRV">CRV</option>
                     <option value="AVAX">AVAX</option>
+                    <option value="SOL">SOL</option>
+                    <option value="LTC">LTC (legacy)</option>
+                    <option value="SLV">SLV (legacy)</option>
+                    <option value="CRV">CRV (legacy)</option>
                 </select>
                 <select class="filter-select" id="directionFilter">
                     <option value="all">All Directions</option>
@@ -567,10 +568,11 @@
 
         const strategyColors = {
             'HYPE': '#FF00FF',
+            'AVAX': '#FF6B6B',
+            'SOL': '#00FFAA',
             'LTC': '#00FFFF',
             'SLV': '#FFD700',
-            'CRV': '#00FF00',
-            'AVAX': '#FF6B6B'
+            'CRV': '#00FF00'
         };
 
         // Fetch and display data
