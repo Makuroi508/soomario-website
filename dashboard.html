@@ -1,1008 +1,628 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soomario Elite Dashboard - Live Performance</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cormorant Garamond', serif;
-            background: linear-gradient(135deg, #1a0033 0%, #0a001a 50%, #1a0033 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .dashboard-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .dashboard-header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .dashboard-header p {
-            font-family: 'Orbitron', sans-serif;
-            color: #9370DB;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-        }
-
-        .last-update {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 10px;
-        }
-
-        /* Top Stats Bar (FIXED LAYOUT) */
-        .stats-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;   /* centers the last row (no orphan) */
-            align-items: stretch;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(147, 112, 219, 0.1);
-            border: 2px solid rgba(147, 112, 219, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-
-            /* sizing: clean 4 + 3 layout on desktop */
-            flex: 1 1 260px;           /* preferred card width */
-            min-width: 220px;
-            max-width: 320px;
-
-            /* keeps cards consistent height */
-            min-height: 120px;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: #FFD700;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .stat-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: #9370DB;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .stat-value {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #FFD700;
-        }
-
-        .stat-value.negative {
-            color: #ff4444;
-        }
-
-        .stat-value.positive {
-            color: #00ff88;
-        }
-
-        .stat-subvalue {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.95rem;
-            margin-top: 6px;
-            opacity: 0.9;
-        }
-
-        /* Equity Curve Chart */
-        .chart-section {
-            background: rgba(147, 112, 219, 0.1);
-            border: 2px solid rgba(147, 112, 219, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .chart-section h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: #FFD700;
-            margin-bottom: 20px;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 400px;
-        }
-
-        /* Strategy Cards */
-        .strategies-section {
-            margin-bottom: 40px;
-        }
-
-        .strategies-section h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: #FFD700;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .strategy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .strategy-card {
-            background: rgba(147, 112, 219, 0.1);
-            border: 2px solid rgba(147, 112, 219, 0.3);
-            border-radius: 15px;
-            padding: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .strategy-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .strategy-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .strategy-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .strategy-badge {
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .strategy-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .strategy-stat {
-            text-align: center;
-        }
-
-        .strategy-stat-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            color: #9370DB;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .strategy-stat-value {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        /* Weekly Performance */
-        .weekly-section {
-            margin-bottom: 40px;
-        }
-
-        .weekly-section h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: #FFD700;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .weekly-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .week-card {
-            background: rgba(147, 112, 219, 0.1);
-            border: 2px solid rgba(147, 112, 219, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-        }
-
-        .week-header {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            color: #9370DB;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .week-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .week-stat {
-            text-align: center;
-        }
-
-        .week-stat-label {
-            font-size: 0.8rem;
-            color: #888;
-            margin-bottom: 5px;
-        }
-
-        .week-stat-value {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        /* Trade History Table */
-        .table-section {
-            background: rgba(147, 112, 219, 0.1);
-            border: 2px solid rgba(147, 112, 219, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .table-section h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: #FFD700;
-            margin-bottom: 20px;
-        }
-
-        .table-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .filter-select, .search-input {
-            font-family: 'Orbitron', sans-serif;
-            padding: 10px 15px;
-            background: rgba(147, 112, 219, 0.2);
-            border: 1px solid rgba(147, 112, 219, 0.5);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.9rem;
-        }
-
-        .filter-select option {
-            background: #1a0033;
-            color: #fff;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        thead {
-            background: rgba(147, 112, 219, 0.3);
-        }
-
-        th {
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            color: #FFD700;
-            cursor: pointer;
-            user-select: none;
-            position: relative;
-        }
-
-        th:hover {
-            background: rgba(147, 112, 219, 0.5);
-        }
-
-        th.sortable::after {
-            content: ' ⇅';
-            opacity: 0.5;
-            font-size: 0.8rem;
-        }
-
-        th.sorted-asc::after {
-            content: ' ▲';
-            opacity: 1;
-        }
-
-        th.sorted-desc::after {
-            content: ' ▼';
-            opacity: 1;
-        }
-
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(147, 112, 219, 0.2);
-        }
-
-        tbody tr {
-            transition: background 0.2s ease;
-        }
-
-        tbody tr:hover {
-            background: rgba(147, 112, 219, 0.15);
-        }
-
-        .trade-profit {
-            font-weight: 700;
-        }
-
-        .trade-profit.positive {
-            color: #00ff88;
-        }
-
-        .trade-profit.negative {
-            color: #ff4444;
-        }
-
-        .strategy-badge-sm {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .direction-badge {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .direction-long {
-            background: rgba(0, 255, 136, 0.2);
-            color: #00ff88;
-        }
-
-        .direction-short {
-            background: rgba(255, 68, 68, 0.2);
-            color: #ff4444;
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            font-family: 'Orbitron', sans-serif;
-            color: #9370DB;
-        }
-
-        /* Back Button */
-        .back-button {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 20px;
-            background: rgba(147, 112, 219, 0.2);
-            border: 2px solid rgba(147, 112, 219, 0.5);
-            border-radius: 8px;
-            color: #FFD700;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: rgba(147, 112, 219, 0.4);
-            border-color: #FFD700;
-            transform: translateX(-5px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .dashboard-header h1 {
-                font-size: 2rem;
-            }
-
-            .stat-card {
-                flex: 1 1 calc(50% - 20px); /* 2 per row on mobile */
-                max-width: none;
-            }
-
-            .chart-container {
-                height: 300px;
-            }
-
-            .strategy-grid, .weekly-grid {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                font-size: 0.85rem;
-            }
-
-            th, td {
-                padding: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stat-card {
-                flex: 1 1 100%; /* 1 per row on very small screens */
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soomario — Elite Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<style>
+:root {
+  --bg:     #0b0917;
+  --s1:     #13102a;
+  --s2:     #1b183a;
+  --border: #32305a;
+  --gold:   #e8c46a;
+  --gold2:  #faefd4;
+  --purple: #a89df0;
+  --green:  #3ddc84;
+  --red:    #ff6b6b;
+  --cyan:   #22d3ee;
+  --text:   #f4eedd;
+  --dim:    #8880a8;
+  --mid:    #c0b8d8;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 15% 0%, rgba(124,111,207,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 85% 100%, rgba(201,169,97,.05) 0%, transparent 50%);
+}
+
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px;
+  background: rgba(11,9,23,.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.nav-brand .t1 {
+  font-family: 'Cinzel', serif; font-size: 18px; font-weight: 700;
+  color: var(--text); letter-spacing: 2px;
+}
+.nav-brand .t2 {
+  font-family: 'Orbitron', sans-serif; font-size: 10px;
+  color: var(--gold); letter-spacing: 3px; margin-top: 3px;
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-link {
+  font-family: 'Orbitron', sans-serif; font-size: 11px;
+  color: var(--mid); letter-spacing: 1.5px; text-decoration: none;
+  padding: 7px 14px; border: 1px solid var(--border); border-radius: 7px;
+  transition: all .2s;
+}
+.nav-link:hover { color: var(--gold); border-color: rgba(232,196,106,.5); }
+.live-pill {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Orbitron', sans-serif; font-size: 11px;
+  color: var(--mid); letter-spacing: 2px;
+}
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 10px var(--green);
+  animation: blink 2s ease-in-out infinite;
+}
+.dot.err { background: var(--red); box-shadow: 0 0 10px var(--red); }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+.main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 60px; }
+.row { display: grid; gap: 14px; margin-bottom: 14px; }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g21 { grid-template-columns: 2.2fr 1fr; }
+.g1 { grid-template-columns: 1fr; }
+
+.card {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 22px 24px;
+  position: relative; overflow: hidden;
+}
+.card-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent, var(--border)), transparent);
+}
+
+.lbl {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 12px;
+}
+.val {
+  font-family: 'Orbitron', sans-serif; font-weight: 700;
+  font-size: 34px; line-height: 1.05;
+}
+.val.md { font-size: 24px; }
+.val.sm { font-size: 18px; }
+.sub { font-size: 15px; color: var(--mid); margin-top: 9px; }
+.note { font-size: 14px; color: var(--dim); margin-top: 8px; line-height: 1.5; }
+.c-gold { color: var(--gold) !important; }
+.c-green { color: var(--green) !important; }
+.c-red { color: var(--red) !important; }
+.c-cyan { color: var(--cyan) !important; }
+.c-mid { color: var(--mid) !important; }
+
+.stitle {
+  font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold2);
+}
+.scount {
+  font-family: 'Orbitron', sans-serif; font-size: 11px;
+  color: var(--dim); letter-spacing: 1px;
+}
+
+.tbl { width: 100%; border-collapse: separate; border-spacing: 0; }
+.tbl th {
+  font-family: 'Orbitron', sans-serif; font-size: 11px;
+  letter-spacing: 1.5px; color: var(--mid); text-align: left;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+}
+.tbl td {
+  padding: 14px 16px; border-bottom: 1px solid rgba(50,48,90,.4);
+  font-size: 16px;
+}
+.tbl tr:hover td { background: rgba(168,157,240,.04); }
+.coin-name { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 600; }
+.side-badge {
+  font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 5px; letter-spacing: 1px;
+}
+.side-long { background: rgba(61,220,132,.12); color: var(--green); }
+.side-short { background: rgba(255,107,107,.12); color: var(--red); }
+
+.chart-wrap { position: relative; height: 230px; }
+.empty { text-align: center; padding: 40px 20px; font-size: 17px; color: var(--dim); }
+.footer-note {
+  text-align: center; padding: 30px 20px;
+  font-family: 'Orbitron', sans-serif; font-size: 11px;
+  color: var(--dim); letter-spacing: 1px;
+}
+
+.error-banner {
+  background: rgba(255,107,107,.1); border: 1px solid rgba(255,107,107,.3);
+  border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px;
+  font-family: 'Orbitron', sans-serif; font-size: 11px;
+  color: var(--red); letter-spacing: 1px; display: none; align-items: center; gap: 10px;
+}
+.error-banner.show { display: flex; }
+
+@media (max-width: 900px) {
+  .g4 { grid-template-columns: repeat(2, 1fr); }
+  .g21 { grid-template-columns: 1fr; }
+  .nav { padding: 14px 16px; }
+  .main { padding: 16px 12px 40px; }
+  .val { font-size: 26px; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-button">← Back to Home</a>
 
-        <div class="dashboard-header">
-            <h1>Soomario Elite Dashboard</h1>
-            <p>LIVE PERFORMANCE TRACKING</p>
-            <div class="last-update" id="lastUpdate">Loading...</div>
-        </div>
-
-        <!-- Top Stats Bar -->
-        <div class="stats-grid" id="statsGrid">
-            <div class="loading">Loading performance data...</div>
-        </div>
-
-        <!-- Equity Curve Chart -->
-        <div class="chart-section">
-            <h2>📈 Equity Curve</h2>
-            <div class="chart-container">
-                <canvas id="equityChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Strategy Performance Cards -->
-        <div class="strategies-section">
-            <h2>🎯 Strategy Performance</h2>
-            <div class="strategy-grid" id="strategyGrid">
-                <div class="loading">Loading strategies...</div>
-            </div>
-        </div>
-
-        <!-- Weekly Performance -->
-        <div class="weekly-section">
-            <h2>📅 Weekly Performance</h2>
-            <div class="weekly-grid" id="weeklyGrid">
-                <div class="loading">Loading weekly data...</div>
-            </div>
-        </div>
-
-        <!-- Trade History Table -->
-        <div class="table-section">
-            <h2>📊 Complete Trade History</h2>
-            <div class="table-controls">
-                <select class="filter-select" id="strategyFilter">
-                    <option value="all">All Strategies</option>
-                    <option value="HYPE">HYPE</option>
-                    <option value="AVAX">AVAX</option>
-                    <option value="SOL">SOL</option>
-                    <option value="LTC">LTC (legacy)</option>
-                    <option value="SLV">SLV (legacy)</option>
-                    <option value="CRV">CRV (legacy)</option>
-                </select>
-                <select class="filter-select" id="directionFilter">
-                    <option value="all">All Directions</option>
-                    <option value="LONG">Long</option>
-                    <option value="SHORT">Short</option>
-                </select>
-                <input type="text" class="search-input" id="searchInput" placeholder="Search trades...">
-            </div>
-            <div class="table-wrapper">
-                <table id="tradesTable">
-                    <thead>
-                        <tr>
-                            <th class="sortable" data-sort="date">Date</th>
-                            <th class="sortable" data-sort="strategy">Strategy</th>
-                            <th class="sortable" data-sort="direction">Direction</th>
-                            <th class="sortable" data-sort="entryPrice">Entry Price</th>
-                            <th class="sortable" data-sort="exitPrice">Exit Price</th>
-                            <th class="sortable" data-sort="size">Size</th>
-                            <th class="sortable" data-sort="pnl">P&L</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tradesBody">
-                        <tr><td colspan="7" class="loading">Loading trades...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<nav class="nav">
+  <a class="nav-brand" href="index.html">
+    <div>
+      <span class="t1">SOOMARIO</span>
+      <span class="t2">ELITE DASHBOARD</span>
     </div>
+  </a>
+  <div class="nav-right">
+    <a class="nav-link" href="index.html">&larr; Website</a>
+    <div class="live-pill"><div class="dot" id="statusDot"></div><span id="statusText">CONNECTING</span></div>
+  </div>
+</nav>
 
-    <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
-        
-        let allTrades = [];
-        let currentSort = { column: 'date', direction: 'desc' };
-        let equityChart = null;
+<div class="main">
+  <div class="error-banner" id="errBanner"><span>&#9888;&#65039;</span><span id="errMsg"></span></div>
 
-        const strategyColors = {
-            'HYPE': '#FF00FF',
-            'AVAX': '#FF6B6B',
-            'SOL': '#00FFAA',
-            'LTC': '#00FFFF',
-            'SLV': '#FFD700',
-            'CRV': '#00FF00'
-        };
+  <!-- Row 1: Core metrics -->
+  <div class="row g4">
+    <div class="card"><div class="card-accent" style="--accent:var(--cyan)"></div>
+      <div class="lbl">Total Equity</div>
+      <div class="val c-cyan" id="mEquity">&mdash;</div>
+      <div class="sub" id="mEquitySub">Available: &mdash;</div>
+    </div>
+    <div class="card"><div class="card-accent" style="--accent:var(--gold)"></div>
+      <div class="lbl">Total Deposited</div>
+      <div class="val c-gold" id="mDeposited">&mdash;</div>
+      <div class="sub">Capital contributions</div>
+    </div>
+    <div class="card"><div class="card-accent" style="--accent:var(--green)"></div>
+      <div class="lbl">Trading P&amp;L</div>
+      <div class="val" id="mTradingPnl">&mdash;</div>
+      <div class="sub" id="mTradingPnlSub">return on capital</div>
+    </div>
+    <div class="card"><div class="card-accent" style="--accent:var(--purple)"></div>
+      <div class="lbl">Unrealized P&amp;L</div>
+      <div class="val" id="mUnrealPnl">&mdash;</div>
+      <div class="sub" id="mUnrealSub">Open positions: &mdash;</div>
+    </div>
+  </div>
 
-        // Fetch and display data
-        async function fetchData() {
-            try {
-                // FIX: Add cache buster to URL to prevent stale data
-                const uniqueUrl = `${API_URL}?t=${Date.now()}`;
-                const response = await fetch(uniqueUrl);
-                const data = await response.json();
-                
-                console.log('✅ Data fetched at:', new Date().toLocaleTimeString());
-                console.log('📊 Total trades received:', data.allTrades?.length || 0);
-                
-                if (!data || !data.stats) {
-                    throw new Error('Invalid data format from API');
-                }
-                
-                // Store trades globally for filtering
-                allTrades = data.allTrades;
-                
-                updateTopStats(data.stats);
-                updateEquityChart(data.equityCurve);
-                updateStrategyCards(data.strategyStats, data.allTrades);
-                updateWeeklyPerformance(data.weeklyPerformance);
-                renderTrades(allTrades);
-                
-                document.getElementById('lastUpdate').textContent = 
-                    `Last Updated: ${new Date().toLocaleString()}`;
-                
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                document.getElementById('lastUpdate').textContent = 
-                    `Error loading data - Retrying in 30 seconds...`;
-                document.getElementById('statsGrid').innerHTML = 
-                    '<div class="loading">⚠️ Error loading data. Check console for details.</div>';
-            }
+  <!-- Row 2: Ratios -->
+  <div class="row g4">
+    <div class="card">
+      <div class="lbl">Profit Factor</div>
+      <div class="val md" id="mPF">&mdash;</div>
+      <div class="note" id="mPFNote"></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Sharpe Ratio</div>
+      <div class="val md c-gold" id="mSharpe">&mdash;</div>
+      <div class="note">Annualized risk-adjusted return</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Sortino Ratio</div>
+      <div class="val md c-gold" id="mSortino">&mdash;</div>
+      <div class="note">Downside-adjusted return</div>
+    </div>
+    <div class="card">
+      <div class="lbl">CAGR</div>
+      <div class="val md" id="mCAGR">&mdash;</div>
+      <div class="note" id="mCAGRNote">Needs 30d min</div>
+    </div>
+  </div>
+
+  <!-- Row 3: Trade stats -->
+  <div class="row g4">
+    <div class="card">
+      <div class="lbl">Win Rate</div>
+      <div class="val md c-green" id="mWR">&mdash;</div>
+      <div class="sub" id="mWRSub">closed trades</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Avg Win</div>
+      <div class="val md c-green" id="mAvgWin">&mdash;</div>
+      <div class="sub" id="mAvgWinSub"></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Avg Loss</div>
+      <div class="val md c-red" id="mAvgLoss">&mdash;</div>
+      <div class="sub" id="mAvgLossSub"></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Total Realized P&amp;L</div>
+      <div class="val md" id="mRealPnl">&mdash;</div>
+      <div class="sub" id="mRealSub">closed fills</div>
+    </div>
+  </div>
+
+  <!-- Equity Curve + Bot Activity -->
+  <div class="row g21">
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div class="stitle">EQUITY CURVE</div>
+        <div class="scount" id="curvePts"></div>
+      </div>
+      <div class="chart-wrap"><canvas id="chartEquity"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="stitle" style="margin-bottom:18px;">BOT ACTIVITY</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><div class="lbl">Total Trades</div><div class="val md c-gold" id="mTotalTrades">&mdash;</div></div>
+        <div><div class="lbl">Open Now</div><div class="val md c-cyan" id="mOpenCount">&mdash;</div></div>
+        <div><div class="lbl">Best Trade</div><div class="val sm c-green" id="mBest">&mdash;</div></div>
+        <div><div class="lbl">Worst Trade</div><div class="val sm c-red" id="mWorst">&mdash;</div></div>
+      </div>
+      <div class="note" style="margin-top:18px;border-top:1px solid var(--border);padding-top:14px;">
+        <div class="lbl">Strategies</div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:14px;color:var(--gold);letter-spacing:1px;">HYPE &middot; AVAX &middot; SOL</div>
+        <div style="font-size:13px;color:var(--dim);margin-top:6px;">Soomario v3 &middot; Hyperliquid Perps</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Open Positions -->
+  <div class="row g1">
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div class="stitle">OPEN POSITIONS</div>
+        <div class="scount" id="posCount"></div>
+      </div>
+      <table class="tbl">
+        <thead><tr>
+          <th>COIN</th><th>SIDE</th><th>SIZE</th><th>AVG ENTRY</th>
+          <th>NOTIONAL</th><th>LEVERAGE</th><th>UNREALIZED PNL</th>
+        </tr></thead>
+        <tbody id="posBody"><tr><td colspan="7" class="empty">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Closed Trades -->
+  <div class="row g1">
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div class="stitle">CLOSED TRADE FILLS</div>
+        <div class="scount" id="tradeCount"></div>
+      </div>
+      <table class="tbl">
+        <thead><tr>
+          <th>COIN</th><th>SIDE</th><th>DATE</th><th>PRICE</th><th>P&amp;L</th>
+        </tr></thead>
+        <tbody id="tradeBody"><tr><td colspan="5" class="empty">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  Soomario Elite Dashboard &middot; Data from Hyperliquid public API &middot; Auto-refreshes every 30s
+</div>
+
+<script>
+const WALLET  = '0x2081177ef6268F958795d2C76996E99F94bB9A22';
+const HL_API  = 'https://api.hyperliquid.xyz/info';
+const DEPOSIT = 3103.00;
+const ELITE_COINS = new Set(['HYPE', 'AVAX', 'SOL']);
+
+const $ = id => document.getElementById(id);
+const round = (v, d=2) => Math.round(v * 10**d) / 10**d;
+const fmt = v => '$' + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+const fmtSigned = v => (v >= 0 ? '+' : '-') + fmt(v);
+
+async function hlPost(payload) {
+  const r = await fetch(HL_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+
+async function fetchAll() {
+  const [state, fills] = await Promise.all([
+    hlPost({ type: 'clearinghouseState', user: WALLET }),
+    hlPost({ type: 'userFills', user: WALLET }),
+  ]);
+  return { state, fills: Array.isArray(fills) ? fills : [] };
+}
+
+function parsePositions(state) {
+  const out = [];
+  for (const ap of (state.assetPositions || [])) {
+    const pos = ap.position || {};
+    const size = parseFloat(pos.szi || 0);
+    if (!size) continue;
+    const coin = pos.coin || '?';
+    if (!ELITE_COINS.has(coin)) continue;
+    const entryPx = parseFloat(pos.entryPx || 0);
+    const unrealPnl = parseFloat(pos.unrealizedPnl || 0);
+    const lev = pos.leverage?.value ?? pos.leverage ?? '?';
+    const notional = Math.abs(size) * entryPx;
+    out.push({ coin, side: size > 0 ? 'LONG' : 'SHORT',
+               size: Math.abs(size), entryPx, notional, unrealPnl, lev });
+  }
+  return out;
+}
+
+function parseFills(fills) {
+  const eliteFills = fills.filter(f => ELITE_COINS.has(f.coin));
+  const orders = {};
+  for (const f of eliteFills) {
+    const oid = String(f.oid || f.orderId || '');
+    if (!oid) continue;
+    const dir = f.dir || '';
+    if (!orders[oid]) {
+      orders[oid] = { coin: f.coin || '?',
+                      side: dir.includes('Long') ? 'LONG' : 'SHORT',
+                      pnl: 0, px: parseFloat(f.px || 0),
+                      time: f.time || 0, isClose: false };
+    }
+    if (dir.includes('Close')) {
+      orders[oid].pnl += parseFloat(f.closedPnl || 0);
+      orders[oid].isClose = true;
+    }
+  }
+  return Object.values(orders).filter(t => t.isClose).sort((a, b) => b.time - a.time);
+}
+
+function calcMetrics(closed, equity, unrealised) {
+  const pnls = closed.map(t => t.pnl).filter(p => p !== 0);
+  const n = pnls.length;
+  const wins = pnls.filter(p => p > 0);
+  const losses = pnls.filter(p => p < 0);
+  const grossWin = wins.reduce((a,b) => a+b, 0);
+  const grossLoss = Math.abs(losses.reduce((a,b) => a+b, 0));
+  const totalPnl = pnls.reduce((a,b) => a+b, 0);
+
+  let pf = null;
+  if (grossLoss > 0) pf = round(grossWin / grossLoss, 2);
+  else if (grossWin > 0) pf = 999;
+
+  const winRate = n > 0 ? round(wins.length / n * 100, 1) : 0;
+
+  let sharpe = null, sortino = null;
+  if (n >= 5) {
+    const mean = totalPnl / n;
+    const variance = pnls.reduce((a,b) => a + (b - mean)**2, 0) / n;
+    const stdDev = Math.sqrt(variance);
+    const downside = pnls.filter(p => p < 0);
+    const downVar = downside.length > 0
+      ? downside.reduce((a,b) => a + b**2, 0) / downside.length : 0;
+    const downDev = Math.sqrt(downVar);
+    const firstTime = closed.length ? closed[closed.length - 1].time : Date.now();
+    const daySpan = Math.max(1, (Date.now() - firstTime) / 86400000);
+    const annualFactor = Math.sqrt((n / daySpan) * 365);
+    if (stdDev > 0) sharpe = round((mean / stdDev) * annualFactor, 2);
+    if (downDev > 0) sortino = round((mean / downDev) * annualFactor, 2);
+  }
+
+  let cagr = null;
+  if (closed.length && equity > 0) {
+    const firstTime = closed[closed.length - 1].time;
+    const days = (Date.now() - firstTime) / 86400000;
+    if (days >= 30) {
+      cagr = round((Math.pow(equity / DEPOSIT, 365 / days) - 1) * 100, 1);
+    }
+  }
+
+  return {
+    total: n, totalPnl: round(totalPnl, 2), winRate,
+    avgWin: wins.length ? round(grossWin / wins.length, 2) : 0,
+    avgLoss: losses.length ? round(losses.reduce((a,b)=>a+b,0) / losses.length, 2) : 0,
+    best: n ? round(Math.max(...pnls), 2) : 0,
+    worst: n ? round(Math.min(...pnls), 2) : 0,
+    pf, sharpe, sortino, cagr,
+  };
+}
+
+function buildEquityCurve(closed, currentEquity, unrealised) {
+  if (!closed.length) return { labels: [], data: [] };
+  const sorted = [...closed].sort((a, b) => a.time - b.time);
+  const totalRealised = sorted.reduce((s, t) => s + t.pnl, 0);
+  const startEquity = currentEquity - unrealised - totalRealised;
+  const labels = ['Start'];
+  const data = [round(startEquity, 2)];
+  let running = startEquity;
+  for (const t of sorted) {
+    running += t.pnl;
+    const d = new Date(t.time);
+    labels.push(t.coin + ' (' + t.side + ')\n' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}));
+    data.push(round(running, 2));
+  }
+  return { labels, data };
+}
+
+let chartInst = null;
+function renderChart(labels, data) {
+  const ctx = $('chartEquity').getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 0, 210);
+  grad.addColorStop(0, 'rgba(232,196,106,.22)');
+  grad.addColorStop(0.7, 'rgba(232,196,106,.03)');
+  grad.addColorStop(1, 'rgba(232,196,106,0)');
+  if (chartInst) {
+    chartInst.data.labels = labels;
+    chartInst.data.datasets[0].data = data;
+    chartInst.update('none');
+    return;
+  }
+  chartInst = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets: [{
+      data, borderColor: '#e8c46a', borderWidth: 2,
+      backgroundColor: grad, fill: true, tension: 0.35,
+      pointRadius: data.length <= 40 ? 4 : 0,
+      pointHoverRadius: 6, pointBackgroundColor: '#e8c46a',
+      pointBorderColor: '#13102a', pointBorderWidth: 2,
+    }]},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#13102a', borderColor: '#32305a', borderWidth: 1,
+          titleColor: '#8880a8', bodyColor: '#f4eedd',
+          titleFont: { family: 'Orbitron', size: 10 },
+          bodyFont: { family: 'Orbitron', size: 13 },
+          callbacks: {
+            title: items => items[0].label.replace('\n', ' — '),
+            label: c => ' $' + c.parsed.y.toLocaleString('en-US', {minimumFractionDigits:2})
+          }
         }
+      },
+      scales: {
+        x: { grid: {color:'rgba(50,48,90,.6)', drawBorder:false},
+             ticks: {color:'#8880a8', font:{family:'Orbitron',size:9}, maxTicksLimit:8,
+                     callback: function(v,i) {
+                       var l = this.chart.data.labels[i] || '';
+                       return l.split('\n').pop();
+                     }}},
+        y: { grid: {color:'rgba(50,48,90,.4)', drawBorder:false},
+             ticks: {color:'#8880a8', font:{family:'Orbitron',size:10},
+                     callback: function(v) { return '$'+v.toLocaleString(); }}}
+      }
+    }
+  });
+}
 
-        // Update Top Stats Bar
-        function updateTopStats(stats) {
-            const currentEquity = Number(stats.currentEquity) || 0;
-            const totalPnL = Number(stats.totalReturn) || 0;
-            const roiPercent = Number(stats.roiPercent) || 0;
-            const winRate = Number(stats.winRate) || 0;
-            const profitFactor = Number(stats.profitFactor) || 0;
-            const maxDrawdown = Number(stats.maxDrawdown) || 0;
-            const avgWin = Number(stats.avgWin) || 0;
-            const sharpeRatio = Number(stats.sharpeRatio) || 0;
-            
-            const statsHTML = `
-                <div class="stat-card">
-                    <div class="stat-label">Current Equity</div>
-                    <div class="stat-value">$${currentEquity.toFixed(2)}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Return</div>
-                    <div class="stat-value ${totalPnL >= 0 ? 'positive' : 'negative'}">
-                        ${totalPnL >= 0 ? '+' : ''}$${totalPnL.toFixed(2)}
-                        <div class="stat-subvalue">
-                            (${totalPnL >= 0 ? '+' : ''}${roiPercent.toFixed(2)}%)
-                        </div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Win Rate</div>
-                    <div class="stat-value">${winRate.toFixed(1)}%</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Profit Factor</div>
-                    <div class="stat-value ${profitFactor >= 1 ? 'positive' : 'negative'}">
-                        ${profitFactor.toFixed(2)}
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Max Drawdown</div>
-                    <div class="stat-value negative">${maxDrawdown.toFixed(2)}%</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Avg Win</div>
-                    <div class="stat-value positive">$${avgWin.toFixed(2)}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Sharpe Ratio</div>
-                    <div class="stat-value ${sharpeRatio >= 0 ? 'positive' : 'negative'}">
-                        ${sharpeRatio.toFixed(2)}
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('statsGrid').innerHTML = statsHTML;
-        }
+function renderPositions(positions) {
+  var body = $('posBody');
+  $('posCount').textContent = positions.length + ' ACTIVE';
+  if (!positions.length) {
+    body.innerHTML = '<tr><td colspan="7" class="empty">No open positions</td></tr>';
+    return;
+  }
+  body.innerHTML = positions.map(function(p) {
+    return '<tr>' +
+      '<td class="coin-name">' + p.coin + '</td>' +
+      '<td><span class="side-badge ' + (p.side==='LONG'?'side-long':'side-short') + '">' + p.side + '</span></td>' +
+      '<td style="font-family:Orbitron,sans-serif;font-size:15px;">' + p.size.toLocaleString() + '</td>' +
+      '<td>$' + p.entryPx.toLocaleString(undefined,{minimumFractionDigits:2}) + '</td>' +
+      '<td>$' + p.notional.toLocaleString(undefined,{minimumFractionDigits:2}) + '</td>' +
+      '<td style="font-family:Orbitron,sans-serif;font-size:14px;">' + p.lev + 'x</td>' +
+      '<td style="font-family:Orbitron,sans-serif;font-size:15px;" class="' + (p.unrealPnl>=0?'c-green':'c-red') + '">' +
+        fmtSigned(p.unrealPnl) + '</td></tr>';
+  }).join('');
+}
 
-        // Update Equity Chart
-        function updateEquityChart(equityCurve) {
-            const ctx = document.getElementById('equityChart').getContext('2d');
-            
-            if (equityChart) {
-                equityChart.destroy();
-            }
+function renderTrades(closed) {
+  var body = $('tradeBody');
+  var show = closed.slice(0, 50);
+  $('tradeCount').textContent = closed.length + ' TRADES';
+  if (!show.length) {
+    body.innerHTML = '<tr><td colspan="5" class="empty">No closed trades yet</td></tr>';
+    return;
+  }
+  body.innerHTML = show.map(function(t) {
+    var d = new Date(t.time);
+    var dateStr = d.toLocaleDateString('en-US',{year:'numeric',month:'2-digit',day:'2-digit'}) + ' ' +
+                  d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    return '<tr>' +
+      '<td class="coin-name">' + t.coin + '</td>' +
+      '<td><span class="side-badge ' + (t.side==='LONG'?'side-long':'side-short') + '">' + t.side + '</span></td>' +
+      '<td style="font-size:14px;color:var(--dim);">' + dateStr + '</td>' +
+      '<td style="font-family:Orbitron,sans-serif;font-size:15px;">$' + t.px.toLocaleString(undefined,{minimumFractionDigits:2}) + '</td>' +
+      '<td style="font-family:Orbitron,sans-serif;font-size:15px;" class="' + (t.pnl>=0?'c-green':'c-red') + '">' +
+        fmtSigned(t.pnl) + '</td></tr>';
+  }).join('');
+}
 
-            const equityData = (equityCurve || []).map(item => Number(item.equity) || 0);
+async function refresh() {
+  try {
+    var data = await fetchAll();
+    var state = data.state;
+    var fills = data.fills;
 
-            equityChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: equityData.map((point, i) => i === 0 ? 'Start' : `Trade ${i}`),
-                    datasets: [{
-                        label: 'Portfolio Equity',
-                        data: equityData,
-                        borderColor: '#FFD700',
-                        backgroundColor: 'rgba(255, 215, 0, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 0,
-                        pointHoverRadius: 6,
-                        pointHoverBackgroundColor: '#FFD700',
-                        pointHoverBorderColor: '#fff',
-                        pointHoverBorderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(26, 0, 51, 0.95)',
-                            titleColor: '#FFD700',
-                            titleFont: { family: 'Orbitron', size: 14 },
-                            bodyColor: '#fff',
-                            bodyFont: { family: 'Cormorant Garamond', size: 13 },
-                            borderColor: '#9370DB',
-                            borderWidth: 1,
-                            padding: 12,
-                            callbacks: {
-                                label: function(context) {
-                                    return `Equity: $${context.parsed.y.toFixed(2)}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            ticks: {
-                                color: '#9370DB',
-                                font: { family: 'Orbitron', size: 11 },
-                                callback: function(value) {
-                                    return '$' + value.toFixed(0);
-                                }
-                            },
-                            grid: { color: 'rgba(147, 112, 219, 0.1)' }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#9370DB',
-                                font: { family: 'Orbitron', size: 10 },
-                                maxTicksLimit: 10
-                            },
-                            grid: { color: 'rgba(147, 112, 219, 0.1)' }
-                        }
-                    }
-                }
-            });
-        }
+    var equity = parseFloat(state.marginSummary?.accountValue || 0);
+    var totalNtl = parseFloat(state.marginSummary?.totalNtlPos || 0);
 
-        // Calculate Strategy P&L Client-Side
-        function updateStrategyCards(apiStrategyStats, trades) {
-            const calculatedStats = {};
-            
-            trades.forEach(t => {
-                const strat = t.strategy || 'Other';
-                if (!calculatedStats[strat]) {
-                    calculatedStats[strat] = { pnl: 0, wins: 0, count: 0 };
-                }
-                calculatedStats[strat].pnl += Number(t.pnl) || 0;
-                calculatedStats[strat].count++;
-                if (Number(t.pnl) > 0) calculatedStats[strat].wins++;
-            });
+    var positions = parsePositions(state);
+    var unrealised = positions.reduce(function(s, p) { return s + p.unrealPnl; }, 0);
+    var closed = parseFills(fills);
+    var m = calcMetrics(closed, equity, unrealised);
 
-            const strategyHTML = Object.entries(apiStrategyStats || {}).map(([name, stats]) => {
-                const color = strategyColors[name] || '#9370DB';
-                const calc = calculatedStats[name] || { pnl: 0, wins: 0, count: 0 };
-                
-                const totalPnL = calc.pnl;
-                const tradeCount = calc.count;
-                const winRate = tradeCount > 0 ? (calc.wins / tradeCount * 100) : 0;
-                const profitFactor = Number(stats.profitFactor) || 0;
+    var tradingPnl = equity - DEPOSIT;
+    var tradingPct = round((tradingPnl / DEPOSIT) * 100, 2);
 
-                return `
-                    <div class="strategy-card" style="border-color: ${color};">
-                        <div class="strategy-header">
-                            <div class="strategy-name" style="color: ${color};">${name}</div>
-                            <div class="strategy-badge" style="background: ${color}20; color: ${color};">
-                                ${winRate.toFixed(1)}% WR
-                            </div>
-                        </div>
-                        <div class="strategy-stats">
-                            <div class="strategy-stat">
-                                <div class="strategy-stat-label">Trades</div>
-                                <div class="strategy-stat-value">${tradeCount}</div>
-                            </div>
-                            <div class="strategy-stat">
-                                <div class="strategy-stat-label">Wins</div>
-                                <div class="strategy-stat-value" style="color: #00ff88;">${calc.wins}</div>
-                            </div>
-                            <div class="strategy-stat">
-                                <div class="strategy-stat-label">Total P&L</div>
-                                <div class="strategy-stat-value ${totalPnL >= 0 ? 'positive' : 'negative'}">
-                                    ${totalPnL >= 0 ? '+' : ''}$${totalPnL.toFixed(2)}
-                                </div>
-                            </div>
-                            <div class="strategy-stat">
-                                <div class="strategy-stat-label">Profit Factor</div>
-                                <div class="strategy-stat-value ${profitFactor >= 1 ? 'positive' : 'negative'}">
-                                    ${profitFactor.toFixed(2)}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            document.getElementById('strategyGrid').innerHTML = strategyHTML;
-        }
+    $('mEquity').textContent = fmt(equity);
+    $('mEquitySub').textContent = 'Available: ' + fmt(Math.max(0, equity - Math.abs(totalNtl)));
+    $('mDeposited').textContent = fmt(DEPOSIT);
+    $('mTradingPnl').textContent = fmtSigned(tradingPnl);
+    $('mTradingPnl').className = 'val ' + (tradingPnl >= 0 ? 'c-green' : 'c-red');
+    $('mTradingPnlSub').textContent = (tradingPnl >= 0 ? '+' : '') + tradingPct + '% return on capital';
+    $('mUnrealPnl').textContent = fmtSigned(unrealised);
+    $('mUnrealPnl').className = 'val ' + (unrealised >= 0 ? 'c-green' : 'c-red');
+    $('mUnrealSub').textContent = 'Open positions: ' + positions.length;
 
-        // Update Weekly Performance
-        function updateWeeklyPerformance(weeklyData) {
-            const weeklyHTML = (weeklyData || []).map(week => {
-                const trades = Number(week.trades) || 0;
-                const wins = Number(week.wins) || 0;
-                const winRate = Number(week.winRate) || 0;
-                const totalPnL = Number(week.pnl) || 0;
-                const isProfit = totalPnL >= 0;
-                
-                return `
-                    <div class="week-card">
-                        <div class="week-header">Week ${week.week || '?'}</div>
-                        <div class="week-stats">
-                            <div class="week-stat">
-                                <div class="week-stat-label">Trades</div>
-                                <div class="week-stat-value">${trades}</div>
-                            </div>
-                            <div class="week-stat">
-                                <div class="week-stat-label">Wins</div>
-                                <div class="week-stat-value" style="color: #00ff88;">${wins}</div>
-                            </div>
-                            <div class="week-stat">
-                                <div class="week-stat-label">Win Rate</div>
-                                <div class="week-stat-value">${winRate.toFixed(1)}%</div>
-                            </div>
-                            <div class="week-stat">
-                                <div class="week-stat-label">P&L</div>
-                                <div class="week-stat-value ${isProfit ? 'positive' : 'negative'}">
-                                    ${isProfit ? '+' : ''}$${totalPnL.toFixed(2)}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            document.getElementById('weeklyGrid').innerHTML = weeklyHTML;
-        }
+    $('mPF').textContent = m.pf !== null ? m.pf : '—';
+    $('mPF').className = 'val md ' + (m.pf && m.pf > 1 ? 'c-green' : m.pf && m.pf < 1 ? 'c-red' : '');
+    $('mPFNote').textContent = m.pf && m.pf > 2 ? 'Excellent (>2.0)' : m.pf && m.pf > 1 ? 'Profitable (>1.0)' : m.total < 5 ? 'Needs more trades' : 'Unprofitable';
+    $('mSharpe').textContent = m.sharpe !== null ? m.sharpe : '—';
+    $('mSortino').textContent = m.sortino !== null ? m.sortino : '—';
+    $('mCAGR').textContent = m.cagr !== null ? m.cagr + '%' : '—';
+    $('mCAGRNote').textContent = m.cagr !== null ? 'Annualized compound growth' : 'Needs 30d minimum';
 
-        // Render Trades (WITH TIME ADDED)
-        function renderTrades(trades) {
-            const tbody = document.getElementById('tradesBody');
-            
-            if (!trades || trades.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 30px;">No trades found</td></tr>';
-                return;
-            }
+    $('mWR').textContent = m.winRate + '%';
+    $('mWRSub').textContent = m.total + ' closed trades';
+    $('mAvgWin').textContent = fmt(m.avgWin);
+    $('mAvgWinSub').textContent = 'Best: ' + fmtSigned(m.best);
+    $('mAvgLoss').textContent = fmt(Math.abs(m.avgLoss));
+    $('mAvgLossSub').textContent = 'Worst: ' + fmtSigned(m.worst);
+    $('mRealPnl').textContent = fmtSigned(m.totalPnl);
+    $('mRealPnl').className = 'val md ' + (m.totalPnl >= 0 ? 'c-green' : 'c-red');
+    $('mRealSub').textContent = m.total + ' closed fills';
 
-            const tradesHTML = trades.map((trade, index) => {
-                const closePrice = Number(trade.price) || 0;
-                const size = Number(trade.size) || 0;
-                const pnl = Number(trade.pnl) || 0;
-                const fee = Number(trade.fee) || 0;
-                const isProfit = pnl >= 0;
-                const strategy = trade.strategy || 'Unknown';
-                const color = strategyColors[strategy] || '#9370DB';
-                const direction = trade.direction || 'LONG';
-                const timestamp = trade.timestamp || Date.now();
-                
-                const isLong = direction.toUpperCase().includes('LONG');
-                const directionLabel = isLong ? 'LONG' : 'SHORT';
-                
-                // Format date with time (HH:MM)
-                const tradeDate = new Date(timestamp);
-                const dateStr = tradeDate.toLocaleDateString();
-                const timeStr = tradeDate.toLocaleTimeString('en-US', { 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: false 
-                });
-                const dateTimeStr = `${dateStr} ${timeStr}`;
-                
-                let entryPrice = closePrice;
-                if (size > 0) {
-                    const grossPnL = pnl + fee; 
-                    if (isLong) {
-                        entryPrice = closePrice - (grossPnL / size);
-                    } else {
-                        entryPrice = closePrice + (grossPnL / size);
-                    }
-                }
-                
-                return `
-                    <tr>
-                        <td>${dateTimeStr}</td>
-                        <td>
-                            <span class="strategy-badge-sm" style="background: ${color}20; color: ${color};">
-                                ${strategy}
-                            </span>
-                        </td>
-                        <td>
-                            <span class="direction-badge ${isLong ? 'direction-long' : 'direction-short'}">
-                                ${directionLabel}
-                            </span>
-                        </td>
-                        <td>$${entryPrice.toFixed(2)}</td>
-                        <td>$${closePrice.toFixed(2)}</td>
-                        <td>${size.toFixed(4)}</td>
-                        <td class="trade-profit ${isProfit ? 'positive' : 'negative'}">
-                            ${isProfit ? '+' : ''}$${pnl.toFixed(2)}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            tbody.innerHTML = tradesHTML;
-        }
+    $('mTotalTrades').textContent = m.total;
+    $('mOpenCount').textContent = positions.length;
+    $('mBest').textContent = fmtSigned(m.best);
+    $('mWorst').textContent = fmtSigned(m.worst);
 
-        // Sorting
-        document.querySelectorAll('th.sortable').forEach(th => {
-            th.addEventListener('click', () => {
-                const column = th.dataset.sort;
-                
-                if (currentSort.column === column) {
-                    currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
-                } else {
-                    currentSort.column = column;
-                    currentSort.direction = 'desc';
-                }
+    var curve = buildEquityCurve(closed, equity, unrealised);
+    if (curve.data.length > 1) {
+      renderChart(curve.labels, curve.data);
+      $('curvePts').textContent = (curve.data.length - 1) + ' TRADES';
+    } else {
+      $('curvePts').textContent = 'Waiting for trades';
+    }
 
-                document.querySelectorAll('th.sortable').forEach(header => {
-                    header.classList.remove('sorted-asc', 'sorted-desc');
-                });
-                th.classList.add(`sorted-${currentSort.direction}`);
+    renderPositions(positions);
+    renderTrades(closed);
 
-                const sorted = [...getFilteredTrades()].sort((a, b) => {
-                    let aVal = a[column];
-                    let bVal = b[column];
-                    
-                    if (column === 'date') {
-                        aVal = new Date(a.timestamp || 0).getTime();
-                        bVal = new Date(b.timestamp || 0).getTime();
-                    } else if (column === 'entryPrice') {
-                        const aClose = Number(a.price) || 0;
-                        const aPnl = Number(a.pnl) || 0;
-                        const aSize = Number(a.size) || 1;
-                        const aIsLong = (a.direction || '').toUpperCase().includes('LONG');
-                        aVal = aIsLong ? (aClose - aPnl / aSize) : (aClose + aPnl / aSize);
-                        
-                        const bClose = Number(b.price) || 0;
-                        const bPnl = Number(b.pnl) || 0;
-                        const bSize = Number(b.size) || 1;
-                        const bIsLong = (b.direction || '').toUpperCase().includes('LONG');
-                        bVal = bIsLong ? (bClose - bPnl / bSize) : (bClose + bPnl / bSize);
-                    } else if (column === 'exitPrice') {
-                        aVal = Number(a.price) || 0;
-                        bVal = Number(b.price) || 0;
-                    } else if (column === 'size' || column === 'pnl') {
-                        aVal = Number(aVal) || 0;
-                        bVal = Number(bVal) || 0;
-                    }
-                    
-                    if (currentSort.direction === 'asc') {
-                        return aVal > bVal ? 1 : -1;
-                    } else {
-                        return aVal < bVal ? 1 : -1;
-                    }
-                });
+    $('statusDot').className = 'dot';
+    $('statusText').textContent = 'LIVE';
+    $('errBanner').classList.remove('show');
 
-                renderTrades(sorted);
-            });
-        });
+  } catch (err) {
+    console.error('Refresh error:', err);
+    $('statusDot').className = 'dot err';
+    $('statusText').textContent = 'ERROR';
+    $('errMsg').textContent = err.message;
+    $('errBanner').classList.add('show');
+  }
+}
 
-        // Filtering
-        function getFilteredTrades() {
-            const strategyFilter = document.getElementById('strategyFilter').value;
-            const directionFilter = document.getElementById('directionFilter').value;
-            const searchText = document.getElementById('searchInput').value.toLowerCase();
-
-            return (allTrades || []).filter(trade => {
-                const matchesStrategy = strategyFilter === 'all' || (trade.strategy || '') === strategyFilter;
-                
-                const tradeDirection = (trade.direction || '').toUpperCase();
-                const matchesDirection = directionFilter === 'all' || 
-                    (directionFilter === 'LONG' && tradeDirection.includes('LONG')) ||
-                    (directionFilter === 'SHORT' && tradeDirection.includes('SHORT'));
-                
-                const matchesSearch = searchText === '' || 
-                    (trade.strategy || '').toLowerCase().includes(searchText) ||
-                    (trade.direction || '').toLowerCase().includes(searchText) ||
-                    String(trade.pnl || '').includes(searchText);
-
-                return matchesStrategy && matchesDirection && matchesSearch;
-            });
-        }
-
-        document.getElementById('strategyFilter').addEventListener('change', () => {
-            renderTrades(getFilteredTrades());
-        });
-
-        document.getElementById('directionFilter').addEventListener('change', () => {
-            renderTrades(getFilteredTrades());
-        });
-
-        document.getElementById('searchInput').addEventListener('input', () => {
-            renderTrades(getFilteredTrades());
-        });
-
-        // Initial load and auto-refresh
-        fetchData();
-        setInterval(fetchData, 30000);
-    </script>
+refresh();
+setInterval(refresh, 30000);
+</script>
 </body>
 </html>
