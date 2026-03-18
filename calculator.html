@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soomario — DCA Budget Allocator</title>
+<meta name="description" content="Calculate your safe daily DCA allocation across 14 assets. Free tool from Soomario Strategies.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+:root {
+  --bg-deep: #0a0612;
+  --bg-panel: #12091e;
+  --bg-card: #1a0f2e;
+  --bg-card-hover: #221540;
+  --border: #2a1a4a;
+  --border-glow: #6b3fa0;
+  --gold: #d4a843;
+  --gold-bright: #f0c850;
+  --gold-dim: #8a6d2b;
+  --purple: #8b5cf6;
+  --purple-dim: #5b3a9e;
+  --text-primary: #e8e0f0;
+  --text-secondary: #9a8bb5;
+  --text-muted: #5d4e7a;
+  --green: #4ade80;
+  --green-dim: #166534;
+  --red: #f87171;
+  --red-dim: #7f1d1d;
+  --blue: #60a5fa;
+  --orange: #fb923c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(107,63,160,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(212,168,67,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(139,92,246,0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root { position: relative; z-index: 1; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border-glow); }
+
+.card-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Table */
+.calc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+.calc-table th {
+  text-align: left;
+  padding: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--border);
+}
+.calc-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(42,26,74,0.4);
+  color: var(--text-secondary);
+}
+.calc-table tr:hover td { background: rgba(42,26,74,0.3); }
+
+/* CTA */
+.cta-section {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid var(--gold-dim);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212,168,67,0.05), rgba(139,92,246,0.05));
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--purple), var(--gold), transparent);
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+  color: var(--bg-deep);
+  border: none;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+.cta-btn:hover {
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212,168,67,0.3);
+}
+
+input[type=range] { accent-color: var(--gold); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-glow); }
+
+@media (max-width: 768px) {
+  .controls-grid { grid-template-columns: 1fr !important; }
+  .crash-row { flex-direction: column !important; }
+  .crash-row > div { border-left: none !important; padding-left: 0 !important; border-top: 1px solid var(--border); padding-top: 1rem; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useMemo } = React;
+
+const ASSETS = [
+  { ticker: "BTC",   type: "Crypto", avgTradesPerYear: 77  },
+  { ticker: "SOL",   type: "Crypto", avgTradesPerYear: 97  },
+  { ticker: "PLTR",  type: "Stocks", avgTradesPerYear: 115 },
+  { ticker: "NVDA",  type: "Stocks", avgTradesPerYear: 77  },
+  { ticker: "TSLA",  type: "Stocks", avgTradesPerYear: 32  },
+  { ticker: "AVGO",  type: "Stocks", avgTradesPerYear: 72  },
+  { ticker: "GOOGL", type: "Stocks", avgTradesPerYear: 32  },
+  { ticker: "MU",    type: "Stocks", avgTradesPerYear: 38  },
+  { ticker: "ARM",   type: "Stocks", avgTradesPerYear: 26  },
+  { ticker: "MRVL",  type: "Stocks", avgTradesPerYear: 84  },
+  { ticker: "ASML",  type: "Stocks", avgTradesPerYear: 4   },
+  { ticker: "AMD",   type: "Stocks", avgTradesPerYear: 22  },
+  { ticker: "TSM",   type: "Stocks", avgTradesPerYear: 45  },
+  { ticker: "ALAB",  type: "Stocks", avgTradesPerYear: 63  },
+];
+
+const MAX_MULT = 5;
+const fmt = (n, dec = 2) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+function GearIcon({ size = 24 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ fill: 'none', stroke: 'var(--border)', strokeWidth: 1.5 }}>
+      <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
+      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.32 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+    </svg>
+  );
+}
+
+function App() {
+  const [monthlyBudget, setMonthlyBudget] = useState(1000);
+  const [avgMultiplier, setAvgMultiplier] = useState(3.0);
+  const [allocMode, setAllocMode] = useState("equal");
+  const [customWeights, setCustomWeights] = useState(
+    Object.fromEntries(ASSETS.map(a => [a.ticker, 1]))
+  );
+  const [worstCaseAssets, setWorstCaseAssets] = useState(4);
+  const [worstCaseMult, setWorstCaseMult] = useState(4);
+
+  const safeDailyBudget = monthlyBudget / (30 * avgMultiplier);
+
+  const analysis = useMemo(() => {
+    const totalWeight = allocMode === "equal"
+      ? ASSETS.length
+      : Object.values(customWeights).reduce((a, b) => a + b, 0);
+
+    return ASSETS.map(asset => {
+      const weight = allocMode === "equal" ? 1 : (customWeights[asset.ticker] || 1);
+      const dailyAlloc = (weight / totalWeight) * safeDailyBudget;
+      const avgDaysBetween = 365 / asset.avgTradesPerYear;
+      const accumulatedAtFire = dailyAlloc * avgDaysBetween;
+      const avgBuySize = accumulatedAtFire * avgMultiplier;
+      const maxBuySize = accumulatedAtFire * MAX_MULT;
+      const monthlyTradesEst = asset.avgTradesPerYear / 12;
+      const monthlySpendEst = monthlyTradesEst * avgBuySize;
+      return { ...asset, weight, dailyAlloc, avgDaysBetween, accumulatedAtFire, avgBuySize, maxBuySize, monthlyTradesEst, monthlySpendEst };
+    });
+  }, [monthlyBudget, avgMultiplier, allocMode, customWeights, safeDailyBudget]);
+
+  const totalMonthlySpend = analysis.reduce((s, a) => s + a.monthlySpendEst, 0);
+  const setWeight = (ticker, val) => setCustomWeights(prev => ({ ...prev, [ticker]: Math.max(0, val) }));
+
+  return (
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '1.5rem' }}>
+      {/* Header */}
+      <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <GearIcon size={28} />
+          <div>
+            <div style={{ fontFamily: "'Cinzel', serif", fontSize: '1.3rem', color: 'var(--gold)', letterSpacing: '0.1em' }}>SOOMARIO</div>
+            <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', letterSpacing: '0.25em', textTransform: 'uppercase' }}>DCA Budget Allocator</div>
+          </div>
+        </div>
+        <a href="https://whop.com/soomario-strategies/" target="_blank" rel="noopener" style={{
+          background: 'linear-gradient(135deg, var(--purple-dim), var(--purple))',
+          color: 'white', padding: '0.5rem 1.2rem', borderRadius: '6px',
+          textDecoration: 'none', fontFamily: 'inherit', fontSize: '0.75rem', fontWeight: 600,
+          transition: 'all 0.3s'
+        }}>Subscribe →</a>
+      </header>
+
+      <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
+        Plan your Soomario Accumulator budget across 14 assets. The safe daily rate ensures you won't overshoot
+        your monthly budget even when multiple signals fire with high multipliers.
+      </p>
+
+      {/* Controls */}
+      <div className="controls-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
+        <div className="card">
+          <div className="card-title" style={{ marginBottom: '0.75rem' }}>Monthly Budget</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ color: 'var(--gold)', fontSize: '1.8rem', fontWeight: 700 }}>$</span>
+            <input type="number" value={monthlyBudget}
+              onChange={e => setMonthlyBudget(Math.max(0, +e.target.value))}
+              style={{ fontSize: '1.8rem', width: '140px', fontWeight: 700, background: 'var(--bg-deep)', border: '1px solid var(--border)', color: 'var(--gold)', padding: '6px 10px', borderRadius: '6px', fontFamily: 'inherit' }} />
+          </div>
+          <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
+            {[500, 1000, 2500, 5000, 10000].map(v => (
+              <button key={v} onClick={() => setMonthlyBudget(v)} style={{
+                background: monthlyBudget === v ? 'var(--gold)' : 'var(--bg-deep)',
+                color: monthlyBudget === v ? 'var(--bg-deep)' : 'var(--text-muted)',
+                border: '1px solid var(--border)', borderRadius: '4px', padding: '3px 8px',
+                fontSize: '0.65rem', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600
+              }}>${v >= 1000 ? `${v/1000}k` : v}</button>
+            ))}
+          </div>
+        </div>
+
+        <div className="card">
+          <div className="card-title" style={{ marginBottom: '0.75rem' }}>Expected Avg Multiplier</div>
+          <div style={{ color: 'var(--gold-bright)', fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.5rem' }}>{avgMultiplier.toFixed(1)}x</div>
+          <input type="range" min={1} max={5} step={0.1} value={avgMultiplier}
+            onChange={e => setAvgMultiplier(+e.target.value)} style={{ width: '100%' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+            <span>1x conservative</span><span>5x max</span>
+          </div>
+        </div>
+
+        <div className="card" style={{ background: 'rgba(22,101,52,0.15)', borderColor: 'var(--green-dim)' }}>
+          <div className="card-title" style={{ marginBottom: '0.75rem', color: 'var(--green)' }}>Safe Daily Allocation</div>
+          <div style={{ color: 'var(--green)', fontSize: '1.8rem', fontWeight: 700 }}>
+            ${fmt(safeDailyBudget)}<span style={{ fontSize: '0.85rem', color: 'var(--green-dim)' }}>/day</span>
+          </div>
+          <div style={{ fontSize: '0.75rem', color: 'var(--green-dim)', marginTop: '0.5rem' }}>
+            ${fmt(safeDailyBudget / ASSETS.length)}/day per asset
+          </div>
+          <div style={{ marginTop: '0.75rem', padding: '0.5rem', borderRadius: '4px', background: 'rgba(0,0,0,0.2)', fontSize: '0.7rem', color: 'var(--green-dim)', lineHeight: 1.6 }}>
+            ${fmt(monthlyBudget,0)} ÷ (30 × {avgMultiplier.toFixed(1)}x) = ${fmt(safeDailyBudget)}/day
+          </div>
+        </div>
+      </div>
+
+      {/* Budget Utilization */}
+      <div className="card" style={{ marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+          <span className="card-title">Monthly Budget Utilization</span>
+          <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--green)' }}>
+            ${fmt(totalMonthlySpend, 0)} / ${fmt(monthlyBudget, 0)}
+          </span>
+        </div>
+        <div style={{ background: 'var(--bg-deep)', borderRadius: '4px', height: '8px', overflow: 'hidden' }}>
+          <div style={{
+            width: `${Math.min(100, (totalMonthlySpend / monthlyBudget) * 100)}%`,
+            height: '100%', borderRadius: '4px',
+            background: totalMonthlySpend > monthlyBudget * 1.05 ? 'var(--red)' : 'var(--green)',
+            transition: 'width 0.3s'
+          }} />
+        </div>
+      </div>
+
+      {/* Allocation Toggle */}
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+        {["equal", "custom"].map(mode => (
+          <button key={mode} onClick={() => setAllocMode(mode)} style={{
+            background: allocMode === mode ? 'var(--gold)' : 'var(--bg-deep)',
+            color: allocMode === mode ? 'var(--bg-deep)' : 'var(--text-muted)',
+            border: '1px solid var(--border)', borderRadius: '4px', padding: '0.4rem 1rem',
+            fontSize: '0.78rem', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600
+          }}>
+            {mode === "equal" ? "Equal Split" : "Custom Weights"}
+          </button>
+        ))}
+      </div>
+
+      {/* Per-Asset Table */}
+      <div className="card" style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
+        <table className="calc-table">
+          <thead><tr>
+            {["Asset", ...(allocMode === "custom" ? ["Wt"] : []), "Daily $", "Avg Gap", "Accumulated", `Avg Buy (${avgMultiplier.toFixed(1)}x)`, "Max Buy (5x)", "Trades/mo", "Spend/mo"].map(h => (
+              <th key={h} style={{ textAlign: h === "Asset" ? "left" : "right", whiteSpace: 'nowrap' }}>{h}</th>
+            ))}
+          </tr></thead>
+          <tbody>
+            {analysis.map((a, i) => (
+              <tr key={a.ticker}>
+                <td><span style={{ color: 'var(--gold)', fontWeight: 700 }}>{a.ticker}</span><span style={{ color: 'var(--text-muted)', fontSize: '0.65rem', marginLeft: '0.4rem' }}>{a.type}</span></td>
+                {allocMode === "custom" && <td style={{ textAlign: 'right' }}>
+                  <input type="number" value={a.weight} min={0} max={10} step={0.5}
+                    onChange={e => setWeight(a.ticker, +e.target.value)}
+                    style={{ width: '48px', fontSize: '0.72rem', background: 'var(--bg-deep)', border: '1px solid var(--border)', color: 'var(--gold)', padding: '3px 6px', borderRadius: '4px', fontFamily: 'inherit', textAlign: 'right' }} />
+                </td>}
+                <td style={{ textAlign: 'right', color: 'var(--green)' }}>${fmt(a.dailyAlloc)}</td>
+                <td style={{ textAlign: 'right', color: 'var(--text-muted)' }}>{fmt(a.avgDaysBetween, 1)}d</td>
+                <td style={{ textAlign: 'right' }}>${fmt(a.accumulatedAtFire)}</td>
+                <td style={{ textAlign: 'right', color: 'var(--green)', fontWeight: 600 }}>${fmt(a.avgBuySize)}</td>
+                <td style={{ textAlign: 'right', color: 'var(--gold-bright)' }}>${fmt(a.maxBuySize)}</td>
+                <td style={{ textAlign: 'right', color: 'var(--text-muted)' }}>{fmt(a.monthlyTradesEst, 1)}</td>
+                <td style={{ textAlign: 'right', fontWeight: 600 }}>${fmt(a.monthlySpendEst, 0)}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot><tr style={{ borderTop: '2px solid var(--border)' }}>
+            <td colSpan={allocMode === "custom" ? 2 : 1} style={{ fontWeight: 700, color: 'var(--gold)' }}>TOTAL</td>
+            <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--green)' }}>${fmt(safeDailyBudget)}</td>
+            <td></td><td></td><td></td><td></td>
+            <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--text-muted)' }}>{fmt(analysis.reduce((s, a) => s + a.monthlyTradesEst, 0), 0)}</td>
+            <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--green)' }}>${fmt(totalMonthlySpend, 0)}</td>
+          </tr></tfoot>
+        </table>
+      </div>
+
+      {/* Crash Day Scenario */}
+      <div className="card" style={{ marginBottom: '1.5rem' }}>
+        <div className="card-title" style={{ marginBottom: '1rem' }}>Crash Day Scenario</div>
+        <div className="crash-row" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Assets firing same day</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <input type="range" min={1} max={14} value={worstCaseAssets}
+                onChange={e => setWorstCaseAssets(+e.target.value)} style={{ width: '120px' }} />
+              <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{worstCaseAssets}</span>
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>At multiplier</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <input type="range" min={1} max={5} step={0.5} value={worstCaseMult}
+                onChange={e => setWorstCaseMult(+e.target.value)} style={{ width: '120px' }} />
+              <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{worstCaseMult}x</span>
+            </div>
+          </div>
+          <div style={{ borderLeft: '1px solid var(--border)', paddingLeft: '1.5rem' }}>
+            <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Cash needed</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--gold-bright)' }}>
+              ${fmt(analysis.slice(0, worstCaseAssets).reduce((s, a) => s + a.accumulatedAtFire * worstCaseMult, 0), 0)}
+            </div>
+          </div>
+          <div style={{ borderLeft: '1px solid var(--border)', paddingLeft: '1.5rem' }}>
+            <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>% of monthly budget</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: 700 }}>
+              {fmt(analysis.slice(0, worstCaseAssets).reduce((s, a) => s + a.accumulatedAtFire * worstCaseMult, 0) / monthlyBudget * 100, 1)}%
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* The Math */}
+      <div className="card" style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '2rem' }}>
+        <span style={{ color: 'var(--gold)', fontWeight: 600 }}>The math: </span>
+        If your avg multiplier is {avgMultiplier.toFixed(1)}x, every $1 you set aside becomes ${avgMultiplier.toFixed(1)} when deployed.
+        So your safe daily rate is ${fmt(monthlyBudget,0)} ÷ (30 × {avgMultiplier.toFixed(1)}) = <span style={{ color: 'var(--green)' }}>${fmt(safeDailyBudget)}/day</span> across all assets.
+        At equal split that's ${fmt(safeDailyBudget / ASSETS.length)}/day/asset. Estimated total spend: ${fmt(totalMonthlySpend, 0)}/month.
+      </div>
+
+      {/* CTA */}
+      <div className="cta-section" style={{ marginBottom: '2rem' }}>
+        <div style={{ fontFamily: "'Cinzel', serif", fontSize: '1.3rem', color: 'var(--gold)', marginBottom: '0.5rem' }}>
+          Ready to automate your DCA?
+        </div>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', maxWidth: 500, margin: '0 auto 1.5rem', lineHeight: 1.6 }}>
+          Soomario Accumulator sends real-time buy signals for all 14 assets with signal strength scoring.
+          Starting at $19.99/month.
+        </p>
+        <a href="https://whop.com/soomario-strategies/" target="_blank" rel="noopener" className="cta-btn">
+          Subscribe on Whop →
+        </a>
+      </div>
+
+      {/* Footer */}
+      <footer style={{ textAlign: 'center', padding: '1.5rem', fontSize: '0.65rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border)' }}>
+        Soomario Strategies · Accumulator · Signals are informational, not financial advice
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+</body>
+</html>
