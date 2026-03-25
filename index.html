@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soomario Strategies - Professional Algorithmic Trading</title>
+    <title>Soomario Strategies — Algorithmic Trading for Everyone</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,17 +45,12 @@
         
         .card-hover:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(201, 169, 97, 0.3);
+            box-shadow: 0 20px 40px rgba(201, 169, 97, 0.2);
         }
         
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         
-        .nav-link {
-            position: relative;
-        }
-        
+        .nav-link { position: relative; }
         .nav-link::after {
             content: '';
             position: absolute;
@@ -66,280 +61,335 @@
             background: #C9A961;
             transition: width 0.3s;
         }
-        
-        .nav-link:hover::after {
-            width: 100%;
+        .nav-link:hover::after { width: 100%; }
+
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+        .live-pulse { animation: pulse-live 2s infinite; }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-track { animation: ticker-scroll 30s linear infinite; }
+        .ticker-track:hover { animation-play-state: paused; }
+
+        .beta-badge {
+            background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1));
+            border: 1px solid rgba(139,92,246,0.4);
         }
     </style>
 </head>
 <body class="bg-[#1a1625] text-white">
+
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-[#1a1625]/95 backdrop-blur-lg shadow-lg">
-        <div class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between gap-8">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between gap-8">
             <div class="flex items-center space-x-4 flex-shrink-0">
-                <img src="soomario-logo.png" alt="Soomario Logo" class="h-24">
+                <img src="soomario-logo.png" alt="Soomario Logo" class="h-16 logo-glow">
                 <div>
-                    <div class="font-heading text-xl tracking-wider whitespace-nowrap">SOOMARIO</div>
-                    <div class="font-display text-[10px] text-[#C9A961] tracking-widest whitespace-nowrap">STRATEGIES</div>
+                    <div class="font-heading text-lg tracking-wider">SOOMARIO</div>
+                    <div class="font-display text-[9px] text-[#C9A961] tracking-widest">STRATEGIES</div>
                 </div>
             </div>
             
-            <div class="hidden lg:flex items-center space-x-6 font-display text-sm flex-grow justify-center">
-                <a href="#services"      class="nav-link text-gray-300 hover:text-[#C9A961] whitespace-nowrap">Services</a>
-                <a href="maxpain.html"   class="nav-link text-gray-300 hover:text-[#C9A961] whitespace-nowrap">Max Pain</a>
-                <a href="whitepaper.html" class="nav-link text-gray-300 hover:text-[#C9A961] whitespace-nowrap">Whitepaper</a>
-                <a href="#pricing"       class="nav-link text-gray-300 hover:text-[#C9A961] whitespace-nowrap">Pricing</a>
-                <a href="#performance"   class="nav-link text-gray-300 hover:text-[#C9A961] whitespace-nowrap">Performance</a>
-                <a href="dashboard.html" class="nav-link text-gray-300 hover:text-[#C9A961] whitespace-nowrap">Elite Dashboard</a>
-                <a href="#faq"           class="nav-link text-gray-300 hover:text-[#C9A961] whitespace-nowrap">FAQ</a>
+            <div class="hidden lg:flex items-center space-x-8 font-display text-sm">
+                <a href="#products"      class="nav-link text-gray-300 hover:text-[#C9A961]">Products</a>
+                <a href="whitepaper.html" class="nav-link text-gray-300 hover:text-[#C9A961]">Whitepaper</a>
+                <a href="calculator.html" class="nav-link text-gray-300 hover:text-[#C9A961]">Calculator</a>
+                <a href="#faq"           class="nav-link text-gray-300 hover:text-[#C9A961]">FAQ</a>
             </div>
             
             <div class="flex items-center gap-3 flex-shrink-0">
-                <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard" target="_blank" class="border border-[#C9A961] text-[#C9A961] px-4 py-2 rounded-lg font-display font-bold text-sm whitespace-nowrap hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
-                    Member Dashboard
+                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="border border-[#C9A961] text-[#C9A961] px-5 py-2 rounded-lg font-display font-bold text-xs hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
+                    Discord
                 </a>
-                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn-primary text-[#1a1625] px-6 py-2.5 rounded-lg font-display font-bold text-sm whitespace-nowrap">
-                    Join Discord
+                <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn-primary text-[#1a1625] px-5 py-2.5 rounded-lg font-display font-bold text-xs">
+                    Get Started
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section - UPDATED WITH BIGGER LOGO -->
-    <section id="hero" class="relative min-h-[140vh] flex items-center justify-center overflow-hidden pt-20 pb-20">
-        <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
-            
-            <!-- BIG LOGO - NO FORCED HEIGHT, MAINTAINS ASPECT RATIO -->
-            <div class="mb-16">
-                <img src="soomario-logo.png" alt="Soomario Logo" class="w-full max-w-2xl mx-auto logo-glow">
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HERO — Accumulator-Focused                 -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-16">
+        <div class="absolute top-0 left-0 w-full h-full">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#C9A961] rounded-full blur-3xl opacity-[0.04]"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#2F2A52] rounded-full blur-3xl opacity-10"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
+            <div class="mb-6">
+                <img src="soomario-logo.png" alt="Soomario Logo" class="w-full max-w-md mx-auto logo-glow">
             </div>
             
-            <div class="mb-10 inline-block">
-                <div class="font-display text-base tracking-[0.3em] text-[#C9A961] mb-4">EST. 2024</div>
-                <div class="h-px w-40 mx-auto gradient-gold"></div>
+            <div class="mb-8 inline-block">
+                <div class="font-display text-xs tracking-[0.35em] text-[#C9A961] mb-3">SMART ACCUMULATION SIGNALS</div>
+                <div class="h-px w-32 mx-auto gradient-gold"></div>
             </div>
             
-            <h1 class="font-heading text-6xl md:text-9xl mb-10 tracking-tight leading-tight">
-                <span class="gradient-text">ALGORITHMIC</span><br>
-                <span class="text-white">MASTERY</span>
+            <h1 class="font-heading text-5xl md:text-8xl mb-6 tracking-tight leading-tight">
+                <span class="gradient-text">Build Wealth</span><br>
+                <span class="text-white">On Autopilot</span>
             </h1>
             
-            <p class="font-serif text-2xl md:text-4xl text-gray-300 mb-4 max-w-4xl mx-auto leading-relaxed">
-                Professional-grade trading strategies delivering institutional returns to individual investors
+            <p class="font-serif text-xl md:text-3xl text-gray-300 mb-3 max-w-3xl mx-auto leading-relaxed">
+                14 curated AI &amp; crypto assets. Automated DCA signals with exact buy amounts. Full analytics dashboard.
             </p>
-            <p class="font-display text-sm tracking-widest text-gray-500 mb-12">
-                AUTOMATED CRYPTO TRADING · 3 LIVE STRATEGIES · SELF-CUSTODY
+            <p class="font-display text-[11px] tracking-widest text-gray-500 mb-10">
+                STOCKS · CRYPTO · SELF-CUSTODY · FROM $19.99/MONTH
             </p>
             
-            <div class="flex flex-col md:flex-row gap-6 justify-center mb-16">
-                <a href="#services" class="btn-primary text-[#1a1625] px-12 py-5 rounded-lg font-display font-bold text-xl">
-                    Explore Services →
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-14">
+                <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn-primary text-[#1a1625] px-10 py-4 rounded-xl font-display font-bold text-base">
+                    Start for $19.99/mo →
                 </a>
-                <a href="whitepaper.html" class="border-2 border-[#C9A961] text-[#C9A961] px-12 py-5 rounded-lg font-display font-bold text-xl hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
-                    Read Whitepaper
+                <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard" target="_blank" class="border-2 border-[#C9A961] text-[#C9A961] px-10 py-4 rounded-xl font-display font-bold text-base hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
+                    View Live Dashboard
                 </a>
             </div>
             
-            <!-- Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mt-20">
-                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-lg p-8">
-                    <div class="font-display text-5xl gradient-text mb-3">5</div>
-                    <div class="font-serif text-lg text-gray-400">Live Strategies Across 3 Platforms</div>
+            <!-- Trust Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
+                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1">+16.2%</div>
+                    <div class="font-serif text-sm text-gray-400">Model Portfolio P&L</div>
                 </div>
-                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-lg p-8">
-                    <div class="font-display text-5xl gradient-text mb-3">1,483</div>
-                    <div class="font-serif text-lg text-gray-400">Backtested Trades · 78% Win Rate</div>
+                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
+                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1">62</div>
+                    <div class="font-serif text-sm text-gray-400">Buys Executed Since Jan</div>
                 </div>
-                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-lg p-8">
-                    <div class="font-display text-5xl gradient-text mb-3">100%</div>
-                    <div class="font-serif text-lg text-gray-400">Self-Custody · Your Keys, Your Funds</div>
+                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
+                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1">14</div>
+                    <div class="font-serif text-sm text-gray-400">Assets Tracked Daily</div>
+                </div>
+                <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
+                    <div class="font-display text-3xl md:text-4xl text-green-400 mb-1">100%</div>
+                    <div class="font-serif text-sm text-gray-400">Self-Custody · Your Keys</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 bg-gradient-to-b from-[#1a1625] to-[#0f0a1a]">
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- LIVE PRICE TICKER                          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="py-4 bg-[#0f0a1a] border-y border-[#C9A961]/10 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">THREE PATHS TO SUCCESS</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">Choose Your Strategy</span>
+            <div class="flex items-center gap-4 mb-3">
+                <div class="w-2 h-2 bg-green-400 rounded-full live-pulse"></div>
+                <span class="font-display text-[10px] tracking-[0.2em] text-green-400">ACCUMULATOR LIVE P&L</span>
+                <span class="font-serif text-xs text-gray-500">Real positions · updated every 15 min</span>
+            </div>
+            <div class="overflow-hidden">
+                <div class="flex gap-6 ticker-track" style="width: max-content;" id="tickerTrack">
+                    <!-- Filled by JS, duplicated for seamless loop -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ACCUMULATOR FEATURES                       -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="py-20 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <div class="font-display text-xs tracking-[0.3em] text-[#C9A961] mb-3">WHAT YOU GET</div>
+                <h2 class="font-heading text-3xl md:text-5xl mb-4">
+                    <span class="gradient-text">The Accumulator</span>
                 </h2>
-                <p class="font-serif text-xl text-gray-300 max-w-2xl mx-auto">
-                    Each service engineered for different capital levels, goals, and trading preferences
+                <p class="font-serif text-lg text-gray-300 max-w-2xl mx-auto">
+                    Signal-driven DCA for 14 high-conviction assets. Not just alerts — a complete system.
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Accumulator -->
-                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/50 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="grid md:grid-cols-3 gap-6 mb-10">
+                <div class="card-hover bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-2xl p-7">
+                    <div class="w-10 h-10 gradient-gold rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
                         </svg>
                     </div>
-                    
-                    <h3 class="font-heading text-2xl mb-3">ACCUMULATOR</h3>
-                    <p class="font-serif text-gray-400 mb-6">Smart accumulation signals for stocks and major cryptocurrencies</p>
-                    
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">14 assets (NVDA, TSLA, BTC, SOL, etc.)</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">Telegram signals, manual execution</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">597% backtested ROI on deployed capital</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">Start with $500 + monthly adds</span>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-[#C9A961]/20 pt-6">
-                        <div class="flex items-baseline justify-between mb-4">
-                            <div>
-                                <div class="font-display text-4xl gradient-text">$19.99</div>
-                                <div class="font-serif text-sm text-gray-400">per month</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-serif text-xs text-[#C9A961]">Included free with Elite</div>
-                            </div>
-                        </div>
-                        
-                        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="block w-full btn-primary text-[#1a1625] py-3 rounded-lg font-display font-bold text-center">
-                            Get Started
-                        </a>
-                        <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard" target="_blank" class="block w-full text-center font-serif text-xs text-gray-500 hover:text-[#C9A961] transition-colors mt-3">
-                            Already a member? Access Dashboard →
-                        </a>
-                    </div>
+                    <h3 class="font-heading text-lg mb-2 text-[#C9A961]">Smart DCA Signals</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">RSI + price-vs-MA scoring fires signals only when assets are genuinely oversold. Strength-based multipliers scale buy amounts — stronger signals, bigger buys.</p>
                 </div>
                 
-                <!-- Elite - Featured -->
-                <div class="card-hover bg-gradient-to-br from-[#C9A961]/20 to-[#2F2A52]/50 border-2 border-[#C9A961] rounded-2xl p-8 transform md:scale-105 relative">
-                    <div class="absolute -top-4 -right-4 gradient-gold text-[#1a1625] px-6 py-2 rounded-lg font-display text-xs font-bold transform rotate-12">
-                        MOST POPULAR
-                    </div>
-                    
-                    <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <div class="card-hover bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-2xl p-7">
+                    <div class="w-10 h-10 gradient-gold rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
                     </div>
-                    
-                    <h3 class="font-heading text-2xl mb-3">ELITE</h3>
-                    <p class="font-serif text-gray-400 mb-6">Complete package: Copy trading + all signal services</p>
-                    
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">3-bot automated portfolio (HYPE, AVAX, SOL)</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">ALL Max Pain signals included</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">ALL Accumulator signals included</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">Fully automated on Hyperliquid</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span class="font-serif text-sm text-gray-300">78% avg win rate, priority support</span>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-[#C9A961]/20 pt-6">
-                        <div class="flex items-baseline justify-between mb-4">
-                            <div>
-                                <div class="font-display text-4xl gradient-text">$219</div>
-                                <div class="font-serif text-sm text-gray-400">per month</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-serif text-xs text-[#C9A961]">All-inclusive bundle</div>
-                                <div class="font-serif text-xs text-gray-500">$260+ value</div>
-                            </div>
-                        </div>
-                        
-                        <a href="https://whop.com/soomario-strategies/soomario-elite/" target="_blank" class="block w-full btn-primary text-[#1a1625] py-3 rounded-lg font-display font-bold text-center">
-                            Get Elite Access
-                        </a>
-                    </div>
+                    <h3 class="font-heading text-lg mb-2 text-[#C9A961]">Full Analytics Dashboard</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">Live prices, Profit Factor, Sharpe &amp; Sortino ratios, CAGR, per-asset P&L, signal calendar, and deep-dive thesis pages for every asset.</p>
                 </div>
+                
+                <div class="card-hover bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-2xl p-7">
+                    <div class="w-10 h-10 gradient-gold rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-2 text-[#C9A961]">Budget-Based Sizing</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">Set your monthly budget. The system calculates safe daily allocations across all 14 assets. DCA Calculator included to plan crash-day scenarios.</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <div class="inline-flex flex-wrap justify-center gap-2 font-display text-[10px] tracking-wider text-gray-500">
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">NVDA</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">AVGO</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">PLTR</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">TSLA</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">ARM</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">AMD</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">TSM</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">GOOGL</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">MU</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">MRVL</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">ASML</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">ALAB</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">BTC</span>
+                    <span class="bg-[#2F2A52]/30 border border-[#C9A961]/10 rounded px-3 py-1.5">SOL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PRODUCT DECK — More Strategies              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="products" class="py-20 bg-[#0f0a1a]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <div class="font-display text-xs tracking-[0.3em] text-[#C9A961] mb-3">MORE STRATEGIES</div>
+                <h2 class="font-heading text-3xl md:text-5xl mb-4">
+                    <span class="gradient-text">The Full Suite</span>
+                </h2>
+                <p class="font-serif text-lg text-gray-300 max-w-2xl mx-auto">
+                    From signals to fully automated portfolios — choose the level that fits your capital and goals
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
                 
                 <!-- Max Pain -->
-                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/50 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <div class="w-12 h-12 gradient-gold rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/40 to-[#1a1625] border border-[#C9A961]/25 rounded-2xl p-7 flex flex-col">
+                    <div class="w-10 h-10 gradient-gold rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
                         </svg>
                     </div>
+                    <h3 class="font-heading text-xl mb-2 text-[#C9A961]">Max Pain</h3>
+                    <p class="font-serif text-gray-400 text-sm mb-5 leading-relaxed flex-grow">20 crypto strategies using max-pain liquidation levels. Signals or deposit into the Hyperliquid vault.</p>
                     
-                    <h3 class="font-heading text-2xl mb-1">MAX PAIN</h3>
-                    <div class="font-display text-[10px] text-[#C9A961] tracking-widest mb-4">LIVE ON HYPERLIQUID · v3.2 BALANCED</div>
-                    <p class="font-serif text-gray-400 mb-6">Liquidation cascade detection across 16 crypto pairs. On-chain vault with full transparency.</p>
-                    
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            <span class="font-serif text-sm text-gray-300">81.3% win rate · 600 backtested trades</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            <span class="font-serif text-sm text-gray-300">Hyperliquid vault or Telegram signals</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            <span class="font-serif text-sm text-gray-300">Tiered leverage 3x–8x · self-hedging</span>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <svg class="text-[#C9A961] mt-1 flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            <span class="font-serif text-sm text-gray-300">Every trade verifiable on-chain</span>
-                        </div>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="font-display text-[10px] bg-green-400/10 text-green-400 px-2.5 py-1 rounded">82.8% WR</span>
+                        <span class="font-display text-[10px] bg-[#C9A961]/10 text-[#C9A961] px-2.5 py-1 rounded">685 Trades</span>
                     </div>
                     
-                    <div class="border-t border-[#C9A961]/20 pt-6">
-                        <div class="mb-5">
-                            <div class="font-display text-2xl gradient-text mb-1">$39.99/mo signals</div>
-                            <div class="font-serif text-xs text-gray-400 mb-2">OR</div>
-                            <div class="font-display text-2xl gradient-text">Vault deposit</div>
-                            <div class="font-serif text-sm text-gray-400">profit-share on Hyperliquid</div>
+                    <div class="border-t border-[#C9A961]/15 pt-5">
+                        <div class="flex items-baseline gap-2 mb-4">
+                            <span class="font-display text-2xl gradient-text">$39.99</span>
+                            <span class="font-serif text-xs text-gray-500">/mo or vault</span>
                         </div>
-                        
-                        <a href="maxpain.html" class="block w-full btn-primary text-[#1a1625] py-3 rounded-lg font-display font-bold text-center mb-3">
-                            View Full Strategy →
+                        <a href="maxpain.html" class="block w-full text-center border border-[#C9A961]/40 text-[#C9A961] py-2.5 rounded-lg font-display font-bold text-xs hover:bg-[#C9A961]/10 transition-all">
+                            Learn More →
                         </a>
-                        <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" class="block w-full text-center font-display text-xs text-[#C9A961] hover:text-white transition-colors">
-                            Open on Hyperliquid ↗
+                        <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" class="block w-full text-center font-serif text-[11px] text-gray-500 hover:text-[#C9A961] transition-colors mt-2">
+                            Deposit into vault →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Elite -->
+                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/40 to-[#1a1625] border-2 border-[#C9A961]/40 rounded-2xl p-7 flex flex-col relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span class="gradient-gold text-[#1a1625] text-[10px] font-display font-bold px-4 py-1 rounded-full">BEST VALUE</span>
+                    </div>
+                    <div class="w-10 h-10 gradient-gold rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-[#1a1625]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl mb-2 text-[#C9A961]">Elite</h3>
+                    <p class="font-serif text-gray-400 text-sm mb-5 leading-relaxed flex-grow">3-bot automated portfolio (HYPE, AVAX, SOL). Fully automated on Hyperliquid. Subscribe monthly or deposit into the vault. Includes all signals.</p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="font-display text-[10px] bg-green-400/10 text-green-400 px-2.5 py-1 rounded">78.6% WR</span>
+                        <span class="font-display text-[10px] bg-[#C9A961]/10 text-[#C9A961] px-2.5 py-1 rounded">1,483 Trades</span>
+                    </div>
+                    
+                    <div class="border-t border-[#C9A961]/15 pt-5">
+                        <div class="flex items-baseline gap-2 mb-1">
+                            <span class="font-display text-2xl gradient-text">$219</span>
+                            <span class="font-serif text-xs text-gray-500">/mo or vault</span>
+                        </div>
+                        <div class="font-serif text-[11px] text-gray-500 mb-4">Accumulator + Max Pain signals included</div>
+                        <a href="dashboard.html" class="block w-full text-center btn-primary text-[#1a1625] py-2.5 rounded-lg font-display font-bold text-xs">
+                            View Dashboard →
+                        </a>
+                        <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" class="block w-full text-center font-serif text-[11px] text-gray-500 hover:text-[#C9A961] transition-colors mt-2">
+                            Deposit into vault →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sentiment -->
+                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-purple-500/25 rounded-2xl p-7 flex flex-col relative">
+                    <div class="absolute top-4 right-4">
+                        <span class="beta-badge text-purple-400 text-[9px] font-display font-bold px-3 py-1 rounded-full">BETA</span>
+                    </div>
+                    <div class="w-10 h-10 bg-purple-500/20 border border-purple-500/30 rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl mb-2 text-[#C9A961]">Sentiment</h3>
+                    <p class="font-serif text-gray-400 text-sm mb-5 leading-relaxed flex-grow">Fear &amp; Greed + confluence scoring across 40 coins. RSI, Z-Score, Supertrend, and liquidation validation. OKX perps.</p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="font-display text-[10px] bg-green-400/10 text-green-400 px-2.5 py-1 rounded">+9.2%</span>
+                        <span class="font-display text-[10px] bg-purple-400/10 text-purple-400 px-2.5 py-1 rounded">74.1% WR</span>
+                        <span class="font-display text-[10px] bg-[#C9A961]/10 text-[#C9A961] px-2.5 py-1 rounded">Sharpe 8.72</span>
+                    </div>
+                    
+                    <div class="border-t border-purple-500/15 pt-5">
+                        <div class="font-serif text-sm text-gray-500 mb-4">Coming soon · 64 days live</div>
+                        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="block w-full text-center border border-purple-500/30 text-purple-400 py-2.5 rounded-lg font-display font-bold text-xs hover:bg-purple-500/10 transition-all">
+                            Join Waitlist →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Zones -->
+                <div class="card-hover bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-purple-500/25 rounded-2xl p-7 flex flex-col relative">
+                    <div class="absolute top-4 right-4">
+                        <span class="beta-badge text-purple-400 text-[9px] font-display font-bold px-3 py-1 rounded-full">BETA</span>
+                    </div>
+                    <div class="w-10 h-10 bg-purple-500/20 border border-purple-500/30 rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl mb-2 text-[#C9A961]">Zones</h3>
+                    <p class="font-serif text-gray-400 text-sm mb-5 leading-relaxed flex-grow">Liquidation zone DCA across 21 cryptocurrencies. 3-level entries at max-pain boundaries with trailing stops. Hyperliquid.</p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="font-display text-[10px] bg-green-400/10 text-green-400 px-2.5 py-1 rounded">92.3% WR</span>
+                        <span class="font-display text-[10px] bg-purple-400/10 text-purple-400 px-2.5 py-1 rounded">0.9% DD</span>
+                        <span class="font-display text-[10px] bg-[#C9A961]/10 text-[#C9A961] px-2.5 py-1 rounded">Sharpe 3.25</span>
+                    </div>
+                    
+                    <div class="border-t border-purple-500/15 pt-5">
+                        <div class="font-serif text-sm text-gray-500 mb-4">Coming soon · 10 days live</div>
+                        <a href="https://soomariozones-production.up.railway.app/" target="_blank" class="block w-full text-center border border-purple-500/30 text-purple-400 py-2.5 rounded-lg font-display font-bold text-xs hover:bg-purple-500/10 transition-all">
+                            Preview Dashboard →
                         </a>
                     </div>
                 </div>
@@ -347,449 +397,172 @@
         </div>
     </section>
 
-    <!-- LIVE PERFORMANCE WIDGET -->
-    <section class="relative py-24 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625] overflow-hidden" id="live-performance">
-        <style>
-            @keyframes pulse-widget {
-                0%, 100% { opacity: 1; transform: scale(1); }
-                50% { opacity: 0.5; transform: scale(1.3); }
-            }
-            
-            .live-dot-widget {
-                animation: pulse-widget 2s infinite;
-            }
-        </style>
-
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- LIVE ELITE PERFORMANCE WIDGET              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="relative py-20 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625] overflow-hidden" id="live-performance">
         <div class="absolute top-0 left-0 w-96 h-96 bg-[#C9A961] rounded-full blur-3xl opacity-5"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#2F2A52] rounded-full blur-3xl opacity-10"></div>
 
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
             <div id="widgetLoading" class="text-center py-12">
                 <div class="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-[#C9A961] to-transparent animate-pulse mb-4"></div>
-                <div class="font-display text-[#C9A961]">Loading live data...</div>
+                <div class="font-display text-sm text-[#C9A961]">Loading live Elite data...</div>
             </div>
 
             <div id="widgetContent" style="display: none;">
-                <div class="text-center mb-12">
-                    <div class="inline-flex items-center gap-3 mb-4">
-                        <div class="w-3 h-3 bg-red-500 rounded-full live-dot-widget"></div>
-                        <div class="font-display text-sm tracking-[0.3em] text-[#C9A961]">LIVE ELITE PERFORMANCE</div>
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center gap-3 mb-3">
+                        <div class="w-2.5 h-2.5 bg-red-500 rounded-full live-pulse"></div>
+                        <div class="font-display text-xs tracking-[0.3em] text-[#C9A961]">LIVE ELITE PERFORMANCE</div>
                     </div>
-                    <h2 class="font-heading text-4xl md:text-5xl mb-4">
-                        <span class="gradient-text">Real-Time Trading Results</span>
+                    <h2 class="font-heading text-3xl md:text-5xl mb-3">
+                        <span class="gradient-text">Real-Time Results</span>
                     </h2>
-                    <p class="font-serif text-lg text-gray-400">
-                        Live Testing Account - Elite 3-Bot Portfolio (HYPE · AVAX · SOL) - <span id="widgetUpdateTime">Loading...</span>
+                    <p class="font-serif text-base text-gray-400">
+                        Elite 3-Bot Portfolio (HYPE · AVAX · SOL) — <span id="widgetUpdateTime">Loading...</span>
                     </p>
                 </div>
 
-                <div class="bg-gradient-to-br from-[#2F2A52]/50 to-[#1a1625] border-2 border-[#C9A961]/40 rounded-3xl p-8 md:p-12 mb-8 shadow-2xl">
-                    <div class="grid md:grid-cols-4 gap-8">
-                        <div class="text-center">
-                            <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">CURRENT EQUITY</div>
-                            <div class="font-display text-3xl md:text-4xl gradient-text mb-2" id="widgetEquity">$0.00</div>
-                            <div class="font-serif text-xs text-gray-500">Started: <span id="widgetStarting">$0.00</span></div>
+                <div class="bg-gradient-to-br from-[#2F2A52]/40 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8 mb-6">
+                    <div class="grid md:grid-cols-4 gap-6 text-center">
+                        <div>
+                            <div class="font-display text-[10px] text-gray-400 mb-2 tracking-wider">EQUITY</div>
+                            <div class="font-display text-2xl md:text-3xl gradient-text" id="widgetEquity">$0.00</div>
+                            <div class="font-serif text-xs text-gray-500">Started: <span id="widgetStarting">$3,103</span></div>
                         </div>
-                        <div class="text-center">
-                            <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">TOTAL RETURN</div>
-                            <div class="font-display text-3xl md:text-4xl mb-2" id="widgetReturn">$0.00</div>
-                            <div class="flex items-center justify-center gap-2" id="widgetROI"></div>
+                        <div>
+                            <div class="font-display text-[10px] text-gray-400 mb-2 tracking-wider">RETURN</div>
+                            <div class="font-display text-2xl md:text-3xl" id="widgetReturn">$0.00</div>
+                            <div class="flex items-center justify-center gap-1" id="widgetROI"></div>
                         </div>
-                        <div class="text-center">
-                            <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">WIN RATE</div>
-                            <div class="font-display text-3xl md:text-4xl text-[#C9A961] mb-2" id="widgetWinRate">0%</div>
+                        <div>
+                            <div class="font-display text-[10px] text-gray-400 mb-2 tracking-wider">WIN RATE</div>
+                            <div class="font-display text-2xl md:text-3xl text-[#C9A961]" id="widgetWinRate">0%</div>
                             <div class="font-serif text-xs text-gray-500" id="widgetWinDetail">0 of 0 trades</div>
                         </div>
-                        <div class="text-center">
-                            <div class="font-display text-sm text-gray-400 mb-3 tracking-wider">PROFIT FACTOR</div>
-                            <div class="font-display text-3xl md:text-4xl text-[#C9A961] mb-2" id="widgetProfitFactor">0.00</div>
+                        <div>
+                            <div class="font-display text-[10px] text-gray-400 mb-2 tracking-wider">PROFIT FACTOR</div>
+                            <div class="font-display text-2xl md:text-3xl text-[#C9A961]" id="widgetProfitFactor">0.00</div>
                             <div class="font-serif text-xs text-gray-500">Win $ ÷ Loss $</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-6">
-                        <div class="font-display text-xs text-gray-400 mb-3 tracking-wider">MAX DRAWDOWN</div>
-                        <div class="font-display text-2xl text-red-400" id="widgetDD">0%</div>
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-xl p-5">
+                        <div class="font-display text-[10px] text-gray-400 mb-2 tracking-wider">MAX DRAWDOWN</div>
+                        <div class="font-display text-xl text-red-400" id="widgetDD">0%</div>
                     </div>
-                    <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-6">
-                        <div class="font-display text-xs text-gray-400 mb-3 tracking-wider">AVG WIN</div>
-                        <div class="font-display text-2xl text-green-400" id="widgetAvgWin">$0.00</div>
+                    <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-xl p-5">
+                        <div class="font-display text-[10px] text-gray-400 mb-2 tracking-wider">AVG WIN</div>
+                        <div class="font-display text-xl text-green-400" id="widgetAvgWin">$0.00</div>
                     </div>
-                    <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-xl p-6">
-                        <div class="font-display text-xs text-gray-400 mb-3 tracking-wider">SHARPE RATIO</div>
-                        <div class="font-display text-2xl text-[#C9A961]" id="widgetSharpe">0.00</div>
+                    <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-xl p-5">
+                        <div class="font-display text-[10px] text-gray-400 mb-2 tracking-wider">SHARPE RATIO</div>
+                        <div class="font-display text-xl text-[#C9A961]" id="widgetSharpe">0.00</div>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <a href="#pricing" class="inline-flex items-center gap-3 btn-primary text-[#1a1625] px-10 py-4 rounded-xl font-display font-bold text-lg">
-                        <span>See Pricing</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                        </svg>
-                    </a>
-                    
-                    <div class="mt-8 pt-8 border-t border-[#C9A961]/20">
-                        <p class="font-serif text-gray-400 mb-4">Want to see the complete performance dashboard?</p>
-                        <a 
-                            href="https://makuroi508.github.io/soomario-website/dashboard.html" 
-                            target="_blank"
-                            class="inline-flex items-center gap-3 border-2 border-[#C9A961] text-[#C9A961] px-10 py-4 rounded-xl font-display font-bold text-lg hover:bg-[#C9A961] hover:text-[#1a1625] transition-all"
-                        >
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                            </svg>
-                            <span>View Full Dashboard</span>
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                            </svg>
-                        </a>
-                        <p class="font-serif text-xs text-gray-500 mt-3">
-                            Interactive charts, complete trade history, and detailed analytics
-                        </p>
-                    </div>
-                    
-                    <p class="font-serif text-sm text-gray-500 mt-6">
-                        Live Elite 3-Bot Portfolio Performance
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <script>
-        (function() {
-            const API = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
-            
-            async function loadWidget() {
-                try {
-                    const res = await fetch(API);
-                    const data = await res.json();
-                    
-                    console.log('API Response:', data);
-                    
-                    if (data.success) {
-                        updateWidget(data);
-                    } else {
-                        console.error('API returned error:', data.error);
-                        document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-red-400">Data unavailable</div>';
-                    }
-                } catch (err) {
-                    console.error('Widget fetch error:', err);
-                    document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-red-400">Connection error</div>';
-                }
-            }
-            
-            function updateWidget(data) {
-                const s = data.stats;
-                
-                document.getElementById('widgetLoading').style.display = 'none';
-                document.getElementById('widgetContent').style.display = 'block';
-                
-                document.getElementById('widgetUpdateTime').textContent = `Updated ${new Date().toLocaleTimeString()}`;
-                
-                document.getElementById('widgetEquity').textContent = `$${parseFloat(s.currentEquity).toFixed(2)}`;
-                document.getElementById('widgetStarting').textContent = `$3,103.00`;
-                
-                const roi = parseFloat(s.roiPercent);
-                const isPositive = roi >= 0;
-                const returnEl = document.getElementById('widgetReturn');
-                returnEl.textContent = `${isPositive ? '+' : ''}$${s.totalReturn}`;
-                returnEl.className = `font-display text-4xl md:text-5xl mb-2 ${isPositive ? 'text-green-400' : 'text-red-400'}`;
-                
-                document.getElementById('widgetROI').innerHTML = `
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${isPositive ? 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' : 'M13 17h8m0 0V9m0 8l-8-8-4 4-6-6'}"/>
-                    </svg>
-                    <span class="font-serif text-sm">${isPositive ? '+' : ''}${s.roiPercent}%</span>
-                `;
-                document.getElementById('widgetROI').className = `flex items-center justify-center gap-2 ${isPositive ? 'text-green-400' : 'text-red-400'}`;
-                
-                document.getElementById('widgetWinRate').textContent = `${s.winRate}%`;
-                document.getElementById('widgetWinDetail').textContent = `${s.profitableTrades} of ${s.totalTrades} trades`;
-                
-                const profitFactor = parseFloat(s.profitFactor) || 0;
-                document.getElementById('widgetProfitFactor').textContent = profitFactor.toFixed(2);
-
-                document.getElementById('widgetDD').textContent = `-${s.maxDrawdown}%`;
-                document.getElementById('widgetAvgWin').textContent = `$${s.avgWin}`;
-                document.getElementById('widgetSharpe').textContent = s.sharpeRatio;
-            }
-            
-            loadWidget();
-            setInterval(loadWidget, 30000);
-        })();
-        </script>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-24 bg-[#0f0a1a]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">TRANSPARENT PRICING</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">Simple Pricing</span>
-                </h2>
-                <p class="font-serif text-xl text-gray-300 max-w-2xl mx-auto">
-                    Choose your strategy or get everything with Elite
-                </p>
-            </div>
-            
-            <div class="bg-[#2F2A52]/30 border border-[#C9A961]/30 rounded-2xl p-8 mb-12">
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <h3 class="font-heading text-xl mb-4 text-[#C9A961]">Accumulator</h3>
-                        <div class="font-display text-5xl gradient-text mb-2">$19.99</div>
-                        <div class="font-serif text-sm text-gray-400 mb-4">per month</div>
-                        <div class="font-serif text-gray-400 text-sm">14 stock &amp; crypto DCA signals</div>
-                    </div>
-                    <div class="border-2 border-[#C9A961] rounded-xl p-6 bg-[#C9A961]/10">
-                        <div class="gradient-gold text-[#1a1625] text-xs font-display font-bold px-3 py-1 rounded inline-block mb-2">BEST VALUE</div>
-                        <h3 class="font-heading text-xl mb-4 text-[#C9A961]">Elite</h3>
-                        <div class="font-display text-5xl gradient-text mb-2">$219</div>
-                        <div class="font-serif text-sm text-gray-400 mb-4">per month · all-inclusive</div>
-                        <div class="font-serif text-gray-400 text-sm">3-bot portfolio + all signals</div>
-                    </div>
-                    <div>
-                        <h3 class="font-heading text-xl mb-4 text-[#C9A961]">Max Pain</h3>
-                        <div class="font-display text-4xl gradient-text mb-2">$39.99</div>
-                        <div class="font-serif text-sm text-gray-400 mb-1">per month for signals</div>
-                        <div class="font-display text-3xl gradient-text mb-2">or Vault</div>
-                        <div class="font-serif text-gray-400 text-sm">Profit-share on Hyperliquid</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <div class="inline-block bg-[#2F2A52]/30 border border-[#C9A961]/30 rounded-lg p-6">
-                    <div class="font-display text-sm text-[#C9A961] mb-2">SELF-CUSTODY GUARANTEE</div>
-                    <p class="font-serif text-gray-300">
-                        Your funds never leave your control. Connect via API or deposit into a transparent on-chain vault.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Performance Section -->
-    <section id="performance" class="py-24 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">PROVEN RESULTS</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">Data-Driven Excellence</span>
-                </h2>
-                <p class="font-serif text-xl text-gray-300 max-w-2xl mx-auto">
-                    Every strategy rigorously backtested across 2–6 years of market data
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <h3 class="font-heading text-2xl mb-6 text-[#C9A961]">Accumulator Performance</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">NVDA ROI</span>
-                            <span class="font-display text-xl gradient-text">1,384%</span>
-                        </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">Portfolio Win Rate</span>
-                            <span class="font-display text-xl gradient-text">80–100%</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-serif text-gray-400">vs Traditional DCA</span>
-                            <span class="font-display text-xl gradient-text">5.36x More</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-[#C9A961]/30 rounded-2xl p-8">
-                    <h3 class="font-heading text-2xl mb-6 text-[#C9A961]">Elite 3-Bot Portfolio</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">Avg Backtested Return</span>
-                            <span class="font-display text-xl gradient-text">407–2,211%</span>
-                        </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">Avg Win Rate</span>
-                            <span class="font-display text-xl gradient-text">78.6%</span>
-                        </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-[#C9A961]/20">
-                            <span class="font-serif text-gray-400">Strategies</span>
-                            <span class="font-display text-xl gradient-text">HYPE · AVAX · SOL</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-serif text-gray-400">Backtest Period</span>
-                            <span class="font-display text-xl gradient-text">1–3 Years</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Max Pain callout block -->
-            <div class="border border-[#C9A961]/40 rounded-2xl overflow-hidden">
-                <div class="bg-gradient-to-r from-[#2F2A52]/60 to-[#1a1625] px-8 py-6 border-b border-[#C9A961]/20 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div>
-                        <div class="font-display text-xs tracking-[0.3em] text-[#C9A961] mb-1">FLAGSHIP VAULT · LIVE ON HYPERLIQUID</div>
-                        <h3 class="font-heading text-3xl text-white">Max Pain Portfolio</h3>
-                        <p class="font-serif text-gray-400 mt-1">v3.2 Balanced · 16 coins · Jan 2023–Feb 2026 · 600 trades</p>
-                    </div>
-                    <a href="maxpain.html" class="btn-primary text-[#1a1625] px-8 py-3 rounded-lg font-display font-bold text-sm whitespace-nowrap flex-shrink-0">
-                        Full Strategy & Data →
+                    <a href="dashboard.html" target="_blank" class="inline-flex items-center gap-2 border border-[#C9A961]/40 text-[#C9A961] px-8 py-3 rounded-xl font-display font-bold text-sm hover:bg-[#C9A961]/10 transition-all">
+                        <span>View Full Elite Dashboard</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                     </a>
                 </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#C9A961]/10">
-                    <div class="bg-[#1a1625] px-6 py-6 text-center">
-                        <div class="font-display text-3xl gradient-text mb-1">4,807%</div>
-                        <div class="font-serif text-xs text-gray-400">Year 1 Return</div>
-                        <div class="font-serif text-xs text-gray-600 mt-1">$10K → $490K</div>
-                    </div>
-                    <div class="bg-[#1a1625] px-6 py-6 text-center">
-                        <div class="font-display text-3xl gradient-text mb-1">81.3%</div>
-                        <div class="font-serif text-xs text-gray-400">Win Rate</div>
-                        <div class="font-serif text-xs text-gray-600 mt-1">600 backtested trades</div>
-                    </div>
-                    <div class="bg-[#1a1625] px-6 py-6 text-center">
-                        <div class="font-display text-3xl gradient-text mb-1">1.82</div>
-                        <div class="font-serif text-xs text-gray-400">Avg Open Positions</div>
-                        <div class="font-serif text-xs text-gray-600 mt-1">79% of time: 0–1 open</div>
-                    </div>
-                    <div class="bg-[#1a1625] px-6 py-6 text-center">
-                        <div class="font-display text-3xl gradient-text mb-1">On-Chain</div>
-                        <div class="font-serif text-xs text-gray-400">Full Transparency</div>
-                        <div class="font-serif text-xs text-gray-600 mt-1">Every trade verifiable</div>
-                    </div>
-                </div>
-
-                <!-- Inline warning -->
-                <div class="bg-red-950/20 border-t border-red-500/20 px-8 py-4 flex items-start gap-3">
-                    <span class="text-red-400 text-base flex-shrink-0 mt-0.5">⚠️</span>
-                    <p class="font-serif text-sm text-red-200/70 leading-relaxed">
-                        <strong class="text-red-300">These numbers require context.</strong> Year 1 returns are fully realistic at normal capital levels. Year 2+ involves compounding dynamics that exceed practical liquidity constraints at scale. Leveraged perpetuals trading involves substantial risk of loss.
-                        <a href="maxpain.html#warning" class="underline hover:text-red-200 ml-1">Read the full breakdown →</a>
-                    </p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Coming Soon Section -->
-    <section class="py-24 bg-gradient-to-b from-[#1a1625] to-[#0f0a1a]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">IN DEVELOPMENT</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
-                    <span class="gradient-text">Coming Soon</span>
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WHY SOOMARIO                               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="py-20 bg-[#0f0a1a]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <div class="font-display text-xs tracking-[0.3em] text-[#C9A961] mb-3">WHY SOOMARIO</div>
+                <h2 class="font-heading text-3xl md:text-5xl">
+                    <span class="gradient-text">Built Different</span>
                 </h2>
-                <p class="font-serif text-xl text-gray-300 max-w-2xl mx-auto">
-                    Two new strategies currently building live track records
-                </p>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-[#C9A961]/20 rounded-2xl p-8 relative overflow-hidden">
-                    <div class="absolute top-4 right-4 font-display text-[10px] tracking-widest text-[#C9A961] border border-[#C9A961]/30 px-3 py-1 rounded">LIVE TESTING</div>
-                    <h3 class="font-heading text-2xl mb-3 text-[#C9A961]">Soomario Sentiment</h3>
-                    <div class="font-display text-[10px] text-gray-500 tracking-widest mb-4">AI-POWERED REVERSAL BOT · OKX</div>
-                    <p class="font-serif text-gray-400 mb-6">Scans top 40 coins every 30 minutes using Fear &amp; Greed analysis, then validates through 5 independent layers: RSI, Z-Score, Supertrend, Volume Liquidation, and a Confluence Scorer. Only trades when all signals align.</p>
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div class="text-center">
-                            <div class="font-display text-xl text-green-400">+9.2%</div>
-                            <div class="font-serif text-xs text-gray-500">Return</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="font-display text-xl text-[#C9A961]">2.30</div>
-                            <div class="font-serif text-xs text-gray-500">Profit Factor</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="font-display text-xl text-[#C9A961]">74.1%</div>
-                            <div class="font-serif text-xs text-gray-500">Win Rate</div>
-                        </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-2xl p-7 text-center">
+                    <div class="w-12 h-12 bg-[#C9A961]/10 border border-[#C9A961]/20 rounded-full flex items-center justify-center mx-auto mb-5">
+                        <svg class="w-6 h-6 text-[#C9A961]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     </div>
-                    <p class="font-serif text-xs text-gray-500">64 days live · $1,047 → $1,143 · Building track record</p>
+                    <h3 class="font-heading text-lg mb-3 text-[#C9A961]">Self-Custody</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">Your keys, your funds. We never hold your capital. Connect via API or deposit into transparent on-chain vaults withdrawable at any time.</p>
                 </div>
                 
-                <div class="bg-gradient-to-br from-[#2F2A52]/30 to-[#1a1625] border border-[#C9A961]/20 rounded-2xl p-8 relative overflow-hidden">
-                    <div class="absolute top-4 right-4 font-display text-[10px] tracking-widest text-[#C9A961] border border-[#C9A961]/30 px-3 py-1 rounded">LIVE TESTING</div>
-                    <h3 class="font-heading text-2xl mb-3 text-[#C9A961]">Soomario Zones</h3>
-                    <div class="font-display text-[10px] text-gray-500 tracking-widest mb-4">LIQUIDATION ZONE DCA · HYPERLIQUID</div>
-                    <p class="font-serif text-gray-400 mb-6">Monitors real-time liquidation data from Binance, Bybit, and OKX to identify max-pain price levels. Deploys 3-level DCA entries at zone boundaries with multi-target take-profit and trailing stops across 21 major cryptocurrencies.</p>
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div class="text-center">
-                            <div class="font-display text-xl text-green-400">92.3%</div>
-                            <div class="font-serif text-xs text-gray-500">Win Rate</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="font-display text-xl text-[#C9A961]">3.25</div>
-                            <div class="font-serif text-xs text-gray-500">Sharpe Ratio</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="font-display text-xl text-[#C9A961]">0.9%</div>
-                            <div class="font-serif text-xs text-gray-500">Max Drawdown</div>
-                        </div>
+                <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-2xl p-7 text-center">
+                    <div class="w-12 h-12 bg-[#C9A961]/10 border border-[#C9A961]/20 rounded-full flex items-center justify-center mx-auto mb-5">
+                        <svg class="w-6 h-6 text-[#C9A961]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
-                    <p class="font-serif text-xs text-gray-500">10 days live · $2,507 → $2,525 · Building track record</p>
+                    <h3 class="font-heading text-lg mb-3 text-[#C9A961]">Full Transparency</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">Live dashboards for every product. Every trade logged on-chain or in public APIs. Real P&L with Sharpe, Sortino, and Profit Factor — not curated screenshots.</p>
                 </div>
-            </div>
-            
-            <div class="text-center mt-8">
-                <p class="font-serif text-sm text-gray-500">Join our Discord to follow live development and get early access when these strategies launch.</p>
+                
+                <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-2xl p-7 text-center">
+                    <div class="w-12 h-12 bg-[#C9A961]/10 border border-[#C9A961]/20 rounded-full flex items-center justify-center mx-auto mb-5">
+                        <svg class="w-6 h-6 text-[#C9A961]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-3 text-[#C9A961]">Community-Driven</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">Request assets. Vote on new strategies. Join our Discord to follow live development and get early access to beta products. Built with you, not just for you.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="py-24 bg-[#0f0a1a]">
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FAQ                                        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="faq" class="py-20 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
         <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="font-display text-sm tracking-[0.3em] text-[#C9A961] mb-4">QUESTIONS</div>
-                <h2 class="font-heading text-4xl md:text-6xl mb-6">
+            <div class="text-center mb-14">
+                <div class="font-display text-xs tracking-[0.3em] text-[#C9A961] mb-3">QUESTIONS</div>
+                <h2 class="font-heading text-3xl md:text-5xl">
                     <span class="gradient-text">FAQ</span>
                 </h2>
             </div>
             
-            <div class="space-y-6">
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-[#C9A961]">Can I start with one service and upgrade later?</h3>
-                    <p class="font-serif text-gray-300">Yes! Many clients start with Accumulator ($19.99/mo) or Max Pain ($39.99/mo), then upgrade to Elite when ready for full automation. Your Accumulator and Max Pain signals are included in Elite, so you won't lose anything.</p>
+            <div class="space-y-5">
+                <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-xl p-6">
+                    <h3 class="font-heading text-lg mb-2 text-[#C9A961]">Can I start with one service and upgrade later?</h3>
+                    <p class="font-serif text-gray-300 text-sm leading-relaxed">Yes! Most clients start with Accumulator ($19.99/mo), then explore Max Pain or upgrade to Elite when ready. Your Accumulator and Max Pain signals are included in Elite.</p>
                 </div>
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-[#C9A961]">Do I need to move my funds to Soomario?</h3>
-                    <p class="font-serif text-gray-300">No. All strategies operate with self-custody. For signals, you execute on your own exchange. For Elite, you connect your own Hyperliquid account via API. For the Max Pain vault, your funds remain on-chain and withdrawable at any time.</p>
+                <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-xl p-6">
+                    <h3 class="font-heading text-lg mb-2 text-[#C9A961]">Do I need to move my funds to Soomario?</h3>
+                    <p class="font-serif text-gray-300 text-sm leading-relaxed">No. All strategies operate with self-custody. For signals, you execute on your own exchange. For Elite and Max Pain, you can subscribe monthly or deposit into a Hyperliquid vault — your funds remain on-chain and withdrawable at any time.</p>
                 </div>
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-[#C9A961]">Which service has the highest returns?</h3>
-                    <p class="font-serif text-gray-300">Elite's three bots show backtested returns of 407% (HYPE), 2,211% (AVAX), and 973% (SOL) with an average 78.6% win rate. Max Pain backtested 4,807% in Year 1 — with important caveats about compounding at scale explained on the <a href="maxpain.html" class="text-[#C9A961] hover:underline">Max Pain page</a>. Accumulator backtested 597% ROI on deployed capital across 14 assets.</p>
+                <div class="bg-[#2F2A52]/20 border border-[#C9A961]/15 rounded-xl p-6">
+                    <h3 class="font-heading text-lg mb-2 text-[#C9A961]">What's the minimum capital needed?</h3>
+                    <p class="font-serif text-gray-300 text-sm leading-relaxed">Accumulator works with any amount — start with $500 and add monthly. Max Pain and Elite work best with $1,000+. $5,000+ is optimal for Elite.</p>
                 </div>
-                <div class="bg-[#2F2A52]/30 border border-[#C9A961]/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-[#C9A961]">What's the minimum capital needed?</h3>
-                    <p class="font-serif text-gray-300">Accumulator works with any amount — start with $500 and add monthly. Max Pain and Elite work best with $1,000+ for proper position sizing across all strategies. $5,000+ is optimal for Elite.</p>
-                </div>
-                <div class="bg-[#2F2A52]/30 border border-red-500/20 rounded-lg p-6">
-                    <h3 class="font-heading text-xl mb-3 text-red-400">Can I lose money?</h3>
-                    <p class="font-serif text-gray-300">Yes. All trading involves risk of loss. Our strategies use stop losses, trailing stops, and circuit breakers to limit drawdowns, but losses are an inherent part of trading. Leveraged perpetual futures carry additional risk including potential liquidation. Never trade with funds you cannot afford to lose. We show both wins and losses — transparency is our core value.</p>
+                <div class="bg-[#2F2A52]/20 border border-red-500/15 rounded-xl p-6">
+                    <h3 class="font-heading text-lg mb-2 text-red-400">Can I lose money?</h3>
+                    <p class="font-serif text-gray-300 text-sm leading-relaxed">Yes. All trading involves risk of loss. Our strategies use stop losses, trailing stops, and circuit breakers, but losses are inherent. Leveraged perps carry additional liquidation risk. Never trade with funds you cannot afford to lose.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="py-24 bg-gradient-to-b from-[#0f0a1a] to-[#1a1625]">
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FINAL CTA                                  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="py-20 bg-[#0f0a1a]">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-heading text-4xl md:text-6xl mb-6">
+            <h2 class="font-heading text-4xl md:text-6xl mb-5">
                 <span class="gradient-text">Ready to Start?</span>
             </h2>
-            <p class="font-serif text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-                Choose from signal-based DCA, automated portfolios, or on-chain vault strategies
+            <p class="font-serif text-lg text-gray-300 mb-10 max-w-xl mx-auto">
+                Start building your portfolio today. 14 assets, automated signals, full analytics — from $19.99/month.
             </p>
             
-            <div class="flex flex-col md:flex-row gap-6 justify-center">
-                <button class="btn-primary text-[#1a1625] px-12 py-4 rounded-lg font-display font-bold text-lg">
-                    Subscribe Now
-                </button>
-                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="border-2 border-[#C9A961] text-[#C9A961] px-12 py-4 rounded-lg font-display font-bold text-lg hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn-primary text-[#1a1625] px-10 py-4 rounded-xl font-display font-bold text-base">
+                    Subscribe to Accumulator →
+                </a>
+                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="border-2 border-[#C9A961] text-[#C9A961] px-10 py-4 rounded-xl font-display font-bold text-base hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
                     Join Discord
                 </a>
             </div>
@@ -797,24 +570,127 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#0f0a1a] border-t border-[#C9A961]/20 py-12">
+    <footer class="bg-[#1a1625] border-t border-[#C9A961]/15 py-10">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="font-heading text-xl tracking-wider mb-2">SOOMARIO</div>
-            <div class="font-display text-[10px] text-[#C9A961] tracking-widest mb-6">STRATEGIES</div>
+            <div class="font-heading text-lg tracking-wider mb-1">SOOMARIO</div>
+            <div class="font-display text-[9px] text-[#C9A961] tracking-widest mb-6">STRATEGIES</div>
             
-            <div class="flex justify-center flex-wrap gap-x-8 gap-y-2 mb-8 font-serif text-sm text-gray-400">
+            <div class="flex justify-center flex-wrap gap-x-6 gap-y-2 mb-6 font-serif text-sm text-gray-400">
                 <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="hover:text-[#C9A961] transition-colors">Discord</a>
-                <a href="https://twitter.com/SoomarioStrat"     target="_blank" class="hover:text-[#C9A961] transition-colors">Twitter</a>
-                <a href="https://app.hyperliquid.xyz/join/SMR"   target="_blank" class="hover:text-[#C9A961] transition-colors">Hyperliquid</a>
-                <a href="maxpain.html"                                           class="hover:text-[#C9A961] transition-colors">Max Pain Vault</a>
-                <a href="whitepaper.html"                                        class="hover:text-[#C9A961] transition-colors">Whitepaper</a>
+                <a href="https://twitter.com/SoomarioStrat" target="_blank" class="hover:text-[#C9A961] transition-colors">Twitter / X</a>
+                <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" class="hover:text-[#C9A961] transition-colors">Hyperliquid</a>
+                <a href="whitepaper.html" class="hover:text-[#C9A961] transition-colors">Whitepaper</a>
+                <a href="calculator.html" class="hover:text-[#C9A961] transition-colors">DCA Calculator</a>
+                <a href="maxpain.html" class="hover:text-[#C9A961] transition-colors">Max Pain</a>
             </div>
             
-            <p class="font-serif text-sm text-gray-400">© 2024–2026 Soomario Strategies. All rights reserved.</p>
+            <p class="font-serif text-sm text-gray-400">&copy; 2024–2026 Soomario Strategies. All rights reserved.</p>
             <p class="font-serif text-xs text-gray-500 mt-2">
                 Trading involves substantial risk of loss. Past performance does not guarantee future results.
             </p>
         </div>
     </footer>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SCRIPTS                                    -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- Accumulator Live Ticker -->
+    <script>
+    (function() {
+        const ACCUM_API = 'https://soomariosignaltelegram-production.up.railway.app/api/portfolio_value';
+        
+        async function loadTicker() {
+            try {
+                const res = await fetch(ACCUM_API);
+                const data = await res.json();
+                if (!data.prices || !data.assets) return;
+                
+                const prices = data.prices;
+                const assets = data.assets;
+                const track = document.getElementById('tickerTrack');
+                if (!track) return;
+                
+                const allTickers = Object.keys(prices).sort();
+                let html = '';
+                
+                allTickers.forEach(ticker => {
+                    const isCrypto = ticker === 'BTC' || ticker === 'SOL';
+                    const price = prices[ticker];
+                    const assetData = assets.find(a => a.asset === ticker);
+                    const pnl = assetData ? assetData.pnl_pct : null;
+                    const priceStr = isCrypto 
+                        ? '$' + price.toLocaleString(undefined, {maximumFractionDigits: 0})
+                        : '$' + price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    
+                    const pnlStr = pnl !== null 
+                        ? `<span style="color:${pnl >= 0 ? '#4ade80' : '#f87171'};font-size:11px;margin-left:4px;">${pnl >= 0 ? '+' : ''}${pnl.toFixed(1)}%</span>`
+                        : '';
+                    
+                    html += `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;white-space:nowrap;">
+                        <span style="color:#C9A961;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;">${ticker}</span>
+                        <span style="color:#e8e0f0;font-family:'Cormorant Garamond',serif;font-size:14px;">${priceStr}</span>
+                        ${pnlStr}
+                    </div>`;
+                });
+                
+                track.innerHTML = html + html;
+                
+            } catch (err) {
+                console.log('Ticker fetch error:', err);
+            }
+        }
+        
+        loadTicker();
+        setInterval(loadTicker, 60000);
+    })();
+    </script>
+
+    <!-- Elite Live Widget -->
+    <script>
+    (function() {
+        const API = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
+        
+        async function loadWidget() {
+            try {
+                const res = await fetch(API);
+                const data = await res.json();
+                if (data.success) updateWidget(data);
+                else document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-sm text-red-400">Data unavailable</div>';
+            } catch (err) {
+                document.getElementById('widgetLoading').innerHTML = '<div class="font-display text-sm text-red-400">Connection error</div>';
+            }
+        }
+        
+        function updateWidget(data) {
+            const s = data.stats;
+            document.getElementById('widgetLoading').style.display = 'none';
+            document.getElementById('widgetContent').style.display = 'block';
+            document.getElementById('widgetUpdateTime').textContent = 'Updated ' + new Date().toLocaleTimeString();
+            document.getElementById('widgetEquity').textContent = '$' + parseFloat(s.currentEquity).toFixed(2);
+            document.getElementById('widgetStarting').textContent = '$3,103.00';
+            
+            const roi = parseFloat(s.roiPercent);
+            const pos = roi >= 0;
+            const retEl = document.getElementById('widgetReturn');
+            retEl.textContent = (pos ? '+' : '') + '$' + s.totalReturn;
+            retEl.className = 'font-display text-2xl md:text-3xl mb-1 ' + (pos ? 'text-green-400' : 'text-red-400');
+            
+            document.getElementById('widgetROI').innerHTML = '<span class="font-serif text-xs">' + (pos ? '+' : '') + s.roiPercent + '%</span>';
+            document.getElementById('widgetROI').className = 'flex items-center justify-center gap-1 ' + (pos ? 'text-green-400' : 'text-red-400');
+            
+            document.getElementById('widgetWinRate').textContent = s.winRate + '%';
+            document.getElementById('widgetWinDetail').textContent = s.profitableTrades + ' of ' + s.totalTrades + ' trades';
+            document.getElementById('widgetProfitFactor').textContent = (parseFloat(s.profitFactor) || 0).toFixed(2);
+            document.getElementById('widgetDD').textContent = '-' + s.maxDrawdown + '%';
+            document.getElementById('widgetAvgWin').textContent = '$' + s.avgWin;
+            document.getElementById('widgetSharpe').textContent = s.sharpeRatio;
+        }
+        
+        loadWidget();
+        setInterval(loadWidget, 30000);
+    })();
+    </script>
+
 </body>
 </html>
