@@ -153,18 +153,18 @@
                 </a>
             </div>
             
-            <!-- Trust Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <!-- Trust Stats (populated live from API) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
                 <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
-                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1">+16.2%</div>
+                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1" id="heroStatPnl">—</div>
                     <div class="font-serif text-sm text-gray-400">Model Portfolio P&L</div>
                 </div>
                 <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
-                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1">62</div>
+                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1" id="heroStatBuys">—</div>
                     <div class="font-serif text-sm text-gray-400">Buys Executed Since Jan</div>
                 </div>
                 <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
-                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1">14</div>
+                    <div class="font-display text-3xl md:text-4xl gradient-text mb-1" id="heroStatAssets">—</div>
                     <div class="font-serif text-sm text-gray-400">Assets Tracked Daily</div>
                 </div>
                 <div class="bg-[#2F2A52]/30 backdrop-blur-sm border border-[#C9A961]/20 rounded-xl p-5">
@@ -172,22 +172,18 @@
                     <div class="font-serif text-sm text-gray-400">Self-Custody · Your Keys</div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- LIVE PRICE TICKER                          -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="py-4 bg-[#0f0a1a] border-y border-[#C9A961]/10 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex items-center gap-4 mb-3">
-                <div class="w-2 h-2 bg-green-400 rounded-full live-pulse"></div>
-                <span class="font-display text-[10px] tracking-[0.2em] text-green-400">ACCUMULATOR LIVE P&L</span>
-                <span class="font-serif text-xs text-gray-500">Real positions · updated every 15 min</span>
-            </div>
-            <div class="overflow-hidden">
-                <div class="flex gap-6 ticker-track" style="width: max-content;" id="tickerTrack">
-                    <!-- Filled by JS, duplicated for seamless loop -->
+            <!-- Live Price Ticker (inside hero) -->
+            <div class="max-w-5xl mx-auto">
+                <div class="flex items-center gap-3 justify-center mb-3">
+                    <div class="w-2 h-2 bg-green-400 rounded-full live-pulse"></div>
+                    <span class="font-display text-[10px] tracking-[0.2em] text-green-400">ACCUMULATOR LIVE P&L</span>
+                    <span class="font-serif text-xs text-gray-500">Real positions · updated every 15 min</span>
+                </div>
+                <div class="overflow-hidden rounded-xl bg-[#0f0a1a]/60 border border-[#C9A961]/10 py-3 px-4">
+                    <div class="flex gap-6 ticker-track" style="width: max-content;" id="tickerTrack">
+                        <!-- Filled by JS, duplicated for seamless loop -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -600,7 +596,7 @@
     (function() {
         const ACCUM_API = 'https://soomariosignaltelegram-production.up.railway.app/api/portfolio_value';
         
-        async function loadTicker() {
+        async function loadAccumulatorData() {
             try {
                 const res = await fetch(ACCUM_API);
                 const data = await res.json();
@@ -608,6 +604,28 @@
                 
                 const prices = data.prices;
                 const assets = data.assets;
+
+                // ── Populate Hero Stats ──
+                const pnlEl = document.getElementById('heroStatPnl');
+                const buysEl = document.getElementById('heroStatBuys');
+                const assetsEl = document.getElementById('heroStatAssets');
+                
+                if (pnlEl) {
+                    const pnl = data.total_pnl_pct || 0;
+                    pnlEl.textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(1) + '%';
+                    if (pnl < 0) {
+                        pnlEl.className = pnlEl.className.replace('gradient-text', '');
+                        pnlEl.style.color = '#f87171';
+                    }
+                }
+                if (buysEl && data.equity_curve) {
+                    buysEl.textContent = data.equity_curve.length;
+                }
+                if (assetsEl) {
+                    assetsEl.textContent = Object.keys(prices).length;
+                }
+
+                // ── Populate Ticker ──
                 const track = document.getElementById('tickerTrack');
                 if (!track) return;
                 
@@ -637,12 +655,12 @@
                 track.innerHTML = html + html;
                 
             } catch (err) {
-                console.log('Ticker fetch error:', err);
+                console.log('Accumulator data fetch error:', err);
             }
         }
         
-        loadTicker();
-        setInterval(loadTicker, 60000);
+        loadAccumulatorData();
+        setInterval(loadAccumulatorData, 60000);
     })();
     </script>
 
