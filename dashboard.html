@@ -556,7 +556,7 @@ function render(data) {
   if (!equity) {
     try { equity = parseFloat(state.crossMarginSummary?.accountValue || state.marginSummary?.accountValue || 0); } catch {}
   }
-  if (equity > 0) depositors = Math.max(depositors + 1, 1);
+  if (equity > 0) depositors = Math.max(depositors, 1);
 
   var positions  = parsePositions(state);
   var unrealised = positions.reduce(function(a,p){return a+p.unrealPnl},0);
