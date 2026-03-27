@@ -566,7 +566,9 @@ function render(data) {
   var metrics   = calcMetrics(allClosed);
 
   // All-time PnL = vault equity - original deposit
-  var allTimePnl = round(equity - LEGACY_DEPOSIT, 2);
+  var vaultPnl   = parseFloat(vault.allTimePnl || 0);
+  var legacyPnl  = LEGACY_TRADES.reduce(function(s,t){ return s + t.pnl }, 0);
+  var allTimePnl = round(vaultPnl + legacyPnl, 2);
 
   lastAllClosed = allClosed;
   lastEquity    = equity;
