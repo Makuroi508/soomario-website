@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1625">
+    <meta name="description" content="Smart DCA signals for 14 AI & crypto assets. Automated buy amounts, full analytics dashboard. From $19.99/month.">
+    <link rel="apple-touch-icon" href="soomario-logo.png">
     <title>Soomario Strategies — Algorithmic Trading for Everyone</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,6 +83,109 @@
             background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1));
             border: 1px solid rgba(139,92,246,0.4);
         }
+
+        /* ─── Hamburger Menu ─── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 60;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: #C9A961;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(26,22,37,0.98);
+            backdrop-filter: blur(20px);
+            z-index: 55;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #e8e0f0;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+        }
+        .mobile-menu a:hover { color: #C9A961; }
+        .mobile-menu .mobile-menu-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        /* ─── Mobile Responsive ─── */
+        @media (max-width: 1024px) {
+            .hamburger { display: flex; }
+            .desktop-nav { display: none !important; }
+            .desktop-buttons .member-login-link { display: none; }
+            .desktop-buttons .discord-btn { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            nav .max-w-7xl { padding: 0.75rem 1rem; }
+            nav img.logo-glow { height: 3rem; }
+            .desktop-buttons { gap: 0.5rem !important; }
+            .desktop-buttons .get-started-btn { padding: 0.4rem 0.8rem; font-size: 0.65rem; }
+
+            /* Hero adjustments */
+            section img.logo-glow { max-width: 280px; }
+
+            /* Sections padding */
+            .py-20 { padding-top: 3rem; padding-bottom: 3rem; }
+            section .max-w-6xl, section .max-w-4xl { padding-left: 1.25rem; padding-right: 1.25rem; }
+
+            /* CTA buttons */
+            .btn-primary, [class*="border-2"] { padding: 0.85rem 1.5rem; font-size: 0.85rem; }
+
+            /* Disable hover lift on touch */
+            .card-hover:hover { transform: translateY(-4px); }
+        }
+
+        @media (max-width: 480px) {
+            nav .max-w-7xl { padding: 0.6rem 0.75rem; }
+            nav img.logo-glow { height: 2.5rem; }
+            nav .font-heading { font-size: 0.85rem; }
+            nav .font-display { font-size: 7px; }
+
+            /* Hero */
+            section.min-h-screen { padding-top: 5rem; min-height: auto; }
+            section img.logo-glow { max-width: 200px; }
+            h1.font-heading { font-size: 2.5rem !important; }
+
+            /* Ticker */
+            .ticker-track { animation-duration: 20s; }
+
+            /* Cards */
+            .card-hover:hover { transform: none; box-shadow: none; }
+
+            /* Product cards */
+            .card-hover p { font-size: 0.8rem; }
+
+            /* FAQ */
+            #faq h3 { font-size: 0.95rem; }
+            #faq p { font-size: 0.82rem; }
+        }
     </style>
 </head>
 <body class="bg-[#1a1625] text-white">
@@ -95,26 +201,46 @@
                 </div>
             </div>
             
-            <div class="hidden lg:flex items-center space-x-8 font-display text-sm">
+            <div class="desktop-nav hidden lg:flex items-center space-x-8 font-display text-sm">
                 <a href="#products"      class="nav-link text-gray-300 hover:text-[#C9A961]">Products</a>
                 <a href="whitepaper.html" class="nav-link text-gray-300 hover:text-[#C9A961]">Whitepaper</a>
                 <a href="calculator.html" class="nav-link text-gray-300 hover:text-[#C9A961]">Calculator</a>
                 <a href="#faq"           class="nav-link text-gray-300 hover:text-[#C9A961]">FAQ</a>
             </div>
             
-            <div class="flex items-center gap-3 flex-shrink-0">
-                <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard" target="_blank" class="nav-link text-gray-300 hover:text-[#C9A961] font-display text-xs">
+            <div class="flex items-center gap-3 flex-shrink-0 desktop-buttons">
+                <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard" target="_blank" class="member-login-link nav-link text-gray-300 hover:text-[#C9A961] font-display text-xs">
                     Member Login
                 </a>
-                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="border border-[#C9A961] text-[#C9A961] px-5 py-2 rounded-lg font-display font-bold text-xs hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
+                <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="discord-btn border border-[#C9A961] text-[#C9A961] px-5 py-2 rounded-lg font-display font-bold text-xs hover:bg-[#C9A961] hover:text-[#1a1625] transition-all">
                     Discord
                 </a>
-                <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn-primary text-[#1a1625] px-5 py-2.5 rounded-lg font-display font-bold text-xs">
+                <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="get-started-btn btn-primary text-[#1a1625] px-5 py-2.5 rounded-lg font-display font-bold text-xs">
                     Get Started
                 </a>
+                <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+                    <span></span><span></span><span></span>
+                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#products" onclick="toggleMobileMenu()">Products</a>
+        <a href="whitepaper.html">Whitepaper</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
+        <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard" target="_blank" style="color: #C9A961;">Member Login</a>
+        <div class="mobile-menu-cta">
+            <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="border border-[#C9A961] text-[#C9A961] px-8 py-3 rounded-lg font-display font-bold text-sm hover:bg-[#C9A961] hover:text-[#1a1625] transition-all" style="font-size:0.85rem;">
+                Join Discord
+            </a>
+            <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn-primary text-[#1a1625] px-8 py-3 rounded-lg font-display font-bold text-sm" style="font-size:0.85rem;">
+                Get Started →
+            </a>
+        </div>
+    </div>
 
     <!-- ═══════════════════════════════════════════ -->
     <!-- HERO — Accumulator-Focused                 -->
@@ -593,6 +719,15 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- SCRIPTS                                    -->
     <!-- ═══════════════════════════════════════════ -->
+
+    <!-- Hamburger Menu Toggle -->
+    <script>
+    function toggleMobileMenu() {
+        document.getElementById('hamburger').classList.toggle('active');
+        document.getElementById('mobileMenu').classList.toggle('active');
+        document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
+    }
+    </script>
 
     <!-- Accumulator Live Ticker -->
     <script>
