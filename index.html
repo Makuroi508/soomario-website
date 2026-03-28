@@ -84,6 +84,93 @@
             border: 1px solid rgba(139,92,246,0.4);
         }
 
+        /* ─── Nav Dropdown ─── */
+        .nav-dropdown {
+            position: relative;
+        }
+        .nav-dropdown-trigger {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .nav-dropdown-trigger::after {
+            content: '▾';
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 0.75rem;
+            background: rgba(18,9,30,0.97);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(201,169,97,0.2);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            min-width: 220px;
+            z-index: 100;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1.1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: #9a8bb5;
+            text-decoration: none;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .nav-dropdown-menu a:hover {
+            color: #C9A961;
+            background: rgba(201,169,97,0.06);
+        }
+        .nav-dropdown-menu a .dash-badge {
+            font-size: 0.55rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .dash-badge-live { background: rgba(74,222,128,0.15); color: #4ade80; }
+        .dash-badge-beta { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+        .nav-dropdown-menu .dropdown-divider {
+            height: 1px;
+            background: rgba(201,169,97,0.1);
+            margin: 0.35rem 0;
+        }
+
+        /* ─── Mobile menu dashboard section ─── */
+        .mobile-dash-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 0;
+            border-top: 1px solid rgba(201,169,97,0.15);
+            border-bottom: 1px solid rgba(201,169,97,0.15);
+        }
+        .mobile-dash-section .mobile-dash-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(201,169,97,0.5);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+        .mobile-dash-section a {
+            font-family: 'Orbitron', sans-serif !important;
+            font-size: 0.85rem !important;
+            color: #9a8bb5 !important;
+        }
+        .mobile-dash-section a:hover { color: #C9A961 !important; }
+
         /* ─── Hamburger Menu ─── */
         .hamburger {
             display: none;
@@ -203,6 +290,27 @@
             
             <div class="desktop-nav hidden lg:flex items-center space-x-8 font-display text-sm">
                 <a href="#products"      class="nav-link text-gray-300 hover:text-[#C9A961]">Products</a>
+                <div class="nav-dropdown">
+                    <span class="nav-dropdown-trigger nav-link text-gray-300 hover:text-[#C9A961]">Dashboards</span>
+                    <div class="nav-dropdown-menu">
+                        <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard/preview" target="_blank">
+                            Accumulator <span class="dash-badge dash-badge-live">LIVE</span>
+                        </a>
+                        <a href="https://makuroi508.github.io/soomario-website/dashboard.html" target="_blank">
+                            Elite <span class="dash-badge dash-badge-live">LIVE</span>
+                        </a>
+                        <a href="https://makuroi508.github.io/soomario-website/vault-dashboard.html" target="_blank">
+                            Max Pain <span class="dash-badge dash-badge-live">LIVE</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="https://soomariozones-production.up.railway.app/" target="_blank">
+                            Zones <span class="dash-badge dash-badge-beta">BETA</span>
+                        </a>
+                        <a href="https://soomariozonesfarming-production.up.railway.app/" target="_blank">
+                            Grids <span class="dash-badge dash-badge-beta">PAPER</span>
+                        </a>
+                    </div>
+                </div>
                 <a href="whitepaper.html" class="nav-link text-gray-300 hover:text-[#C9A961]">Whitepaper</a>
                 <a href="calculator.html" class="nav-link text-gray-300 hover:text-[#C9A961]">Calculator</a>
                 <a href="#faq"           class="nav-link text-gray-300 hover:text-[#C9A961]">FAQ</a>
@@ -231,6 +339,16 @@
         <a href="whitepaper.html">Whitepaper</a>
         <a href="calculator.html">Calculator</a>
         <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
+        
+        <div class="mobile-dash-section">
+            <span class="mobile-dash-label">Dashboards</span>
+            <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard/preview" target="_blank">Accumulator</a>
+            <a href="https://makuroi508.github.io/soomario-website/dashboard.html" target="_blank">Elite</a>
+            <a href="https://makuroi508.github.io/soomario-website/vault-dashboard.html" target="_blank">Max Pain</a>
+            <a href="https://soomariozones-production.up.railway.app/" target="_blank">Zones <span class="dash-badge dash-badge-beta" style="font-size:0.55rem;padding:0.1rem 0.35rem;margin-left:0.3rem;border-radius:3px;">BETA</span></a>
+            <a href="https://soomariozonesfarming-production.up.railway.app/" target="_blank">Grids <span class="dash-badge dash-badge-beta" style="font-size:0.55rem;padding:0.1rem 0.35rem;margin-left:0.3rem;border-radius:3px;">PAPER</span></a>
+        </div>
+
         <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard" target="_blank" style="color: #C9A961;">Member Login</a>
         <div class="mobile-menu-cta">
             <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="border border-[#C9A961] text-[#C9A961] px-8 py-3 rounded-lg font-display font-bold text-sm hover:bg-[#C9A961] hover:text-[#1a1625] transition-all" style="font-size:0.85rem;">
