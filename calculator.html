@@ -6,7 +6,8 @@
 <title>Soomario — DCA Budget Allocator</title>
 <meta name="description" content="Calculate your safe daily DCA allocation across 14 assets. Free tool from Soomario Strategies.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
@@ -409,22 +410,20 @@ function App() {
         </div>
         <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', maxWidth: 500, margin: '0 auto 1.5rem', lineHeight: 1.6 }}>
           Soomario Accumulator sends real-time buy signals for all 14 assets with signal strength scoring.
-          Starting at $19.99/month.
+          Starting at $7/month.
         </p>
         <a href="https://whop.com/soomario-strategies/" target="_blank" rel="noopener" className="cta-btn">
           Subscribe on Whop →
         </a>
       </div>
 
-      {/* Footer */}
-      <footer style={{ textAlign: 'center', padding: '1.5rem', fontSize: '0.65rem', color: 'var(--text-muted)', borderTop: '1px solid var(--border)' }}>
-        Soomario Strategies · Accumulator · Signals are informational, not financial advice
-      </footer>
+      {/* Footer injected by components.js */}
     </div>
   );
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
 </script>
+<script src="../components.js"></script>
 </body>
 </html>
