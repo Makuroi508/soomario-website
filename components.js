@@ -29,7 +29,7 @@
       zones: 'https://soomariozones-production.up.railway.app/',
       farms: 'https://soomariozonesfarming-production.up.railway.app/',
     },
-    ga4: '' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
+    ga4: 'G-B8X08ZGT7J' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
   };
 
   /* ── Path Helpers ── */
