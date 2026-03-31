@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="How Hyperliquid vaults work: self-custody deposits, vault leader trading, profit sharing, and on-chain verification. A complete guide.">
+  <title>How Hyperliquid Vaults Work — Self-Custody Trading | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/how-vaults-work.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">PLATFORM · 4 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">How Hyperliquid Vaults Work</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">The self-custody vault model: deposit USDC, let bots trade, verify everything on-chain, withdraw anytime.</p>
+
+      <h2 class="gradient-text">What is Hyperliquid?</h2>
+      <p>Hyperliquid is a decentralized perpetual futures exchange. Unlike centralized exchanges (Binance, OKX), Hyperliquid runs entirely on-chain — every order, trade, and settlement is recorded on its L1 blockchain. This means complete transparency: anyone can verify any trade that's ever happened on the platform.</p>
+      <p>For Soomario, this is critical. When we say "every trade is verifiable on-chain," we mean it literally. You can look up our vault addresses and see every position, every entry, every exit.</p>
+
+      <h2 class="gradient-text">How the Vault Model Works</h2>
+
+      <h3>Step 1: You Deposit USDC</h3>
+      <p>You connect your wallet to Hyperliquid, navigate to the vault page, and deposit USDC. Your funds go into the vault's smart contract — not into anyone's personal wallet. You can withdraw at any time.</p>
+
+      <h3>Step 2: The Vault Leader Trades</h3>
+      <p>The vault leader (in Soomario's case, our automated bot) has permission to open and close trading positions using the pooled vault capital. The vault leader can <strong>trade</strong> with your funds but <strong>cannot withdraw</strong> them. This is enforced at the smart contract level.</p>
+
+      <h3>Step 3: Profits and Losses are Shared</h3>
+      <p>Your share of gains (and losses) is proportional to your deposit. If the vault is up 10% and you deposited $1,000, your share is worth $1,100. Soomario takes a percentage of profits only (typically 10%) — if the vault loses money, we earn nothing.</p>
+
+      <h3>Step 4: Withdraw Anytime</h3>
+      <p>There are no lock-up periods. You can withdraw your deposit plus any accumulated gains at any time. Withdrawals are processed on-chain.</p>
+
+      <div class="callout">
+        <p><strong>Key difference from traditional fund management:</strong> In a hedge fund, you send money to a manager's account and trust them not to steal it. In a Hyperliquid vault, the smart contract enforces that the vault leader can only trade — never withdraw your funds. Self-custody means you're always in control.</p>
+      </div>
+
+      <h2 class="gradient-text">How to Verify Trades</h2>
+      <p>Every vault has a public address. You can query the Hyperliquid API with the vault address to see current positions (what's open right now), trade history (every entry and exit, with timestamps and prices), total equity and P&L, and the number of depositors.</p>
+      <p>Soomario's dashboards do exactly this — they pull live data from the Hyperliquid API and display it in a readable format. But you don't have to trust our dashboards. You can query the API yourself or use any third-party block explorer.</p>
+
+      <h2 class="gradient-text">Soomario Vaults</h2>
+      <p>Soomario currently operates two vaults on Hyperliquid:</p>
+      <p><strong><a href="../products/max-pain.html" style="color:var(--gold);">Max Pain Vault</a></strong> — 20 momentum/reversal strategies across 14 coins.</p>
+      <p><strong><a href="../products/elite.html" style="color:var(--gold);">Elite Vault</a></strong> — 3-bot automated portfolio (HYPE, AVAX, SOL).</p>
+      <p>Both operate identically: deposit USDC → bot trades → profit share on gains only → withdraw anytime.</p>
+
+      <h2 class="gradient-text">Risks to Understand</h2>
+      <p>Self-custody doesn't mean risk-free. The vault leader's trades can lose money — your deposited capital is at risk. Leverage amplifies both gains and losses. The vault leader cannot steal your funds, but they can trade them poorly. Always check the vault's track record (win rate, max drawdown, Sharpe ratio) before depositing, and never invest more than you can afford to lose.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="../products/elite.html" class="btn btn--primary btn--sm">Explore Elite Vault →</a>
+          <a href="../products/max-pain.html" class="btn btn--outline btn--sm">Explore Max Pain Vault</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

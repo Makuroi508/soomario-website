@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="What is smart dollar-cost averaging? How signal-driven DCA improves on basic DCA by timing entries with RSI, z-scores, and moving averages.">
+  <title>What is Smart DCA? — Signal-Driven Dollar-Cost Averaging | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/what-is-dca.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout {
+      background: var(--bg-card);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+
+      <div class="section-label">STRATEGY · 5 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);">
+        <span class="gradient-text">What is Smart DCA?</span>
+      </h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">
+        How signal-driven dollar-cost averaging improves on basic DCA by timing entries with quantitative indicators.
+      </p>
+
+      <h2 class="gradient-text">Basic DCA: The Foundation</h2>
+      <p>Dollar-cost averaging (DCA) is one of the oldest investment strategies: invest a fixed amount at regular intervals, regardless of price. Buy $100 of an asset every week whether it's up or down. Over time, you accumulate more shares when prices are low and fewer when prices are high, resulting in a lower average cost basis than trying to time the market.</p>
+      <p>Basic DCA works because it removes emotion from investing. You don't need to predict whether the market will go up or down — you just buy consistently. This is why financial advisors recommend it for retirement accounts and long-term portfolios.</p>
+      <p>But basic DCA has a limitation: <strong>it treats every day equally</strong>. It buys the same amount whether an asset is massively oversold after a 20% crash or sitting at all-time highs after a parabolic run. Intuitively, you'd want to buy more when prices are genuinely depressed and less (or nothing) when they're overextended.</p>
+
+      <h2 class="gradient-text">Smart DCA: Adding Intelligence</h2>
+      <p>Smart DCA keeps the core principle of regular investing but adds a quantitative layer that adjusts <strong>when</strong> you buy and <strong>how much</strong>. Instead of buying every day, you buy only when indicators confirm the asset is genuinely oversold. And instead of buying a fixed amount, you scale your buy size based on how oversold the asset is.</p>
+
+      <h3>The Three Indicators</h3>
+      <p>Soomario's signal engine uses three indicators to determine if an asset is worth buying:</p>
+
+      <p><strong>RSI (Relative Strength Index)</strong> measures momentum on a 0–100 scale. Below 30 is generally considered "oversold" — selling pressure is exhausting. The engine uses a very short period (RSI-2) for precise dip timing, which is more sensitive than the standard RSI-14.</p>
+
+      <p><strong>Volume Z-Score</strong> measures whether current selling volume is statistically extreme compared to recent history. A high z-score on down-volume means capitulation selling — the kind of exhaustion that often precedes a reversal.</p>
+
+      <p><strong>Price vs Moving Average</strong> measures how far the current price has fallen below its long-term average. The further below, the more "on sale" the asset is relative to its trend.</p>
+
+      <h3>Signal Strength &amp; Multipliers</h3>
+      <p>These indicators combine into a single <strong>signal strength score</strong> from 0–100%. Higher scores mean the asset is more oversold across multiple dimensions, not just one.</p>
+      <p>Signal strength determines the <strong>buy multiplier</strong> — a 1x to 5x scaling factor. A weak signal (barely oversold) triggers a 1x buy. A strong signal (deeply oversold on all indicators) triggers up to 5x the base amount.</p>
+
+      <div class="callout">
+        <p><strong>Example:</strong> Your monthly budget is $1,000. Your safe daily rate is about $11. A 50% strength signal triggers a 2.5x multiplier — you buy $27.50 of that asset. A 90% strength signal triggers a 4.5x multiplier — you buy $49.50. A day with no signal? You buy nothing and save your capital for a better entry.</p>
+      </div>
+
+      <h2 class="gradient-text">Why Smart DCA Outperforms</h2>
+      <p>The advantage is intuitive: you deploy more capital when prices are depressed and less when they're extended. Over hundreds of signals, this systematically lowers your average entry price compared to basic DCA.</p>
+      <p>Smart DCA also avoids buying into strength. If an asset has rallied 30% in a week, no signal fires — your capital stays dry for the next pullback. Basic DCA would have bought at the top.</p>
+      <p>This doesn't mean every signal is a winner. Individual buys can be early (the asset drops further) or the market can enter a prolonged downturn. But over the long term, buying systematically at oversold conditions has a statistical edge over buying at random intervals.</p>
+
+      <h2 class="gradient-text">How Soomario Accumulator Uses This</h2>
+      <p>The <a href="../products/accumulator.html" style="color:var(--gold);">Soomario Accumulator</a> runs this exact system across 14 curated assets (12 AI/semiconductor stocks + BTC and SOL). The engine scans twice daily, calculates signal strength, and delivers the signal via Telegram with the exact ticker, strength percentage, and dollar buy amount based on your budget.</p>
+      <p>You execute the trade yourself in your own brokerage — Soomario never touches your funds. The member dashboard tracks every signal, every buy, and your overall portfolio performance with full analytics.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="../products/accumulator.html" class="btn btn--primary btn--sm">Learn About the Accumulator →</a>
+          <a href="../tools/calculator.html" class="btn btn--outline btn--sm">Try the DCA Calculator</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

@@ -4,530 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="6 algorithmic trading strategies. 1,400+ live trades. 100% self-custody. Transparent, on-chain verifiable crypto and stock trading signals from $7/month.">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Soomario Strategies — Algorithmic Trading, Built for Transparency">
-  <meta property="og:description" content="6 strategies, 1,400+ trades, 100% self-custody. Crypto & stock trading signals from $7/mo.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://soomariostrategies.com">
-  <meta property="og:image" content="https://soomariostrategies.com/assets/og-image.png">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@SoomarioStrat">
-
-  <title>Soomario Strategies — Algorithmic Trading, Built for Transparency</title>
-
-  <!-- Fonts -->
+  <meta name="description" content="Learn how algorithmic trading strategies work. DCA explained, liquidation zones, Hyperliquid vaults, risk management, and a full trading glossary.">
+  <title>Learn — Trading Education | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="assets/soomario-logo.png" type="image/png">
-  <link rel="canonical" href="https://soomariostrategies.com/">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/">
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- HERO                                                    -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__bg-orb" style="width:500px;height:500px;background:var(--gold);opacity:0.03;top:15%;left:20%;"></div>
-      <div class="hero__bg-orb" style="width:400px;height:400px;background:var(--purple-card);opacity:0.08;bottom:20%;right:20%;"></div>
-    </div>
-
-    <div class="container text-center" style="position:relative;z-index:1;">
-      <img src="assets/soomario-logo.png" alt="Soomario Strategies" class="hero__logo">
-
-      <div class="section-label" style="margin-bottom:1.25rem;">ALGORITHMIC TRADING · BUILT FOR TRANSPARENCY</div>
-
-      <h1 class="hero__headline">
-        <span class="gradient-text">6 Strategies. 1,400+ Trades.</span><br>
-        <span style="color:var(--text-primary);">100% Self-Custody.</span>
+  <section class="section" style="padding-top:2rem;">
+    <div class="container">
+      <div class="section-label">EDUCATION</div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem);margin-bottom:0.5rem;">
+        <span class="gradient-text">Understand Before You Invest</span>
       </h1>
-
-      <p class="hero__sub">STOCKS · CRYPTO · ON-CHAIN VERIFIABLE · FROM $7/MONTH</p>
-
-      <div class="hero__ctas">
-        <a href="#products" class="btn btn--primary btn--lg">Explore Products</a>
-        <a href="#live-proof" class="btn btn--outline btn--lg">View Live Performance</a>
-      </div>
-
-      <!-- Trust Stats -->
-      <div class="metrics" style="max-width:700px;margin:3rem auto 0;">
-        <div class="metric">
-          <div class="metric__value gradient-text">6</div>
-          <div class="metric__label">Live Strategies</div>
-        </div>
-        <div class="metric">
-          <div class="metric__value gradient-text" id="heroStatTrades">1,400+</div>
-          <div class="metric__label">Trades Executed</div>
-        </div>
-        <div class="metric">
-          <div class="metric__value" style="color:var(--green);">100%</div>
-          <div class="metric__label">Self-Custody</div>
-        </div>
-        <div class="metric">
-          <div class="metric__value gradient-text" id="heroStatAssets">14</div>
-          <div class="metric__label">Assets Tracked</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- TRUST BAR                                               -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <div class="section--alt" style="padding:1rem 0;">
-    <div class="container">
-      <div class="trust-bar">
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Your keys, your funds — always
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
-          Every trade verifiable on-chain
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          No lock-ins — cancel anytime
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Live since 2024
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- LIVE PROOF                                              -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section" id="live-proof">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">LIVE PERFORMANCE</div>
-        <h2 class="section-title"><span class="gradient-text">Real Accounts. Real Trades.</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">Not screenshots. Not simulations. Live data pulled directly from our trading accounts, updated every 30 seconds.</p>
-      </div>
-
-      <!-- Accumulator Ticker -->
-      <div style="margin-bottom:2rem;">
-        <div style="display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-bottom:0.6rem;">
-          <div class="live-dot"></div>
-          <span class="font-display" style="font-size:0.65rem;letter-spacing:0.15em;color:var(--green);">ACCUMULATOR LIVE P&L</span>
-          <span class="font-body" style="font-size:0.78rem;color:var(--text-muted);">Real positions · updated every 3 min</span>
-        </div>
-        <div class="ticker">
-          <div class="ticker__track" id="tickerTrack"></div>
-        </div>
-      </div>
-
-      <!-- Elite Live Widget -->
-      <div style="max-width:600px;margin:0 auto;">
-        <div style="display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-bottom:0.6rem;">
-          <div class="live-dot"></div>
-          <span class="font-display" style="font-size:0.65rem;letter-spacing:0.15em;color:var(--green);">ELITE PORTFOLIO</span>
-          <span class="font-body" style="font-size:0.78rem;color:var(--text-muted);">3-bot automated · Hyperliquid</span>
-        </div>
-
-        <div class="card card--flat" id="eliteWidget" style="text-align:center;">
-          <div id="widgetLoading" class="font-display" style="font-size:0.8rem;color:var(--text-muted);padding:2rem;">Loading live data...</div>
-          <div id="widgetContent" style="display:none;">
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;" id="widgetUpdateTime"></div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;">
-              <div>
-                <div class="font-display" style="font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.25rem;">EQUITY</div>
-                <div class="font-display" style="font-size:1.5rem;" id="widgetEquity">—</div>
-              </div>
-              <div>
-                <div class="font-display" style="font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.25rem;">RETURN</div>
-                <div class="font-display" style="font-size:1.5rem;" id="widgetReturn">—</div>
-                <div id="widgetROI" style="font-size:0.75rem;"></div>
-              </div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;">
-              <div class="metric" style="padding:0.75rem 0.5rem;">
-                <div class="metric__value" style="font-size:1rem;" id="widgetWinRate">—</div>
-                <div class="metric__label" style="font-size:0.7rem;">Win Rate</div>
-              </div>
-              <div class="metric" style="padding:0.75rem 0.5rem;">
-                <div class="metric__value" style="font-size:1rem;" id="widgetProfitFactor">—</div>
-                <div class="metric__label" style="font-size:0.7rem;">Profit Factor</div>
-              </div>
-              <div class="metric" style="padding:0.75rem 0.5rem;">
-                <div class="metric__value" style="font-size:1rem;" id="widgetSharpe">—</div>
-                <div class="metric__label" style="font-size:0.7rem;">Sharpe</div>
-              </div>
-              <div class="metric" style="padding:0.75rem 0.5rem;">
-                <div class="metric__value" style="font-size:1rem;" id="widgetDD">—</div>
-                <div class="metric__label" style="font-size:0.7rem;">Max DD</div>
-              </div>
-            </div>
-
-            <div style="margin-top:1rem;">
-              <a href="dashboards/elite.html" class="btn btn--ghost btn--sm">View Full Dashboard →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- PRODUCT COMPARISON GRID                                 -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt" id="products">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">CHOOSE YOUR STRATEGY</div>
-        <h2 class="section-title"><span class="gradient-text">6 Products. One Ecosystem.</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">From $7/mo DCA signals to fully automated vault strategies. All self-custody. All verifiable.</p>
-      </div>
-
-      <!-- Desktop Table -->
-      <div style="overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--border-default);">
-        <table class="compare-grid">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>What It Does</th>
-              <th>Platform</th>
-              <th>Price</th>
-              <th>Risk</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onclick="window.location='products/accumulator.html'" style="cursor:pointer;">
-              <td><span class="product-name">Accumulator</span></td>
-              <td>Smart DCA signals for 14 AI &amp; crypto assets</td>
-              <td><span class="font-display" style="font-size:0.7rem;">Telegram + Dashboard</span></td>
-              <td><span class="price-tag">$7<small style="font-size:0.6rem;opacity:0.6;">/mo</small></span></td>
-              <td><span style="color:var(--green);font-size:0.85rem;">Low</span></td>
-              <td><span class="badge badge--live">LIVE</span></td>
-            </tr>
-            <tr onclick="window.location='products/max-pain.html'" style="cursor:pointer;">
-              <td><span class="product-name">Max Pain</span></td>
-              <td>20-coin momentum &amp; reversal strategies</td>
-              <td><span class="font-display" style="font-size:0.7rem;">Hyperliquid Vault</span></td>
-              <td><span class="price-tag">$39.99<small style="font-size:0.6rem;opacity:0.6;">/mo or vault</small></span></td>
-              <td><span style="color:#facc15;font-size:0.85rem;">Medium</span></td>
-              <td><span class="badge badge--live">LIVE</span></td>
-            </tr>
-            <tr onclick="window.location='products/elite.html'" style="cursor:pointer;">
-              <td><span class="product-name">Elite</span></td>
-              <td>3-bot automated portfolio (HYPE, AVAX, SOL)</td>
-              <td><span class="font-display" style="font-size:0.7rem;">Hyperliquid Vault</span></td>
-              <td><span class="price-tag">$39.99<small style="font-size:0.6rem;opacity:0.6;">/mo or vault</small></span></td>
-              <td><span style="color:#fb923c;font-size:0.85rem;">Med-High</span></td>
-              <td><span class="badge badge--live">LIVE</span></td>
-            </tr>
-            <tr onclick="window.location='products/contrarian.html'" style="cursor:pointer;">
-              <td><span class="product-name">Contrarian</span></td>
-              <td>Fear &amp; greed reversal bot, 5-stage pipeline</td>
-              <td><span class="font-display" style="font-size:0.7rem;">OKX Futures</span></td>
-              <td><span class="price-tag">$39.99<small style="font-size:0.6rem;opacity:0.6;">/mo or vault</small></span></td>
-              <td><span style="color:#fb923c;font-size:0.85rem;">Med-High</span></td>
-              <td><span class="badge badge--soon">COMING SOON</span></td>
-            </tr>
-            <tr onclick="window.location='products/zones.html'" style="cursor:pointer;">
-              <td><span class="product-name">Zones</span></td>
-              <td>Liquidation zone DCA across 21 coins</td>
-              <td><span class="font-display" style="font-size:0.7rem;">Hyperliquid</span></td>
-              <td><span class="price-tag">$39.99<small style="font-size:0.6rem;opacity:0.6;">/mo or vault</small></span></td>
-              <td><span style="color:#facc15;font-size:0.85rem;">Medium</span></td>
-              <td><span class="badge badge--soon">COMING SOON</span></td>
-            </tr>
-            <tr onclick="window.location='products/farms.html'" style="cursor:pointer;">
-              <td><span class="product-name">Farms</span></td>
-              <td>Bidirectional range farming at liquidation zones</td>
-              <td><span class="font-display" style="font-size:0.7rem;">Hyperliquid</span></td>
-              <td><span class="price-tag">$39.99<small style="font-size:0.6rem;opacity:0.6;">/mo or vault</small></span></td>
-              <td><span style="color:#facc15;font-size:0.85rem;">Medium</span></td>
-              <td><span class="badge badge--soon">COMING SOON</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="text-center" style="margin-top:1.5rem;">
-        <a href="tools/compare.html" class="btn btn--ghost">Compare Products Side-by-Side →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- HOW IT WORKS                                            -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">GET STARTED</div>
-        <h2 class="section-title"><span class="gradient-text">Three Steps. That's It.</span></h2>
-      </div>
-
-      <div class="steps" style="max-width:900px;margin:0 auto;">
-        <div class="step">
-          <div class="step__title">Choose Your Strategy</div>
-          <p class="step__text">Start with the $7/mo Accumulator for DCA signals, or jump into a vault strategy for automated trading. Every product works independently — no bundling required.</p>
-        </div>
-        <div class="step">
-          <div class="step__title">Subscribe or Deposit</div>
-          <p class="step__text">Signal products run through Whop subscriptions with Telegram delivery. Vault products work by depositing USDC to a Hyperliquid vault — your funds stay in your control.</p>
-        </div>
-        <div class="step">
-          <div class="step__title">Watch It Work</div>
-          <p class="step__text">Signals arrive via Telegram. Vault bots trade automatically. Every trade is visible on your dashboard and verifiable on-chain. Cancel anytime.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- EDUCATION PREVIEW                                       -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">LEARN</div>
-        <h2 class="section-title"><span class="gradient-text">Understand the Strategies</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">We don't just sell signals — we explain how everything works. No black boxes.</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;">
-        <a href="learn/what-is-dca.html" class="card">
-          <div class="card__title">What is Smart DCA?</div>
-          <p class="card__text">How signal-driven dollar-cost averaging improves on basic DCA by timing entries with RSI and moving average scoring.</p>
-        </a>
-        <a href="learn/liquidation-zones.html" class="card">
-          <div class="card__title">Liquidation Zones Explained</div>
-          <p class="card__text">Why large clusters of leveraged positions create predictable price dislocations — and how to trade them.</p>
-        </a>
-        <a href="learn/how-vaults-work.html" class="card">
-          <div class="card__title">How Vaults Work</div>
-          <p class="card__text">The self-custody vault model on Hyperliquid: deposit, let bots trade, verify everything on-chain.</p>
-        </a>
-      </div>
-
-      <div class="text-center" style="margin-top:1.5rem;">
-        <a href="learn/index.html" class="btn btn--ghost">View All Articles →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- VIDEO TUTORIALS                                         -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">SEE IT IN ACTION</div>
-        <h2 class="section-title"><span class="gradient-text">Dashboard Walkthroughs</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">Short screen recordings showing exactly what you get as a subscriber.</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;">
-        <div>
-          <div class="video-placeholder">
-            <div class="video-placeholder__play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-            <div class="video-placeholder__label">COMING SOON</div>
-          </div>
-          <div style="text-align:center;margin-top:0.6rem;font-family:var(--font-heading);font-size:0.85rem;color:var(--text-gold);">Accumulator Dashboard</div>
-          <div style="text-align:center;font-size:0.8rem;color:var(--text-muted);">Signal history, portfolio tracker, DCA calculator</div>
-        </div>
-
-        <div>
-          <div class="video-placeholder">
-            <div class="video-placeholder__play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-            <div class="video-placeholder__label">COMING SOON</div>
-          </div>
-          <div style="text-align:center;margin-top:0.6rem;font-family:var(--font-heading);font-size:0.85rem;color:var(--text-gold);">Elite Vault Deposit</div>
-          <div style="text-align:center;font-size:0.8rem;color:var(--text-muted);">How to deposit USDC and start earning</div>
-        </div>
-
-        <div>
-          <div class="video-placeholder">
-            <div class="video-placeholder__play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-            <div class="video-placeholder__label">COMING SOON</div>
-          </div>
-          <div style="text-align:center;margin-top:0.6rem;font-family:var(--font-heading);font-size:0.85rem;color:var(--text-gold);">Reading Your Signals</div>
-          <div style="text-align:center;font-size:0.8rem;color:var(--text-muted);">Entry, stop loss, take profit explained</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- FAQ                                                     -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt" id="faq">
-    <div class="container container--narrow">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">FAQ</div>
-        <h2 class="section-title"><span class="gradient-text">Common Questions</span></h2>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Who controls my funds?</button>
-        <div class="faq-answer">
-          <p>You do — always. Signal products (Accumulator) just tell you what to buy. Vault products (Max Pain, Elite, Contrarian, Zones, Farms) use Hyperliquid's self-custody vault model: you deposit USDC to a vault address, but the funds remain on Hyperliquid under your wallet. The vault leader (our bot) can trade with the capital but cannot withdraw it. You can withdraw at any time.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Can I verify the trades?</button>
-        <div class="faq-answer">
-          <p>Yes — every trade executed by our bots is visible on-chain through Hyperliquid's public API. Our dashboards pull data directly from the blockchain. For OKX-based strategies (Contrarian), trade history is visible in the dashboard with full entry/exit details. No screenshots, no edited results.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">What does "$39.99/mo or vault" mean?</button>
-        <div class="faq-answer">
-          <p>For products like Max Pain, Elite, Zones, and Farms, you have two options: (1) Subscribe for $39.99/month via Whop and receive Telegram signals you execute yourself, or (2) deposit USDC directly into the Hyperliquid vault, where our bots trade for you automatically with a profit-share model. Choose the option that fits your style — hands-on or hands-off.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">What if I want to cancel?</button>
-        <div class="faq-answer">
-          <p>No lock-ins, no penalties. Whop subscriptions cancel instantly — no hidden fees. Vault deposits can be withdrawn at any time directly from Hyperliquid. We earn your business every month.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Which product should I start with?</button>
-        <div class="faq-answer">
-          <p>If you're new, the <strong>Accumulator ($7/mo)</strong> is the easiest entry point — you get smart DCA signals for 14 assets via Telegram and a full analytics dashboard. If you want fully automated trading, <strong>Max Pain</strong> or <strong>Elite</strong> vaults are the next step. Use our <a href="tools/compare.html" style="color:var(--gold);">product comparison tool</a> to find the best fit.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">What are the risks?</button>
-        <div class="faq-answer">
-          <p>All trading involves risk of loss. Our strategies use stop-losses, position sizing, and diversification to manage risk — but drawdowns happen. Backtested results do not guarantee future performance. Vault strategies use leverage (typically 2x–5x), which amplifies both gains and losses. Never invest more than you can afford to lose. We publish all our risk metrics (max drawdown, Sharpe ratio, Sortino ratio) transparently on every product page.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- FINAL CTA                                               -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container container--narrow text-center">
-      <h2 class="section-title" style="font-size:clamp(2rem,5vw,3.5rem);">
-        <span class="gradient-text">Start for $7/month.</span>
-      </h2>
-      <p style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;">
-        14 assets. Automated signals. Full analytics dashboard. Cancel anytime.
+      <p style="font-size:1.05rem;color:var(--text-secondary);max-width:600px;margin-bottom:3rem;">
+        We don't believe in black boxes. Every strategy we offer has a clear explanation of how it works, why it works, and what the risks are.
       </p>
 
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Subscribe to Accumulator →</a>
-        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn btn--outline btn--lg">Join Discord</a>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+
+        <a href="what-is-dca.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">STRATEGY · 5 MIN READ</div>
+          <div class="card__title">What is Smart DCA?</div>
+          <p class="card__text">How signal-driven dollar-cost averaging improves on basic DCA by timing entries with RSI and moving average scoring. The math behind the Accumulator.</p>
+        </a>
+
+        <a href="liquidation-zones.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">CONCEPT · 6 MIN READ</div>
+          <div class="card__title">Liquidation Zones Explained</div>
+          <p class="card__text">Why concentrated leverage creates predictable price dislocations — and how Max Pain, Zones, and Farms exploit them for profit.</p>
+        </a>
+
+        <a href="how-vaults-work.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">PLATFORM · 4 MIN READ</div>
+          <div class="card__title">How Hyperliquid Vaults Work</div>
+          <p class="card__text">The self-custody vault model: deposit, let bots trade, verify everything on-chain. How it's different from traditional fund management.</p>
+        </a>
+
+        <a href="risk-management.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">RISK · 5 MIN READ</div>
+          <div class="card__title">Risk Management for Algo Trading</div>
+          <p class="card__text">What can go wrong, how Soomario manages risk, and how to think about position sizing, leverage, and drawdowns.</p>
+        </a>
+
+        <a href="glossary.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">REFERENCE</div>
+          <div class="card__title">Trading Glossary</div>
+          <p class="card__text">A–Z definitions of every term used across Soomario products: DCA, RSI, Sharpe ratio, drawdown, vault, profit factor, and more.</p>
+        </a>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- SCRIPTS                                                 -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <script src="components.js"></script>
+  <section class="section section--alt">
+    <div class="container container--narrow text-center">
+      <h2 class="section-title" style="font-size:1.5rem;"><span class="gradient-text">Ready to Start?</span></h2>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;">The Accumulator is the easiest entry point — $7/mo for smart DCA signals across 14 assets.</p>
+      <a href="../products/accumulator.html" class="btn btn--primary">Learn About the Accumulator →</a>
+    </div>
+  </section>
 
-  <!-- Accumulator Ticker -->
-  <script>
-  (function() {
-    var API = 'https://soomariosignaltelegram-production.up.railway.app/api/portfolio_value';
-
-    function load() {
-      fetch(API).then(function(r){ return r.json(); }).then(function(data) {
-        if (!data.prices) return;
-        var track = document.getElementById('tickerTrack');
-        if (!track) return;
-
-        var tickers = Object.keys(data.prices).sort();
-        var html = '';
-
-        tickers.forEach(function(t) {
-          var isCrypto = t === 'BTC' || t === 'SOL';
-          var p = data.prices[t];
-          var a = data.assets ? data.assets.find(function(x){ return x.asset === t; }) : null;
-          var pnl = a ? a.pnl_pct : null;
-          var priceStr = isCrypto
-            ? '$' + p.toLocaleString(undefined, {maximumFractionDigits:0})
-            : '$' + p.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-
-          var pnlHtml = pnl !== null
-            ? '<span class="ticker__pnl ticker__pnl--' + (pnl >= 0 ? 'up' : 'down') + '">' + (pnl >= 0 ? '+' : '') + pnl.toFixed(1) + '%</span>'
-            : '';
-
-          html += '<div class="ticker__item"><span class="ticker__symbol">' + t + '</span><span class="ticker__price">' + priceStr + '</span>' + pnlHtml + '</div>';
-        });
-
-        track.innerHTML = html + html; // duplicate for seamless loop
-
-        // Update hero stats
-        var buysEl = document.getElementById('heroStatTrades');
-        if (buysEl && data.equity_curve) buysEl.textContent = data.equity_curve.length.toLocaleString() + '+';
-        var assetsEl = document.getElementById('heroStatAssets');
-        if (assetsEl) assetsEl.textContent = Object.keys(data.prices).length;
-
-      }).catch(function(){});
-    }
-
-    load();
-    setInterval(load, 60000);
-  })();
-  </script>
-
-  <!-- Elite Widget -->
-  <script>
-  (function() {
-    var API = 'https://script.google.com/macros/s/AKfycbzQBw5LWSCi5bptXhveoBfeBPXQ51B5g6FtrVSg7Jj2YqBS1bg80SiQsSZc6z2FcmZSug/exec';
-
-    function load() {
-      fetch(API).then(function(r){ return r.json(); }).then(function(data) {
-        if (!data.success) { document.getElementById('widgetLoading').textContent = 'Data unavailable'; return; }
-        var s = data.stats;
-        document.getElementById('widgetLoading').style.display = 'none';
-        document.getElementById('widgetContent').style.display = 'block';
-        document.getElementById('widgetUpdateTime').textContent = 'Updated ' + new Date().toLocaleTimeString();
-        document.getElementById('widgetEquity').textContent = '$' + parseFloat(s.currentEquity).toFixed(2);
-
-        var roi = parseFloat(s.roiPercent);
-        var pos = roi >= 0;
-        var retEl = document.getElementById('widgetReturn');
-        retEl.textContent = (pos ? '+' : '') + '$' + s.totalReturn;
-        retEl.style.color = pos ? 'var(--green)' : 'var(--red)';
-
-        document.getElementById('widgetROI').innerHTML = '<span style="color:' + (pos ? 'var(--green)' : 'var(--red)') + ';font-size:0.75rem;">' + (pos ? '+' : '') + s.roiPercent + '%</span>';
-        document.getElementById('widgetWinRate').textContent = s.winRate + '%';
-        document.getElementById('widgetProfitFactor').textContent = (parseFloat(s.profitFactor) || 0).toFixed(2);
-        document.getElementById('widgetSharpe').textContent = s.sharpeRatio;
-        document.getElementById('widgetDD').textContent = '-' + s.maxDrawdown + '%';
-      }).catch(function() {
-        document.getElementById('widgetLoading').textContent = 'Connection error';
-      });
-    }
-
-    load();
-    setInterval(load, 30000);
-  })();
-  </script>
-
+  <script src="../components.js"></script>
 </body>
 </html>
