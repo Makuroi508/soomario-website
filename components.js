@@ -94,7 +94,7 @@
         <div class="site-nav__links">
           <div class="nav-dropdown">
             <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('products') ? 'active' : ''}">Products</span>
-            <div class="nav-dropdown__menu">
+            <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/max-pain.html" class="nav-dropdown__item">Max Pain <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
@@ -102,30 +102,30 @@
               <a href="${depth}products/contrarian.html" class="nav-dropdown__item">Contrarian <span class="badge badge--soon">SOON</span></a>
               <a href="${depth}products/zones.html" class="nav-dropdown__item">Zones <span class="badge badge--soon">SOON</span></a>
               <a href="${depth}products/farms.html" class="nav-dropdown__item">Farms <span class="badge badge--soon">SOON</span></a>
-            </div>
+            </div></div>
           </div>
 
           <a href="${depth}learn/index.html" class="site-nav__link ${isActiveSection('learn') ? 'active' : ''}">Learn</a>
 
           <div class="nav-dropdown">
             <span class="site-nav__link nav-dropdown__trigger">Dashboards</span>
-            <div class="nav-dropdown__menu">
+            <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}dashboards/vault.html" class="nav-dropdown__item">Max Pain Vault <span class="badge badge--live">LIVE</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${SITE.dashboards.zones}" class="nav-dropdown__item" target="_blank">Zones <span class="badge badge--soon">BETA</span></a>
               <a href="${SITE.dashboards.farms}" class="nav-dropdown__item" target="_blank">Farms <span class="badge badge--soon">PAPER</span></a>
-            </div>
+            </div></div>
           </div>
 
           <div class="nav-dropdown">
             <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('tools') ? 'active' : ''}">Tools</span>
-            <div class="nav-dropdown__menu">
+            <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}tools/calculator.html" class="nav-dropdown__item">DCA Calculator</a>
               <a href="${depth}tools/compare.html" class="nav-dropdown__item">Compare Products</a>
               <a href="${depth}tools/whitepaper.html" class="nav-dropdown__item">Whitepaper</a>
-            </div>
+            </div></div>
           </div>
         </div>
 

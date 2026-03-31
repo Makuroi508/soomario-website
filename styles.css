@@ -710,9 +710,14 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 .nav-dropdown__menu {
   display: none;
   position: absolute;
-  top: calc(100% + 10px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
+  padding-top: 12px; /* invisible hover bridge */
+  z-index: 100;
+}
+
+.nav-dropdown__menu-inner {
   background: rgba(18, 9, 30, 0.97);
   backdrop-filter: blur(16px);
   border: 1px solid var(--border-default);
@@ -720,7 +725,6 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
   padding: 0.5rem 0;
   min-width: 200px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-  z-index: 100;
 }
 
 .nav-dropdown:hover .nav-dropdown__menu {
