@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Soomario Farms — bidirectional range-farming bot that harvests volatility at liquidation zones on Hyperliquid perpetual futures.">
+  <title>Soomario Farms — Range Farming at Liquidation Zones | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../assets/soomario-logo.png" type="image/png">
+</head>
+<body>
+  <section class="section" style="padding-top:3rem;">
+    <div class="container">
+      <div style="margin-bottom:2rem;"><span class="badge badge--soon" style="font-size:0.7rem;padding:0.3rem 0.7rem;">COMING SOON</span></div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:0.5rem;"><span class="gradient-text">Soomario Farms</span></h1>
+      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:600px;margin-bottom:0.5rem;">Harvest volatility. Farm the range.</p>
+      <p style="font-size:1rem;color:var(--text-secondary);max-width:600px;margin-bottom:2rem;">A bidirectional range-farming bot that uses liquidation zone data to define trading ranges, then captures round-trip profits as price oscillates within the zone. No directional conviction needed — Farms harvests volatility itself.</p>
+      <div class="metrics" style="max-width:700px;">
+        <div class="metric"><div class="metric__value gradient-text">8</div><div class="metric__label">Assets Farmed</div></div>
+        <div class="metric"><div class="metric__value gradient-text">5x</div><div class="metric__label">Leverage</div></div>
+        <div class="metric"><div class="metric__value gradient-text">Bi-Dir</div><div class="metric__label">Long &amp; Short</div></div>
+        <div class="metric"><div class="metric__value gradient-text">$39.99</div><div class="metric__label">/mo or Vault</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">HOW IT WORKS</div>
+      <h2 class="section-title">Zone-Defined Range Farming</h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
+        <p><strong style="color:var(--text-gold);">Zone Aggregation</strong> — Every 30 minutes, the system fetches open interest and price data from Binance, Bybit, and OKX across selected assets. It computes liquidation max-pain zones — the price ranges where the highest concentration of leveraged positions sit. These zones create natural trading ranges: price tends to oscillate within them as liquidation cascades trigger snap-backs.</p>
+        <p><strong style="color:var(--text-gold);">Bidirectional Entries</strong> — Unlike Zones (which only goes long into dips), Farms trades both directions. When price approaches the zone floor (long max pain), the bot opens longs. When price approaches the zone ceiling (short max pain), the bot opens shorts. Each trade targets a round-trip profit as price reverts to the zone middle.</p>
+        <p><strong style="color:var(--text-gold);">Rotation &amp; Risk</strong> — The bot continuously rotates across the highest-scoring assets based on zone width, volume, and open interest. Breakout stop-losses protect against range invalidation — if price escapes the zone, the position closes automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">FARMS VS ZONES</div>
+        <h2 class="section-title"><span class="gradient-text">Two Strategies, One Data Source</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;">Both use liquidation zone data. Different approaches to extracting value.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:800px;margin:0 auto;">
+        <div class="card">
+          <div class="card__title">Soomario Zones</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Buys dips at liquidation zones using a 4-level DCA. Goes long only. Holds for mean-reversion recovery. Best in volatile, dip-and-bounce markets.</p>
+          <a href="zones.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);">Learn More →</a>
+        </div>
+        <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+          <div class="card__title">Soomario Farms</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Farms the range in both directions. Goes long at zone floor, short at zone ceiling. Captures round-trips. Best in sideways, range-bound markets.</p>
+          <span style="font-family:var(--font-display);font-size:0.7rem;color:var(--violet);">YOU ARE HERE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">RISK DISCLOSURE</div>
+      <h2 class="section-title" style="font-size:1.3rem;">Understanding the Risks</h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;font-size:0.92rem;">
+        <p>Soomario Farms trades leveraged perpetual futures in both directions on Hyperliquid. Bidirectional exposure means losses can accumulate on both sides during strong breakouts that invalidate the zone range.</p>
+        <p>Range-farming strategies perform best in sideways markets. Strongly trending markets can cause repeated stop-outs. Zone data is aggregated and estimated — zones can shift or disappear as market conditions change.</p>
+        <p>Farms is in paper trading. No live results exist yet. Past paper trading performance does not guarantee future results. Never invest more than you can afford to lose.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow text-center">
+      <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.5rem);"><span class="gradient-text">Launching Soon</span></h2>
+      <p style="color:var(--text-secondary);margin-bottom:2rem;">Paper trading in progress. Join Discord for results and launch updates.</p>
+      <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn btn--primary btn--lg">Join Discord for Updates →</a>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">EXPLORE MORE</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;max-width:700px;margin:0 auto;">
+        <a href="accumulator.html" class="card"><div class="card__title">Accumulator →</div><p class="card__text">Start with DCA signals for 14 assets at $7/mo while Farms is in testing.</p></a>
+        <a href="max-pain.html" class="card"><div class="card__title">Max Pain →</div><p class="card__text">20 momentum strategies already live on Hyperliquid. $39.99/mo or vault.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Soomario Zones — automated DCA at liquidation zones across 21 cryptocurrencies on Hyperliquid. 4-level entries, 3-stage exits.">
+  <title>Soomario Zones — Liquidation Zone DCA | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../assets/soomario-logo.png" type="image/png">
+</head>
+<body>
+  <section class="section" style="padding-top:3rem;">
+    <div class="container">
+      <div style="margin-bottom:2rem;"><span class="badge badge--soon" style="font-size:0.7rem;padding:0.3rem 0.7rem;">COMING SOON</span></div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:0.5rem;"><span class="gradient-text">Soomario Zones</span></h1>
+      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:600px;margin-bottom:0.5rem;">Buy where others are being liquidated.</p>
+      <p style="font-size:1rem;color:var(--text-secondary);max-width:600px;margin-bottom:2rem;">An automated strategy that identifies where large clusters of leveraged positions will get liquidated, then systematically buys into those zones using a 4-level DCA approach. When the market snaps back, it scales out across multiple profit targets.</p>
+      <div class="metrics" style="max-width:700px;">
+        <div class="metric"><div class="metric__value gradient-text">21</div><div class="metric__label">Coins Scanned</div></div>
+        <div class="metric"><div class="metric__value" style="color:var(--green);">92.3%</div><div class="metric__label">Win Rate (early)</div></div>
+        <div class="metric"><div class="metric__value gradient-text">4</div><div class="metric__label">DCA Levels</div></div>
+        <div class="metric"><div class="metric__value gradient-text">$39.99</div><div class="metric__label">/mo or Vault</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">THE THESIS</div>
+      <h2 class="section-title">Liquidation Cascades Create Opportunity</h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
+        <p>In leveraged crypto markets, large concentrations of long and short positions create predictable "max pain" price levels. When price approaches these levels, cascading liquidations create sharp, temporary dislocations — prices overshoot fair value before snapping back.</p>
+        <p>Soomario Zones exploits this pattern by identifying where liquidation clusters sit across Binance, Bybit, and OKX, waiting for price to approach these zones, averaging in across 4 price levels as the dislocation deepens, and scaling out across 3 profit targets as the market normalizes.</p>
+        <p>The strategy enters when others are being forced out, and exits into strength.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">STRATEGY MECHANICS</div>
+        <h2 class="section-title"><span class="gradient-text">4-Level Entry, 3-Stage Exit</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:800px;margin:0 auto;">
+        <div>
+          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--text-gold);margin-bottom:1rem;">Entry Levels</h3>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L1</strong> <span style="color:var(--text-secondary);">— Zone edge (20% allocation, market order)</span></div>
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L2</strong> <span style="color:var(--text-secondary);">— Max pain level (25%, limit order)</span></div>
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L3</strong> <span style="color:var(--text-secondary);">— Deep zone (27.5%, limit order)</span></div>
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L4</strong> <span style="color:var(--text-secondary);">— Deepest zone (27.5%, limit order)</span></div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--text-gold);margin-bottom:1rem;">Exit Targets</h3>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--green);">TP1</strong> <span style="color:var(--text-secondary);">— Quick scalp at zone edge recovery</span></div>
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--green);">TP2</strong> <span style="color:var(--text-secondary);">— Mid-range mean reversion target</span></div>
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--green);">TP3</strong> <span style="color:var(--text-secondary);">— Extended move with trailing stop</span></div>
+            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--red);">SL</strong> <span style="color:var(--text-secondary);">— Time-based exit if zone thesis fails</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">RISK DISCLOSURE</div>
+      <h2 class="section-title" style="font-size:1.3rem;">Understanding the Risks</h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;font-size:0.92rem;">
+        <p>Soomario Zones trades leveraged perpetual futures on Hyperliquid. DCA strategies can increase exposure during extended moves against the position. If all 4 levels fill and price continues falling, the drawdown is amplified.</p>
+        <p>Liquidation zone data is aggregated from multiple exchanges and represents estimates, not guarantees. Zones can shift as market conditions change. Early testing results (92.3% WR) represent a very short sample period.</p>
+        <p>Past performance does not guarantee future results. Never invest more than you can afford to lose.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow text-center">
+      <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.5rem);"><span class="gradient-text">Launching Soon</span></h2>
+      <p style="color:var(--text-secondary);margin-bottom:2rem;">Join Discord for launch updates and paper trading results.</p>
+      <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn btn--primary btn--lg">Join Discord for Updates →</a>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">EXPLORE MORE</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;max-width:700px;margin:0 auto;">
+        <a href="accumulator.html" class="card"><div class="card__title">Accumulator →</div><p class="card__text">Start with DCA signals for 14 assets at $7/mo while you wait for Zones.</p></a>
+        <a href="farms.html" class="card"><div class="card__title">Farms →</div><p class="card__text">Bidirectional range farming at liquidation zones — a complementary strategy.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>
