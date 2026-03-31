@@ -11,7 +11,7 @@
     name: 'SOOMARIO',
     sub: 'STRATEGIES',
     domain: 'https://soomariostrategies.com',
-    logo: getAssetPath('assets/soomario-logo.png'),
+    logo: getAssetPath('soomario-logo.png'),
     whop: {
       accumulator: 'https://whop.com/soomario-strategies/soomario-accumulator/',
       maxpain: 'https://whop.com/soomario-strategies/',
@@ -55,7 +55,7 @@
   /* Recalculate paths after DOM is ready */
   function resolvePaths() {
     const depth = getDepth();
-    SITE.logo = depth + 'assets/soomario-logo.png';
+    SITE.logo = depth + 'soomario-logo.png';
     SITE.dashboards.elite = depth + 'dashboards/elite.html';
     SITE.dashboards.vault = depth + 'dashboards/vault.html';
   }
@@ -84,7 +84,7 @@
     nav.innerHTML = `
       <div class="site-nav__inner">
         <a href="${depth}index.html" class="site-nav__brand" aria-label="Soomario home">
-          <img src="${depth}assets/soomario-logo.png" alt="Soomario Logo" width="48" height="48">
+          <img src="${depth}soomario-logo.png" alt="Soomario Logo" width="48" height="48">
           <div class="site-nav__brand-text">
             <div class="site-nav__brand-name">SOOMARIO</div>
             <div class="site-nav__brand-sub">STRATEGIES</div>
