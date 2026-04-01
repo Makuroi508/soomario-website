@@ -29,7 +29,7 @@
       zones: 'https://soomariozones-production.up.railway.app/',
       farms: 'https://soomariozonesfarming-production.up.railway.app/',
     },
-    ga4: 'G-B8X08ZGT7J' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
+    ga4: '' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
   };
 
   /* ── Path Helpers ── */
@@ -84,7 +84,7 @@
     nav.innerHTML = `
       <div class="site-nav__inner">
         <a href="${depth}index.html" class="site-nav__brand" aria-label="Soomario home">
-          <img src="${depth}soomario-logo.png" alt="Soomario Logo" width="48" height="48">
+          <img src="${depth}soomario-logo.png" alt="Soomario Logo" width="56" height="56">
           <div class="site-nav__brand-text">
             <div class="site-nav__brand-name">SOOMARIO</div>
             <div class="site-nav__brand-sub">STRATEGIES</div>
@@ -150,27 +150,41 @@
     menu.id = 'mobileMenu';
 
     menu.innerHTML = `
-      <a href="${depth}index.html">Home</a>
+      <div class="mobile-menu__group">
+        <div class="mobile-menu__group-title">Products</div>
+        <div class="mobile-menu__links">
+          <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/max-pain.html" class="mobile-menu__link">Max Pain <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/contrarian.html" class="mobile-menu__link">Contrarian <span class="badge badge--soon">SOON</span></a>
+          <a href="${depth}products/zones.html" class="mobile-menu__link">Zones <span class="badge badge--soon">SOON</span></a>
+          <a href="${depth}products/farms.html" class="mobile-menu__link">Farms <span class="badge badge--soon">SOON</span></a>
+        </div>
+      </div>
 
-      <span class="mobile-menu__section-label">Products</span>
-      <a href="${depth}products/accumulator.html">Accumulator</a>
-      <a href="${depth}products/max-pain.html">Max Pain</a>
-      <a href="${depth}products/elite.html">Elite</a>
-      <a href="${depth}products/contrarian.html">Contrarian</a>
-      <a href="${depth}products/zones.html">Zones</a>
-      <a href="${depth}products/farms.html">Farms</a>
+      <div class="mobile-menu__group">
+        <div class="mobile-menu__group-title">Dashboards</div>
+        <div class="mobile-menu__links">
+          <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
+          <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
+          <a href="${depth}dashboards/vault.html" class="mobile-menu__link">Max Pain Vault</a>
+          <a href="${SITE.dashboards.zones}" class="mobile-menu__link" target="_blank">Zones</a>
+          <a href="${SITE.dashboards.farms}" class="mobile-menu__link" target="_blank">Farms</a>
+        </div>
+      </div>
 
-      <span class="mobile-menu__section-label">Learn & Tools</span>
-      <a href="${depth}learn/index.html">Education</a>
-      <a href="${depth}tools/calculator.html">DCA Calculator</a>
-      <a href="${depth}tools/compare.html">Compare Products</a>
-      <a href="${depth}tools/whitepaper.html">Whitepaper</a>
+      <div class="mobile-menu__group">
+        <div class="mobile-menu__group-title">Learn & Tools</div>
+        <div class="mobile-menu__links">
+          <a href="${depth}learn/index.html" class="mobile-menu__link">Education</a>
+          <a href="${depth}tools/calculator.html" class="mobile-menu__link">DCA Calculator</a>
+          <a href="${depth}tools/compare.html" class="mobile-menu__link">Compare Products</a>
+          <a href="${depth}tools/whitepaper.html" class="mobile-menu__link">Whitepaper</a>
+          <a href="${depth}learn/glossary.html" class="mobile-menu__link">Glossary</a>
+        </div>
+      </div>
 
-      <span class="mobile-menu__section-label">Dashboards</span>
-      <a href="${SITE.dashboards.accumulator}" target="_blank">Accumulator Dashboard</a>
-      <a href="${depth}dashboards/elite.html">Elite Dashboard</a>
-
-      <div style="display:flex; flex-direction:column; gap:0.75rem; align-items:center; margin-top:1rem;">
+      <div class="mobile-menu__ctas">
         <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Get Started — $7/mo</a>
         <a href="${SITE.discord}" class="btn btn--outline btn--sm" target="_blank">Join Discord</a>
       </div>
