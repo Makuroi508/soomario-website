@@ -606,7 +606,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1100;
   background: rgba(26, 22, 37, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
