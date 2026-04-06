@@ -189,7 +189,7 @@
       </div>
 
       <div class="mobile-menu__ctas">
-        <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Get Started — $7/mo</a>
+        <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Start Free — 7-Day Trial</a>
         <a href="${SITE.discord}" class="btn btn--outline btn--sm" target="_blank">Join Discord</a>
       </div>
     `;
@@ -224,7 +224,7 @@
           <div>
             <div class="site-footer__col-title">Products</div>
             <ul class="site-footer__links">
-              <li><a href="${depth}products/accumulator.html">Accumulator — $7/mo</a></li>
+              <li><a href="${depth}products/accumulator.html">Accumulator — Free Trial</a></li>
               <li><a href="${depth}products/max-pain.html">Max Pain</a></li>
               <li><a href="${depth}products/elite.html">Elite</a></li>
               <li><a href="${depth}products/alpha.html">Alpha</a></li>
