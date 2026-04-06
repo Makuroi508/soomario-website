@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Soomario Alpha — Relative value spread engine on Hyperliquid. Long HYPE, short weak alts via 5-stage pipeline. Market-neutral by design. $39.99/month or vault.">
+  <title>Soomario Alpha — Relative Value Spread Engine | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="canonical" href="https://soomariostrategies.com/products/alpha.html">
+</head>
+<body>
+
+  <section class="section" style="padding-top:3rem;">
+    <div class="container">
+      <div style="margin-bottom:2rem;">
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE</span>
+        <span class="badge badge--new" style="font-size:0.7rem;padding:0.3rem 0.7rem;margin-left:0.5rem;">NEW</span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:0.5rem;">
+        <span class="gradient-text">Soomario Alpha</span>
+      </h1>
+      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:600px;margin-bottom:0.5rem;font-style:italic;">
+        Long strength. Short weakness. Capture the spread.
+      </p>
+      <p style="font-size:1rem;color:var(--text-secondary);max-width:640px;margin-bottom:2rem;">
+        A fully automated relative value spread engine on Hyperliquid. Maintains a core HYPE long hedged against a rotating basket of 8–10 weak altcoin shorts, identified by a proprietary 5-stage pipeline scanning 228 coins. Market-neutral by design — generates returns from the spread between strong and weak assets, regardless of market direction.
+      </p>
+
+      <div class="metrics" style="max-width:800px;">
+        <div class="metric">
+          <div class="metric__value gradient-text">228</div>
+          <div class="metric__label">Coins Scanned</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">5</div>
+          <div class="metric__label">Pipeline Stages</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">6</div>
+          <div class="metric__label">Exchange Data</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">$39.99</div>
+          <div class="metric__label">/mo or Vault</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:2rem;">
+        <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" class="btn btn--primary">Deposit to Vault →</a>
+        <a href="https://soomarioalpha-production.up.railway.app/" target="_blank" class="btn btn--outline">View Live Dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Thesis -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">THE THESIS</div>
+      <h2 class="section-title"><span class="gradient-text">Market-Neutral Spread Trading</span></h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
+        <p>In any market regime, some tokens are structurally weaker than others. Alpha systematically identifies these weak tokens using fundamental catalysts (token unlocks, emissions), live technical analysis, liquidation zone mapping, and funding rate analysis.</p>
+        <p>By shorting these weak tokens while maintaining a conviction long in HYPE, the system generates returns from the <strong style="color:var(--text-primary);">spread</strong> between strong and weak assets:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="card card--flat" style="padding:1.25rem;">
+            <div style="color:var(--green);font-family:var(--font-display);font-size:0.75rem;margin-bottom:0.5rem;">BULL MARKET</div>
+            <p class="card__text">HYPE gains outpace short losses. The spread widens in your favor.</p>
+          </div>
+          <div class="card card--flat" style="padding:1.25rem;">
+            <div style="color:var(--red);font-family:var(--font-display);font-size:0.75rem;margin-bottom:0.5rem;">BEAR MARKET</div>
+            <p class="card__text">Short profits offset HYPE drawdown. Weak tokens fall harder than HYPE.</p>
+          </div>
+        </div>
+        <p>The result is a strategy that captures alpha in both directions — true market neutrality, not just hoping the market goes up.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-Stage Pipeline -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">SHORT SELECTION</div>
+        <h2 class="section-title"><span class="gradient-text">5-Stage Weakness Pipeline</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;">Every 4 hours, 228 coins are scored from 0–100. Only coins scoring 60+ become short candidates.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:900px;margin:0 auto;">
+        <div class="card card--flat">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;">S1 · 25 PTS</div>
+          <div class="card__title">Supply Pressure</div>
+          <p class="card__text">Token unlock events, circulating supply %, emissions schedule. Large upcoming unlocks signal sell pressure.</p>
+        </div>
+        <div class="card card--flat">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;">S2 · 25 PTS</div>
+          <div class="card__title">Fundamentals</div>
+          <p class="card__text">Protocol revenue, fee trends, TVL from DeFiLlama. Low or declining fees indicate structural weakness.</p>
+        </div>
+        <div class="card card--flat">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;">S3 · 20 PTS</div>
+          <div class="card__title">Technicals</div>
+          <p class="card__text">RSI(14), Supertrend(150,3.0), Z-Score vs 200MA from Hyperliquid 1H candles. Overbought + bearish trend = ideal short.</p>
+        </div>
+        <div class="card card--flat">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;">S4 · 15 PTS</div>
+          <div class="card__title">Liquidation Zones</div>
+          <p class="card__text">OI-based liquidation mapping across 6 exchanges (Binance, Bybit, OKX, MEXC, Bitget, HL). 232 coins with live zones.</p>
+        </div>
+        <div class="card card--flat">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;">S5 · 15 PTS</div>
+          <div class="card__title">Funding Rates</div>
+          <p class="card__text">Positive funding + rising OI = crowded longs = short fuel. We short what the crowd is long.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HYPE Long Management -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">LONG SIDE</div>
+        <h2 class="section-title"><span class="gradient-text">Intelligent HYPE Accumulation</span></h2>
+      </div>
+
+      <div class="steps" style="max-width:900px;margin:0 auto;">
+        <div class="step">
+          <div class="step__title">Fear & Greed Allocation</div>
+          <p class="step__text">Crypto Fear & Greed Index sets the HYPE allocation ceiling dynamically. Extreme Fear (F&G < 15) allows up to 70% exposure — buy heavy when HYPE is cheapest. Extreme Greed (F&G > 80) caps at 28%.</p>
+        </div>
+        <div class="step">
+          <div class="step__title">Health Score Gating</div>
+          <p class="step__text">A 6-signal composite (RSI, Zone Proximity, Z-Score, Supertrend, Funding, OI) modifies the DCA budget in real time. High health = aggressive adds. Low health = minimal adds. Never triggers forced selling.</p>
+        </div>
+        <div class="step">
+          <div class="step__title">Zones-Aware DCA</div>
+          <p class="step__text">HYPE entries only trigger within 2% of a liquidation zone level (L1–L4). Each level fills once. Deeper zones get larger allocations. Prevents blind buying — entries are at structurally significant support.</p>
+        </div>
+        <div class="step">
+          <div class="step__title">Layered Exits</div>
+          <p class="step__text">Take-profits fire on the way up (+8%, +15%, +25%). Trailing stops activate at +3% above avg entry, ratcheting upward and never down. The system naturally cycles: zone DCA in → ride up → trail out → zone DCA back in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk Management -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">RISK CONTROLS</div>
+        <h2 class="section-title"><span class="gradient-text">Multi-Layered Protection</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:900px;margin:0 auto;">
+        <div class="card card--flat">
+          <div class="card__title">ATR-Based Stop Loss</div>
+          <p class="card__text">Each short gets a personalized SL: ATR × 3.0, clamped 6–18%. Volatile coins get wider stops. Zone fallback if tighter.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">24h SL Cooldown</div>
+          <p class="card__text">After any stop-loss exit, the coin is blacklisted for 24 hours. Prevents the churn loop of stop → reopen → stop.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">RSI Entry Gating</div>
+          <p class="card__text">Oversold coins (RSI < 30) are skipped entirely for shorts. Neutral RSI reduces size to 75%. Only extended coins get full size.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Notional Cap</div>
+          <p class="card__text">HYPE exposure capped at 8× equity. Prevents the F&G allocation from building an oversized leveraged position during extended fear.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section class="section section--alt">
+    <div class="container" style="max-width:700px;">
+      <div class="section-label">LIVE DASHBOARD</div>
+      <h2 class="section-title"><span class="gradient-text">Full Transparency</span></h2>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;">Real-time dashboard with equity curve, F&G gauge, spread allocation, pipeline scores for 228 coins, and complete trade history. Auto-refreshes every 60 seconds.</p>
+
+      <div class="video-placeholder">
+        <div class="video-placeholder__play">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="video-placeholder__label">VIDEO COMING SOON</div>
+      </div>
+      <div class="text-center" style="margin-top:1rem;">
+        <a href="https://soomarioalpha-production.up.railway.app/" target="_blank" class="btn btn--ghost">View Live Dashboard →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Vault -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="section-label">VAULT RECOMMENDED</div>
+      <h2 class="section-title" style="font-size:1.4rem;"><span class="gradient-text">Why Vault Is the Best Way to Use Alpha</span></h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;">
+        <p>Alpha manages a complex spread — HYPE longs with dynamic allocation, 8–10 rotating shorts with layered exits, all rebalancing every 4 hours. Replicating this manually from signals would be extremely difficult and error-prone.</p>
+        <p>The vault model lets the bot handle everything: scanning 228 coins, scoring the pipeline, managing entries/exits, adjusting allocation by Fear & Greed, and tracking trailing stops across every position simultaneously.</p>
+        <p>You deposit USDC → Alpha trades → you withdraw anytime. Self-custody on Hyperliquid — your funds stay under your wallet. Signal subscriptions are available for transparency, but the vault is the intended experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk Disclosure + CTA -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">RISK DISCLOSURE</div>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;font-size:0.92rem;margin-bottom:2rem;">
+        <p>Alpha trades leveraged perpetual futures in both directions on Hyperliquid. Spread strategies can lose money when correlation breaks down — if HYPE drops while short positions also drop, the hedge fails. The 5-stage pipeline uses estimated data (especially for unlock schedules and liquidation zones) that may not be perfectly accurate.</p>
+        <p>Market-neutral does not mean risk-free. Drawdowns are possible in all market conditions. Alpha is a new product with limited live track record. Past performance does not guarantee future results. Never deposit more than you can afford to lose.</p>
+      </div>
+
+      <div class="card" style="text-align:center;max-width:400px;margin:0 auto;">
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:900;margin-bottom:0.25rem;" class="gradient-text">$39.99/mo</div>
+        <div style="font-size:0.9rem;color:var(--text-muted);margin-bottom:0.25rem;">or deposit to Hyperliquid vault</div>
+        <div style="font-size:1rem;color:var(--text-secondary);margin-bottom:1.5rem;">228-coin pipeline · Spread engine · Market-neutral · Self-custody</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" class="btn btn--primary" style="width:100%;">Deposit to Vault →</a>
+          <a href="https://soomarioalpha-production.up.railway.app/" target="_blank" class="btn btn--outline" style="width:100%;">View Live Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">EXPLORE MORE</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;max-width:700px;margin:0 auto;">
+        <a href="elite.html" class="card">
+          <div class="card__title">Elite →</div>
+          <p class="card__text">Pure directional — 3-bot portfolio (HYPE V3, AVAX V3, SOL V3). $39.99/mo or vault.</p>
+        </a>
+        <a href="max-pain.html" class="card">
+          <div class="card__title">Max Pain →</div>
+          <p class="card__text">20 momentum strategies across 14 coins. Broader coverage, directional trades.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>
