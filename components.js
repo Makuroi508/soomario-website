@@ -98,7 +98,7 @@
               <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/max-pain.html" class="nav-dropdown__item">Max Pain <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/alpha.html" class="nav-dropdown__item">Alpha <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/alpha.html" class="nav-dropdown__item">Alpha <span class="badge badge--soon">SOON</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}products/contrarian.html" class="nav-dropdown__item">Contrarian <span class="badge badge--soon">SOON</span></a>
               <a href="${depth}products/zones.html" class="nav-dropdown__item">Zones <span class="badge badge--soon">SOON</span></a>
@@ -114,7 +114,7 @@
               <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}dashboards/vault.html" class="nav-dropdown__item">Max Pain Vault <span class="badge badge--live">LIVE</span></a>
-              <a href="https://soomarioalpha-production.up.railway.app/" class="nav-dropdown__item" target="_blank">Alpha <span class="badge badge--live">LIVE</span></a>
+              <a href="https://soomarioalpha-production.up.railway.app/" class="nav-dropdown__item" target="_blank">Alpha <span class="badge badge--soon">SOON</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${SITE.dashboards.zones}" class="nav-dropdown__item" target="_blank">Zones <span class="badge badge--soon">BETA</span></a>
               <a href="${SITE.dashboards.farms}" class="nav-dropdown__item" target="_blank">Farms <span class="badge badge--soon">PAPER</span></a>
@@ -158,7 +158,7 @@
           <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/max-pain.html" class="mobile-menu__link">Max Pain <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/alpha.html" class="mobile-menu__link">Alpha <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/alpha.html" class="mobile-menu__link">Alpha <span class="badge badge--soon">SOON</span></a>
           <a href="${depth}products/contrarian.html" class="mobile-menu__link">Contrarian <span class="badge badge--soon">SOON</span></a>
           <a href="${depth}products/zones.html" class="mobile-menu__link">Zones <span class="badge badge--soon">SOON</span></a>
           <a href="${depth}products/farms.html" class="mobile-menu__link">Farms <span class="badge badge--soon">SOON</span></a>
