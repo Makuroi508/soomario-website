@@ -28,9 +28,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   --bg-card-hover: rgba(47, 42, 82, 0.35);
 
   /* Text */
-  --text-primary:   #f0eaf8;
-  --text-secondary:  #b8a9d4;
-  --text-muted:     #8a7da6;
+  --text-primary:   #f5f0fc;
+  --text-secondary:  #c9bbdf;
+  --text-muted:     #9d91b8;
   --text-gold:      #C9A961;
 
   /* Borders */
@@ -72,7 +72,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 /* ── Base ── */
 body {
   font-family: var(--font-body);
-  font-size: 21px;
+  font-size: 23px;
   line-height: 1.65;
   color: var(--text-primary);
   background: var(--bg-surface);
@@ -1092,13 +1092,13 @@ body { padding-top: 72px; }
 
 .pcard__name {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   color: var(--text-gold);
   margin-bottom: 0.4rem;
 }
 
 .pcard__desc {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1.25rem;
@@ -1106,7 +1106,7 @@ body { padding-top: 72px; }
 
 .pcard__rr-label {
   font-family: var(--font-display);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--text-muted);
   margin-bottom: 0.5rem;
@@ -1131,7 +1131,7 @@ body { padding-top: 72px; }
 .pcard__dots-spacer { flex: 1; }
 
 .pcard__dots-label {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   margin-left: 5px;
 }
 
@@ -1140,7 +1140,7 @@ body { padding-top: 72px; }
 
 .pcard__stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
   gap: 0.5rem;
   margin: 1.25rem 0;
 }
@@ -1154,13 +1154,13 @@ body { padding-top: 72px; }
 
 .pcard__stat-val {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .pcard__stat-lbl {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   margin-top: 0.15rem;
 }
@@ -1174,7 +1174,7 @@ body { padding-top: 72px; }
 
 .pcard__price {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -1210,7 +1210,7 @@ body { padding-top: 72px; }
 
 @media (max-width: 768px) {
   .product-cards { grid-template-columns: 1fr; }
-  .pcard__stats { grid-template-columns: repeat(3, 1fr); }
+  .pcard__stats { grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); }
   .accum-hero { padding: 1.5rem; }
   .accum-hero__stats { grid-template-columns: repeat(2, 1fr); }
 }
