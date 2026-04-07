@@ -72,7 +72,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 /* ── Base ── */
 body {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 21px;
   line-height: 1.65;
   color: var(--text-primary);
   background: var(--bg-surface);
@@ -97,7 +97,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .section-label {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.3em;
   color: var(--text-gold);
   text-transform: uppercase;
@@ -106,13 +106,13 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.85rem, 4vw, 2.85rem);
+  font-size: clamp(2rem, 5vw, 3.2rem);
   margin-bottom: 1rem;
 }
 
 .section-subtitle {
   font-family: var(--font-body);
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
   color: var(--text-secondary);
   max-width: 600px;
 }
@@ -155,7 +155,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
   justify-content: center;
   gap: 0.5rem;
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   padding: 0.85rem 2rem;
@@ -245,7 +245,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 }
 
 .card__text {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
   line-height: 1.7;
 }
@@ -256,7 +256,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
   align-items: center;
   gap: 0.3rem;
   font-family: var(--font-display);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   padding: 0.2rem 0.55rem;
@@ -306,7 +306,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
   align-items: center;
   gap: 0.6rem;
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
 }
@@ -337,7 +337,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 }
 
 .compare-grid td {
-  font-size: 1rem;
+  font-size: 1.1rem;
   padding: 1rem;
   border-bottom: 1px solid var(--border-subtle);
   vertical-align: middle;
@@ -353,13 +353,13 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .compare-grid .product-name {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   color: var(--text-gold);
 }
 
 .compare-grid .price-tag {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-primary);
 }
 
@@ -394,13 +394,13 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .step__title {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   color: var(--text-gold);
   margin-bottom: 0.5rem;
 }
 
 .step__text {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
   line-height: 1.7;
 }
@@ -415,7 +415,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .faq-question {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: var(--text-primary);
   cursor: pointer;
   display: flex;
@@ -453,7 +453,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 }
 
 .faq-answer p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
   line-height: 1.7;
 }
@@ -588,7 +588,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .metric__value {
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 0.3rem;
@@ -596,7 +596,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .metric__label {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
@@ -664,7 +664,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .site-nav__link {
   font-family: var(--font-display);
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
   position: relative;
@@ -741,7 +741,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
   gap: 0.6rem;
   padding: 0.55rem 1rem;
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   color: var(--text-secondary);
   transition: all 0.15s;
 }
@@ -886,7 +886,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 }
 
 .site-footer__desc {
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   line-height: 1.6;
   max-width: 280px;
@@ -909,7 +909,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 }
 
 .site-footer__links a {
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   transition: color 0.2s;
 }
@@ -970,7 +970,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .hero__sub {
   font-family: var(--font-display);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   letter-spacing: 0.2em;
   color: var(--text-muted);
   margin-top: 0.75rem;
@@ -1046,3 +1046,171 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 /* Spacer body for fixed nav */
 body { padding-top: 72px; }
+
+/* ── Product Cards (Concept C) ── */
+.product-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.pcard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  position: relative;
+  transition: border-color var(--duration) var(--ease-out), transform var(--duration);
+}
+
+.pcard:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+}
+
+.pcard__ribbon {
+  position: absolute;
+  top: 1.1rem;
+  right: -1px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.25rem 0.9rem 0.25rem 1.1rem;
+  border-radius: 4px 0 0 4px;
+  letter-spacing: 0.05em;
+}
+
+.pcard__ribbon--live {
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--green);
+}
+
+.pcard__ribbon--soon {
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--violet);
+}
+
+.pcard__name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--text-gold);
+  margin-bottom: 0.4rem;
+}
+
+.pcard__desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.pcard__rr-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.pcard__dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 0.35rem;
+}
+
+.pcard__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.pcard__dot--on { background: var(--gold); }
+.pcard__dot--off { background: rgba(201, 169, 97, 0.12); }
+
+.pcard__dots-spacer { flex: 1; }
+
+.pcard__dots-label {
+  font-size: 0.72rem;
+  margin-left: 5px;
+}
+
+.pcard__dots-label--risk { color: #fb923c; }
+.pcard__dots-label--reward { color: var(--green); }
+
+.pcard__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 1.25rem 0;
+}
+
+.pcard__stat {
+  text-align: center;
+  padding: 0.6rem 0.25rem;
+  background: rgba(47, 42, 82, 0.25);
+  border-radius: var(--radius-sm);
+}
+
+.pcard__stat-val {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pcard__stat-lbl {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.pcard__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.pcard__price {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pcard__price small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.pcard__price-sub {
+  font-size: 0.8rem;
+  color: var(--green);
+  margin-top: 0.15rem;
+}
+
+/* Accumulator Hero Card */
+.accum-hero {
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accum-hero__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .product-cards { grid-template-columns: 1fr; }
+  .pcard__stats { grid-template-columns: repeat(3, 1fr); }
+  .accum-hero { padding: 1.5rem; }
+  .accum-hero__stats { grid-template-columns: repeat(2, 1fr); }
+}
