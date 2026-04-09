@@ -22,7 +22,7 @@
     hyperliquid: 'https://app.hyperliquid.xyz/join/SMR',
     dashboards: {
       accumulator: 'https://soomariosignaltelegram-production.up.railway.app/dashboard/preview',
-      accumulatorLogin: 'https://soomariosignaltelegram-production.up.railway.app/dashboard',
+      accumulatorLogin: 'https://soomariostrategies.com/login.html',
       elite: getPagePath('dashboards/elite.html'),
       vault: getPagePath('dashboards/vault.html'),
       zones: 'https://soomariozones-production.up.railway.app/',
@@ -129,7 +129,7 @@
         </div>
 
         <div class="site-nav__actions">
-          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--ghost btn--sm" target="_blank">Member Login</a>
+          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--outline btn--sm">Member Login</a>
           <a href="${SITE.whop.accumulator}" class="btn btn--primary btn--sm" target="_blank">Get Started</a>
           <div class="hamburger" onclick="window.SoomarioToggleMobile()" aria-label="Menu" role="button" tabindex="0">
             <span></span><span></span><span></span>
@@ -185,7 +185,8 @@
 
       <div class="mobile-menu__ctas">
         <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Start Free Trial</a>
-        <a href="${SITE.discord}" class="btn btn--outline btn--sm" target="_blank">Join Discord</a>
+        <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--outline">Member Login</a>
+        <a href="${SITE.discord}" class="btn btn--ghost btn--sm" target="_blank">Join Discord</a>
       </div>
     `;
 

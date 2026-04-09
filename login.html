@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Sign in to your Soomario Accumulator dashboard or start your 7-day free trial.">
+  <meta name="robots" content="noindex">
+  <title>Member Login — Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-page);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient glow matching site aesthetic */
+    .login-page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(139,92,246,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 70%, rgba(201,169,97,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 90%, rgba(139,92,246,0.06) 0%, transparent 40%);
+    }
+
+    .login-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+    }
+
+    .login-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(201,169,97,0.3);
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+
+    .login-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(201,169,97,0.3);
+      background: rgba(201,169,97,0.08);
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-headline {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .login-headline span { color: var(--gold); }
+
+    .login-sub {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .login-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-whop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 1rem 2rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      background-size: 200% 200%;
+      color: var(--purple-deep);
+      box-shadow: 0 4px 20px rgba(201,169,97,0.3);
+    }
+
+    .btn-whop:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,169,97,0.4);
+    }
+
+    .btn-trial {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.95rem 2rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+
+    .btn-trial:hover {
+      background: var(--gold);
+      color: var(--purple-deep);
+      transform: translateY(-2px);
+    }
+
+    .login-hint {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .feature-pill {
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .login-preview-link {
+      display: block;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .login-preview-link:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <div class="login-page">
+
+    <main class="login-main">
+      <div class="login-card">
+
+        <img src="soomario-logo.png" alt="Soomario" class="login-logo"
+          onerror="this.style.display='none'">
+
+        <div class="login-badge">⚡ ACCUMULATOR DASHBOARD</div>
+
+        <h1 class="login-headline">
+          Buy Every<br>
+          <span>Real Dip.</span><br>
+          Skip the Noise.
+        </h1>
+
+        <p class="login-sub">
+          AI-powered DCA signals for 14 AI stocks and crypto assets. Know exactly what to buy, when, and how much.
+        </p>
+
+        <div class="login-actions">
+          <a href="https://soomariosignaltelegram-production.up.railway.app/auth/whop/login"
+             class="btn-whop">
+            Sign In with Whop
+          </a>
+          <a href="https://whop.com/soomario-strategies/soomario-accumulator/"
+             target="_blank" rel="noopener"
+             class="btn-trial">
+            Start 7-Day Free Trial — $7/mo
+          </a>
+        </div>
+
+        <p class="login-hint">
+          Already subscribed? Sign in above.<br>
+          No account yet? Start your free trial.
+        </p>
+
+        <div class="feature-pills">
+          <span class="feature-pill">📊 Mag14 Signals</span>
+          <span class="feature-pill">💰 DCA Multipliers</span>
+          <span class="feature-pill">📱 Telegram Alerts</span>
+          <span class="feature-pill">🔒 Self-Custody</span>
+        </div>
+
+        <a href="https://soomariosignaltelegram-production.up.railway.app/dashboard/preview"
+           target="_blank" rel="noopener"
+           class="login-preview-link">
+          Preview the dashboard without signing in →
+        </a>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="components.js"></script>
+</body>
+</html>
