@@ -21,12 +21,12 @@
     twitter: 'https://twitter.com/SoomarioStrat',
     hyperliquid: 'https://app.hyperliquid.xyz/join/SMR',
     dashboards: {
-      accumulator: 'https://soomariosignaltelegram-production.up.railway.app/dashboard/preview',
-      accumulatorLogin: 'https://soomariostrategies.com/login.html',
+      accumulator: 'https://accumulator.soomariostrategies.com/dashboard/preview',
+      accumulatorLogin: 'https://accumulator.soomariostrategies.com/dashboard',
       elite: getPagePath('dashboards/elite.html'),
       vault: getPagePath('dashboards/vault.html'),
-      zones: 'https://soomariozones-production.up.railway.app/',
-      farms: 'https://soomariozonesfarming-production.up.railway.app/',
+      zones: 'https://zones.soomariostrategies.com/',
+      farms: 'https://farms.soomariostrategies.com/',
     },
     ga4: '' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
   };
@@ -95,12 +95,13 @@
             <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('products') ? 'active' : ''}">Products</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/max-pain.html" class="nav-dropdown__item">Max Pain <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/zones.html" class="nav-dropdown__item">Zones <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/farms.html" class="nav-dropdown__item">Farms <span class="badge badge--soon">PAPER</span></a>
               <div class="nav-dropdown__divider"></div>
-              <a href="${depth}products/alpha.html" class="nav-dropdown__item">Alpha <span class="badge badge--soon">SOON</span></a>
-              <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--soon">SOON</span></a>
+              <a href="${depth}products/farms.html" class="nav-dropdown__item">Farms <span class="badge badge--soon">PAPER</span></a>
+              <a href="${depth}products/alpha.html" class="nav-dropdown__item">Alpha <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--soon">PAPER</span></a>
             </div></div>
           </div>
 
@@ -111,10 +112,11 @@
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}dashboards/vault.html" class="nav-dropdown__item">Max Pain Vault <span class="badge badge--live">LIVE</span></a>
               <a href="${SITE.dashboards.zones}" class="nav-dropdown__item" target="_blank">Zones <span class="badge badge--live">LIVE</span></a>
-              <a href="${SITE.dashboards.farms}" class="nav-dropdown__item" target="_blank">Farms <span class="badge badge--soon">PAPER</span></a>
               <div class="nav-dropdown__divider"></div>
-              <a href="https://soomarioalpha-production.up.railway.app/" class="nav-dropdown__item" target="_blank">Alpha <span class="badge badge--soon">PAPER</span></a>
+              <a href="${SITE.dashboards.farms}" class="nav-dropdown__item" target="_blank">Farms <span class="badge badge--soon">PAPER</span></a>
+              <a href="https://alpha.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Alpha <span class="badge badge--live">LIVE</span></a>
             </div></div>
           </div>
 
@@ -129,7 +131,7 @@
         </div>
 
         <div class="site-nav__actions">
-          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--outline btn--sm">Member Login</a>
+          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--ghost btn--sm" target="_blank">Member Login</a>
           <a href="${SITE.whop.accumulator}" class="btn btn--primary btn--sm" target="_blank">Get Started</a>
           <div class="hamburger" onclick="window.SoomarioToggleMobile()" aria-label="Menu" role="button" tabindex="0">
             <span></span><span></span><span></span>
@@ -153,11 +155,12 @@
         <div class="mobile-menu__group-title">Products</div>
         <div class="mobile-menu__links">
           <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/max-pain.html" class="mobile-menu__link">Max Pain <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/zones.html" class="mobile-menu__link">Zones <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/farms.html" class="mobile-menu__link">Farms <span class="badge badge--soon">PAPER</span></a>
-          <a href="${depth}products/alpha.html" class="mobile-menu__link">Alpha <span class="badge badge--soon">SOON</span></a>
-          <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--soon">SOON</span></a>
+          <a href="${depth}products/alpha.html" class="mobile-menu__link">Alpha <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--soon">PAPER</span></a>
         </div>
       </div>
 
@@ -166,7 +169,8 @@
         <div class="mobile-menu__links">
           <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
           <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
-          <a href="https://soomarioalpha-production.up.railway.app/" class="mobile-menu__link" target="_blank">Alpha</a>
+          <a href="${depth}dashboards/vault.html" class="mobile-menu__link">Max Pain Vault</a>
+          <a href="https://alpha.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Alpha</a>
           <a href="${SITE.dashboards.zones}" class="mobile-menu__link" target="_blank">Zones</a>
           <a href="${SITE.dashboards.farms}" class="mobile-menu__link" target="_blank">Farms</a>
         </div>
@@ -185,8 +189,7 @@
 
       <div class="mobile-menu__ctas">
         <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Start Free Trial</a>
-        <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--outline">Member Login</a>
-        <a href="${SITE.discord}" class="btn btn--ghost btn--sm" target="_blank">Join Discord</a>
+        <a href="${SITE.discord}" class="btn btn--outline btn--sm" target="_blank">Join Discord</a>
       </div>
     `;
 
@@ -221,6 +224,7 @@
             <div class="site-footer__col-title">Products</div>
             <ul class="site-footer__links">
               <li><a href="${depth}products/accumulator.html">Accumulator — $7/mo</a></li>
+              <li><a href="${depth}products/max-pain.html">Max Pain</a></li>
               <li><a href="${depth}products/elite.html">Elite</a></li>
               <li><a href="${depth}products/alpha.html">Alpha</a></li>
               <li><a href="${depth}products/rotation.html">Rotation</a></li>
