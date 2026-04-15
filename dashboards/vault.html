@@ -180,9 +180,47 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 /* ── RESPONSIVE ── */
 @media(max-width:600px){.kpi{grid-template-columns:1fr 1fr}.kv{font-size:16px}.scanner-grid{grid-template-columns:1fr}.g21{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr}.pos-info-grid{grid-template-columns:1fr 1fr}.trade-row{grid-template-columns:60px 44px 1fr auto;gap:5px}.t-date{display:none}}
 @media(max-width:480px){.kpi{grid-template-columns:1fr 1fr;gap:6px}.main{padding:8px 10px 32px}.k{padding:8px 10px}.kl{font-size:7px}.kv{font-size:14px}.crd{padding:10px 12px}.topbar{padding:8px 10px}.dtab{padding:8px 12px;font-size:9px}.nav{padding:8px 10px}.nav-t1{font-size:14px}.tip .tt{max-width:200px;font-size:9px}}
+/* ── SITE NAV ── */
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:#0a0812;border-bottom:1px solid #1e1a2e}
+.site-nav-left{display:flex;align-items:center;gap:10px;text-decoration:none}
+.site-nav-left img{height:36px}
+.site-nav-brand{display:flex;flex-direction:column}
+.site-nav-brand-t1{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:3px}
+.site-nav-brand-t2{font-size:8px;color:var(--gold);letter-spacing:3px}
+.site-nav-center{display:flex;gap:0}
+.site-nav-center a{color:var(--dim);text-decoration:none;padding:8px 18px;font-size:11px;letter-spacing:.08em;transition:color .15s;position:relative}
+.site-nav-center a:hover{color:var(--text)}
+.site-nav-center a.active{color:var(--text)}
+.site-nav-center a.active::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.site-nav-right{display:flex;align-items:center;gap:12px}
+.site-nav-member{color:var(--gold);text-decoration:none;font-size:11px;letter-spacing:.05em;transition:opacity .15s}
+.site-nav-member:hover{opacity:.8}
+.site-nav-cta{font-size:11px;padding:7px 18px;background:linear-gradient(135deg,#D4A843,#c49a38);color:#0a0812;border:none;border-radius:6px;font-weight:700;text-decoration:none;letter-spacing:.05em;cursor:pointer;transition:opacity .15s;font-family:inherit}
+.site-nav-cta:hover{opacity:.9}
+@media(max-width:768px){.site-nav-center{display:none}.site-nav{padding:8px 14px}}
+@media(max-width:480px){.site-nav-brand-t1{font-size:12px}.site-nav-cta{padding:5px 12px;font-size:10px}}
 </style>
 </head>
 <body>
+<div class="site-nav">
+  <a class="site-nav-left" href="https://soomariostrategies.com">
+    <img src="https://soomariostrategies.com/soomario-logo.png" alt="Soomario" onerror="this.style.display='none'">
+    <div class="site-nav-brand">
+      <span class="site-nav-brand-t1">SOOMARIO</span>
+      <span class="site-nav-brand-t2">STRATEGIES</span>
+    </div>
+  </a>
+  <div class="site-nav-center">
+    <a href="https://soomariostrategies.com/#products">Products</a>
+    <a href="https://soomariostrategies.com/learn/index.html">Learn</a>
+    <a class="active" href="#">Dashboards</a>
+    <a href="https://soomariostrategies.com/tools/compare.html">Tools</a>
+  </div>
+  <div class="site-nav-right">
+    <a class="site-nav-member" href="https://whop.com/soomario-strategies/" target="_blank">Member Login</a>
+    <a class="site-nav-cta" href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank">Get Started</a>
+  </div>
+</div>
 <nav class="nav">
   <a class="nav-brand" href="#"><div><div class="nav-t1">SOOMARIO</div><div class="nav-t2">MAX PAIN VAULT</div></div></a>
   <div class="nav-right">
