@@ -102,14 +102,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 /* ── EQUITY + VAULT SIDEBAR ── */
 .eq-vault-row{display:grid;grid-template-columns:1fr 220px;gap:12px;margin-bottom:20px}
-.equity-section{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 20px;position:relative}
-.equity-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.equity-section{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 0 0;position:relative;overflow:hidden}
+.equity-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 20px}
 .equity-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
 .tf-toggles{display:flex;gap:3px}
-.tf-btn{background:transparent;border:1px solid var(--bd);border-radius:4px;padding:3px 10px;color:var(--dim);font-family:inherit;font-size:10px;cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.tf-btn{background:transparent;border:1px solid var(--bd);border-radius:4px;padding:4px 12px;color:var(--dim);font-family:inherit;font-size:10px;cursor:pointer;transition:all .2s;letter-spacing:.05em;font-weight:600}
 .tf-btn:hover{color:var(--text);border-color:var(--dim)}
 .tf-btn.active{background:#1A1425;color:var(--gold);border-color:var(--gold-dim)}
-.equity-chart{width:100%;height:160px;display:block;cursor:crosshair}
+.equity-chart{width:100%;height:180px;display:block;cursor:crosshair}
 .eq-tooltip{position:absolute;background:#0D0A14ee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
 .eq-tooltip .eq-tt-price{color:var(--gold);font-weight:700;font-size:15px}
 .eq-tooltip .eq-tt-time{color:var(--dim);font-size:10px;margin-top:2px}
@@ -364,8 +364,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="equity-header">
       <div class="equity-title">Equity Curve · <span id="curvePts">—</span></div>
       <div class="tf-toggles">
-        <button class="tf-btn" data-tf="trade">Per Trade</button>
-        <button class="tf-btn active" data-tf="live">Live</button>
+        <button class="tf-btn" data-tf="1h">1H</button>
+        <button class="tf-btn" data-tf="6h">6H</button>
+        <button class="tf-btn" data-tf="24h">24H</button>
+        <button class="tf-btn" data-tf="7d">7D</button>
+        <button class="tf-btn active" data-tf="all">ALL</button>
       </div>
     </div>
     <canvas class="equity-chart" id="equityChart"></canvas>
@@ -546,7 +549,6 @@ initTooltips();
 // ═══════════════════════════════════════════
 const VAULT='0x8bd03b8a06612cdb83ebee91e901dae9203ef537';
 const HL_API='https://api.hyperliquid.xyz/info';
-const CURVE_KEY='smr_elite_eq_v2';
 const LEGACY_DEPOSIT=3103.00;
 const CURVE_START=3028.09;
 const REFRESH_SEC=30;
@@ -600,9 +602,6 @@ function calcMetrics(closed){
 // ═══════════════════════════════════════════
 //  EQUITY CURVE (localStorage + trade-based)
 // ═══════════════════════════════════════════
-function getCurve(){try{return JSON.parse(localStorage.getItem(CURVE_KEY)||'[]')}catch{return[]}}
-function pushCurve(equity){const c=getCurve();const t=new Date().toISOString();if(c.length&&new Date(c[c.length-1].ts).getMinutes()===new Date(t).getMinutes())c[c.length-1]={ts:t,equity};else c.push({ts:t,equity});const trimmed=c.slice(-500);try{localStorage.setItem(CURVE_KEY,JSON.stringify(trimmed))}catch{}return trimmed}
-
 function buildTradeChart(allClosed){
   if(!allClosed.length)return[];
   const sorted=[...allClosed].sort((a,b)=>a.time-b.time);
@@ -615,12 +614,31 @@ function buildTradeChart(allClosed){
 // ═══════════════════════════════════════════
 //  CANVAS CHART
 // ═══════════════════════════════════════════
-let chartMeta=null,activeChartMode='live',lastLiveCurve=[],lastAllClosed=[];
+let chartMeta=null,activeTimeframe='all',lastAllClosed=[];
+
+function filterByTimeframe(pts, tf) {
+  if (tf === 'all' || !pts.length) return pts;
+  const now = Date.now();
+  const ms = {
+    '1h': 3600000,
+    '6h': 21600000,
+    '24h': 86400000,
+    '7d': 604800000
+  }[tf] || Infinity;
+  const cutoff = now - ms;
+  const filtered = pts.filter(p => new Date(p.ts).getTime() >= cutoff);
+  // Always include at least the starting point for context
+  if (filtered.length < 2 && pts.length >= 2) {
+    return pts.slice(-Math.min(pts.length, 10));
+  }
+  return filtered;
+}
 
 function drawEquityChart(data){
   const canvas=document.getElementById('equityChart');if(!canvas||!data||data.length<2)return;
   const ctx=canvas.getContext('2d');
-  const W=canvas.parentElement.clientWidth-40,H=160,PB=18;
+  const rect=canvas.parentElement.getBoundingClientRect();
+  const W=rect.width-2,H=canvas.offsetHeight||160,PB=18;
   canvas.width=W;canvas.height=H;ctx.clearRect(0,0,W,H);
   const chartH=H-PB;
   const vals=data.map(d=>d.equity),min=Math.min(...vals)*.999,max=Math.max(...vals)*1.001,range=max-min||1;
@@ -670,19 +688,16 @@ function drawEquityChart(data){
   canvas.addEventListener('mouseleave',function(){tt.style.opacity='0';cv.style.opacity='0';ch.style.opacity='0';dot.style.opacity='0'});
 })();
 
-// Tab toggles (chart mode + panels)
-document.querySelectorAll('.tf-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeChartMode=btn.dataset.tf;redrawChart()})});
+// Tab toggles (timeframe + panels)
+document.querySelectorAll('.tf-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeTimeframe=btn.dataset.tf;redrawChart()})});
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('panel-'+t.dataset.panel).classList.add('active')}));
 
 function redrawChart(){
-  if(activeChartMode==='trade'){
-    const pts=buildTradeChart(lastAllClosed);
-    drawEquityChart(pts);
-    document.getElementById('curvePts').textContent=pts.length>1?(pts.length-1)+' trade'+(pts.length-1!==1?'s':''):'Waiting for trades';
-  } else {
-    drawEquityChart(lastLiveCurve);
-    document.getElementById('curvePts').textContent=lastLiveCurve.length+' snapshot'+(lastLiveCurve.length!==1?'s':'');
-  }
+  const allPts=buildTradeChart(lastAllClosed);
+  const filtered=filterByTimeframe(allPts, activeTimeframe);
+  drawEquityChart(filtered);
+  const tradeCount=filtered.length>1?filtered.length-1:0;
+  document.getElementById('curvePts').textContent=tradeCount>0?tradeCount+' trade'+(tradeCount!==1?'s':''):'Waiting for trades';
 }
 
 // ═══════════════════════════════════════════
@@ -795,7 +810,6 @@ function render({vault,state,fills}){
   const allTimePnl=round(legacyPnl+vaultClosedPnl+unrealised,2);
 
   lastAllClosed=allClosed;
-  if(equity>0)lastLiveCurve=pushCurve(equity);
   redrawChart();
 
   // ── KPI ROW ──
@@ -894,14 +908,13 @@ async function refresh(){
   catch(err){console.error('Dashboard error:',err);document.getElementById('statusDot').className='status-dot offline';document.getElementById('statusText').textContent='Offline'}
 }
 
-const stored=getCurve();if(stored.length>1)lastLiveCurve=stored;
 refresh();setInterval(refresh,REFRESH_SEC*1000);
 
 // Refresh bar animation
 (function bar(){refreshTimer=(refreshTimer+1)%REFRESH_SEC;document.getElementById('refreshBar').style.width=(refreshTimer/REFRESH_SEC*100)+'%';requestAnimationFrame(()=>setTimeout(bar,1000))})();
 
 // Resize handler
-window.addEventListener('resize',()=>{if(activeChartMode==='live'&&lastLiveCurve.length>1)drawEquityChart(lastLiveCurve);else if(activeChartMode==='trade')redrawChart()});
+window.addEventListener('resize',()=>redrawChart());
 </script>
 </body>
 </html>
