@@ -14,18 +14,18 @@
 body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh;font-size:13px;
   background-image:radial-gradient(ellipse at 20% 50%,#6b3fa011 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,#D4A84308 0%,transparent 40%)}
 
-/* ── NAV ── */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:rgba(13,10,20,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-t1{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--text);letter-spacing:2px}
-.nav-t2{font-size:9px;color:var(--gold);letter-spacing:3px;margin-top:1px}
-.nav-right{display:flex;align-items:center;gap:14px}
-.nav-link{font-size:10px;color:var(--dim);letter-spacing:1px;text-decoration:none;padding:5px 10px;border:1px solid var(--border);border-radius:5px;transition:all .2s}
-.nav-link:hover{color:var(--gold);border-color:var(--gold-dim)}
-.live-pill{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--dim);letter-spacing:1px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--gn);box-shadow:0 0 8px var(--gn);animation:pulse 2s ease-in-out infinite}
+/* ── NAV (secondary - removed, replaced by hero) ── */
+.vault-hero{text-align:center;padding:32px 20px 24px;position:relative}
+.vault-hero::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent)}
+.vh-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.3em;text-transform:uppercase;margin-bottom:6px}
+.vh-title{font-family:'Cinzel',serif;font-size:32px;font-weight:700;color:var(--text);letter-spacing:.08em;margin-bottom:10px}
+.vh-status{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:var(--dim)}
+.vh-status a{color:var(--gold);text-decoration:none;transition:color .2s}
+.vh-status a:hover{color:#e8c364}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gn);box-shadow:0 0 8px var(--gn);animation:pulse 2s ease-in-out infinite;display:inline-block}
 .dot.err{background:var(--rd);box-shadow:0 0 8px var(--rd)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:480px){.vh-title{font-size:22px}.vault-hero{padding:20px 12px 16px}}
 .main{max-width:1350px;margin:0 auto;padding:16px 24px 60px}
 .hid{display:none!important}
 
@@ -160,7 +160,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 .vault-btn.dim{color:var(--dim);border-color:var(--border)}.vault-btn.dim:hover{background:rgba(154,144,128,.05);border-color:var(--dim)}
 
 /* ── EQUITY CHART ── */
-.chart-section{position:relative}.chart-canvas{width:100%;height:180px;display:block;cursor:crosshair}
+.chart-section{position:relative}.chart-canvas{width:100%;height:280px;display:block;cursor:crosshair}
 .chart-tabs{display:flex;gap:3px}
 .ctab{font-size:9px;padding:3px 8px;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--dim);cursor:pointer;transition:all .2s;font-family:inherit}
 .ctab:hover{color:var(--text);border-color:var(--dim)}.ctab.active{background:var(--sf2);color:var(--gold);border-color:var(--gold-dim)}
@@ -179,7 +179,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 
 /* ── RESPONSIVE ── */
 @media(max-width:600px){.kpi{grid-template-columns:1fr 1fr}.kv{font-size:16px}.scanner-grid{grid-template-columns:1fr}.g21{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr}.pos-info-grid{grid-template-columns:1fr 1fr}.trade-row{grid-template-columns:60px 44px 1fr auto;gap:5px}.t-date{display:none}}
-@media(max-width:480px){.kpi{grid-template-columns:1fr 1fr;gap:6px}.main{padding:8px 10px 32px}.k{padding:8px 10px}.kl{font-size:7px}.kv{font-size:14px}.crd{padding:10px 12px}.topbar{padding:8px 10px}.dtab{padding:8px 12px;font-size:9px}.nav{padding:8px 10px}.nav-t1{font-size:14px}.tip .tt{max-width:200px;font-size:9px}}
+@media(max-width:480px){.kpi{grid-template-columns:1fr 1fr;gap:6px}.main{padding:8px 10px 32px}.k{padding:8px 10px}.kl{font-size:7px}.kv{font-size:14px}.crd{padding:10px 12px}.topbar{padding:8px 10px}.dtab{padding:8px 12px;font-size:9px}.tip .tt{max-width:200px;font-size:9px}}
 /* ── SITE NAV v1.2 ── */
 .site-nav{background:#0f0c18;border-bottom:1px solid #2a2440;padding:0 40px;position:relative;z-index:50;display:flex;align-items:center;height:56px;font-family:'JetBrains Mono',monospace}
 .sn-left{display:flex;align-items:center;gap:12px;text-decoration:none}
@@ -260,7 +260,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
       <a href="#" onclick="return false" class="sn-active" style="cursor:default">Dashboards<span class="sn-dot"></span></a>
       <div class="sn-dd-menu">
         <a href="https://accumulator.soomariostrategies.com/dashboard/preview" target="_blank" class="sn-dd-item">Accumulator<span class="sn-dd-badge live">LIVE</span></a>
-        <a href="https://soomariostrategies.com/dashboard.html" class="sn-dd-item">Elite<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/dashboards/elite.html" class="sn-dd-item">Elite<span class="sn-dd-badge live">LIVE</span></a>
         <a href="#" class="sn-dd-item" style="color:var(--gold)">Max Pain Vault<span class="sn-dd-badge live">LIVE</span></a>
         <a href="https://soomariostrategies.com/zones-dashboard.html" class="sn-dd-item">Zones<span class="sn-dd-badge live">LIVE</span></a>
         <div class="sn-dd-sep"></div>
@@ -286,7 +286,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <a href="https://soomariostrategies.com">Home</a>
   <a href="https://soomariostrategies.com/#products">Products</a>
   <a href="https://soomariostrategies.com/learn/index.html">Learn</a>
-  <a href="https://soomariostrategies.com/dashboard.html">Elite Dashboard</a>
+  <a href="https://soomariostrategies.com/dashboards/elite.html">Elite Dashboard</a>
   <a href="#" class="sn-active">Max Pain Dashboard</a>
   <a href="https://soomariostrategies.com/zones-dashboard.html">Zones Dashboard</a>
   <a href="https://soomariostrategies.com/farms-dashboard.html">Farms Dashboard</a>
@@ -294,13 +294,18 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <a href="https://soomariostrategies.com/tools/compare.html">Compare Products</a>
   <a href="https://whop.com/soomario-strategies/" target="_blank" style="color:var(--gold)">Member Login</a>
 </div>
-<nav class="nav">
-  <a class="nav-brand" href="#"><div><div class="nav-t1">SOOMARIO</div><div class="nav-t2">MAX PAIN VAULT</div></div></a>
-  <div class="nav-right">
-    <a class="nav-link" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank">Vault ↗</a>
-    <div class="live-pill"><div class="dot" id="dot"></div><span id="live-ts">CONNECTING</span></div>
+<div class="vault-hero">
+  <div class="vh-label">SOOMARIO STRATEGIES</div>
+  <div class="vh-title">MAX PAIN VAULT</div>
+  <div class="vh-status">
+    <span class="dot" id="dot"></span>
+    <span id="live-ts">Connecting</span>
+    <span>·</span>
+    <span id="hero-time"></span>
+    <span>·</span>
+    <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank">View on Hyperliquid ↗</a>
   </div>
-</nav>
+</div>
 <div class="main">
 <div class="error-banner" id="err-banner">⚠ Could not reach API.</div>
 
@@ -470,7 +475,7 @@ function fmtTs(ts,tf){const d=new Date(ts);if(tf==='1h'||tf==='6h'||tf==='24h')r
 let activeTF='all',eqHist=getCurve(),chartMeta=null;
 document.querySelectorAll('.chart-tabs .ctab').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.chart-tabs .ctab').forEach(x=>x.classList.remove('active'));b.classList.add('active');activeTF=b.dataset.tf;refreshChart()})});
 function refreshChart(){const f=filterTF(eqHist,activeTF),labels=f.map(d=>fmtTs(d.ts,activeTF)),vals=f.map(d=>d.v);drawChart(labels,vals);document.getElementById('curve-pts').textContent=f.length>0?f.length+' pts':'Collecting…'}
-function drawChart(labels,vals){const cv=document.getElementById('chart-eq'),sec=document.getElementById('chart-section');if(!cv)return;const W=sec.clientWidth,H=180;cv.width=W;cv.height=H;const ctx=cv.getContext('2d');ctx.clearRect(0,0,W,H);if(!vals||vals.length<2){ctx.fillStyle='#8A7FA0';ctx.font='12px JetBrains Mono';ctx.textAlign='center';ctx.fillText('Collecting equity snapshots…',W/2,90);chartMeta=null;return}
+function drawChart(labels,vals){const cv=document.getElementById('chart-eq'),sec=document.getElementById('chart-section');if(!cv)return;const W=sec.clientWidth,H=280;cv.width=W;cv.height=H;const ctx=cv.getContext('2d');ctx.clearRect(0,0,W,H);if(!vals||vals.length<2){ctx.fillStyle='#8A7FA0';ctx.font='12px JetBrains Mono';ctx.textAlign='center';ctx.fillText('Collecting equity snapshots…',W/2,140);chartMeta=null;return}
 const PB=20,cH=H-PB,mn=Math.min(...vals)*.999,mx=Math.max(...vals)*1.001,rg=mx-mn||1;const tX=i=>(i/(vals.length-1))*W,tY=v=>cH-((v-mn)/rg)*(cH-10)-5;
 ctx.strokeStyle='rgba(45,27,78,.4)';ctx.lineWidth=1;for(let i=0;i<4;i++){const y=8+i*(cH-16)/3;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
 const g=ctx.createLinearGradient(0,0,0,cH);g.addColorStop(0,'rgba(212,168,67,.18)');g.addColorStop(.6,'rgba(212,168,67,.03)');g.addColorStop(1,'rgba(212,168,67,0)');ctx.beginPath();ctx.moveTo(0,cH);vals.forEach((v,i)=>ctx.lineTo(tX(i),tY(v)));ctx.lineTo(W,cH);ctx.closePath();ctx.fillStyle=g;ctx.fill();
@@ -606,7 +611,8 @@ function render({vault,state,fills}){
   renderActivity(closed);
 
   // Status
-  document.getElementById('dot').classList.remove('err');set('live-ts','LIVE');
+  document.getElementById('dot').classList.remove('err');set('live-ts','Live');
+  document.getElementById('hero-time').textContent=new Date().toLocaleTimeString();
   document.getElementById('err-banner').classList.remove('show');
   document.getElementById('foot').textContent='Updated: '+new Date().toLocaleTimeString()+' · Soomario Max Pain Vault · 18 coins · 3x max leverage';
 }
@@ -617,7 +623,8 @@ async function refresh(){
     const[hlData,diag,posDetail]=await Promise.all([fetchAll(),fetchBot('/diagnostics'),fetchBot('/positions_detail')]);
     render(hlData);renderScanner(diag);renderPositions(posDetail);
   }catch(err){
-    console.error(err);document.getElementById('dot').classList.add('err');set('live-ts','OFFLINE');
+    console.error(err);document.getElementById('dot').classList.add('err');set('live-ts','Offline');
+    document.getElementById('hero-time').textContent='';
     document.getElementById('err-banner').classList.add('show');
   }
 }
