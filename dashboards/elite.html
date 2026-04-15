@@ -43,6 +43,15 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .sn-links a:hover{color:var(--text)}
 .sn-links a.sn-active{color:var(--text)}
 .sn-links a .sn-dot{display:block;width:3px;height:3px;border-radius:50%;background:var(--gold-dim);margin:4px auto 0}
+.sn-dd{position:relative}
+.sn-dd-menu{visibility:hidden;opacity:0;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#12101d;border:1px solid #2a2440;border-radius:10px;padding:10px 0;min-width:210px;z-index:200;transition:opacity .2s,visibility .2s;box-shadow:0 12px 32px rgba(0,0,0,.5)}
+.sn-dd:hover .sn-dd-menu{visibility:visible;opacity:1}
+.sn-dd-item{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;text-decoration:none;color:var(--text);font-size:12px;letter-spacing:.04em;transition:background .15s}
+.sn-dd-item:hover{background:#1a1630}
+.sn-dd-badge{font-size:9px;font-weight:700;letter-spacing:.1em;padding:3px 10px;border-radius:4px}
+.sn-dd-badge.live{background:#4ADE8020;color:#4ADE80;border:1px solid #4ADE8040}
+.sn-dd-badge.paper{background:#7B5EA720;color:#9B7DC7;border:1px solid #7B5EA740}
+.sn-dd-sep{height:1px;background:#2a2440;margin:6px 14px}
 .sn-right{display:flex;align-items:center;gap:16px;margin-left:auto}
 .sn-member{color:var(--gold);font-size:12px;letter-spacing:.06em;text-decoration:none;transition:color .2s}
 .sn-member:hover{color:#e8c364}
@@ -226,7 +235,18 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="sn-links">
     <a href="https://soomariostrategies.com/#products">Products<span class="sn-dot"></span></a>
     <a href="https://soomariostrategies.com/learn/index.html">Learn<span class="sn-dot"></span></a>
-    <a href="https://soomariostrategies.com/dashboard.html" class="sn-active">Dashboards<span class="sn-dot"></span></a>
+    <div class="sn-dd">
+      <a href="#" onclick="return false" class="sn-active" style="cursor:default">Dashboards<span class="sn-dot"></span></a>
+      <div class="sn-dd-menu">
+        <a href="https://accumulator.soomariostrategies.com/dashboard/preview" target="_blank" class="sn-dd-item">Accumulator<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/dashboard.html" class="sn-dd-item" style="color:var(--gold)">Elite<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/vault-dashboard.html" class="sn-dd-item">Max Pain Vault<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/zones-dashboard.html" class="sn-dd-item">Zones<span class="sn-dd-badge live">LIVE</span></a>
+        <div class="sn-dd-sep"></div>
+        <a href="https://soomariostrategies.com/farms-dashboard.html" class="sn-dd-item">Farms<span class="sn-dd-badge paper">PAPER</span></a>
+        <a href="https://alpha.soomariostrategies.com" target="_blank" class="sn-dd-item">Alpha<span class="sn-dd-badge live">LIVE</span></a>
+      </div>
+    </div>
     <a href="https://soomariostrategies.com/tools/compare.html">Tools<span class="sn-dot"></span></a>
   </div>
   <div class="sn-right">
