@@ -3,92 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#07060d">
+<meta name="theme-color" content="#0D0A14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Soomario — Elite Vault</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#07060d;--bg-card:#0e0c19;--bg-card-hover:#141125;--bg-accent:#1a1530;--gold:#d4a846;--gold-dim:#8a6f2e;--gold-glow:#d4a84644;--purple:#6b3fa0;--purple-light:#9d6dd7;--green:#22c55e;--red:#ef4444;--text:#e8e0d4;--text-dim:#6b6158;--text-muted:#4a4340;--border:#1e1a2e;--border-gold:#d4a84633}
+:root{
+  --bg:#0D0A14;--sf:#1A1425;--bd:#2D1B4E;--gold:#D4A843;--gold-dim:#8a6f2e;
+  --gold-glow:#D4A84340;--purple:#7B5EA7;--purple-light:#9B7DC7;
+  --gn:#4ADE80;--rd:#F87171;--text:#E8E0F0;--dim:#8A7FA0;--muted:#4a4340;
+  --bd-gold:#D4A84333
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;font-size:13px}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,#6b3fa011 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,#d4a84608 0%,transparent 40%);pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,#7B5EA711 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,#D4A84308 0%,transparent 40%);pointer-events:none;z-index:0}
+.hid{display:none!important}
+
+/* ── TOOLTIP SYSTEM ── */
+.tip{position:relative;cursor:help;display:inline-flex;align-items:center;gap:3px}
+.tip .ti{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:#7B5EA730;color:#9B7DC7;font-size:8px;font-weight:700;font-style:normal;flex-shrink:0;line-height:1}
+.tip .tt{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1225;border:1px solid #9B7DC7;border-radius:6px;padding:8px 10px;font-size:10px;font-weight:400;line-height:1.5;color:#E8E0F0;white-space:normal;width:max-content;max-width:260px;z-index:100;pointer-events:none;transition:opacity .15s;letter-spacing:0;text-transform:none}
+.tip .tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#9B7DC7}
+.tip:hover .tt,.tip.show .tt{visibility:visible;opacity:1;pointer-events:auto}
+.tip-r .tt{left:auto;right:0;transform:none}
+.tip-r .tt::after{left:auto;right:12px;transform:none}
+.tip-l .tt{left:0;transform:none}
+.tip-l .tt::after{left:12px;transform:none}
+
+/* ── LAYOUT ── */
 .container{max-width:1350px;margin:0 auto;padding:20px 24px;position:relative;z-index:1}
-.header{text-align:center;padding:20px 0 18px;border-bottom:1px solid var(--border);margin-bottom:20px;position:relative}
+.header{text-align:center;padding:20px 0 18px;border-bottom:1px solid var(--bd);margin-bottom:20px;position:relative}
 .header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .brand-sub{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.35em;color:var(--gold-dim);text-transform:uppercase}
 .brand-main{font-family:'Cinzel',serif;font-size:36px;font-weight:900;color:var(--gold);margin:4px 0;text-shadow:0 0 30px var(--gold-glow)}
-.brand-tag{font-size:12px;color:var(--text-dim)}
+.brand-tag{font-size:12px;color:var(--dim)}
 .status-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;animation:pulse 2s ease-in-out infinite}
-.status-dot.live{background:var(--green);box-shadow:0 0 8px var(--green)}
-.status-dot.offline{background:var(--text-dim)}
+.status-dot.live{background:var(--gn);box-shadow:0 0 8px var(--gn)}
+.status-dot.offline{background:var(--dim)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
-.ratios-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
-.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;transition:border-color .3s}
-.stat-card:hover{border-color:var(--border-gold)}
-.stat-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:6px}
-.stat-value{font-size:26px;font-weight:700;color:var(--gold)}
-.stat-value.green{color:var(--green)}.stat-value.red{color:var(--red)}.stat-value.neutral{color:var(--text)}.stat-value.purple{color:var(--purple-light)}
-.stat-sub{font-size:11px;color:var(--text-dim);margin-top:3px}
-.ratios-row .stat-card{padding:10px 14px;text-align:center}
-.ratios-row .stat-label{margin-bottom:4px;font-size:9px}
-.ratios-row .stat-value{font-size:22px}
-.equity-section{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:0;position:relative}
+
+/* ── KPI ROW ── */
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.k{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:14px 16px;transition:border-color .3s,box-shadow .3s}
+.k:hover{border-color:var(--bd-gold)}
+.k.ac{border-color:var(--gold-dim);border-width:1.5px}
+.k.glow{box-shadow:0 0 12px #D4A84340;border-color:var(--gold)}
+.kl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:6px}
+.kv{font-size:26px;font-weight:700;color:var(--gold)}
+.kv.vgn{color:var(--gn)}.kv.vrd{color:var(--rd)}.kv.vg{color:var(--gold)}
+.ks{font-size:11px;color:var(--dim);margin-top:3px}
+
+/* ── EQUITY + VAULT SIDEBAR ── */
+.eq-vault-row{display:grid;grid-template-columns:1fr 220px;gap:12px;margin-bottom:20px}
+.equity-section{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 20px;position:relative}
 .equity-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.equity-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)}
+.equity-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
 .tf-toggles{display:flex;gap:3px}
-.tf-btn{background:transparent;border:1px solid var(--border);border-radius:4px;padding:3px 10px;color:var(--text-dim);font-family:inherit;font-size:10px;cursor:pointer;transition:all .2s;letter-spacing:.05em}
-.tf-btn:hover{color:var(--text);border-color:var(--text-dim)}
-.tf-btn.active{background:var(--bg-accent);color:var(--gold);border-color:var(--gold-dim)}
+.tf-btn{background:transparent;border:1px solid var(--bd);border-radius:4px;padding:3px 10px;color:var(--dim);font-family:inherit;font-size:10px;cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.tf-btn:hover{color:var(--text);border-color:var(--dim)}
+.tf-btn.active{background:#1A1425;color:var(--gold);border-color:var(--gold-dim)}
 .equity-chart{width:100%;height:160px;display:block;cursor:crosshair}
-.eq-tooltip{position:absolute;background:#12101dee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.eq-tooltip{position:absolute;background:#0D0A14ee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
 .eq-tooltip .eq-tt-price{color:var(--gold);font-weight:700;font-size:15px}
-.eq-tooltip .eq-tt-time{color:var(--text-dim);font-size:10px;margin-top:2px}
+.eq-tooltip .eq-tt-time{color:var(--dim);font-size:10px;margin-top:2px}
 .eq-tooltip .eq-tt-change{font-size:11px;margin-top:2px}
-.eq-crosshair-v{position:absolute;width:1px;background:var(--gold-dim);pointer-events:none;opacity:0;transition:opacity .15s;z-index:5}
-.eq-crosshair-h{position:absolute;height:1px;background:var(--gold-dim);pointer-events:none;opacity:0;transition:opacity .15s;z-index:5}
+.eq-crosshair-v,.eq-crosshair-h{position:absolute;background:var(--gold-dim);pointer-events:none;opacity:0;transition:opacity .15s;z-index:5}
 .eq-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold-glow);pointer-events:none;opacity:0;transition:opacity .15s;z-index:6;transform:translate(-4px,-4px)}
-.vault-sidebar{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:16px 20px}
-.vault-sidebar .stat-label{margin-bottom:4px}
-.vault-sidebar .stat-value{font-size:18px}
+
+.vault-sidebar{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 20px}
+.vault-sidebar .kl{margin-bottom:4px}
 .vault-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.vault-divider{height:1px;margin:12px 0;background:linear-gradient(90deg,transparent,#d4a84633,transparent)}
-.vault-addr{font-size:10px;color:var(--text-dim);word-break:break-all;line-height:1.8;margin-top:4px}
+.vault-divider{height:1px;margin:12px 0;background:linear-gradient(90deg,transparent,#D4A84333,transparent)}
+.vault-addr{font-size:10px;color:var(--dim);word-break:break-all;line-height:1.8;margin-top:4px}
 .vault-btn{display:block;text-align:center;margin-top:10px;font-family:inherit;font-size:10px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;text-decoration:none;padding:10px 12px;border:1px solid var(--gold-dim);border-radius:6px;transition:all .2s}
-.vault-btn:hover{background:#d4a84612;border-color:var(--gold)}
-.vault-btn.dim{color:var(--text-dim);border-color:var(--border)}
-.vault-btn.dim:hover{color:var(--text);border-color:var(--text-dim)}
-.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:18px}
-.tab{background:transparent;color:var(--text-dim);border:none;border-bottom:2px solid transparent;padding:10px 20px;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;letter-spacing:.08em;transition:all .2s}
+.vault-btn:hover{background:#D4A84312;border-color:var(--gold)}
+.vault-btn.dim{color:var(--dim);border-color:var(--bd)}
+.vault-btn.dim:hover{color:var(--text);border-color:var(--dim)}
+
+/* ── TABS + TOPBAR ── */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--bd);margin-bottom:0}
+.tab{background:transparent;color:var(--dim);border:none;border-bottom:2px solid transparent;padding:10px 20px;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;letter-spacing:.08em;transition:all .2s}
 .tab:hover{color:var(--text)}
-.tab.active{color:var(--gold);border-bottom-color:var(--gold);background:var(--bg-accent);font-weight:700}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);background:var(--sf);font-weight:700}
 .panel{display:none}.panel.active{display:block}
-.table-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.table-header{display:grid;padding:10px 16px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-dim);background:var(--bg-accent);border-bottom:1px solid var(--border)}
-.table-row{display:grid;padding:10px 16px;font-size:13px;border-bottom:1px solid var(--border);align-items:center;transition:background .15s}
-.table-row:hover{background:var(--bg-card-hover)}.table-row:last-child{border-bottom:none}
+
+.topbar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--sf);border:1px solid var(--bd);border-top:none;border-radius:0 0 8px 8px;margin-bottom:14px}
+.lbl{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase}
+.vt{display:flex;gap:2px;margin-left:12px}
+.vb{background:transparent;border:1px solid var(--bd);border-radius:4px;padding:4px 12px;color:var(--dim);font-family:inherit;font-size:10px;cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.vb:hover{color:var(--text);border-color:var(--dim)}
+.vb.on{background:var(--bd);color:var(--gold);border-color:var(--gold-dim)}
+
+/* Freshness badge */
+.fresh{font-size:8px;color:var(--dim);letter-spacing:1px;margin-left:auto;padding:3px 8px;border:1px solid var(--bd);border-radius:4px;white-space:nowrap;text-transform:uppercase}
+.fresh.live{color:var(--gn);border-color:#4ADE8040}
+
+/* ── SIMPLE VIEW CARDS ── */
+.crd{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 20px;margin-bottom:10px}
+.crd-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.coin-badge{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--gold)}
+.dir-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700}
+.dir-badge.long{background:#4ADE8018;color:var(--gn);border:1px solid #4ADE8033}
+.dir-badge.short{background:#F8717118;color:var(--rd);border:1px solid #F8717133}
+.crd-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.crd-stats div{display:flex;flex-direction:column;gap:2px}
+.crd-stats .cs-label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+.crd-stats .cs-val{font-size:14px;font-weight:600}
+.signal-status{margin-top:10px;padding:8px 12px;background:#7B5EA710;border:1px solid #7B5EA730;border-radius:6px;font-size:11px;color:var(--purple-light)}
+
+/* ── METER (P&L bar) ── */
+.m{margin-top:10px}
+.ml{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:3px}
+.mb{width:100%;height:6px;background:#1A1425;border-radius:3px;overflow:hidden}
+.mf{height:100%;border-radius:3px;transition:width .5s}
+.mfg{background:var(--gn)}.mfy{background:var(--gold)}.mfr{background:var(--rd)}
+.mv{font-size:10px;margin-top:2px;color:var(--dim)}
+
+/* ── ACTIVITY FEED ── */
+.activity-section{margin-top:14px}
+.activity-section .lbl{font-size:10px;margin-bottom:8px;display:block}
+.ai{display:grid;grid-template-columns:10px 1fr auto auto;align-items:center;gap:8px;padding:7px 12px;border-bottom:1px solid #2D1B4E30}
+.ai:last-child{border-bottom:none}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dg{background:var(--gn)}.dy{background:var(--gold)}.dr{background:var(--rd)}
+.at2{font-size:11px;color:var(--text)}
+.am{font-size:11px;font-weight:700}
+.atm{font-size:9px;color:var(--dim)}
+
+/* ── DETAILED TABLE ── */
+.table-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+.table-header{display:grid;padding:10px 16px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-dim);background:#0D0A14;border-bottom:1px solid var(--bd)}
+.table-row{display:grid;padding:10px 16px;font-size:13px;border-bottom:1px solid #2D1B4E30;align-items:center;transition:background .15s}
+.table-row:hover{background:#1A142580}
+.table-row:last-child{border-bottom:none}
 .pos-grid{grid-template-columns:70px 60px 90px 100px 100px 60px 1fr}
 .trade-grid{grid-template-columns:70px 60px 130px 90px 1fr}
-.dir-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700}
-.dir-badge.long{background:#22c55e18;color:var(--green);border:1px solid #22c55e33}
-.dir-badge.short{background:#ef444418;color:var(--red);border:1px solid #ef444433}
-.empty-state{text-align:center;padding:40px 20px;color:var(--text-dim);font-size:14px}
+.empty-state{text-align:center;padding:40px 20px;color:var(--dim);font-size:14px}
 .empty-state .icon{font-size:32px;margin-bottom:12px;opacity:.3}
+
+/* ── RATIOS (detailed view) ── */
+.ratios-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
+.ratios-row .k{padding:10px 14px;text-align:center}
+.ratios-row .kl{margin-bottom:4px;font-size:9px}
+.ratios-row .kv{font-size:20px}
+
+/* ── REFRESH BAR ── */
 .refresh-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--gold));transition:width 1s linear;z-index:100}
-.footer{text-align:center;padding:20px 0;margin-top:20px;border-top:1px solid var(--border);font-size:11px;color:var(--text-muted)}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:20px 0;margin-top:20px;border-top:1px solid var(--bd);font-size:11px;color:var(--muted)}
+
+/* ── RESPONSIVE ── */
 @media(max-width:900px){
   .container{padding:12px 10px}
   .header{padding:12px 0 10px}.brand-main{font-size:22px}.brand-sub{font-size:9px}
-  .stats-row{grid-template-columns:repeat(2,1fr);gap:8px}.stats-row .stat-card:last-child{grid-column:span 2}
-  .stat-value{font-size:20px}
-  .ratios-row{grid-template-columns:repeat(2,1fr);gap:8px}.ratios-row .stat-value{font-size:18px}
+  .kpi{grid-template-columns:1fr 1fr;gap:8px}
+  .kv{font-size:20px}
+  .ratios-row{grid-template-columns:repeat(3,1fr);gap:8px}.ratios-row .kv{font-size:16px}
   .eq-vault-row{grid-template-columns:1fr!important;gap:10px!important}
   .equity-chart{height:120px}
   .tabs{overflow-x:auto}.tab{padding:10px 14px;font-size:11px;white-space:nowrap}
   .pos-grid{grid-template-columns:55px 50px 70px 80px 80px 45px 1fr;font-size:11px}
   .trade-grid{grid-template-columns:55px 50px 100px 70px 1fr;font-size:11px}
   .table-header{font-size:8px;padding:8px 10px}.table-row{padding:8px 10px}
+  .crd-stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .kpi{grid-template-columns:1fr 1fr}
+  .kv{font-size:16px}
+  .ratios-row{grid-template-columns:1fr 1fr;gap:6px}
+  .crd-stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .kpi{grid-template-columns:1fr 1fr;gap:6px;padding:0 2px}
+  .k{padding:8px 10px}
+  .kl{font-size:7px}
+  .kv{font-size:14px}
+  .crd{margin:0 0 6px;padding:10px}
+  .topbar{padding:10px 12px}
+  .tip .tt{max-width:200px;font-size:9px}
 }
 </style>
 </head>
@@ -102,27 +196,32 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="brand-tag"><span class="status-dot live" id="statusDot"></span><span id="statusText">Connecting...</span> · <span id="lastUpdate">—</span> · <a href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank" style="color:var(--gold-dim);text-decoration:none">View on Hyperliquid ↗</a></div>
 </div>
 
-<!-- Row 1: Core Stats -->
-<div class="stats-row">
-  <div class="stat-card"><div class="stat-label">Vault Equity</div><div class="stat-value" id="equity">—</div><div class="stat-sub" id="depositorsSub">Loading…</div></div>
-  <div class="stat-card"><div class="stat-label">All-Time PnL</div><div class="stat-value green" id="allTimePnl">—</div><div class="stat-sub" id="allTimePnlSub">Since Jan 2025</div></div>
-  <div class="stat-card"><div class="stat-label">Unrealised PnL</div><div class="stat-value neutral" id="unrealPnl">—</div><div class="stat-sub" id="openCountSub">0 open positions</div></div>
-  <div class="stat-card"><div class="stat-label">Active Positions</div><div class="stat-value neutral" id="activePos">0</div><div class="stat-sub">HYPE · AVAX</div></div>
-  <div class="stat-card"><div class="stat-label">Closed Trades</div><div class="stat-value purple" id="totalTrades">—</div><div class="stat-sub" id="realisedSub">Realised PnL: —</div></div>
+<!-- ═══ KPI ROW (always visible) ═══ -->
+<div class="kpi" id="main-kpi">
+  <div class="k ac" id="kpi-pnl">
+    <div class="kl" id="kl-pnl"></div>
+    <div class="kv vg" id="kv-pnl">—</div>
+    <div class="ks" id="ks-pnl">Since Jan 2025</div>
+  </div>
+  <div class="k" id="kpi-pos">
+    <div class="kl" id="kl-pos"></div>
+    <div class="kv vg" id="kv-pos">—</div>
+    <div class="ks" id="ks-pos">HYPE · AVAX</div>
+  </div>
+  <div class="k">
+    <div class="kl" id="kl-equity"></div>
+    <div class="kv vg" id="kv-equity">—</div>
+    <div class="ks" id="ks-equity">Loading...</div>
+  </div>
+  <div class="k">
+    <div class="kl" id="kl-signal"></div>
+    <div class="kv vg" id="kv-signal">—</div>
+    <div class="ks" id="ks-signal">RSI crossover</div>
+  </div>
 </div>
 
-<!-- Row 2: Ratios -->
-<div class="ratios-row">
-  <div class="stat-card"><div class="stat-label">Profit Factor</div><div class="stat-value neutral" id="profitFactor">—</div></div>
-  <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value neutral" id="winRate">—</div></div>
-  <div class="stat-card"><div class="stat-label">Sharpe</div><div class="stat-value neutral" id="sharpe">—</div></div>
-  <div class="stat-card"><div class="stat-label">Sortino</div><div class="stat-value neutral" id="sortino">—</div></div>
-  <div class="stat-card"><div class="stat-label">Avg Win</div><div class="stat-value green" id="avgWin">—</div></div>
-  <div class="stat-card"><div class="stat-label">Avg Loss</div><div class="stat-value red" id="avgLoss">—</div></div>
-</div>
-
-<!-- Equity Curve + Vault Details -->
-<div class="eq-vault-row" style="display:grid;grid-template-columns:1fr 220px;gap:12px;margin-bottom:20px">
+<!-- ═══ EQUITY CURVE + VAULT SIDEBAR ═══ -->
+<div class="eq-vault-row">
   <div class="equity-section" id="equitySection">
     <div class="equity-header">
       <div class="equity-title">Equity Curve · <span id="curvePts">—</span></div>
@@ -138,17 +237,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="eq-dot" id="eqDot"></div>
   </div>
   <div class="vault-sidebar">
-    <div class="stat-label" style="margin-bottom:10px;font-size:11px;color:var(--gold);letter-spacing:.15em">Vault Details</div>
+    <div class="kl" style="margin-bottom:10px;font-size:11px;color:var(--gold);letter-spacing:.15em">VAULT DETAILS</div>
     <div class="vault-grid">
-      <div><div class="stat-label">Depositors</div><div class="stat-value" id="depCount" style="font-size:22px">—</div></div>
-      <div><div class="stat-label">Profit Share</div><div class="stat-value" style="font-size:22px">10%</div></div>
+      <div><div class="kl" id="kl-dep"></div><div class="kv" id="depCount" style="font-size:22px">—</div></div>
+      <div><div class="kl" id="kl-share"></div><div class="kv" style="font-size:22px">10%</div></div>
     </div>
     <div class="vault-divider"></div>
-    <div class="stat-label">Strategy</div>
+    <div class="kl">Strategy</div>
     <div style="font-size:13px;color:var(--gold);margin-top:4px;letter-spacing:.06em">HYPE · AVAX</div>
-    <div style="font-size:11px;color:var(--text-dim);margin-top:2px">Soomario v3 · Hyperliquid Perps</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:2px">Soomario v3 · Hyperliquid Perps</div>
     <div class="vault-divider"></div>
-    <div class="stat-label">Vault Address</div>
+    <div class="kl">Vault Address</div>
     <div class="vault-addr">0x8bd03b8a06612cdb83ebee91e901dae9203ef537</div>
     <div class="vault-divider"></div>
     <a class="vault-btn" href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank">Deposit Into Vault ↗</a>
@@ -156,23 +255,76 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   </div>
 </div>
 
-<!-- Tabs -->
+<!-- ═══ TABS ═══ -->
 <div class="tabs">
   <button class="tab active" data-panel="positions">Positions</button>
   <button class="tab" data-panel="trades">Trade Log</button>
 </div>
 
+<!-- ═══ POSITIONS PANEL ═══ -->
 <div class="panel active" id="panel-positions">
-  <div class="table-wrap">
-    <div class="table-header pos-grid"><span>Coin</span><span>Side</span><span>Size</span><span>Entry</span><span>Notional</span><span>Lev</span><span>Unrealised PnL</span></div>
-    <div id="posBody"><div class="empty-state"><div class="icon">📡</div>Loading positions…</div></div>
+  <div class="topbar" id="t-pos">
+    <span class="lbl">Positions</span>
+    <div class="vt">
+      <button class="vb on" onclick="vw('pos','s')">Simple</button>
+      <button class="vb" onclick="vw('pos','d')">Detailed</button>
+    </div>
+    <span class="fresh" id="pos-fresh">Connecting...</span>
+  </div>
+  <!-- Simple view (default) -->
+  <div id="pos-s">
+    <div id="posSimple"><div class="empty-state"><div class="icon">📡</div>Loading positions...</div></div>
+    <div class="activity-section" id="activitySection">
+      <span class="lbl">Recent Activity</span>
+      <div id="activityFeed"><div style="padding:12px;color:var(--dim);font-size:11px">Loading activity...</div></div>
+    </div>
+  </div>
+  <!-- Detailed view -->
+  <div id="pos-d" class="hid">
+    <div class="table-wrap">
+      <div class="table-header pos-grid"><span>Coin</span><span>Side</span><span>Size</span><span>Entry</span><span>Notional</span><span>Lev</span><span>Unrealised PnL</span></div>
+      <div id="posBody"><div class="empty-state"><div class="icon">📡</div>Loading positions...</div></div>
+    </div>
   </div>
 </div>
 
+<!-- ═══ TRADES PANEL ═══ -->
 <div class="panel" id="panel-trades">
-  <div class="table-wrap">
-    <div class="table-header trade-grid"><span>Coin</span><span>Side</span><span>Date</span><span>Price</span><span>P&L</span></div>
-    <div id="tradesBody"><div class="empty-state"><div class="icon">📊</div>Loading trade history…</div></div>
+  <div class="topbar" id="t-trades">
+    <span class="lbl">Trade Log</span>
+    <div class="vt">
+      <button class="vb on" onclick="vw('trades','s')">Simple</button>
+      <button class="vb" onclick="vw('trades','d')">Detailed</button>
+    </div>
+    <span class="fresh" id="trades-fresh">Connecting...</span>
+  </div>
+  <!-- Simple: activity feed + stats -->
+  <div id="trades-s">
+    <!-- Summary ratios -->
+    <div class="ratios-row" id="ratiosRow">
+      <div class="k"><div class="kl" id="kl-pf"></div><div class="kv" id="profitFactor">—</div></div>
+      <div class="k"><div class="kl" id="kl-wr"></div><div class="kv" id="winRate">—</div></div>
+      <div class="k"><div class="kl" id="kl-sh"></div><div class="kv" id="sharpe">—</div></div>
+      <div class="k"><div class="kl" id="kl-so"></div><div class="kv" id="sortino">—</div></div>
+      <div class="k"><div class="kl" id="kl-aw"></div><div class="kv vgn" id="avgWin">—</div></div>
+      <div class="k"><div class="kl" id="kl-al"></div><div class="kv vrd" id="avgLoss">—</div></div>
+    </div>
+    <div id="tradesSimple"><div class="empty-state"><div class="icon">📊</div>Loading trade history...</div></div>
+  </div>
+  <!-- Detailed: full table -->
+  <div id="trades-d" class="hid">
+    <div class="ratios-row" id="ratiosRowDetail">
+      <div class="k"><div class="kl" id="kl-pf2"></div><div class="kv" id="profitFactor2">—</div></div>
+      <div class="k"><div class="kl" id="kl-wr2"></div><div class="kv" id="winRate2">—</div></div>
+      <div class="k"><div class="kl" id="kl-sh2"></div><div class="kv" id="sharpe2">—</div></div>
+      <div class="k"><div class="kl" id="kl-so2"></div><div class="kv" id="sortino2">—</div></div>
+      <div class="k"><div class="kl" id="kl-aw2"></div><div class="kv vgn" id="avgWin2">—</div></div>
+      <div class="k"><div class="kl" id="kl-al2"></div><div class="kv vrd" id="avgLoss2">—</div></div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-header trade-grid"><span>Coin</span><span>Side</span><span>Date</span><span>Price</span><span>P&L</span></div>
+      <div id="tradesBody"><div class="empty-state"><div class="icon">📊</div>Loading trade history...</div></div>
+    </div>
   </div>
 </div>
 
@@ -180,6 +332,77 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </div>
 
 <script>
+// ═══════════════════════════════════════════
+//  TOOLTIP HELPER
+// ═══════════════════════════════════════════
+function T(label, tip, cls) {
+  return '<span class="tip' + (cls ? ' ' + cls : '') + '" onclick="this.classList.toggle(\'show\');event.stopPropagation()">'
+    + label + '<i class="ti">?</i><span class="tt">' + tip + '</span></span>';
+}
+document.addEventListener('click', () =>
+  document.querySelectorAll('.tip.show').forEach(t => t.classList.remove('show'))
+);
+
+// ═══════════════════════════════════════════
+//  SIMPLE / DETAILED TOGGLE
+// ═══════════════════════════════════════════
+function vw(tab, mode) {
+  const s = document.getElementById(tab + '-s');
+  const d = document.getElementById(tab + '-d');
+  if (s) s.classList.toggle('hid', mode !== 's');
+  if (d) d.classList.toggle('hid', mode !== 'd');
+  const p = document.getElementById('t-' + tab);
+  if (p) p.querySelectorAll('.vb').forEach(b =>
+    b.classList.toggle('on', b.textContent.trim().toLowerCase()[0] === mode)
+  );
+}
+
+// ═══════════════════════════════════════════
+//  FRESHNESS BADGE
+// ═══════════════════════════════════════════
+function setFresh(tabId) {
+  const el = document.getElementById(tabId + '-fresh');
+  if (el) { el.textContent = 'Just now'; el.classList.add('live');
+    setTimeout(() => el.classList.remove('live'), 3000); }
+}
+setInterval(() => {
+  document.querySelectorAll('.fresh').forEach(el => {
+    if (!el.classList.contains('live')) el.textContent = 'Auto-refresh active';
+  });
+}, 60000);
+
+// ═══════════════════════════════════════════
+//  INJECT TOOLTIP LABELS (on load)
+// ═══════════════════════════════════════════
+function initTooltips() {
+  // KPI row
+  document.getElementById('kl-pnl').innerHTML = T('Vault P&L', 'Total profit or loss in the vault since launch, including closed trades and open positions. This is your actual return.');
+  document.getElementById('kl-pos').innerHTML = T('HYPE Position', 'Current HYPE trade direction and leverage. Long means expecting price to rise.');
+  document.getElementById('kl-equity').innerHTML = T('Vault Value', 'Total value of the vault right now, including open positions and available cash.');
+  document.getElementById('kl-signal').innerHTML = T('Last Signal', 'When the RSI crossover last triggered a trade entry or exit.', 'tip-r');
+
+  // Vault sidebar
+  document.getElementById('kl-dep').innerHTML = T('Depositors', 'Number of people who have deposited funds into this vault.');
+  document.getElementById('kl-share').innerHTML = T('Profit Share', 'The fee taken from profits only. 10% profit share means if the vault makes $1,000, $100 goes to Soomario.', 'tip-r');
+
+  // Ratios (Simple trades view)
+  document.getElementById('kl-pf').innerHTML = T('Profit Factor', 'Total gains divided by total losses. Above 1.5 is good, above 2 is great.');
+  document.getElementById('kl-wr').innerHTML = T('Win Rate', 'Percentage of trades that made money. A trade closed for any profit counts as a win.');
+  document.getElementById('kl-sh').innerHTML = T('Sharpe', 'Measures return vs risk. Above 1 is good, above 2 is great, above 3 is exceptional.');
+  document.getElementById('kl-so').innerHTML = T('Sortino', 'Like Sharpe but only penalises downside risk. Higher is better.');
+  document.getElementById('kl-aw').innerHTML = T('Avg Win', 'Average dollar profit on winning trades.');
+  document.getElementById('kl-al').innerHTML = T('Avg Loss', 'Average dollar loss on losing trades. Smaller is better.', 'tip-r');
+
+  // Ratios (Detailed trades view — duplicates)
+  document.getElementById('kl-pf2').innerHTML = T('Profit Factor', 'Total gains divided by total losses. Above 1.5 is good, above 2 is great.');
+  document.getElementById('kl-wr2').innerHTML = T('Win Rate', 'Percentage of trades that made money. A trade closed for any profit counts as a win.');
+  document.getElementById('kl-sh2').innerHTML = T('Sharpe', 'Measures return vs risk. Above 1 is good, above 2 is great, above 3 is exceptional.');
+  document.getElementById('kl-so2').innerHTML = T('Sortino', 'Like Sharpe but only penalises downside risk. Higher is better.');
+  document.getElementById('kl-aw2').innerHTML = T('Avg Win', 'Average dollar profit on winning trades.');
+  document.getElementById('kl-al2').innerHTML = T('Avg Loss', 'Average dollar loss on losing trades. Smaller is better.', 'tip-r');
+}
+initTooltips();
+
 // ═══════════════════════════════════════════
 //  CONFIG
 // ═══════════════════════════════════════════
@@ -201,9 +424,10 @@ const LEGACY_TRADES=[{"coin":"HYPE","side":"LONG","pnl":-7.08911,"px":40.296,"ti
 const round=(n,d=2)=>Math.round(n*10**d)/10**d;
 const fmt=(n,d=2)=>n==null?'—':'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const fmtUsd=(n,d=2)=>n==null?'—':(n>=0?'+':'−')+'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-const col=n=>n>=0?'var(--green)':'var(--red)';
+const col=n=>n>=0?'var(--gn)':'var(--rd)';
 function set(id,text,color){const el=document.getElementById(id);if(!el)return;if(text!==undefined)el.textContent=text;if(color!==undefined)el.style.color=color}
 function fmtDate(ms){if(!ms)return'—';const d=new Date(ms);return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+function timeAgo(ms){if(!ms)return'—';const diff=Date.now()-ms;const m=Math.floor(diff/60000);if(m<1)return'Just now';if(m<60)return m+'m ago';const h=Math.floor(m/60);if(h<24)return h+'h ago';const d=Math.floor(h/24);return d+'d ago'}
 
 // ═══════════════════════════════════════════
 //  API + PARSING
@@ -265,21 +489,21 @@ function drawEquityChart(data){
   const toX=i=>(i/(data.length-1))*W,toY=v=>chartH-((v-min)/range)*(chartH-10)-5;
   // Fill
   const grad=ctx.createLinearGradient(0,0,0,chartH);
-  grad.addColorStop(0,'#d4a84630');grad.addColorStop(1,'#d4a84600');
+  grad.addColorStop(0,'#D4A84330');grad.addColorStop(1,'#D4A84300');
   ctx.beginPath();ctx.moveTo(0,chartH);data.forEach((d,i)=>ctx.lineTo(toX(i),toY(d.equity)));ctx.lineTo(W,chartH);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
   // Line
-  ctx.beginPath();data.forEach((d,i)=>{i===0?ctx.moveTo(toX(i),toY(d.equity)):ctx.lineTo(toX(i),toY(d.equity))});ctx.strokeStyle='#d4a846';ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();data.forEach((d,i)=>{i===0?ctx.moveTo(toX(i),toY(d.equity)):ctx.lineTo(toX(i),toY(d.equity))});ctx.strokeStyle='#D4A843';ctx.lineWidth=2;ctx.stroke();
   // End dot
-  const last=data[data.length-1];ctx.beginPath();ctx.arc(toX(data.length-1),toY(last.equity),4,0,Math.PI*2);ctx.fillStyle='#d4a846';ctx.fill();ctx.strokeStyle='#d4a84666';ctx.lineWidth=8;ctx.stroke();
+  const last=data[data.length-1];ctx.beginPath();ctx.arc(toX(data.length-1),toY(last.equity),4,0,Math.PI*2);ctx.fillStyle='#D4A843';ctx.fill();ctx.strokeStyle='#D4A84366';ctx.lineWidth=8;ctx.stroke();
   // Y labels
-  ctx.fillStyle='#6b6158';ctx.font='10px JetBrains Mono';ctx.textAlign='left';ctx.fillText('$'+min.toFixed(0),4,chartH-4);
-  ctx.textAlign='right';ctx.fillText('$'+max.toFixed(0),W-4,12);ctx.fillStyle='#d4a846';ctx.fillText('$'+last.equity.toFixed(2),W-4,chartH-4);
+  ctx.fillStyle='#8A7FA0';ctx.font='10px JetBrains Mono';ctx.textAlign='left';ctx.fillText('$'+min.toFixed(0),4,chartH-4);
+  ctx.textAlign='right';ctx.fillText('$'+max.toFixed(0),W-4,12);ctx.fillStyle='#D4A843';ctx.fillText('$'+last.equity.toFixed(2),W-4,chartH-4);
   // Time axis
   ctx.fillStyle='#4a4340';ctx.font='9px JetBrains Mono';ctx.textAlign='center';
   const numLabels=Math.min(6,data.length);
   for(let i=0;i<numLabels;i++){const idx=Math.floor(i*(data.length-1)/(numLabels-1));const d=data[idx];if(!d||!d.ts)continue;const dt=new Date(d.ts);const label=(dt.getMonth()+1)+'/'+dt.getDate()+' '+dt.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});ctx.fillText(label,toX(idx),H-3)}
   // Baseline
-  ctx.strokeStyle='#1e1a2e';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,chartH);ctx.lineTo(W,chartH);ctx.stroke();
+  ctx.strokeStyle='#2D1B4E';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,chartH);ctx.lineTo(W,chartH);ctx.stroke();
   chartMeta={data,W,H,chartH,min,max,range,toX,toY};
 }
 
@@ -294,7 +518,7 @@ function drawEquityChart(data){
     const ci=Math.max(0,Math.min(data.length-1,Math.round(mx/W*(data.length-1))));
     const pt=data[ci];if(!pt)return;
     const px=toX(ci),py=toY(pt.equity);
-    const sec=canvas.parentElement,co=canvas.offsetTop;
+    const co=canvas.offsetTop;
     cv.style.cssText='position:absolute;left:'+(canvas.offsetLeft+px)+'px;top:'+co+'px;height:'+chartH+'px;width:1px;background:var(--gold-dim);opacity:0.6;pointer-events:none;z-index:5';
     ch.style.cssText='position:absolute;left:'+canvas.offsetLeft+'px;top:'+(co+py)+'px;height:1px;width:'+W+'px;background:var(--gold-dim);opacity:0.4;pointer-events:none;z-index:5';
     dot.style.cssText='position:absolute;left:'+(canvas.offsetLeft+px)+'px;top:'+(co+py)+'px;width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold-glow);pointer-events:none;opacity:1;z-index:6;transform:translate(-4px,-4px)';
@@ -302,8 +526,8 @@ function drawEquityChart(data){
     const change=pt.equity-CURVE_START,changePct=change/CURVE_START*100;
     tt.innerHTML='<div class="eq-tt-price">$'+pt.equity.toFixed(2)+'</div><div class="eq-tt-time">'+timeStr+'</div><div class="eq-tt-change" style="color:'+col(change)+'">'+(change>=0?'+':'')+change.toFixed(2)+' ('+(changePct>=0?'+':'')+changePct.toFixed(2)+'%)</div>';
     let tx=canvas.offsetLeft+px+14,ty=co+py-40;
-    if(tx+160>sec.clientWidth)tx=canvas.offsetLeft+px-170;if(ty<co)ty=co+py+14;
-    tt.style.cssText='position:absolute;left:'+tx+'px;top:'+ty+'px;background:#12101dee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:1;z-index:10;white-space:nowrap';
+    if(tx+160>canvas.parentElement.clientWidth)tx=canvas.offsetLeft+px-170;if(ty<co)ty=co+py+14;
+    tt.style.cssText='position:absolute;left:'+tx+'px;top:'+ty+'px;background:#0D0A14ee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:1;z-index:10;white-space:nowrap';
   });
   canvas.addEventListener('mouseleave',function(){tt.style.opacity='0';cv.style.opacity='0';ch.style.opacity='0';dot.style.opacity='0'});
 })();
@@ -321,6 +545,91 @@ function redrawChart(){
     drawEquityChart(lastLiveCurve);
     document.getElementById('curvePts').textContent=lastLiveCurve.length+' snapshot'+(lastLiveCurve.length!==1?'s':'');
   }
+}
+
+// ═══════════════════════════════════════════
+//  RENDER: SIMPLE POSITIONS (card-based)
+// ═══════════════════════════════════════════
+function renderSimplePositions(positions, unrealised) {
+  const el = document.getElementById('posSimple');
+  if (!positions.length) {
+    el.innerHTML = '<div class="crd"><div class="empty-state" style="padding:20px"><div class="icon">🎯</div>No open positions — waiting for RSI crossover signal</div></div>';
+    return;
+  }
+  let html = '';
+  for (const p of positions) {
+    const dc = p.side === 'LONG' ? 'long' : 'short';
+    const pnlColor = p.unrealPnl >= 0 ? 'var(--gn)' : 'var(--rd)';
+    const meterPct = Math.min(100, Math.max(2, Math.abs(p.pnlPct) * 5));
+    const meterClass = p.unrealPnl >= 0 ? 'mfg' : 'mfr';
+    html += '<div class="crd">'
+      + '<div class="crd-head">'
+      + '<span class="coin-badge">' + p.coin + '</span>'
+      + '<span class="dir-badge ' + dc + '">' + p.side + '</span>'
+      + '<span style="margin-left:auto;font-size:11px;color:var(--dim)">' + p.lev + 'x leverage</span>'
+      + '</div>'
+      + '<div class="crd-stats">'
+      + '<div><span class="cs-label">' + T('Entry Price', 'The price at which this trade was opened.') + '</span><span class="cs-val">' + fmt(p.entryPx, 4) + '</span></div>'
+      + '<div><span class="cs-label">' + T('Notional', 'Total value of the position (size times price).') + '</span><span class="cs-val">' + fmt(p.notional) + '</span></div>'
+      + '<div><span class="cs-label">' + T('Unrealised P&L', 'Paper profit or loss. Not locked in until the trade closes.', 'tip-r') + '</span><span class="cs-val" style="color:' + pnlColor + ';font-weight:700">' + fmtUsd(p.unrealPnl) + ' (' + (p.pnlPct >= 0 ? '+' : '') + p.pnlPct + '%)</span></div>'
+      + '</div>'
+      + '<div class="m"><div class="ml">P&L</div><div class="mb"><div class="mf ' + meterClass + '" style="width:' + meterPct + '%"></div></div></div>'
+      + '</div>';
+  }
+  el.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+//  RENDER: ACTIVITY FEED
+// ═══════════════════════════════════════════
+function renderActivityFeed(allClosed) {
+  const el = document.getElementById('activityFeed');
+  if (!allClosed.length) {
+    el.innerHTML = '<div style="padding:12px;color:var(--dim);font-size:11px">No recent activity</div>';
+    return;
+  }
+  const recent = allClosed.slice(0, 8);
+  let html = '';
+  for (const t of recent) {
+    const dotClass = t.pnl >= 0 ? 'dg' : 'dr';
+    const action = t.side === 'LONG' ? 'bought' : 'sold short';
+    const result = t.pnl >= 0 ? 'closed for profit' : 'closed at a loss';
+    const amColor = t.pnl >= 0 ? 'var(--gn)' : 'var(--rd)';
+    html += '<div class="ai">'
+      + '<div class="dot ' + dotClass + '"></div>'
+      + '<div class="at2">' + t.coin + ' ' + action + ' at $' + t.px.toFixed(2) + ' — ' + result + '</div>'
+      + '<div class="am" style="color:' + amColor + '">' + fmtUsd(t.pnl) + '</div>'
+      + '<div class="atm">' + timeAgo(t.time) + '</div>'
+      + '</div>';
+  }
+  el.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+//  RENDER: SIMPLE TRADES (card feed)
+// ═══════════════════════════════════════════
+function renderSimpleTrades(allClosed) {
+  const el = document.getElementById('tradesSimple');
+  if (!allClosed.length) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">📊</div>No closed trades yet</div>';
+    return;
+  }
+  const recent = allClosed.slice(0, 20);
+  let html = '<div class="crd" style="padding:10px 16px">';
+  for (const t of recent) {
+    const dotClass = t.pnl >= 0 ? 'dg' : 'dr';
+    const action = t.side === 'LONG' ? 'bought' : 'sold short';
+    const result = t.pnl >= 0 ? 'profit' : 'loss';
+    const amColor = t.pnl >= 0 ? 'var(--gn)' : 'var(--rd)';
+    html += '<div class="ai">'
+      + '<div class="dot ' + dotClass + '"></div>'
+      + '<div class="at2">' + t.coin + ' ' + action + ' at $' + t.px.toFixed(2) + ' (' + result + ')</div>'
+      + '<div class="am" style="color:' + amColor + '">' + fmtUsd(t.pnl) + '</div>'
+      + '<div class="atm">' + fmtDate(t.time) + '</div>'
+      + '</div>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
 }
 
 // ═══════════════════════════════════════════
@@ -351,48 +660,91 @@ function render({vault,state,fills}){
   if(equity>0)lastLiveCurve=pushCurve(equity);
   redrawChart();
 
-  // ── Stats Row 1 ──
-  set('equity',fmt(equity),'var(--gold)');
-  set('depositorsSub',depositors+(depositors===1?' depositor':' depositors'));
-  set('depCount',String(depositors));
-
-  const pnlEl=document.getElementById('allTimePnl');
-  pnlEl.textContent=fmtUsd(allTimePnl);pnlEl.style.color=col(allTimePnl);pnlEl.className='stat-value '+(allTimePnl>=0?'green':'red');
+  // ── KPI ROW ──
+  const pnlEl=document.getElementById('kv-pnl');
+  pnlEl.textContent=fmtUsd(allTimePnl);
+  pnlEl.className='kv '+(allTimePnl>=0?'vgn':'vrd');
   const allTimePct=LEGACY_DEPOSIT>0?round(allTimePnl/LEGACY_DEPOSIT*100,2):0;
-  set('allTimePnlSub',(allTimePct>=0?'+':'')+allTimePct+'% since Jan 2025');
+  set('ks-pnl',(allTimePct>=0?'+':'')+allTimePct+'% since Jan 2025');
 
-  const upEl=document.getElementById('unrealPnl');
-  upEl.textContent=fmtUsd(unrealised);upEl.style.color=col(unrealised);upEl.className='stat-value '+(unrealised>=0?'green':'red');
-  set('openCountSub',positions.length+' open position'+(positions.length!==1?'s':''));
-  set('activePos',String(positions.length));
-  set('totalTrades',metrics?String(metrics.total):'—');
-  set('realisedSub',metrics?'Realised: '+fmtUsd(metrics.totalPnl):'No closed trades');
+  // Hero glow when strongly positive
+  const heroKpi=document.getElementById('kpi-pnl');
+  if(allTimePct>10)heroKpi.classList.add('glow');else heroKpi.classList.remove('glow');
 
-  // ── Stats Row 2 ──
-  if(metrics){
-    const pfEl=document.getElementById('profitFactor');pfEl.textContent=metrics.pf===999?'∞':metrics.pf!=null?metrics.pf.toFixed(2):'—';pfEl.className='stat-value '+(metrics.pf>=2?'green':metrics.pf>=1?'neutral':'red');
-    const wrEl=document.getElementById('winRate');wrEl.textContent=metrics.winRate.toFixed(1)+'%';wrEl.className='stat-value '+(metrics.winRate>=70?'green':metrics.winRate>=50?'neutral':'red');
-    set('sharpe',metrics.sharpe!=null?metrics.sharpe.toFixed(2):'—');
-    set('sortino',metrics.sortino!=null?metrics.sortino.toFixed(2):'—');
-    set('avgWin',metrics.avgWin>0?'+$'+Math.abs(metrics.avgWin).toFixed(2):'—');
-    set('avgLoss',metrics.avgLoss<0?'−$'+Math.abs(metrics.avgLoss).toFixed(2):'—');
+  // KPI: HYPE Position
+  const hypePos=positions.find(p=>p.coin==='HYPE');
+  if(hypePos){
+    document.getElementById('kv-pos').textContent=hypePos.side+' '+hypePos.lev+'x';
+    document.getElementById('kv-pos').className='kv '+(hypePos.side==='LONG'?'vgn':'vrd');
+    set('ks-pos',fmtUsd(hypePos.unrealPnl)+' unrealised');
+  } else {
+    set('kv-pos','Flat');
+    document.getElementById('kv-pos').className='kv';
+    set('ks-pos','No HYPE position');
   }
 
-  // ── Positions Tab ──
+  // KPI: Vault Value
+  set('kv-equity',fmt(equity));
+  document.getElementById('kv-equity').className='kv vg';
+  set('ks-equity',depositors+(depositors===1?' depositor':' depositors'));
+
+  // KPI: Last Signal
+  if(allClosed.length){
+    const lastTrade=allClosed[0];
+    set('kv-signal',timeAgo(lastTrade.time));
+    document.getElementById('kv-signal').className='kv';
+    set('ks-signal',lastTrade.coin+' '+lastTrade.side.toLowerCase()+' '+fmtUsd(lastTrade.pnl));
+  }
+
+  // Vault sidebar
+  set('depCount',String(depositors));
+
+  // ── SIMPLE POSITIONS ──
+  renderSimplePositions(positions, unrealised);
+  renderActivityFeed(allClosed);
+
+  // ── DETAILED POSITIONS ──
   const posBody=document.getElementById('posBody');
   if(!positions.length){posBody.innerHTML='<div class="empty-state"><div class="icon">🎯</div>No open positions right now</div>'}
   else{posBody.innerHTML=positions.map(p=>{const dc=p.side==='LONG'?'long':'short';return'<div class="table-row pos-grid"><span style="font-weight:700;font-family:Cinzel,serif">'+p.coin+'</span><span><span class="dir-badge '+dc+'">'+p.side+'</span></span><span>'+p.size.toFixed(4)+'</span><span>'+fmt(p.entryPx,4)+'</span><span>'+fmt(p.notional)+'</span><span>'+p.lev+'x</span><span style="color:'+col(p.unrealPnl)+';font-weight:700">'+fmtUsd(p.unrealPnl)+' <span style="font-size:10px;opacity:.7">('+(p.pnlPct>=0?'+':'−')+Math.abs(p.pnlPct)+'%)</span></span></div>'}).join('')}
 
-  // ── Trades Tab ──
+  // ── TRADES (Simple + Detailed) ──
+  renderSimpleTrades(allClosed);
+
   const tradesBody=document.getElementById('tradesBody');
   if(!allClosed.length){tradesBody.innerHTML='<div class="empty-state"><div class="icon">📊</div>No closed trades yet</div>'}
-  else{tradesBody.innerHTML=allClosed.slice(0,100).map(t=>{const dc=t.side==='LONG'?'long':'short';return'<div class="table-row trade-grid"><span style="font-weight:700;font-family:Cinzel,serif">'+t.coin+'</span><span><span class="dir-badge '+dc+'">'+t.side+'</span></span><span style="color:var(--text-dim);font-size:11px">'+fmtDate(t.time)+'</span><span>'+fmt(t.px,4)+'</span><span style="color:'+col(t.pnl)+';font-weight:700">'+fmtUsd(t.pnl)+'</span></div>'}).join('')}
+  else{tradesBody.innerHTML=allClosed.slice(0,100).map(t=>{const dc=t.side==='LONG'?'long':'short';return'<div class="table-row trade-grid"><span style="font-weight:700;font-family:Cinzel,serif">'+t.coin+'</span><span><span class="dir-badge '+dc+'">'+t.side+'</span></span><span style="color:var(--dim);font-size:11px">'+fmtDate(t.time)+'</span><span>'+fmt(t.px,4)+'</span><span style="color:'+col(t.pnl)+';font-weight:700">'+fmtUsd(t.pnl)+'</span></div>'}).join('')}
 
-  // ── Status ──
+  // ── METRICS RATIOS (both views) ──
+  if(metrics){
+    const pfVal=metrics.pf===999?'∞':metrics.pf!=null?metrics.pf.toFixed(2):'—';
+    const pfCls='kv '+(metrics.pf>=2?'vgn':metrics.pf>=1?'':'vrd');
+    const wrCls='kv '+(metrics.winRate>=70?'vgn':metrics.winRate>=50?'':'vrd');
+
+    // Simple view ratios
+    document.getElementById('profitFactor').textContent=pfVal;document.getElementById('profitFactor').className=pfCls;
+    document.getElementById('winRate').textContent=metrics.winRate.toFixed(1)+'%';document.getElementById('winRate').className=wrCls;
+    set('sharpe',metrics.sharpe!=null?metrics.sharpe.toFixed(2):'—');
+    set('sortino',metrics.sortino!=null?metrics.sortino.toFixed(2):'—');
+    set('avgWin',metrics.avgWin>0?'+$'+Math.abs(metrics.avgWin).toFixed(2):'—');
+    set('avgLoss',metrics.avgLoss<0?'−$'+Math.abs(metrics.avgLoss).toFixed(2):'—');
+
+    // Detailed view ratios (duplicate)
+    document.getElementById('profitFactor2').textContent=pfVal;document.getElementById('profitFactor2').className=pfCls;
+    document.getElementById('winRate2').textContent=metrics.winRate.toFixed(1)+'%';document.getElementById('winRate2').className=wrCls;
+    set('sharpe2',metrics.sharpe!=null?metrics.sharpe.toFixed(2):'—');
+    set('sortino2',metrics.sortino!=null?metrics.sortino.toFixed(2):'—');
+    set('avgWin2',metrics.avgWin>0?'+$'+Math.abs(metrics.avgWin).toFixed(2):'—');
+    set('avgLoss2',metrics.avgLoss<0?'−$'+Math.abs(metrics.avgLoss).toFixed(2):'—');
+  }
+
+  // ── STATUS + FRESHNESS ──
   document.getElementById('statusDot').className='status-dot live';
   document.getElementById('statusText').textContent='Live';
   document.getElementById('lastUpdate').textContent=new Date().toLocaleTimeString();
   document.getElementById('footTs').textContent='Last updated: '+new Date().toLocaleTimeString()+'  ·  Soomario Elite Vault  ·  Hyperliquid public API';
+  setFresh('pos');
+  setFresh('trades');
 }
 
 // ═══════════════════════════════════════════
