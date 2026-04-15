@@ -180,46 +180,119 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 /* ── RESPONSIVE ── */
 @media(max-width:600px){.kpi{grid-template-columns:1fr 1fr}.kv{font-size:16px}.scanner-grid{grid-template-columns:1fr}.g21{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr}.pos-info-grid{grid-template-columns:1fr 1fr}.trade-row{grid-template-columns:60px 44px 1fr auto;gap:5px}.t-date{display:none}}
 @media(max-width:480px){.kpi{grid-template-columns:1fr 1fr;gap:6px}.main{padding:8px 10px 32px}.k{padding:8px 10px}.kl{font-size:7px}.kv{font-size:14px}.crd{padding:10px 12px}.topbar{padding:8px 10px}.dtab{padding:8px 12px;font-size:9px}.nav{padding:8px 10px}.nav-t1{font-size:14px}.tip .tt{max-width:200px;font-size:9px}}
-/* ── SITE NAV ── */
-.site-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:#0a0812;border-bottom:1px solid #1e1a2e}
-.site-nav-left{display:flex;align-items:center;gap:10px;text-decoration:none}
-.site-nav-left img{height:36px}
-.site-nav-brand{display:flex;flex-direction:column}
-.site-nav-brand-t1{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:3px}
-.site-nav-brand-t2{font-size:8px;color:var(--gold);letter-spacing:3px}
-.site-nav-center{display:flex;gap:0}
-.site-nav-center a{color:var(--dim);text-decoration:none;padding:8px 18px;font-size:11px;letter-spacing:.08em;transition:color .15s;position:relative}
-.site-nav-center a:hover{color:var(--text)}
-.site-nav-center a.active{color:var(--text)}
-.site-nav-center a.active::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--gold)}
-.site-nav-right{display:flex;align-items:center;gap:12px}
-.site-nav-member{color:var(--gold);text-decoration:none;font-size:11px;letter-spacing:.05em;transition:opacity .15s}
-.site-nav-member:hover{opacity:.8}
-.site-nav-cta{font-size:11px;padding:7px 18px;background:linear-gradient(135deg,#D4A843,#c49a38);color:#0a0812;border:none;border-radius:6px;font-weight:700;text-decoration:none;letter-spacing:.05em;cursor:pointer;transition:opacity .15s;font-family:inherit}
-.site-nav-cta:hover{opacity:.9}
-@media(max-width:768px){.site-nav-center{display:none}.site-nav{padding:8px 14px}}
-@media(max-width:480px){.site-nav-brand-t1{font-size:12px}.site-nav-cta{padding:5px 12px;font-size:10px}}
+/* ── SITE NAV v1.2 ── */
+.site-nav{background:#0f0c18;border-bottom:1px solid #2a2440;padding:0 40px;position:relative;z-index:50;display:flex;align-items:center;height:56px;font-family:'JetBrains Mono',monospace}
+.sn-left{display:flex;align-items:center;gap:12px;text-decoration:none}
+.sn-logo{width:42px;height:42px;border-radius:50%;object-fit:contain}
+.sn-brand-text{display:flex;flex-direction:column;gap:0}
+.sn-brand-name{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--text);letter-spacing:.12em}
+.sn-brand-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.25em;text-transform:uppercase}
+.sn-links{display:flex;align-items:center;gap:0;margin:0 auto}
+.sn-links>a,.sn-dd>a{color:var(--dim);text-decoration:none;padding:18px 20px;font-size:12px;letter-spacing:.06em;transition:color .2s;display:flex;flex-direction:column;align-items:center}
+.sn-links>a:hover,.sn-dd>a:hover,.sn-dd:hover>a{color:var(--text)}
+.sn-links>a.sn-active,.sn-dd>a.sn-active{color:var(--text)}
+.sn-dot{display:block;width:3px;height:3px;border-radius:50%;background:var(--gold-dim);margin-top:4px}
+.sn-dd{position:relative}
+.sn-dd-menu{visibility:hidden;opacity:0;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#12101d;border:1px solid #2a2440;border-radius:10px;padding:10px 0;min-width:220px;z-index:200;transition:opacity .2s,visibility .2s;box-shadow:0 12px 32px rgba(0,0,0,.5)}
+.sn-dd:hover .sn-dd-menu{visibility:visible;opacity:1}
+.sn-dd-item{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;text-decoration:none;color:var(--text);font-size:12px;letter-spacing:.04em;transition:background .15s}
+.sn-dd-item:hover{background:#1a1630}
+.sn-dd-badge{font-size:9px;font-weight:700;letter-spacing:.1em;padding:3px 10px;border-radius:4px}
+.sn-dd-badge.live{background:#4ADE8020;color:#4ADE80;border:1px solid #4ADE8040}
+.sn-dd-badge.paper{background:#7B5EA720;color:#9B7DC7;border:1px solid #7B5EA740}
+.sn-dd-badge.sub{background:#D4A84320;color:#D4A843;border:1px solid #D4A84340}
+.sn-dd-sep{height:1px;background:#2a2440;margin:6px 14px}
+.sn-dd-label{padding:6px 20px 2px;font-size:8px;letter-spacing:.15em;color:var(--dim);text-transform:uppercase}
+.sn-right{display:flex;align-items:center;gap:16px}
+.sn-member{color:var(--gold);font-size:12px;letter-spacing:.06em;text-decoration:none;transition:color .2s}
+.sn-member:hover{color:#e8c364}
+.sn-cta{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#0D0A14;background:linear-gradient(135deg,#D4A843,#e8c364);border:none;border-radius:6px;padding:9px 22px;text-decoration:none;letter-spacing:.08em;transition:all .2s;cursor:pointer;white-space:nowrap}
+.sn-cta:hover{box-shadow:0 0 14px #D4A84350;transform:translateY(-1px)}
+.sn-ham{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:8px;line-height:1}
+.sn-mobile-menu{display:none;position:absolute;top:56px;left:0;right:0;background:#0f0c18;border-bottom:1px solid #2a2440;padding:12px 20px;z-index:199;flex-direction:column;gap:4px}
+.sn-mobile-menu.open{display:flex}
+.sn-mobile-menu a{color:var(--dim);text-decoration:none;padding:10px 0;font-size:12px;letter-spacing:.06em;border-bottom:1px solid #1a1630}
+.sn-mobile-menu a:hover{color:var(--text)}
+.sn-mobile-menu a.sn-active{color:var(--gold)}
+.sn-mobile-menu .sn-dd-badge{margin-left:8px}
+@media(max-width:900px){.site-nav{padding:0 16px;height:50px}.sn-links{display:none}.sn-right .sn-member{display:none}.sn-brand-name{font-size:13px}.sn-logo{width:34px;height:34px}.sn-cta{padding:7px 14px;font-size:10px}.sn-ham{display:block}}
 </style>
 </head>
 <body>
-<div class="site-nav">
-  <a class="site-nav-left" href="https://soomariostrategies.com">
-    <img src="https://soomariostrategies.com/soomario-logo.png" alt="Soomario" onerror="this.style.display='none'">
-    <div class="site-nav-brand">
-      <span class="site-nav-brand-t1">SOOMARIO</span>
-      <span class="site-nav-brand-t2">STRATEGIES</span>
+<!-- ═══ SITE NAV v1.2 ═══ -->
+<nav class="site-nav">
+  <a href="https://soomariostrategies.com" class="sn-left">
+    <img src="soomario-logo.png" alt="Soomario" class="sn-logo" onerror="this.style.display='none'">
+    <div class="sn-brand-text">
+      <span class="sn-brand-name">SOOMARIO</span>
+      <span class="sn-brand-sub">STRATEGIES</span>
     </div>
   </a>
-  <div class="site-nav-center">
-    <a href="https://soomariostrategies.com/#products">Products</a>
-    <a href="https://soomariostrategies.com/learn/index.html">Learn</a>
-    <a class="active" href="#">Dashboards</a>
-    <a href="https://soomariostrategies.com/tools/compare.html">Tools</a>
+  <div class="sn-links">
+    <div class="sn-dd">
+      <a href="https://soomariostrategies.com/#products">Products<span class="sn-dot"></span></a>
+      <div class="sn-dd-menu">
+        <div class="sn-dd-label">Subscription</div>
+        <a href="https://soomariostrategies.com/products/accumulator.html" class="sn-dd-item">Accumulator<span class="sn-dd-badge sub">$7/mo</span></a>
+        <div class="sn-dd-sep"></div>
+        <div class="sn-dd-label">Vault Products</div>
+        <a href="https://soomariostrategies.com/products/elite.html" class="sn-dd-item">Elite<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/products/max-pain.html" class="sn-dd-item">Max Pain<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/products/zones.html" class="sn-dd-item">Zones<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/products/alpha.html" class="sn-dd-item">Alpha<span class="sn-dd-badge live">LIVE</span></a>
+        <div class="sn-dd-sep"></div>
+        <div class="sn-dd-label">Coming Soon</div>
+        <a href="https://soomariostrategies.com/products/farms.html" class="sn-dd-item">Farms<span class="sn-dd-badge paper">PAPER</span></a>
+        <a href="#" class="sn-dd-item" style="opacity:.5">Rotation<span class="sn-dd-badge paper">PAPER</span></a>
+      </div>
+    </div>
+    <div class="sn-dd">
+      <a href="https://soomariostrategies.com/learn/index.html">Learn<span class="sn-dot"></span></a>
+      <div class="sn-dd-menu" style="min-width:200px">
+        <a href="https://soomariostrategies.com/learn/what-is-dca.html" class="sn-dd-item">What is DCA?</a>
+        <a href="https://soomariostrategies.com/learn/liquidation-zones.html" class="sn-dd-item">Liquidation Zones</a>
+        <a href="https://soomariostrategies.com/learn/how-vaults-work.html" class="sn-dd-item">How Vaults Work</a>
+        <div class="sn-dd-sep"></div>
+        <a href="https://soomariostrategies.com/learn/index.html" class="sn-dd-item" style="color:var(--gold)">View All →</a>
+      </div>
+    </div>
+    <div class="sn-dd">
+      <a href="#" onclick="return false" class="sn-active" style="cursor:default">Dashboards<span class="sn-dot"></span></a>
+      <div class="sn-dd-menu">
+        <a href="https://accumulator.soomariostrategies.com/dashboard/preview" target="_blank" class="sn-dd-item">Accumulator<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/dashboard.html" class="sn-dd-item">Elite<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="#" class="sn-dd-item" style="color:var(--gold)">Max Pain Vault<span class="sn-dd-badge live">LIVE</span></a>
+        <a href="https://soomariostrategies.com/zones-dashboard.html" class="sn-dd-item">Zones<span class="sn-dd-badge live">LIVE</span></a>
+        <div class="sn-dd-sep"></div>
+        <a href="https://soomariostrategies.com/farms-dashboard.html" class="sn-dd-item">Farms<span class="sn-dd-badge paper">PAPER</span></a>
+        <a href="https://alpha.soomariostrategies.com" target="_blank" class="sn-dd-item">Alpha<span class="sn-dd-badge live">LIVE</span></a>
+      </div>
+    </div>
+    <div class="sn-dd">
+      <a href="https://soomariostrategies.com/tools/compare.html">Tools<span class="sn-dot"></span></a>
+      <div class="sn-dd-menu" style="min-width:190px">
+        <a href="https://soomariostrategies.com/tools/compare.html" class="sn-dd-item">Compare Products</a>
+        <a href="https://soomariostrategies.com/calculator.html" class="sn-dd-item">DCA Calculator</a>
+      </div>
+    </div>
   </div>
-  <div class="site-nav-right">
-    <a class="site-nav-member" href="https://whop.com/soomario-strategies/" target="_blank">Member Login</a>
-    <a class="site-nav-cta" href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank">Get Started</a>
+  <button class="sn-ham" onclick="document.getElementById('snMobile').classList.toggle('open')" aria-label="Menu">☰</button>
+  <div class="sn-right">
+    <a href="https://whop.com/soomario-strategies/" target="_blank" class="sn-member">Member Login</a>
+    <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="sn-cta">Get Started</a>
   </div>
+</nav>
+<div class="sn-mobile-menu" id="snMobile">
+  <a href="https://soomariostrategies.com">Home</a>
+  <a href="https://soomariostrategies.com/#products">Products</a>
+  <a href="https://soomariostrategies.com/learn/index.html">Learn</a>
+  <a href="https://soomariostrategies.com/dashboard.html">Elite Dashboard</a>
+  <a href="#" class="sn-active">Max Pain Dashboard</a>
+  <a href="https://soomariostrategies.com/zones-dashboard.html">Zones Dashboard</a>
+  <a href="https://soomariostrategies.com/farms-dashboard.html">Farms Dashboard</a>
+  <a href="https://alpha.soomariostrategies.com" target="_blank">Alpha Dashboard</a>
+  <a href="https://soomariostrategies.com/tools/compare.html">Compare Products</a>
+  <a href="https://whop.com/soomario-strategies/" target="_blank" style="color:var(--gold)">Member Login</a>
 </div>
 <nav class="nav">
   <a class="nav-brand" href="#"><div><div class="nav-t1">SOOMARIO</div><div class="nav-t2">MAX PAIN VAULT</div></div></a>
