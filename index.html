@@ -4,81 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Algorithmic trading on Hyperliquid. 7 strategies, vault-only model, 10% profit share, 100% self-custody. Start free with the Accumulator.">
-  <meta property="og:title" content="Soomario Strategies — Algorithmic Trading, Built for Transparency">
-  <meta property="og:description" content="7 strategies. Vault-only model. 100% self-custody. Start free.">
+  <meta name="description" content="Algorithmic trading signals delivered to Telegram. See the live performance of the Soomario Accumulator — $1,500/month model portfolio, updated every minute. 7-day free trial.">
+  <meta property="og:title" content="Soomario Strategies — Buy the Dip, Automatically">
+  <meta property="og:description" content="The Accumulator tells you exactly what to buy and when. See live performance since Feb 2026. 7-day free trial, then $7/mo.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://soomariostrategies.com">
   <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@SoomarioStrat">
-  <title>Soomario Strategies — Algorithmic Trading, Built for Transparency</title>
+  <title>Soomario Strategies — Algorithmic Trading Signals, Delivered</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="canonical" href="https://soomariostrategies.com/">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- ACCUMULATOR HERO                                        -->
+  <!-- 1. HERO — single CTA, conversion focused                -->
   <!-- ═══════════════════════════════════════════════════════ -->
   <section class="hero">
     <div class="hero__bg">
-      <div class="hero__bg-orb" style="width:500px;height:500px;background:var(--gold);opacity:0.03;top:15%;left:20%;"></div>
-      <div class="hero__bg-orb" style="width:400px;height:400px;background:var(--purple-card);opacity:0.08;bottom:20%;right:20%;"></div>
+      <div class="hero__bg-orb" style="width:520px;height:520px;background:var(--gold);opacity:0.035;top:10%;left:18%;"></div>
+      <div class="hero__bg-orb" style="width:420px;height:420px;background:var(--violet);opacity:0.06;bottom:15%;right:18%;"></div>
     </div>
 
-    <div class="container text-center" style="position:relative;z-index:1;">
+    <div class="container text-center" style="position:relative;z-index:1;padding-top:3rem;">
       <img src="soomario-logo.png" alt="Soomario Strategies" class="hero__logo">
 
-      <div class="section-label" style="margin-bottom:0.75rem;">START YOUR FREE TRIAL</div>
-
-      <h1 class="hero__headline">
-        <span class="gradient-text">Smart DCA Signals.</span><br>
-        <span style="color:var(--text-primary);">14 Assets. $7/month.</span>
+      <h1 class="hero__headline" style="margin-top:1rem;">
+        <span class="gradient-text">Buy the dip.</span><br>
+        <span style="color:var(--text-primary);">Automatically.</span>
       </h1>
 
-      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:580px;margin:1rem auto 0;">
-        The Soomario Accumulator tells you exactly what to buy, when, and how much — powered by RSI and moving average scoring across 14 AI and crypto assets.
+      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:580px;margin:1.5rem auto 0;line-height:1.55;">
+        The Accumulator tells you exactly what to buy, when, and how much across 14 AI stocks and cryptos. Signals delivered to Telegram the moment they fire.
       </p>
 
-      <p class="hero__sub">7-DAY FREE TRIAL · TELEGRAM SIGNALS · FULL DASHBOARD · CANCEL ANYTIME</p>
+      <p class="hero__sub" style="margin-top:1.5rem;">7-DAY FREE TRIAL · TELEGRAM SIGNALS · CANCEL ANYTIME</p>
 
       <div class="hero__ctas">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Start Free Trial →</a>
-        <a href="https://accumulator.soomariostrategies.com/dashboard" target="_blank" class="btn btn--outline btn--lg">Preview Dashboard</a>
+        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Try Accumulator Free for 7 Days →</a>
+        <a href="#showcase" class="btn btn--ghost btn--lg">See live performance ↓</a>
       </div>
 
-      <!-- Live Stats from API -->
-      <div class="metrics" style="max-width:500px;margin:2rem auto 0;grid-template-columns:repeat(2,1fr);">
-        <div class="metric">
-          <div class="metric__value gradient-text" id="heroStatPnl">—</div>
-          <div class="metric__label">Model P&L</div>
-        </div>
-        <div class="metric">
-          <div class="metric__value gradient-text" id="heroStatBuys">—</div>
-          <div class="metric__label">Buys Executed</div>
-        </div>
-        <div class="metric">
-          <div class="metric__value gradient-text" id="heroStatAssets">14</div>
-          <div class="metric__label">Assets Tracked</div>
-        </div>
-        <div class="metric">
-          <div class="metric__value" style="color:var(--green);">Free</div>
-          <div class="metric__label">7-Day Trial</div>
-        </div>
-      </div>
-
-      <!-- Live Price Ticker -->
-      <div style="margin-top:1.5rem;">
-        <div style="display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-bottom:0.5rem;">
+      <div style="margin-top:2.5rem;">
+        <div style="display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-bottom:0.75rem;">
           <div class="live-dot"></div>
-          <span class="font-display" style="font-size:0.75rem;letter-spacing:0.15em;color:var(--green);">ACCUMULATOR LIVE P&L</span>
-          <span class="font-body" style="font-size:0.85rem;color:var(--text-muted);">Real positions · updated every 3 min</span>
+          <span style="font-family:var(--font-display);font-size:0.72rem;letter-spacing:0.18em;color:var(--green);font-weight:600;">LIVE PRICES</span>
+          <span style="font-size:0.82rem;color:var(--text-muted);">Real model portfolio · updated every minute</span>
         </div>
         <div class="ticker">
           <div class="ticker__track" id="tickerTrack"></div>
@@ -88,9 +66,294 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- TRUST BAR                                               -->
+  <!-- 2. LIVE PERFORMANCE SHOWCASE                            -->
   <!-- ═══════════════════════════════════════════════════════ -->
-  <div class="section--alt" style="padding:1.25rem 0;">
+  <section class="showcase" id="showcase">
+    <div class="showcase__inner">
+
+      <div class="showcase__caption">
+        <div class="showcase__eyebrow">
+          <span class="showcase__pulse"></span>
+          <span>LIVE · SINCE FEB 9, 2026</span>
+        </div>
+        <h2 class="showcase__headline">
+          <span class="gradient-text">If you'd followed every signal</span><br>
+          at $1,500/month…
+        </h2>
+        <div class="showcase__meta">Real trades · real prices · updated every minute</div>
+      </div>
+
+      <div class="showcase-summary" id="scSummary">
+        <div>
+          <div class="showcase-summary__lbl">Total P&amp;L</div>
+          <div class="showcase-summary__big sc-skel" id="scPnl" style="height:60px;width:70%;">&nbsp;</div>
+          <div class="showcase-summary__sub" id="scPnlPct"></div>
+        </div>
+        <div class="showcase-summary__right">
+          <div class="showcase-summary__lbl">Current Value</div>
+          <div class="showcase-summary__val sc-skel" id="scValue" style="height:44px;width:60%;margin-left:auto;">&nbsp;</div>
+          <div class="showcase-summary__vsub" id="scInvested"></div>
+        </div>
+      </div>
+
+      <div class="showcase-curve">
+        <div class="showcase-curve__head">
+          <span class="showcase-curve__title">Equity Curve</span>
+          <div class="showcase-curve__legend">
+            <span><span class="showcase-curve__sw showcase-curve__sw--value"></span>Value</span>
+            <span><span class="showcase-curve__sw showcase-curve__sw--invested"></span>Invested</span>
+          </div>
+        </div>
+        <div class="showcase-curve__canvas-wrap">
+          <canvas id="scChart"></canvas>
+          <div id="scChartEmpty" class="sc-err" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;">Loading performance data…</div>
+        </div>
+      </div>
+
+      <div class="showcase-metrics">
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Profit Factor</div>
+          <div class="sc-pill__val" id="scProfitFactor">—</div>
+          <div class="sc-pill__sub">wins ÷ losses</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Win Rate</div>
+          <div class="sc-pill__val" id="scWinRate">—</div>
+          <div class="sc-pill__sub" id="scWinRateSub">—</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Sharpe Ratio</div>
+          <div class="sc-pill__val" id="scSharpe">—</div>
+          <div class="sc-pill__sub">risk-adjusted return</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">CAGR</div>
+          <div class="sc-pill__val" id="scCagr">—</div>
+          <div class="sc-pill__sub">annualized</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Total Buys</div>
+          <div class="sc-pill__val" id="scTotalBuys">—</div>
+          <div class="sc-pill__sub">signals executed</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Avg Buy</div>
+          <div class="sc-pill__val" id="scAvgBuy">—</div>
+          <div class="sc-pill__sub">per signal</div>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top:1rem;">
+        <a href="https://accumulator.soomariostrategies.com/dashboard" target="_blank" class="btn btn--ghost">View full dashboard →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 3. BUDGET SCALER                                        -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="scaler">
+    <div class="scaler__inner">
+      <h2 class="scaler__headline"><span class="gradient-text">What about your budget?</span></h2>
+      <p class="scaler__lede">Same signals. Same trades. Same prices. Scaled to what you'd actually invest.</p>
+
+      <div class="scaler__card">
+        <div class="scaler__input-row">
+          <span class="scaler__input-lbl">Monthly Budget</span>
+          <span class="scaler__budget" id="slBudget">$1,500</span>
+        </div>
+        <input type="range" min="50" max="5000" step="50" value="1500" class="scaler__slider" id="slRange" aria-label="Monthly budget">
+        <div class="scaler__slider-scale">
+          <span>$50</span>
+          <span>$1,500</span>
+          <span>$5,000</span>
+        </div>
+
+        <div class="scaler__outputs">
+          <div class="scaler__out">
+            <div class="scaler__out-lbl">Your P&amp;L would be</div>
+            <div class="scaler__out-val sc-skel" id="slPnl" style="height:40px;">&nbsp;</div>
+            <div class="scaler__out-sub" id="slPnlSub"></div>
+          </div>
+          <div class="scaler__out">
+            <div class="scaler__out-lbl">Portfolio worth today</div>
+            <div class="scaler__out-val sc-skel" id="slValue" style="height:40px;color:var(--gold);">&nbsp;</div>
+            <div class="scaler__out-sub" id="slValueSub"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scaler__cta">
+        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Get these signals — 7 days free →</a>
+      </div>
+      <p class="scaler__disclaimer">
+        Values scale linearly from the live $1,500/month model. Past performance doesn't guarantee future results — but these are real signals, real prices, and real timestamps since Feb 9, 2026.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 4. VAULT STRATEGIES — discovery                         -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="strategies">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">FOR LARGER DEPOSITS</div>
+        <h2 class="section-title"><span class="gradient-text">Vault Strategies</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;">Hands-off, on-chain. Deposit to a Hyperliquid vault; the bot trades for you. 10% profit share only — no monthly fees, no lockups.</p>
+      </div>
+
+      <div class="strategies-grid">
+
+        <a href="products/elite.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Elite</div>
+            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
+          </div>
+          <div class="strat-card__tagline">HYPE &amp; AVAX directional</div>
+          <p class="strat-card__pitch">Concentrated long-bias bot running the strategy that built Soomario's track record. HYPE-dominant, high conviction.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% profit share</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/alpha.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Alpha</div>
+            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
+          </div>
+          <div class="strat-card__tagline">Market-neutral long/short</div>
+          <p class="strat-card__pitch">228-coin scanner picks strong longs, weak shorts, and holds them as a spread. Works in any market regime.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% profit share</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/max-pain.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Max Pain</div>
+            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
+          </div>
+          <div class="strat-card__tagline">18-coin per-coin tuning</div>
+          <p class="strat-card__pitch">Hybrid TradingView+Python bot trading 18 coins on Hyperliquid. 82% backtest win rate, 3.76 Sharpe, 45-second safety loop.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% profit share</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/zones.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Zones</div>
+            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
+          </div>
+          <div class="strat-card__tagline">DCA at liquidation levels</div>
+          <p class="strat-card__pitch">Places buy orders at aggregated liquidation max-pain zones across Binance, Bybit, OKX. 4-level DCA entries, 21 coins.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% profit share</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/farms.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Farms</div>
+            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
+          </div>
+          <div class="strat-card__tagline">Range-farming grid</div>
+          <p class="strat-card__pitch">Long-only adaptive grid with ATR trailing stops. Profits from sideways range mechanics. In validation phase.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% at launch</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/rotation.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Rotation</div>
+            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
+          </div>
+          <div class="strat-card__tagline">3-sleeve multi-asset</div>
+          <p class="strat-card__pitch">Fastest Horse equity rotation (65%) + zone-DCA crypto core (25%) + hedged shorts (10%). 12-stock MAG universe.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% at launch</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 5. DCA CALCULATOR                                       -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="calc" id="calculator">
+    <div class="calc__inner">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">TRY BEFORE YOU SUBSCRIBE</div>
+        <h2 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Size a Safe Position</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;">Model the Accumulator's daily budget math with your own numbers.</p>
+      </div>
+
+      <div class="calc__card">
+        <div class="calc__row">
+          <span class="scaler__input-lbl">Monthly Budget</span>
+          <span class="scaler__budget" id="calcBudget">$500</span>
+        </div>
+        <input type="range" min="50" max="5000" step="50" value="500" class="scaler__slider calc__slider" id="calcRange" aria-label="Calculator budget">
+        <div class="scaler__slider-scale">
+          <span>$50</span>
+          <span>$1,500</span>
+          <span>$5,000</span>
+        </div>
+
+        <div class="calc__row" style="margin-top:1.5rem;">
+          <span class="scaler__input-lbl">Asset Mix</span>
+        </div>
+        <div class="calc__mix">
+          <button class="calc__mix-btn is-active" data-mix="both">Crypto + Stocks</button>
+          <button class="calc__mix-btn" data-mix="crypto">Crypto only</button>
+          <button class="calc__mix-btn" data-mix="stocks">Stocks only</button>
+        </div>
+
+        <div class="calc__grid">
+          <div class="calc__out">
+            <div class="calc__out-lbl">Safe daily rate</div>
+            <div class="calc__out-val" id="calcDaily">$8.33</div>
+            <div class="calc__out-sub">across 1× signals</div>
+          </div>
+          <div class="calc__out">
+            <div class="calc__out-lbl">Typical signal buy</div>
+            <div class="calc__out-val" id="calcTypical">$20.83</div>
+            <div class="calc__out-sub">at 2.5× multiplier</div>
+          </div>
+          <div class="calc__out">
+            <div class="calc__out-lbl">Crash-day allocation</div>
+            <div class="calc__out-val" id="calcCrash">$41.67</div>
+            <div class="calc__out-sub">at 5× max multiplier</div>
+          </div>
+          <div class="calc__out">
+            <div class="calc__out-lbl">Assets tracked</div>
+            <div class="calc__out-val" id="calcAssets">14</div>
+            <div class="calc__out-sub">AI + crypto</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top:1.75rem;">
+        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--outline btn--lg">Start following these signals →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 6. TRUST BAR                                            -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="section--alt" style="padding:2rem 0;">
     <div class="container">
       <div class="trust-bar">
         <div class="trust-item">
@@ -107,391 +370,25 @@
         </div>
         <div class="trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Live since September 2025
+          Live since Nov 2025
         </div>
       </div>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- PRODUCT CARDS                                           -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section" id="products">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">OUR STRATEGIES</div>
-        <h2 class="section-title"><span class="gradient-text">7 Products. One Ecosystem.</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;max-width:800px;">Vault-only model — we only earn when you earn. 10% of profits, 0% of losses.</p>
-      </div>
-
-      <div class="product-cards">
-
-        <!-- Accumulator -->
-        <a href="products/accumulator.html" class="pcard" style="text-decoration:none;">
-          <div class="pcard__ribbon pcard__ribbon--live">LIVE</div>
-          <div class="pcard__name">Accumulator</div>
-          <div class="pcard__desc">Smart DCA signals for 14 AI & crypto assets. Exact buy amounts, full analytics dashboard.</div>
-          <div class="pcard__rr-label">RISK / REWARD</div>
-          <div class="pcard__dots">
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--risk">Risk</span>
-            <div class="pcard__dots-spacer"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--reward">Reward</span>
-          </div>
-          <div class="pcard__stats" style="grid-template-columns:repeat(4,1fr);">
-            <div class="pcard__stat"><div class="pcard__stat-val">14</div><div class="pcard__stat-lbl">Assets</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">0x</div><div class="pcard__stat-lbl">Leverage</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">DCA</div><div class="pcard__stat-lbl">Strategy</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">Live</div><div class="pcard__stat-lbl">Dashboard</div></div>
-          </div>
-          <div class="pcard__foot">
-            <div>
-              <div class="pcard__price">$7<small>/mo</small></div>
-              <div class="pcard__price-sub">7-day free trial</div>
-            </div>
-            <span class="btn btn--primary btn--sm">Start Free →</span>
-          </div>
-        </a>
-
-        <!-- Elite -->
-        <a href="products/elite.html" class="pcard" style="text-decoration:none;">
-          <div class="pcard__ribbon pcard__ribbon--live">LIVE</div>
-          <div class="pcard__name">Elite</div>
-          <div class="pcard__desc">HYPE-dominant automated portfolio on Hyperliquid. Soomario v3 strategy. Self-custody vault.</div>
-          <div class="pcard__rr-label">RISK / REWARD</div>
-          <div class="pcard__dots">
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--risk">Risk</span>
-            <div class="pcard__dots-spacer"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <span class="pcard__dots-label pcard__dots-label--reward">Reward</span>
-          </div>
-          <div class="pcard__stats">
-            <div class="pcard__stat"><div class="pcard__stat-val">78.6%</div><div class="pcard__stat-lbl">Win Rate</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">2.04</div><div class="pcard__stat-lbl">Profit Factor</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">Vault</div><div class="pcard__stat-lbl">Self-Custody</div></div>
-          </div>
-          <div class="pcard__foot">
-            <div>
-              <div class="pcard__price">Vault<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">10% profit share</div></div>
-            </div>
-            <span class="btn btn--outline btn--sm">Learn More →</span>
-          </div>
-        </a>
-
-        <!-- Max Pain -->
-        <a href="products/max-pain.html" class="pcard" style="text-decoration:none;">
-          <div class="pcard__ribbon pcard__ribbon--live">LIVE</div>
-          <div class="pcard__name">Max Pain</div>
-          <div class="pcard__desc">20 momentum and reversal strategies across 18 crypto coins on Hyperliquid. Tiered leverage, per-coin tuning.</div>
-          <div class="pcard__rr-label">RISK / REWARD</div>
-          <div class="pcard__dots">
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--risk">Risk</span>
-            <div class="pcard__dots-spacer"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--reward">Reward</span>
-          </div>
-          <div class="pcard__stats">
-            <div class="pcard__stat"><div class="pcard__stat-val">18</div><div class="pcard__stat-lbl">Coins</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">3x</div><div class="pcard__stat-lbl">Max Leverage</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">Vault</div><div class="pcard__stat-lbl">Self-Custody</div></div>
-          </div>
-          <div class="pcard__foot">
-            <div>
-              <div class="pcard__price">Vault<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">10% profit share</div></div>
-            </div>
-            <span class="btn btn--outline btn--sm">Learn More →</span>
-          </div>
-        </a>
-
-        <!-- Zones -->
-        <a href="products/zones.html" class="pcard" style="text-decoration:none;">
-          <div class="pcard__ribbon pcard__ribbon--live">LIVE</div>
-          <div class="pcard__name">Zones</div>
-          <div class="pcard__desc">Liquidation zone DCA across 21 coins. 4-level entries, 3-stage exits on Hyperliquid.</div>
-          <div class="pcard__rr-label">RISK / REWARD</div>
-          <div class="pcard__dots">
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--risk">Risk</span>
-            <div class="pcard__dots-spacer"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--reward">Reward</span>
-          </div>
-          <div class="pcard__stats">
-            <div class="pcard__stat"><div class="pcard__stat-val">21</div><div class="pcard__stat-lbl">Coins</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">4-Level</div><div class="pcard__stat-lbl">DCA Entry</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">Vault</div><div class="pcard__stat-lbl">Self-Custody</div></div>
-          </div>
-          <div class="pcard__foot">
-            <div>
-              <div class="pcard__price">Vault<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">vault launching soon</div></div>
-            </div>
-            <span class="btn btn--outline btn--sm">Learn More →</span>
-          </div>
-        </a>
-
-        <!-- Farms -->
-        <a href="products/farms.html" class="pcard" style="text-decoration:none;">
-          <div class="pcard__ribbon pcard__ribbon--soon">PAPER</div>
-          <div class="pcard__name">Farms</div>
-          <div class="pcard__desc">Bidirectional range farming at liquidation zones. Captures round-trip profits as price oscillates. Currently validating in paper mode.</div>
-          <div class="pcard__rr-label">RISK / REWARD</div>
-          <div class="pcard__dots">
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--risk">Risk</span>
-            <div class="pcard__dots-spacer"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--reward">Reward</span>
-          </div>
-          <div class="pcard__stats">
-            <div class="pcard__stat"><div class="pcard__stat-val">50</div><div class="pcard__stat-lbl">Scanned</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">Both</div><div class="pcard__stat-lbl">Long &amp; Short</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">Vault</div><div class="pcard__stat-lbl">Self-Custody</div></div>
-          </div>
-          <div class="pcard__foot">
-            <div>
-              <div class="pcard__price">Vault<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">paper trading</div></div>
-            </div>
-            <span class="btn btn--outline btn--sm">Learn More →</span>
-          </div>
-        </a>
-
-        <!-- Alpha -->
-        <a href="products/alpha.html" class="pcard" style="text-decoration:none;">
-          <div class="pcard__ribbon pcard__ribbon--live">LIVE</div>
-          <div class="pcard__name">Alpha</div>
-          <div class="pcard__desc">Market-neutral spread engine. Long HYPE, short weak alts via 228-coin 5-stage pipeline.</div>
-          <div class="pcard__rr-label">RISK / REWARD</div>
-          <div class="pcard__dots">
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--risk">Risk</span>
-            <div class="pcard__dots-spacer"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <span class="pcard__dots-label pcard__dots-label--reward">Reward</span>
-          </div>
-          <div class="pcard__stats">
-            <div class="pcard__stat"><div class="pcard__stat-val">79.2%</div><div class="pcard__stat-lbl">Win Rate</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">2.69</div><div class="pcard__stat-lbl">Profit Factor</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">500+</div><div class="pcard__stat-lbl">Coins Scanned</div></div>
-          </div>
-          <div class="pcard__foot">
-            <div>
-              <div class="pcard__price">Vault<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">10% profit share</div></div>
-            </div>
-            <span class="btn btn--outline btn--sm">Learn More →</span>
-          </div>
-        </a>
-
-        <!-- Rotation -->
-        <a href="products/rotation.html" class="pcard" style="text-decoration:none;opacity:0.75;">
-          <div class="pcard__ribbon pcard__ribbon--soon">PAPER</div>
-          <div class="pcard__name">Rotation</div>
-          <div class="pcard__desc">Alpha's spread engine applied to stocks. Long strong sectors, short weak ones. Equities equivalent.</div>
-          <div class="pcard__rr-label">RISK / REWARD</div>
-          <div class="pcard__dots">
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--risk">Risk</span>
-            <div class="pcard__dots-spacer"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--on"></div>
-            <div class="pcard__dot pcard__dot--off"></div>
-            <span class="pcard__dots-label pcard__dots-label--reward">Reward</span>
-          </div>
-          <div class="pcard__stats">
-            <div class="pcard__stat"><div class="pcard__stat-val">Stocks</div><div class="pcard__stat-lbl">Market</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">Spread</div><div class="pcard__stat-lbl">Strategy</div></div>
-            <div class="pcard__stat"><div class="pcard__stat-val">TBD</div><div class="pcard__stat-lbl">Timeline</div></div>
-          </div>
-          <div class="pcard__foot">
-            <div>
-              <div class="pcard__price">Vault<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">coming soon</div></div>
-            </div>
-            <span class="btn btn--outline btn--sm">Learn More →</span>
-          </div>
-        </a>
-
-      </div>
-
-      <div class="text-center" style="margin-top:1.5rem;">
-        <a href="tools/compare.html" class="btn btn--ghost">Compare Products Side-by-Side →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- HOW IT WORKS                                            -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">HOW IT WORKS</div>
-        <h2 class="section-title"><span class="gradient-text">Two Ways to Trade</span></h2>
-      </div>
-
-      <div class="steps" style="max-width:900px;margin:0 auto;">
-        <div class="step">
-          <div class="step__title">Signals (Accumulator)</div>
-          <p class="step__text">Subscribe for $7/mo. Receive buy signals via Telegram with exact amounts. Execute trades yourself in your own brokerage. Full dashboard included. 7-day free trial.</p>
-        </div>
-        <div class="step">
-          <div class="step__title">Vaults (Everything Else)</div>
-          <p class="step__text">Deposit USDC into a Hyperliquid vault. Our bots trade automatically. You keep 90% of profits — we take 10% only when you're in profit. Withdraw anytime. Self-custody.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- EDUCATION PREVIEW                                       -->
+  <!-- 7. FINAL CTA                                            -->
   <!-- ═══════════════════════════════════════════════════════ -->
   <section class="section">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">LEARN</div>
-        <h2 class="section-title"><span class="gradient-text">Understand the Strategies</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">We don't just sell signals — we explain how everything works. No black boxes.</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;">
-        <a href="learn/what-is-dca.html" class="card">
-          <div class="card__title">What is Smart DCA?</div>
-          <p class="card__text">How signal-driven dollar-cost averaging improves on basic DCA by timing entries with RSI and moving average scoring.</p>
-        </a>
-        <a href="learn/liquidation-zones.html" class="card">
-          <div class="card__title">Liquidation Zones Explained</div>
-          <p class="card__text">Why large clusters of leveraged positions create predictable price dislocations — and how to trade them.</p>
-        </a>
-        <a href="learn/how-vaults-work.html" class="card">
-          <div class="card__title">How Vaults Work</div>
-          <p class="card__text">The self-custody vault model on Hyperliquid: deposit, let bots trade, verify everything on-chain.</p>
-        </a>
-      </div>
-
-      <div class="text-center" style="margin-top:1.5rem;">
-        <a href="learn/index.html" class="btn btn--ghost">View All Articles →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- FAQ                                                     -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt" id="faq">
-    <div class="container container--narrow">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">FAQ</div>
-        <h2 class="section-title"><span class="gradient-text">Common Questions</span></h2>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Who controls my funds?</button>
-        <div class="faq-answer">
-          <p>You do — always. The Accumulator just sends signals; you execute trades yourself. Vault products (Elite, Zones, Farms, Alpha) use Hyperliquid's self-custody vault model: you deposit USDC, the bot trades, but you can withdraw at any time. The bot can trade with your funds but cannot withdraw them — enforced at the smart contract level.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">How does the vault pricing work?</button>
-        <div class="faq-answer">
-          <p>Simple: 10% profit share. You deposit USDC, the bot trades, and Soomario takes 10% of profits only. If the vault doesn't make money, we don't make money. No monthly fees, no hidden charges. This aligns our incentives perfectly — we only earn when you earn.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Can I verify the trades?</button>
-        <div class="faq-answer">
-          <p>Yes — every trade is visible on-chain through Hyperliquid's public API. Our dashboards pull data directly from the blockchain. No screenshots, no edited results. You can query the API yourself with the vault address if you want to verify independently.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">Which product should I start with?</button>
-        <div class="faq-answer">
-          <p>The <strong>Accumulator</strong> is the easiest entry — $7/mo with a 7-day free trial, no leverage, familiar assets (stocks + crypto). If you want fully automated vault trading, <strong>Elite</strong> and <strong>Zones</strong> are live now. Use our <a href="tools/compare.html" style="color:var(--gold);">product comparison tool</a> to find the best fit.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question">What are the risks?</button>
-        <div class="faq-answer">
-          <p>All trading involves risk. Vault strategies use leverage (2x–10x depending on the product), which amplifies both gains and losses. Drawdowns happen — our backtested max drawdowns range from under 1% to 28%. The Accumulator (no leverage, spot only) is the lowest-risk option. We publish all risk metrics transparently on every product page. Never invest more than you can afford to lose.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- FINAL CTA                                               -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container container--narrow text-center">
-      <h2 class="section-title" style="font-size:clamp(2rem,5vw,3.5rem);">
-        <span class="gradient-text">Start Free. No Risk.</span>
+    <div class="container text-center">
+      <h2 class="section-title" style="margin-bottom:1rem;">
+        <span class="gradient-text">Ready to start?</span>
       </h2>
-      <p style="font-size:1.2rem;color:var(--text-secondary);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;">
-        7-day free trial. 14 assets. Full dashboard. Cancel anytime.
+      <p class="section-subtitle" style="margin:0 auto 2rem;max-width:560px;">
+        Seven days free. Cancel any time. Your first signal usually fires within 24 hours.
       </p>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Start Free Trial →</a>
-        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn btn--outline btn--lg">Join Discord</a>
-      </div>
+      <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Start Free Trial →</a>
+      <div style="margin-top:1rem;font-size:0.85rem;color:var(--text-muted);">$7/month after trial · cancel in one click</div>
     </div>
   </section>
 
@@ -501,48 +398,275 @@
   <script src="components.js"></script>
 
   <script>
-  (function() {
+  (function(){
     var API = 'https://accumulator.soomariostrategies.com/api/portfolio_value';
+    var MODEL_BUDGET = 1500;
 
-    function load() {
-      fetch(API).then(function(r){ return r.json(); }).then(function(data) {
-        if (!data.prices) return;
-        var track = document.getElementById('tickerTrack');
-        if (!track) return;
+    var liveData = null;
 
-        var tickers = Object.keys(data.prices).sort();
-        var html = '';
+    function fmt$(n, dec){
+      if(n == null || isNaN(n)) return '—';
+      dec = dec == null ? 2 : dec;
+      var sign = n < 0 ? '-' : '';
+      var v = Math.abs(n).toLocaleString(undefined, {minimumFractionDigits: dec, maximumFractionDigits: dec});
+      return sign + '$' + v;
+    }
+    function fmtInt(n){
+      if(n == null || isNaN(n)) return '—';
+      return '$' + Math.round(n).toLocaleString();
+    }
+    function fmtPct(n, dec){
+      if(n == null || isNaN(n)) return '—';
+      dec = dec == null ? 2 : dec;
+      return (n >= 0 ? '+' : '') + Number(n).toFixed(dec) + '%';
+    }
+    function fmtSigned$(n){
+      if(n == null || isNaN(n)) return '—';
+      return (n >= 0 ? '+' : '-') + '$' + Math.abs(n).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+    }
 
-        tickers.forEach(function(t) {
-          var isCrypto = t === 'BTC' || t === 'SOL';
-          var p = data.prices[t];
-          var a = data.assets ? data.assets.find(function(x){ return x.asset === t; }) : null;
-          var pnl = a ? a.pnl_pct : null;
-          var priceStr = isCrypto
-            ? '$' + p.toLocaleString(undefined, {maximumFractionDigits:0})
-            : '$' + p.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+    function renderTicker(data){
+      var track = document.getElementById('tickerTrack');
+      if(!track || !data.prices) return;
+      var tickers = Object.keys(data.prices).sort();
+      var html = '';
+      tickers.forEach(function(t){
+        var isCrypto = t === 'BTC' || t === 'SOL';
+        var p = data.prices[t];
+        var a = data.assets ? data.assets.find(function(x){ return x.asset === t; }) : null;
+        var pnl = a ? a.pnl_pct : null;
+        var priceStr = isCrypto
+          ? '$' + p.toLocaleString(undefined, {maximumFractionDigits:0})
+          : '$' + p.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+        var pnlHtml = pnl !== null
+          ? '<span class="ticker__pnl ticker__pnl--' + (pnl >= 0 ? 'up' : 'down') + '">' + (pnl >= 0 ? '+' : '') + pnl.toFixed(1) + '%</span>'
+          : '';
+        html += '<div class="ticker__item"><span class="ticker__symbol">' + t + '</span><span class="ticker__price">' + priceStr + '</span>' + pnlHtml + '</div>';
+      });
+      track.innerHTML = html + html;
+    }
 
-          var pnlHtml = pnl !== null
-            ? '<span class="ticker__pnl ticker__pnl--' + (pnl >= 0 ? 'up' : 'down') + '">' + (pnl >= 0 ? '+' : '') + pnl.toFixed(1) + '%</span>'
-            : '';
+    function removeSkel(el){
+      el.classList.remove('sc-skel');
+      el.style.height = '';
+      el.style.width = '';
+    }
 
-          html += '<div class="ticker__item"><span class="ticker__symbol">' + t + '</span><span class="ticker__price">' + priceStr + '</span>' + pnlHtml + '</div>';
-        });
+    function renderShowcase(data){
+      var pnl = data.total_pnl_usd || 0;
+      var pnlPct = data.total_pnl_pct || 0;
+      var value = data.total_value || 0;
+      var invested = data.total_invested || 0;
+      var positive = pnl >= 0;
+      var m = data.metrics || {};
 
-        track.innerHTML = html + html;
+      var pnlEl = document.getElementById('scPnl');
+      removeSkel(pnlEl);
+      pnlEl.textContent = fmtSigned$(pnl);
+      pnlEl.classList.toggle('is-loss', !positive);
 
-        var pnlEl = document.getElementById('heroStatPnl');
-        if (pnlEl && data.total_pnl_pct !== undefined) {
-          var pnl = data.total_pnl_pct;
-          pnlEl.textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(1) + '%';
-          if (pnl < 0) pnlEl.style.color = 'var(--red)';
+      var pctEl = document.getElementById('scPnlPct');
+      pctEl.textContent = fmtPct(pnlPct, 1) + ' return';
+      pctEl.style.color = positive ? 'var(--green)' : 'var(--red)';
+
+      var valueEl = document.getElementById('scValue');
+      removeSkel(valueEl);
+      valueEl.textContent = fmtInt(value);
+
+      document.getElementById('scInvested').textContent = 'of ' + fmtInt(invested) + ' invested';
+
+      function setPill(id, text, color){
+        var el = document.getElementById(id);
+        if(!el) return;
+        el.textContent = text;
+        el.classList.remove('is-green', 'is-red', 'is-amber');
+        if(color) el.classList.add(color);
+      }
+      function colorFor(val, good, mid){
+        if(val == null || isNaN(val)) return null;
+        if(val >= good) return 'is-green';
+        if(val >= mid) return 'is-amber';
+        return 'is-red';
+      }
+      setPill('scProfitFactor',
+        m.profit_factor != null ? Number(m.profit_factor).toFixed(2) : '—',
+        colorFor(m.profit_factor, 1.5, 1));
+      setPill('scWinRate',
+        m.win_rate_pct != null ? Number(m.win_rate_pct).toFixed(1) + '%' : '—',
+        m.win_rate_pct >= 60 ? 'is-green' : null);
+      document.getElementById('scWinRateSub').textContent =
+        (m.winning_buys || 0) + 'W / ' + (m.losing_buys || 0) + 'L';
+      setPill('scSharpe',
+        m.sharpe_ratio != null ? Number(m.sharpe_ratio).toFixed(2) : '—',
+        m.sharpe_ratio >= 1 ? 'is-green' : null);
+      setPill('scCagr',
+        m.cagr_pct != null ? fmtPct(m.cagr_pct, 1) : '—',
+        m.cagr_pct >= 0 ? 'is-green' : 'is-red');
+      setPill('scTotalBuys', m.total_buys != null ? m.total_buys : '—', null);
+      setPill('scAvgBuy',
+        m.avg_buy_usd != null ? fmt$(m.avg_buy_usd) : '—', null);
+    }
+
+    var chart = null;
+    function renderChart(data){
+      if(!data.equity_curve || data.equity_curve.length < 2){
+        var e = document.getElementById('scChartEmpty');
+        if(e){ e.style.display = 'flex'; e.textContent = 'Not enough data yet — check back soon.'; }
+        return;
+      }
+      var canvas = document.getElementById('scChart');
+      if(!canvas || !window.Chart) return;
+      if(chart) chart.destroy();
+
+      var labels = data.equity_curve.map(function(_, i){ return i + 1; });
+      var invested = data.equity_curve.map(function(p){ return p.invested; });
+      var value = data.equity_curve.map(function(p){ return p.value; });
+
+      chart = new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Portfolio Value',
+              data: value,
+              borderColor: '#C9A961',
+              backgroundColor: 'rgba(201,169,97,0.1)',
+              borderWidth: 2.5,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              pointHoverBackgroundColor: '#C9A961',
+              fill: true,
+              tension: 0.35
+            },
+            {
+              label: 'Invested',
+              data: invested,
+              borderColor: 'rgba(157, 145, 184, 0.5)',
+              borderDash: [5,4],
+              borderWidth: 1.5,
+              pointRadius: 0,
+              fill: false,
+              tension: 0.2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(26, 22, 37, 0.95)',
+              borderColor: 'rgba(201, 169, 97, 0.3)',
+              borderWidth: 1,
+              titleColor: '#c9bbdf',
+              bodyColor: '#f5f0fc',
+              padding: 10,
+              titleFont: { family: 'JetBrains Mono', size: 11 },
+              bodyFont: { family: 'JetBrains Mono', size: 12 },
+              callbacks: {
+                title: function(items){ return 'Signal #' + items[0].label; },
+                label: function(item){ return ' ' + item.dataset.label + ': $' + item.raw.toFixed(2); }
+              }
+            }
+          },
+          scales: {
+            x: { display: false },
+            y: {
+              grid: { color: 'rgba(201,169,97,0.06)', drawBorder: false },
+              ticks: {
+                color: '#9d91b8',
+                font: { family: 'JetBrains Mono', size: 10 },
+                callback: function(v){ return '$' + v.toLocaleString(); },
+                padding: 8
+              },
+              border: { display: false }
+            }
+          }
         }
-        var buysEl = document.getElementById('heroStatBuys');
-        if (buysEl && data.equity_curve) buysEl.textContent = data.equity_curve.length;
-        var assetsEl = document.getElementById('heroStatAssets');
-        if (assetsEl) assetsEl.textContent = Object.keys(data.prices).length;
+      });
+    }
 
-      }).catch(function(){});
+    function renderScaler(){
+      var budget = parseInt(document.getElementById('slRange').value, 10);
+      document.getElementById('slBudget').textContent = '$' + budget.toLocaleString();
+
+      if(!liveData) return;
+
+      var scale = budget / MODEL_BUDGET;
+      var scaledPnl = (liveData.total_pnl_usd || 0) * scale;
+      var scaledValue = (liveData.total_value || 0) * scale;
+      var scaledInvested = (liveData.total_invested || 0) * scale;
+      var pctReturn = liveData.total_pnl_pct || 0;
+      var positive = scaledPnl >= 0;
+
+      var pnlEl = document.getElementById('slPnl');
+      removeSkel(pnlEl);
+      pnlEl.textContent = fmtSigned$(scaledPnl);
+      pnlEl.classList.toggle('is-loss', !positive);
+      document.getElementById('slPnlSub').textContent = fmtPct(pctReturn, 1) + ' return';
+
+      var valEl = document.getElementById('slValue');
+      removeSkel(valEl);
+      valEl.textContent = fmtInt(scaledValue);
+      document.getElementById('slValueSub').textContent = 'from ' + fmtInt(scaledInvested) + ' invested';
+    }
+
+    document.getElementById('slRange').addEventListener('input', renderScaler);
+
+    var calcState = { budget: 500, mix: 'both' };
+    function renderCalc(){
+      var b = calcState.budget;
+      document.getElementById('calcBudget').textContent = '$' + b.toLocaleString();
+      var avgMult = 2.5;
+      var dailyRate = b / (30 * avgMult);
+      var typical = dailyRate * avgMult;
+      var crash = dailyRate * 5;
+      var assetCount = calcState.mix === 'crypto' ? 2 : calcState.mix === 'stocks' ? 12 : 14;
+
+      document.getElementById('calcDaily').textContent = fmt$(dailyRate);
+      document.getElementById('calcTypical').textContent = fmt$(typical);
+      document.getElementById('calcCrash').textContent = fmt$(crash);
+      document.getElementById('calcAssets').textContent = assetCount;
+    }
+
+    document.getElementById('calcRange').addEventListener('input', function(e){
+      calcState.budget = parseInt(e.target.value, 10);
+      renderCalc();
+    });
+
+    document.querySelectorAll('.calc__mix-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.calc__mix-btn').forEach(function(b){ b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        calcState.mix = btn.dataset.mix;
+        renderCalc();
+      });
+    });
+
+    renderCalc();
+
+    function load(){
+      fetch(API)
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if(!data) return;
+          liveData = data;
+          renderTicker(data);
+          renderShowcase(data);
+          renderChart(data);
+          renderScaler();
+        })
+        .catch(function(err){
+          console.warn('showcase fetch failed', err);
+          var chartEl = document.getElementById('scChartEmpty');
+          if(chartEl){
+            chartEl.style.display = 'flex';
+            chartEl.textContent = 'Live data temporarily unavailable — try refreshing.';
+          }
+        });
     }
 
     load();
