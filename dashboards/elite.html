@@ -109,7 +109,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .tf-btn{background:transparent;border:1px solid var(--bd);border-radius:4px;padding:4px 12px;color:var(--dim);font-family:inherit;font-size:10px;cursor:pointer;transition:all .2s;letter-spacing:.05em;font-weight:600}
 .tf-btn:hover{color:var(--text);border-color:var(--dim)}
 .tf-btn.active{background:#1A1425;color:var(--gold);border-color:var(--gold-dim)}
-.equity-chart{width:100%;height:180px;display:block;cursor:crosshair}
+.equity-chart{width:100%;height:280px;display:block;cursor:crosshair}
 .eq-tooltip{position:absolute;background:#0D0A14ee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
 .eq-tooltip .eq-tt-price{color:var(--gold);font-weight:700;font-size:15px}
 .eq-tooltip .eq-tt-time{color:var(--dim);font-size:10px;margin-top:2px}
@@ -200,6 +200,42 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 /* ── FOOTER ── */
 .footer{text-align:center;padding:20px 0;margin-top:20px;border-top:1px solid var(--bd);font-size:11px;color:var(--muted)}
 
+/* ── OVERVIEW CARD TOPBAR (shared across perf/positions/activity cards on overview) ── */
+.crd-topbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.crd-topbar .lbl{font-size:12px}
+.ov-cnt{font-size:10px;color:var(--dim);margin-left:4px}
+
+/* ── OVERVIEW ROW: equity curve + vault info (mirrors Max Pain .row.g21) ── */
+.row{display:grid;gap:10px;margin-bottom:10px}
+.g21{grid-template-columns:2.2fr 1fr}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.divider{height:1px;margin:10px 0;background:linear-gradient(90deg,transparent,rgba(212,168,67,.15),transparent)}
+.chart-section{position:relative}
+
+/* ── PERFORMANCE METRICS GRID ── */
+.perf-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.perf-cell{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:10px 12px}
+.perf-lbl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.perf-val{font-size:20px;font-weight:700;color:var(--gold);line-height:1.1;font-family:'JetBrains Mono',monospace}
+.perf-val.gn{color:var(--gn)}.perf-val.rd{color:var(--rd)}
+.perf-sub{font-size:9px;color:var(--dim);margin-top:4px}
+@media(max-width:900px){.perf-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.perf-grid{grid-template-columns:repeat(2,1fr);gap:6px}.perf-cell{padding:8px 10px}.perf-val{font-size:16px}}
+
+/* ── OVERVIEW OPEN POSITIONS (compact rows) ── */
+.ov-pos-list{display:flex;flex-direction:column;gap:4px}
+.ov-pos-row{display:grid;grid-template-columns:60px 70px 1fr auto;gap:10px;align-items:center;padding:10px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:6px;font-size:12px;transition:border-color .2s}
+.ov-pos-row:hover{border-color:#D4A84333}
+.ov-pos-sym{font-family:'Cinzel',serif;font-weight:700;font-size:14px;color:var(--gold)}
+.ov-pos-side{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;text-align:center;letter-spacing:.06em}
+.ov-pos-side.long{background:#4ADE8018;color:var(--gn);border:1px solid #4ADE8033}
+.ov-pos-side.short{background:#F8717118;color:var(--rd);border:1px solid #F8717133}
+.ov-pos-prices{font-size:11px;color:var(--dim)}
+.ov-pos-prices .cur{color:var(--text)}
+.ov-pos-pnl{font-weight:700;font-size:12px;text-align:right}
+.ov-pos-pnl .pct{display:block;font-size:10px;font-weight:400;margin-top:2px;opacity:.7}
+@media(max-width:480px){.ov-pos-row{grid-template-columns:50px 60px 1fr auto;gap:6px;padding:8px 10px}.ov-pos-prices{font-size:10px}.ov-pos-sym{font-size:12px}}
+
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .container{padding:12px 10px}
@@ -208,7 +244,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   .kv{font-size:20px}
   .ratios-row{grid-template-columns:repeat(3,1fr);gap:8px}.ratios-row .kv{font-size:16px}
   .eq-vault-row{grid-template-columns:1fr!important;gap:10px!important}
-  .equity-chart{height:120px}
+  .g21{grid-template-columns:1fr}
+  .equity-chart{height:140px}
   .tabs{overflow-x:auto}.tab{padding:10px 14px;font-size:11px;white-space:nowrap}
   .pos-grid{grid-template-columns:55px 50px 70px 80px 80px 45px 1fr;font-size:11px}
   .trade-grid{grid-template-columns:55px 50px 100px 70px 1fr;font-size:11px}
@@ -220,6 +257,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   .kv{font-size:16px}
   .ratios-row{grid-template-columns:1fr 1fr;gap:6px}
   .crd-stats{grid-template-columns:1fr 1fr}
+  .mini-grid{grid-template-columns:1fr 1fr;gap:8px}
 }
 @media(max-width:480px){
   .kpi{grid-template-columns:1fr 1fr;gap:6px;padding:0 2px}
@@ -358,52 +396,91 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   </div>
 </div>
 
-<!-- ═══ EQUITY CURVE + VAULT SIDEBAR ═══ -->
-<div class="eq-vault-row">
-  <div class="equity-section" id="equitySection">
-    <div class="equity-header">
-      <div class="equity-title">Equity Curve · <span id="curvePts">—</span></div>
-      <div class="tf-toggles">
-        <button class="tf-btn" data-tf="1h">1H</button>
-        <button class="tf-btn" data-tf="6h">6H</button>
-        <button class="tf-btn" data-tf="24h">24H</button>
-        <button class="tf-btn" data-tf="7d">7D</button>
-        <button class="tf-btn active" data-tf="all">ALL</button>
-      </div>
-    </div>
-    <canvas class="equity-chart" id="equityChart"></canvas>
-    <div class="eq-tooltip" id="eqTooltip"></div>
-    <div class="eq-crosshair-v" id="eqCrosshairV"></div>
-    <div class="eq-crosshair-h" id="eqCrosshairH"></div>
-    <div class="eq-dot" id="eqDot"></div>
-  </div>
-  <div class="vault-sidebar">
-    <div class="kl" style="margin-bottom:10px;font-size:11px;color:var(--gold);letter-spacing:.15em">VAULT DETAILS</div>
-    <div class="vault-grid">
-      <div><div class="kl" id="kl-dep"></div><div class="kv" id="depCount" style="font-size:22px">—</div></div>
-      <div><div class="kl" id="kl-share"></div><div class="kv" style="font-size:22px">10%</div></div>
-    </div>
-    <div class="vault-divider"></div>
-    <div class="kl">Strategy</div>
-    <div style="font-size:13px;color:var(--gold);margin-top:4px;letter-spacing:.06em">HYPE · AVAX</div>
-    <div style="font-size:11px;color:var(--dim);margin-top:2px">Soomario v3 · Hyperliquid Perps</div>
-    <div class="vault-divider"></div>
-    <div class="kl">Vault Address</div>
-    <div class="vault-addr">0x8bd03b8a06612cdb83ebee91e901dae9203ef537</div>
-    <div class="vault-divider"></div>
-    <a class="vault-btn" href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank">Deposit Into Vault ↗</a>
-    <a class="vault-btn dim" href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank">View on Explorer ↗</a>
-  </div>
-</div>
-
 <!-- ═══ TABS ═══ -->
 <div class="tabs">
-  <button class="tab active" data-panel="positions">Positions</button>
+  <button class="tab active" data-panel="overview">Overview</button>
+  <button class="tab" data-panel="positions">Positions</button>
   <button class="tab" data-panel="trades">Trade Log</button>
 </div>
 
+<!-- ═══ OVERVIEW PANEL ═══ -->
+<div class="panel active" id="panel-overview">
+
+  <!-- Equity curve + Vault Info (matches Max Pain layout) -->
+  <div class="row g21">
+    <div class="crd">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="crd-topbar" style="margin:0"><span class="lbl">Equity Curve</span></div>
+        <div class="tf-toggles">
+          <button class="tf-btn" data-tf="1h">1H</button>
+          <button class="tf-btn" data-tf="6h">6H</button>
+          <button class="tf-btn" data-tf="24h">24H</button>
+          <button class="tf-btn" data-tf="7d">7D</button>
+          <button class="tf-btn active" data-tf="all">ALL</button>
+        </div>
+      </div>
+      <div class="chart-section" id="equitySection">
+        <canvas class="equity-chart" id="equityChart"></canvas>
+        <div class="eq-tooltip" id="eqTooltip"></div>
+        <div class="eq-crosshair-v" id="eqCrosshairV"></div>
+        <div class="eq-crosshair-h" id="eqCrosshairH"></div>
+        <div class="eq-dot" id="eqDot"></div>
+      </div>
+      <div style="font-size:10px;color:var(--dim);margin-top:6px;display:flex;justify-content:space-between">
+        <span id="curvePts">—</span><span>Hyperliquid public API</span>
+      </div>
+    </div>
+    <div class="crd">
+      <div class="crd-topbar" style="margin-bottom:10px"><span class="lbl">Vault Info</span></div>
+      <div class="mini-grid">
+        <div><div class="kl">Vault Equity</div><div class="kv vg" style="font-size:20px" id="ov-equity">—</div></div>
+        <div><div class="kl">Depositors</div><div class="kv" style="font-size:20px;color:var(--gold)" id="depCount">—</div></div>
+        <div><div class="kl">Profit Share</div><div class="kv" style="font-size:20px;color:var(--gold)">10%</div></div>
+        <div><div class="kl">Win Rate</div><div class="kv" style="font-size:20px" id="ov-wr">—</div><div class="ks" id="ov-wr-sub">—</div></div>
+        <div><div class="kl">Profit Factor</div><div class="kv vg" style="font-size:20px" id="ov-pf">—</div><div class="ks" id="ov-pf-sub">—</div></div>
+        <div><div class="kl">Trades</div><div class="kv" style="font-size:20px;color:var(--purple-light)" id="ov-trades">—</div><div class="ks" id="ov-trades-sub">—</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="kl">Strategy</div>
+      <div style="font-size:13px;color:var(--gold);margin-top:4px;letter-spacing:.06em">HYPE · AVAX</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:2px">Soomario v3 · Hyperliquid Perps</div>
+      <div class="divider"></div>
+      <div class="kl">Vault Address</div>
+      <div class="vault-addr">0x8bd03b8a06612cdb83ebee91e901dae9203ef537</div>
+      <a class="vault-btn" href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank">DEPOSIT INTO VAULT ↗</a>
+      <a class="vault-btn dim" href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank">VIEW ON EXPLORER ↗</a>
+    </div>
+  </div>
+
+  <!-- Performance Metrics -->
+  <div class="crd">
+    <div class="crd-topbar"><span class="lbl">Performance Metrics</span></div>
+    <div class="perf-grid">
+      <div class="perf-cell"><div class="perf-lbl">Sharpe</div><div class="perf-val" id="perf-sharpe">—</div><div class="perf-sub">risk-adj. return</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Sortino</div><div class="perf-val" id="perf-sortino">—</div><div class="perf-sub">downside-adj.</div></div>
+      <div class="perf-cell"><div class="perf-lbl">CAGR</div><div class="perf-val" id="perf-cagr">—</div><div class="perf-sub">annualized</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Max Drawdown</div><div class="perf-val" id="perf-dd">—</div><div class="perf-sub">peak to trough</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Avg Trade</div><div class="perf-val" id="perf-avg">—</div><div class="perf-sub">per closed trade</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Best Trade</div><div class="perf-val" id="perf-best">—</div><div class="perf-sub" id="perf-best-sub">—</div></div>
+    </div>
+  </div>
+
+  <!-- Open Positions (compact) -->
+  <div class="crd">
+    <div class="crd-topbar"><span class="lbl">Open Positions</span><span class="ov-cnt" id="ov-pos-cnt">—</span></div>
+    <div class="ov-pos-list" id="ov-pos-list"><div class="empty-state" style="padding:16px;font-size:11px"><div class="icon">📡</div>Loading positions…</div></div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="crd">
+    <div class="crd-topbar"><span class="lbl">Recent Activity</span></div>
+    <div id="overviewActivity"><div class="empty-state" style="padding:12px;font-size:11px">Loading activity…</div></div>
+  </div>
+
+</div>
+
 <!-- ═══ POSITIONS PANEL ═══ -->
-<div class="panel active" id="panel-positions">
+<div class="panel" id="panel-positions">
   <div class="topbar" id="t-pos">
     <span class="lbl">Positions</span>
     <div class="vt">
@@ -594,9 +671,28 @@ function calcMetrics(closed){
   const sharpe=std>0?round((mean/std)*Math.sqrt(252),2):null;
   const down=pnls.filter(p=>p<0),dv=down.length>0?down.reduce((a,p)=>a+p*p,0)/down.length:0;
   const sortino=Math.sqrt(dv)>0?round((mean/Math.sqrt(dv))*Math.sqrt(252),2):null;
+  // CAGR + Max DD from running equity
+  let cagr=null, maxDD=null;
+  if(closed.length>1){
+    const sorted=[...closed].sort((a,b)=>a.time-b.time);
+    const firstTs=sorted[0].time, lastTs=sorted[sorted.length-1].time;
+    const days=(lastTs-firstTs)/86400000;
+    const eqStart=1000;
+    let running=eqStart, peak=eqStart, dd=0;
+    for(const t of sorted){
+      running+=t.pnl;
+      if(running>peak)peak=running;
+      const curDD=peak>0?((peak-running)/peak)*100:0;
+      if(curDD>dd)dd=curDD;
+    }
+    maxDD=round(dd,1);
+    if(days>=1 && running>0 && eqStart>0){
+      cagr=round((Math.pow(running/eqStart, 365/days)-1)*100, 1);
+    }
+  }
   return{total:n,totalPnl:round(pnls.reduce((a,b)=>a+b,0),2),winRate:round(wins.length/n*100,1),
     avgWin:wins.length?round(gw/wins.length,2):0,avgLoss:losses.length?round(losses.reduce((a,b)=>a+b,0)/losses.length,2):0,
-    best:round(Math.max(...pnls),2),worst:round(Math.min(...pnls),2),pf,sharpe,sortino}
+    avgTrade:round(mean,2),best:round(Math.max(...pnls),2),worst:round(Math.min(...pnls),2),pf,sharpe,sortino,cagr,maxDD}
 }
 
 // ═══════════════════════════════════════════
@@ -690,7 +786,7 @@ function drawEquityChart(data){
 
 // Tab toggles (timeframe + panels)
 document.querySelectorAll('.tf-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeTimeframe=btn.dataset.tf;redrawChart()})});
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('panel-'+t.dataset.panel).classList.add('active')}));
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('panel-'+t.dataset.panel).classList.add('active');if(t.dataset.panel==='overview'){setTimeout(redrawChart,50)}}));
 
 function redrawChart(){
   const allPts=buildTradeChart(lastAllClosed);
@@ -736,9 +832,12 @@ function renderSimplePositions(positions, unrealised) {
 //  RENDER: ACTIVITY FEED
 // ═══════════════════════════════════════════
 function renderActivityFeed(allClosed) {
-  const el = document.getElementById('activityFeed');
+  const targets = ['activityFeed', 'overviewActivity'];
   if (!allClosed.length) {
-    el.innerHTML = '<div style="padding:12px;color:var(--dim);font-size:11px">No recent activity</div>';
+    targets.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = '<div style="padding:12px;color:var(--dim);font-size:11px">No recent activity</div>';
+    });
     return;
   }
   const recent = allClosed.slice(0, 8);
@@ -755,7 +854,66 @@ function renderActivityFeed(allClosed) {
       + '<div class="atm">' + timeAgo(t.time) + '</div>'
       + '</div>';
   }
-  el.innerHTML = html;
+  targets.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  });
+}
+
+// ═══════════════════════════════════════════
+//  OVERVIEW: Compact positions + Performance metrics
+// ═══════════════════════════════════════════
+function renderOverviewPositions(positions) {
+  const el = document.getElementById('ov-pos-list');
+  const cnt = document.getElementById('ov-pos-cnt');
+  if (!el) return;
+  if (!positions || !positions.length) {
+    el.innerHTML = '<div class="empty-state" style="padding:16px;font-size:11px"><div class="icon">🎯</div>No open positions</div>';
+    if (cnt) cnt.textContent = '';
+    return;
+  }
+  if (cnt) cnt.textContent = positions.length + ' active';
+  el.innerHTML = positions.map(p => {
+    const sideClass = p.side === 'LONG' ? 'long' : 'short';
+    const pnlColor = p.unrealPnl >= 0 ? 'var(--gn)' : 'var(--rd)';
+    const pnlSign = p.unrealPnl >= 0 ? '+' : '−';
+    return '<div class="ov-pos-row">'
+      + '<span class="ov-pos-sym">' + p.coin + '</span>'
+      + '<span class="ov-pos-side ' + sideClass + '">' + p.side + ' ' + p.lev + 'x</span>'
+      + '<span class="ov-pos-prices">$' + fmt(p.entryPx, 4) + ' · ' + fmt(p.notional) + ' notional</span>'
+      + '<span class="ov-pos-pnl" style="color:' + pnlColor + '">' + pnlSign + '$' + Math.abs(p.unrealPnl).toFixed(2)
+      +   '<span class="pct" style="color:' + pnlColor + '">' + (p.pnlPct >= 0 ? '+' : '') + p.pnlPct + '%</span>'
+      + '</span>'
+      + '</div>';
+  }).join('');
+}
+
+function renderPerfMetrics(metrics) {
+  const set = (id, txt, cls) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (txt !== undefined) el.textContent = txt;
+    if (cls !== undefined) el.className = cls;
+  };
+  if (!metrics) {
+    ['perf-sharpe','perf-sortino','perf-cagr','perf-dd','perf-avg','perf-best'].forEach(id => set(id, '—', 'perf-val'));
+    const sub = document.getElementById('perf-best-sub'); if (sub) sub.textContent = '—';
+    return;
+  }
+  const sh = metrics.sharpe;
+  set('perf-sharpe', sh != null ? sh.toFixed(2) : '—', 'perf-val ' + (sh >= 1 ? 'gn' : (sh != null && sh < 0 ? 'rd' : '')));
+  const so = metrics.sortino;
+  set('perf-sortino', so != null ? so.toFixed(2) : '—', 'perf-val ' + (so >= 1 ? 'gn' : (so != null && so < 0 ? 'rd' : '')));
+  const cg = metrics.cagr;
+  set('perf-cagr', cg != null ? (cg >= 0 ? '+' : '') + cg.toFixed(1) + '%' : '—', 'perf-val ' + (cg >= 0 ? 'gn' : 'rd'));
+  const dd = metrics.maxDD;
+  set('perf-dd', dd != null ? '−' + dd.toFixed(1) + '%' : '—', 'perf-val ' + (dd != null && dd < 10 ? 'gn' : (dd != null && dd < 25 ? '' : 'rd')));
+  const at = metrics.avgTrade;
+  set('perf-avg', at != null ? fmtUsd(at) : '—', 'perf-val ' + (at >= 0 ? 'gn' : 'rd'));
+  const bt = metrics.best;
+  set('perf-best', bt != null ? fmtUsd(bt) : '—', 'perf-val gn');
+  const subEl = document.getElementById('perf-best-sub');
+  if (subEl) subEl.textContent = 'Worst: ' + (metrics.worst != null ? fmtUsd(metrics.worst) : '—');
 }
 
 // ═══════════════════════════════════════════
@@ -850,10 +1008,30 @@ function render({vault,state,fills}){
 
   // Vault sidebar
   set('depCount',String(depositors));
+  // Overview Vault Info mini-grid
+  set('ov-equity','$'+fmt(equity));
+  if(metrics){
+    const wrCol=metrics.winRate>=70?'var(--gn)':metrics.winRate>=50?'var(--gold)':'var(--rd)';
+    const pfCol=metrics.pf>=2?'var(--gn)':metrics.pf>=1?'var(--gold)':'var(--rd)';
+    const wrEl=document.getElementById('ov-wr');if(wrEl){wrEl.textContent=metrics.winRate.toFixed(1)+'%';wrEl.style.color=wrCol}
+    set('ov-wr-sub',metrics.total+' trades');
+    const pfEl=document.getElementById('ov-pf');if(pfEl){pfEl.textContent=metrics.pf===999?'∞':(metrics.pf!=null?metrics.pf.toFixed(2):'—');pfEl.style.color=pfCol}
+    set('ov-pf-sub',metrics.pf>=2?'Excellent':metrics.pf>=1?'Profitable':metrics.pf!=null?'Below 1.0':'—');
+    set('ov-trades',String(metrics.total));
+    set('ov-trades-sub','Realised: '+fmtUsd(metrics.totalPnl));
+  } else {
+    set('ov-wr','—');set('ov-wr-sub','—');
+    set('ov-pf','—');set('ov-pf-sub','—');
+    set('ov-trades','—');set('ov-trades-sub','No trades yet');
+  }
 
   // ── SIMPLE POSITIONS ──
   renderSimplePositions(positions, unrealised);
   renderActivityFeed(allClosed);
+
+  // ── OVERVIEW: Compact positions + Performance metrics ──
+  renderOverviewPositions(positions);
+  renderPerfMetrics(metrics);
 
   // ── DETAILED POSITIONS ──
   const posBody=document.getElementById('posBody');
