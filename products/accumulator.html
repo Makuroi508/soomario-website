@@ -719,7 +719,7 @@
       // Maximum invested across all assets — for the progress bar scale
       var maxInvested = 0;
       Object.keys(apiAssets).forEach(function(k){
-        if(apiAssets[k].invested > maxInvested) maxInvested = apiAssets[k].invested;
+        if(apiAssets[k].total_invested > maxInvested) maxInvested = apiAssets[k].total_invested;
       });
 
       var html = '';
@@ -737,18 +737,18 @@
           return;
         }
         var pnlClass = a.pnl_usd >= 0 ? 'is-up' : 'is-down';
-        var barPct = maxInvested > 0 ? Math.round((a.invested / maxInvested) * 100) : 0;
+        var barPct = maxInvested > 0 ? Math.round((a.total_invested / maxInvested) * 100) : 0;
         var pnlSign = a.pnl_usd >= 0 ? '+' : '-';
         var pctSign = a.pnl_pct >= 0 ? '+' : '';
         html += '<div class="ab-row">'
           + '<div class="ab-head">'
-          +   '<div><div class="ab-sym">' + u.s + '</div><div class="ab-meta">' + a.buy_count + ' buy' + (a.buy_count === 1 ? '' : 's') + ' · avg $' + (a.avg_cost != null ? a.avg_cost.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : '—') + '</div></div>'
+          +   '<div><div class="ab-sym">' + u.s + '</div><div class="ab-meta">' + a.buy_count + ' buy' + (a.buy_count === 1 ? '' : 's') + ' · avg $' + (a.avg_entry_price != null ? a.avg_entry_price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : '—') + '</div></div>'
           +   '<div class="ab-pnl ' + pnlClass + '">' + pnlSign + '$' + Math.abs(a.pnl_usd).toFixed(2)
           +     '<span class="ab-pnl-pct">' + pctSign + Number(a.pnl_pct).toFixed(1) + '%</span>'
           +   '</div>'
           + '</div>'
           + '<div class="ab-bar-wrap"><div class="ab-bar ' + (a.pnl_usd < 0 ? 'is-neg' : '') + '" style="width:' + barPct + '%"></div></div>'
-          + '<div class="ab-foot"><span>Invested: ' + fmtInt(a.invested) + '</span><span>Value: ' + fmtInt(a.value) + '</span></div>'
+          + '<div class="ab-foot"><span>Invested: ' + fmtInt(a.total_invested) + '</span><span>Value: ' + fmtInt(a.current_value) + '</span></div>'
           + '</div>';
       });
       listEl.innerHTML = html;
