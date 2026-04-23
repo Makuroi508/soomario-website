@@ -177,6 +177,31 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 .tsl-banner.active{background:rgba(74,222,128,.05);border-color:rgba(74,222,128,.15);color:var(--gn)}
 .tsl-banner.inactive{background:rgba(107,97,88,.04);border-color:var(--border);color:var(--dim)}
 
+/* ── PERFORMANCE METRICS GRID ── */
+.perf-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.perf-cell{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px}
+.perf-lbl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.perf-val{font-size:20px;font-weight:700;color:var(--gold);line-height:1.1;font-family:'JetBrains Mono',monospace}
+.perf-val.gn{color:var(--gn)}.perf-val.rd{color:var(--rd)}
+.perf-sub{font-size:9px;color:var(--dim);margin-top:4px}
+@media(max-width:900px){.perf-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.perf-grid{grid-template-columns:repeat(2,1fr);gap:6px}.perf-cell{padding:8px 10px}.perf-val{font-size:16px}}
+
+/* ── OVERVIEW OPEN POSITIONS (compact) ── */
+.ov-pos-list{display:flex;flex-direction:column;gap:4px}
+.ov-pos-row{display:grid;grid-template-columns:60px 70px 1fr auto;gap:10px;align-items:center;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:12px;transition:border-color .2s}
+.ov-pos-row:hover{border-color:#D4A84333}
+.ov-pos-sym{font-family:'Cinzel',serif;font-weight:700;font-size:14px;color:var(--gold)}
+.ov-pos-side{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;text-align:center;letter-spacing:.06em}
+.ov-pos-side.long{background:#4ADE8018;color:var(--gn);border:1px solid #4ADE8033}
+.ov-pos-side.short{background:#F8717118;color:var(--rd);border:1px solid #F8717133}
+.ov-pos-prices{font-size:11px;color:var(--dim)}
+.ov-pos-prices .cur{color:var(--text)}
+.ov-pos-pnl{font-weight:700;font-size:12px;text-align:right}
+.ov-pos-pnl .pct{display:block;font-size:10px;font-weight:400;margin-top:2px;opacity:.7}
+.ov-pos-list .empty{padding:16px;text-align:center;color:var(--dim);font-size:11px;border:1px dashed var(--border);border-radius:6px}
+@media(max-width:480px){.ov-pos-row{grid-template-columns:50px 60px 1fr auto;gap:6px;padding:8px 10px}.ov-pos-prices{font-size:10px}.ov-pos-sym{font-size:12px}}
+
 /* ── RESPONSIVE ── */
 @media(max-width:600px){.kpi{grid-template-columns:1fr 1fr}.kv{font-size:16px}.scanner-grid{grid-template-columns:1fr}.g21{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr}.pos-info-grid{grid-template-columns:1fr 1fr}.trade-row{grid-template-columns:60px 44px 1fr auto;gap:5px}.t-date{display:none}}
 @media(max-width:480px){.kpi{grid-template-columns:1fr 1fr;gap:6px}.main{padding:8px 10px 32px}.k{padding:8px 10px}.kl{font-size:7px}.kv{font-size:14px}.crd{padding:10px 12px}.topbar{padding:8px 10px}.dtab{padding:8px 12px;font-size:9px}.tip .tt{max-width:200px;font-size:9px}}
@@ -364,6 +389,25 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
       <a class="vault-btn dim" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank">VIEW ON EXPLORER ↗</a>
     </div>
   </div>
+  <!-- Performance Metrics -->
+  <div class="crd">
+    <div class="topbar" style="border:0;padding:0;margin:0 0 10px"><span class="lbl">Performance Metrics</span></div>
+    <div class="perf-grid">
+      <div class="perf-cell"><div class="perf-lbl">Sharpe</div><div class="perf-val" id="perf-sharpe">—</div><div class="perf-sub">risk-adj. return</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Sortino</div><div class="perf-val" id="perf-sortino">—</div><div class="perf-sub">downside-adj.</div></div>
+      <div class="perf-cell"><div class="perf-lbl">CAGR</div><div class="perf-val" id="perf-cagr">—</div><div class="perf-sub">annualized</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Max Drawdown</div><div class="perf-val" id="perf-dd">—</div><div class="perf-sub">peak to trough</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Avg Trade</div><div class="perf-val" id="perf-avg">—</div><div class="perf-sub">per closed trade</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Best Trade</div><div class="perf-val" id="perf-best">—</div><div class="perf-sub" id="perf-best-sub">—</div></div>
+    </div>
+  </div>
+
+  <!-- Open Positions (compact overview version) -->
+  <div class="crd">
+    <div class="topbar" style="border:0;padding:0;margin:0 0 8px"><span class="lbl">Open Positions</span><span class="cnt" id="ov-pos-cnt">—</span><span class="fresh" id="ov-pos-fresh">—</span></div>
+    <div class="ov-pos-list" id="ov-pos-list"><div class="empty">Loading…</div></div>
+  </div>
+
   <!-- Activity Feed -->
   <div class="crd">
     <div class="topbar" style="border:0;padding:0;margin:0 0 8px"><span class="lbl">Recent Activity</span><span class="fresh" id="activity-fresh">—</span></div>
@@ -467,7 +511,39 @@ async function fetchBot(ep){try{const r=await fetch(BOT+ep,{signal:AbortSignal.t
 /* ═══ PARSE ═══ */
 function parsePositions(s){const o=[];for(const ap of(s.assetPositions||[])){const p=ap.position||{};const sz=parseFloat(p.szi||0);if(!sz)continue;const e=parseFloat(p.entryPx||0),u=parseFloat(p.unrealizedPnl||0),l=p.leverage?.value??p.leverage??'?',n=Math.abs(sz)*e;o.push({coin:p.coin,side:sz>0?'LONG':'SHORT',size:Math.abs(sz),entryPx:e,notional:n,unrealPnl:u,lev:l,pnlPct:n>0?rd(u/n*100,2):0})}return o}
 function parseFills(f){const o={};for(const x of f){const id=String(x.oid||x.orderId||'');if(!id)continue;const d=x.dir||'';if(!o[id])o[id]={coin:x.coin||'?',side:d.includes('Long')?'LONG':'SHORT',pnl:0,px:parseFloat(x.px||0),time:x.time||0,isClose:false};if(d.includes('Close')){o[id].pnl+=parseFloat(x.closedPnl||0);o[id].isClose=true}}return Object.values(o).filter(t=>t.isClose).sort((a,b)=>b.time-a.time)}
-function calcMetrics(c){const p=c.map(t=>t.pnl).filter(x=>x!==0);const n=p.length;if(!n)return null;const w=p.filter(x=>x>0),l=p.filter(x=>x<0);const gw=w.reduce((a,b)=>a+b,0),gl=Math.abs(l.reduce((a,b)=>a+b,0));let pf=gl>0?rd(gw/gl,2):gw>0?999:null;return{total:n,totalPnl:rd(p.reduce((a,b)=>a+b,0),2),winRate:rd(w.length/n*100,1),avgWin:w.length?rd(gw/w.length,2):0,avgLoss:l.length?rd(l.reduce((a,b)=>a+b,0)/l.length,2):0,best:rd(Math.max(...p),2),worst:rd(Math.min(...p),2),pf,note:n<10?n+' trades — early':''}}
+function calcMetrics(c){
+  const p=c.map(t=>t.pnl).filter(x=>x!==0);const n=p.length;if(!n)return null;
+  const w=p.filter(x=>x>0),l=p.filter(x=>x<0);
+  const gw=w.reduce((a,b)=>a+b,0),gl=Math.abs(l.reduce((a,b)=>a+b,0));
+  let pf=gl>0?rd(gw/gl,2):gw>0?999:null;
+  const totalPnl=rd(p.reduce((a,b)=>a+b,0),2);
+  const mean=p.reduce((a,b)=>a+b,0)/n;
+  const std=Math.sqrt(p.reduce((a,v)=>a+Math.pow(v-mean,2),0)/Math.max(n-1,1));
+  const sharpe=std>0?rd((mean/std)*Math.sqrt(252),2):null;
+  const dv=l.length?l.reduce((a,v)=>a+v*v,0)/l.length:0;
+  const sortino=Math.sqrt(dv)>0?rd((mean/Math.sqrt(dv))*Math.sqrt(252),2):null;
+  // CAGR + Max DD from equity curve
+  let cagr=null, maxDD=null;
+  if(c.length>1){
+    const sorted=[...c].sort((a,b)=>a.time-b.time);
+    const firstTs=sorted[0].time, lastTs=sorted[sorted.length-1].time;
+    const days=(lastTs-firstTs)/86400000;
+    // Running equity curve from trades (starts at 1000 notional, compounding)
+    const eqStart=1000;
+    let running=eqStart, peak=eqStart, dd=0;
+    for(const t of sorted){
+      running+=t.pnl;
+      if(running>peak)peak=running;
+      const curDD=peak>0?((peak-running)/peak)*100:0;
+      if(curDD>dd)dd=curDD;
+    }
+    maxDD=rd(dd,1);
+    if(days>=1 && running>0 && eqStart>0){
+      cagr=rd((Math.pow(running/eqStart, 365/days)-1)*100, 1);
+    }
+  }
+  return{total:n,totalPnl,winRate:rd(w.length/n*100,1),avgWin:w.length?rd(gw/w.length,2):0,avgLoss:l.length?rd(l.reduce((a,b)=>a+b,0)/l.length,2):0,avgTrade:rd(mean,2),best:rd(Math.max(...p),2),worst:rd(Math.min(...p),2),pf,sharpe,sortino,cagr,maxDD,note:n<10?n+' trades — early':''};
+}
 
 /* ═══ EQUITY CURVE ═══ */
 function getCurve(){try{return JSON.parse(localStorage.getItem(CK)||'[]')}catch{return[]}}
@@ -572,6 +648,75 @@ function renderActivity(closed){
   }).join('');
 }
 
+/* ═══ OVERVIEW: COMPACT OPEN POSITIONS ═══ */
+function renderOverviewPositions(positions, posDetail){
+  const el=document.getElementById('ov-pos-list');
+  const badge=document.getElementById('ov-pos-cnt');
+  if(!positions||!positions.length){
+    el.innerHTML='<div class="empty">No open positions — scanner is monitoring 18 coins.</div>';
+    badge.textContent='';
+    return;
+  }
+  badge.textContent=positions.length+(positions.length===1?' active':' active');
+  setFresh('ov-pos');
+  // Cross-reference with posDetail (bot data) for current_price if available
+  const detailMap={};
+  if(Array.isArray(posDetail))posDetail.forEach(p=>{detailMap[p.coin]=p});
+  el.innerHTML=positions.map(p=>{
+    const d=detailMap[p.coin];
+    const curPrice=d?d.current_price:p.entryPx;
+    const sideClass=p.side==='LONG'?'long':'short';
+    const pnlColor=p.unrealPnl>=0?'var(--gn)':'var(--rd)';
+    const pnlSign=p.unrealPnl>=0?'+':'−';
+    return`<div class="ov-pos-row">
+      <span class="ov-pos-sym">${p.coin}</span>
+      <span class="ov-pos-side ${sideClass}">${p.side}</span>
+      <span class="ov-pos-prices">$${fP(p.entryPx)} → <span class="cur">$${fP(curPrice)}</span></span>
+      <span class="ov-pos-pnl" style="color:${pnlColor}">${pnlSign}$${fmt(Math.abs(p.unrealPnl))}<span class="pct" style="color:${pnlColor}">${p.pnlPct>=0?'+':''}${p.pnlPct}%</span></span>
+    </div>`;
+  }).join('');
+}
+
+/* ═══ OVERVIEW: PERFORMANCE METRICS ═══ */
+function renderPerfMetrics(metrics){
+  if(!metrics){
+    ['perf-sharpe','perf-sortino','perf-cagr','perf-dd','perf-avg','perf-best'].forEach(id=>set(id,'—'));
+    set('perf-best-sub','—');
+    return;
+  }
+  // Sharpe
+  const sh=metrics.sharpe;
+  const shEl=document.getElementById('perf-sharpe');
+  shEl.textContent=sh!=null?sh.toFixed(2):'—';
+  shEl.className='perf-val '+(sh>=1?'gn':sh!=null&&sh<0?'rd':'');
+  // Sortino
+  const so=metrics.sortino;
+  const soEl=document.getElementById('perf-sortino');
+  soEl.textContent=so!=null?so.toFixed(2):'—';
+  soEl.className='perf-val '+(so>=1?'gn':so!=null&&so<0?'rd':'');
+  // CAGR
+  const cg=metrics.cagr;
+  const cgEl=document.getElementById('perf-cagr');
+  cgEl.textContent=cg!=null?(cg>=0?'+':'')+cg.toFixed(1)+'%':'—';
+  cgEl.className='perf-val '+(cg>=0?'gn':'rd');
+  // Max DD
+  const dd=metrics.maxDD;
+  const ddEl=document.getElementById('perf-dd');
+  ddEl.textContent=dd!=null?'−'+dd.toFixed(1)+'%':'—';
+  ddEl.className='perf-val '+(dd!=null&&dd<10?'gn':dd!=null&&dd<25?'':'rd');
+  // Avg Trade
+  const at=metrics.avgTrade;
+  const atEl=document.getElementById('perf-avg');
+  atEl.textContent=at!=null?fU(at):'—';
+  atEl.className='perf-val '+(at>=0?'gn':'rd');
+  // Best Trade
+  const bt=metrics.best;
+  const btEl=document.getElementById('perf-best');
+  btEl.textContent=bt!=null?fU(bt):'—';
+  btEl.className='perf-val gn';
+  set('perf-best-sub','Worst: '+(metrics.worst!=null?fU(metrics.worst):'—'));
+}
+
 /* ═══ MAIN RENDER ═══ */
 let lastClosed=[],lastEq=0;
 function render({vault,state,fills}){
@@ -612,6 +757,10 @@ function render({vault,state,fills}){
   // Activity feed
   renderActivity(closed);
 
+  // Overview: compact open positions + performance metrics
+  renderOverviewPositions(positions, window._latestPosDetail);
+  renderPerfMetrics(metrics);
+
   // Status
   document.getElementById('dot').classList.remove('err');set('live-ts','Live');
   document.getElementById('hero-time').textContent=new Date().toLocaleTimeString();
@@ -623,6 +772,7 @@ function render({vault,state,fills}){
 async function refresh(){
   try{
     const[hlData,diag,posDetail]=await Promise.all([fetchAll(),fetchBot('/diagnostics'),fetchBot('/positions_detail')]);
+    window._latestPosDetail=posDetail;
     render(hlData);renderScanner(diag);renderPositions(posDetail);
   }catch(err){
     console.error(err);document.getElementById('dot').classList.add('err');set('live-ts','Offline');
