@@ -1011,7 +1011,7 @@ function render({vault,state,fills}){
   // Vault sidebar
   set('depCount',String(depositors));
   // Overview Vault Info mini-grid
-  set('ov-equity','$'+fmt(equity));
+  set('ov-equity',fmt(equity));
   if(metrics){
     const wrCol=metrics.winRate>=70?'var(--gn)':metrics.winRate>=50?'var(--gold)':'var(--rd)';
     const pfCol=metrics.pf>=2?'var(--gn)':metrics.pf>=1?'var(--gold)':'var(--rd)';
