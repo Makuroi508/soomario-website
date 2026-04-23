@@ -21,7 +21,7 @@
     twitter: 'https://twitter.com/SoomarioStrat',
     hyperliquid: 'https://app.hyperliquid.xyz/join/SMR',
     dashboards: {
-      accumulator: 'https://accumulator.soomariostrategies.com/dashboard/preview',
+      accumulator: 'https://accumulator.soomariostrategies.com/dashboard',
       accumulatorLogin: 'https://accumulator.soomariostrategies.com/dashboard',
       elite: getPagePath('dashboards/elite.html'),
       vault: getPagePath('dashboards/vault.html'),
@@ -131,8 +131,14 @@
         </div>
 
         <div class="site-nav__actions">
-          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--ghost btn--sm" target="_blank">Member Login</a>
+          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--ghost btn--sm site-nav__login-desktop" target="_blank">Member Login</a>
           <a href="${SITE.whop.accumulator}" class="btn btn--primary btn--sm" target="_blank">Get Started</a>
+          <a href="${SITE.dashboards.accumulatorLogin}" class="site-nav__login-mobile" target="_blank" aria-label="Member Login">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </a>
           <div class="hamburger" onclick="window.SoomarioToggleMobile()" aria-label="Menu" role="button" tabindex="0">
             <span></span><span></span><span></span>
           </div>
@@ -189,7 +195,8 @@
 
       <div class="mobile-menu__ctas">
         <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Start Free Trial</a>
-        <a href="${SITE.discord}" class="btn btn--outline btn--sm" target="_blank">Join Discord</a>
+        <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--outline" target="_blank">Member Login</a>
+        <a href="${SITE.discord}" class="btn btn--ghost btn--sm" target="_blank">Join Discord</a>
       </div>
     `;
 
