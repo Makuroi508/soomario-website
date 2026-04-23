@@ -120,12 +120,12 @@
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">INDICATOR 1</div>
           <div class="card__title">RSI</div>
-          <p class="card__text">Momentum on a 0–100 scale. Per-coin tuned length and thresholds because different assets have different momentum structures — PUMP uses length 5 for responsiveness; TAO uses length 2 for high-volatility extremes.</p>
+          <p class="card__text">Momentum on a 0–100 scale. Each coin has its own tuned length and thresholds because different assets have different momentum structures — fast lengths for responsive names, longer lengths where noise would otherwise dominate.</p>
         </div>
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">INDICATOR 2</div>
           <div class="card__title">Liquidation Z-Score</div>
-          <p class="card__text">Custom indicator measuring how unusual the current candle's volume-weighted move is versus recent history. Z=3 is three standard deviations — statistically rare, typically a forced-liquidation event. Spikes combined with RSI extremes mark local capitulation.</p>
+          <p class="card__text">Custom indicator measuring how unusual the current candle's volume-weighted move is versus recent history. Extreme readings flag statistically rare forced-liquidation events. Spikes combined with RSI extremes mark local capitulation.</p>
         </div>
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">INDICATOR 3</div>
@@ -145,24 +145,21 @@
         <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Earlier versions ran 5×–8× leverage and produced occasional 15%+ single-trade losses. The current 3× cap eliminated those tails. Max simultaneous all-coin wipeout is ~25% — survivable.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;max-width:960px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:960px;margin:0 auto;">
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">TIER 1 · CONVICTION</div>
           <div class="card__title">8% size · 3× leverage</div>
-          <p class="card__text" style="margin-bottom:0.75rem;">The bot's best-edge coins by backtest. ~1.4% of vault at maximum loss per trade.</p>
-          <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);">PUMP · NEAR · HYPE</div>
+          <p class="card__text" style="margin-bottom:0;">The bot's best-edge coins by backtest — a small number of names where the strategy historically has outsized results. ~1.4% of vault at maximum loss per trade.</p>
         </div>
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">TIER 2 · STANDARD</div>
           <div class="card__title">5% size · 3× leverage</div>
-          <p class="card__text" style="margin-bottom:0.75rem;">Twelve liquid majors and mid-caps. ~0.9% of vault at maximum loss per trade.</p>
-          <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);">SOL, AVAX, DOGE, AAVE, XLM, BNB, SUI, TRX, LTC, +3</div>
+          <p class="card__text" style="margin-bottom:0;">The bulk of the roster. Liquid majors and mid-caps with solid but unremarkable edge. ~0.9% of vault at maximum loss per trade.</p>
         </div>
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">TIER 3 · CAUTION</div>
           <div class="card__title">4% size · 2× leverage</div>
-          <p class="card__text" style="margin-bottom:0.75rem;">Genuine edge but higher volatility and slippage. ~0.5% of vault at maximum loss.</p>
-          <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);">TAO · CRV · HBAR</div>
+          <p class="card__text" style="margin-bottom:0;">Coins where the strategy still has genuine edge but higher volatility and slippage demand smaller positions. ~0.5% of vault at maximum loss per trade.</p>
         </div>
       </div>
     </div>
@@ -174,33 +171,31 @@
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">PER-COIN TUNING</div>
         <h2 class="section-title"><span class="gradient-text">No Two Coins Are Alike</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Each coin carries its own parameter set — eight parameters in total, individually backtested across three-plus years of history. A representative sample:</p>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Each coin carries its own parameter set — eight parameters in total, individually backtested across three-plus years of history. Tuning is the product of repeated optimization passes and isn't published.</p>
       </div>
 
-      <div style="max-width:720px;margin:0 auto;overflow-x:auto;">
-        <table style="width:100%;font-family:var(--font-mono);font-size:0.85rem;border-collapse:collapse;">
-          <thead>
-            <tr style="border-bottom:1px solid var(--border-default);">
-              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">COIN</th>
-              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">RSI LEN/OS/OB</th>
-              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">Z-SCORE</th>
-              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">ST PRD/MULT</th>
-              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">HARD SL</th>
-            </tr>
-          </thead>
-          <tbody style="color:var(--text-secondary);">
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--gold);">PUMP</td><td style="padding:0.55rem 0.5rem;">5 / 40 / 75</td><td style="padding:0.55rem 0.5rem;">2.0</td><td style="padding:0.55rem 0.5rem;">100 / 3.0</td><td style="padding:0.55rem 0.5rem;">−7.0%</td></tr>
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--gold);">HYPE</td><td style="padding:0.55rem 0.5rem;">4 / 48 / 46</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 3.0</td><td style="padding:0.55rem 0.5rem;">−10.0%</td></tr>
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;">SOL</td><td style="padding:0.55rem 0.5rem;">12 / 50 / 85</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 3.0</td><td style="padding:0.55rem 0.5rem;">−10.5%</td></tr>
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;">AVAX</td><td style="padding:0.55rem 0.5rem;">5 / 54 / 32</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">350 / 2.6</td><td style="padding:0.55rem 0.5rem;">−12.0%</td></tr>
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;">TAO</td><td style="padding:0.55rem 0.5rem;">2 / 40 / 89</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 5.2</td><td style="padding:0.55rem 0.5rem;">−8.0%</td></tr>
-            <tr><td style="padding:0.55rem 0.5rem;">HBAR</td><td style="padding:0.55rem 0.5rem;">4 / 75 / 95</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 3.0</td><td style="padding:0.55rem 0.5rem;">−9.0%</td></tr>
-          </tbody>
-        </table>
+      <div style="max-width:880px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+          <div class="card card--flat">
+            <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.4rem;letter-spacing:0.1em;">RSI</div>
+            <div class="card__title" style="font-size:1.05rem;">Per-Coin Lengths</div>
+            <p class="card__text" style="font-size:0.9rem;">Short lengths for volatile names that need fast response; longer lengths for stable coins where noise dominates. Oversold and overbought levels tuned separately per asset.</p>
+          </div>
+          <div class="card card--flat">
+            <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.4rem;letter-spacing:0.1em;">SUPERTREND</div>
+            <div class="card__title" style="font-size:1.05rem;">Period &amp; Multiplier</div>
+            <p class="card__text" style="font-size:0.9rem;">Each coin uses its own Supertrend period and ATR multiplier based on historical volatility. High-volatility names need wider bands to avoid whipsaws; stable names get tighter bands for faster flips.</p>
+          </div>
+          <div class="card card--flat">
+            <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.4rem;letter-spacing:0.1em;">HARD STOP</div>
+            <div class="card__title" style="font-size:1.05rem;">Coin-Specific</div>
+            <p class="card__text" style="font-size:0.9rem;">Stop-loss distances scale with each coin's natural range. Wider stops for high-volatility assets, tighter stops for stable majors. Every stop is individually backtested against adverse excursion data.</p>
+          </div>
+        </div>
       </div>
 
-      <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:1.5rem;max-width:620px;margin-left:auto;margin-right:auto;">
-        Hard stops range from −6% to −12.5% across the roster — wider for volatile coins (AVAX, CRV), tighter for stable ones (NEAR, LTC).
+      <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:2rem;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.6;">
+        The approach: every parameter for every coin is fit to its own history, then stress-tested across the full 2023–2026 backtest period. The result is a system where no single coin's idiosyncrasies drag down the overall performance.
       </p>
     </div>
   </section>
@@ -347,7 +342,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:960px;margin:0 auto;">
         <div class="card card--flat">
           <div class="card__title">Per-Coin Hard Stop</div>
-          <p class="card__text">−6% to −12.5% thresholds, backtested per coin. Enforced by the bot every 45 seconds regardless of TradingView state.</p>
+          <p class="card__text">Per-coin thresholds backtested against adverse excursion data. Enforced by the bot every 45 seconds regardless of TradingView state.</p>
         </div>
         <div class="card card--flat">
           <div class="card__title">3× Max Leverage</div>

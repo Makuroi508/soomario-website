@@ -43,8 +43,8 @@
           <div class="metric__label">Stock Universe</div>
         </div>
         <div class="metric">
-          <div class="metric__value gradient-text">25/40/25/10</div>
-          <div class="metric__label">Sleeve Allocation</div>
+          <div class="metric__value gradient-text">Weekly</div>
+          <div class="metric__label">Rebalance Cadence</div>
         </div>
         <div class="metric">
           <div class="metric__value gradient-text">Vault</div>
@@ -84,20 +84,20 @@
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">SLEEVE 1 · 65% of book</div>
           <div class="card__title">Fastest Horse · Equity Rotation</div>
-          <p class="card__text" style="margin-bottom:0.75rem;">Weekly rebalance engine scoring a 12-stock mega-cap universe on a 100-point composite dominated by long-horizon visionary upside. TSLA held as permanent core; top 5 names fill rotation slots. Entries use a 5-level DCA grid sized to volatility.</p>
-          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">TSLA 25% core + 5 × 8% rotations</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Weekly rebalance engine scoring a 12-stock mega-cap universe on a composite dominated by long-horizon visionary upside. A permanent core position plus top-ranked rotation slots. Entries use a multi-level DCA grid sized to each asset's volatility.</p>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">Core + rotation slots · MAG-12 universe</div>
         </div>
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--green);margin-bottom:0.5rem;letter-spacing:0.1em;">SLEEVE 2 · 25% of book</div>
           <div class="card__title">Crypto Core · Liquidation-Zone DCA</div>
-          <p class="card__text" style="margin-bottom:0.75rem;">Three permanent core holdings — BTC, SOL, HYPE — with entries dynamically placed at liquidation max-pain zones aggregated from Binance, Bybit, and OKX open interest. Rather than buying arbitrary pullbacks, the system waits for structural liquidation magnets.</p>
-          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">BTC 10% · SOL 8% · HYPE 7%</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Three permanent core holdings — BTC, SOL, HYPE — with entries dynamically placed at liquidation max-pain zones aggregated from major exchange open interest. Rather than buying arbitrary pullbacks, the system waits for structural liquidation magnets.</p>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">BTC · SOL · HYPE</div>
         </div>
         <div class="card">
           <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--red);margin-bottom:0.5rem;letter-spacing:0.1em;">SLEEVE 3 · 10% of book</div>
-          <div class="card__title">Hedged Shorts · Unlock-Driven Grid</div>
-          <p class="card__text" style="margin-bottom:0.75rem;">Opportunistic short sleeve, capped at 4 simultaneous positions. Candidates from the token unlock calendar and technical weakness screener, validated through four gates. Exits via a back-loaded 10-level TP grid that banks partial gains and keeps a 40% runner to break-even.</p>
-          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">Up to 4 × 2.5% shorts · 5× leverage</div>
+          <div class="card__title">Hedged Shorts · Multi-Gate Grid</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Opportunistic short sleeve with a strict simultaneous-position cap. Candidates from the token unlock calendar and technical weakness screener, validated through multiple independent gates. Exits via a back-loaded TP grid that banks partial gains and keeps a runner to break-even.</p>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">Capped exposure · moderate leverage</div>
         </div>
       </div>
     </div>
@@ -114,25 +114,25 @@
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;max-width:960px;margin:0 auto 2rem;">
         <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 1 · 25 POINTS</div>
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 1</div>
           <div class="card__title">Consensus Upside</div>
-          <p class="card__text">Wall Street 12-month price target versus current price. A sanity check against sell-side positioning. Sourced from StockAnalysis, MarketBeat, TipRanks, Public.com, Benzinga with yfinance primary + static fallback.</p>
+          <p class="card__text">Wall Street 12-month price target versus current price. A sanity check against where sell-side analysts have positioned. Aggregated from multiple independent consensus sources to avoid any single feed dominating.</p>
         </div>
         <div class="card" style="border-color:var(--gold);">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 2 · 50 POINTS</div>
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 2 · DOMINANT</div>
           <div class="card__title">Visionary Upside</div>
-          <p class="card__text">Long-horizon conviction targets from ARK Research, InvestAnswers theses, and Jon Erlichman profit-growth aggregates. Dominates the score because visionary targets are the hardest to fake — they change slowly and reflect genuine analyst thesis conviction rather than news cycles.</p>
+          <p class="card__text">Long-horizon conviction targets from established research houses and AI-thesis analysts. This layer weighs most heavily in the composite — visionary targets change slowly and reflect genuine thesis conviction rather than short-term news cycles.</p>
         </div>
         <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 3 · 25 POINTS</div>
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 3</div>
           <div class="card__title">Technical Momentum</div>
-          <p class="card__text">4H RSI, Supertrend, and position relative to MA-50 — all on Hyperliquid candles. Technicals confirm or veto the thesis; they don't drive the pick. The rotation is not a momentum chase.</p>
+          <p class="card__text">Multi-timeframe technical confirmation on Hyperliquid candles. Technicals confirm or veto the thesis; they don't drive the pick. The rotation is not a momentum chase.</p>
         </div>
       </div>
 
       <div style="max-width:680px;margin:0 auto;padding:1rem;background:rgba(201,169,97,0.04);border-left:2px solid var(--gold);">
         <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.5rem;">CHURN CONTROL</div>
-        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">An 8-point hysteresis prevents weekly thrashing. A held stock must be beaten by ≥8 points before rotation; a new candidate must exceed the lowest held score by ≥8 points to enter. When scores cluster tightly, positions stay stable.</p>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">A hysteresis threshold prevents weekly thrashing between closely-ranked candidates. Held stocks must be beaten by a meaningful margin before rotation fires; when scores cluster tightly, positions stay stable.</p>
       </div>
     </div>
   </section>
@@ -185,28 +185,13 @@
     <div class="container">
       <div class="text-center" style="margin-bottom:2rem;">
         <div class="section-label">STOCK ENTRY STRUCTURE</div>
-        <h2 class="section-title"><span class="gradient-text">Five-Level Volatility-Adjusted DCA</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Dips are more likely than deep crashes. The grid loads 50% of the budget in the middle levels (the modal correction zone) and lightens the tails.</p>
+        <h2 class="section-title"><span class="gradient-text">Volatility-Adjusted Grid Entries</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Dips are more likely than deep crashes. The entry grid loads capital where corrections most commonly bottom, lightening the tails for rare catastrophic events.</p>
       </div>
 
-      <div style="max-width:720px;margin:0 auto;">
-        <table style="width:100%;font-family:var(--font-mono);font-size:0.9rem;border-collapse:collapse;">
-          <thead>
-            <tr style="border-bottom:1px solid var(--border-default);">
-              <th style="padding:0.75rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">LEVEL</th>
-              <th style="padding:0.75rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">BUDGET %</th>
-              <th style="padding:0.75rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">PULLBACK</th>
-              <th style="padding:0.75rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">PURPOSE</th>
-            </tr>
-          </thead>
-          <tbody style="color:var(--text-secondary);">
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L1</td><td style="padding:0.6rem 0.75rem;text-align:right;">15%</td><td style="padding:0.6rem 0.75rem;text-align:right;">Near current</td><td style="padding:0.6rem 0.75rem;">Seed position on rotation entry</td></tr>
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L2</td><td style="padding:0.6rem 0.75rem;text-align:right;">20%</td><td style="padding:0.6rem 0.75rem;text-align:right;">−5 to −6%</td><td style="padding:0.6rem 0.75rem;">Shallow dip add</td></tr>
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L3</td><td style="padding:0.6rem 0.75rem;text-align:right;">25%</td><td style="padding:0.6rem 0.75rem;text-align:right;">−10 to −12%</td><td style="padding:0.6rem 0.75rem;">Modal correction zone</td></tr>
-            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L4</td><td style="padding:0.6rem 0.75rem;text-align:right;">25%</td><td style="padding:0.6rem 0.75rem;text-align:right;">−15 to −17%</td><td style="padding:0.6rem 0.75rem;">Deep correction</td></tr>
-            <tr><td style="padding:0.6rem 0.75rem;color:var(--gold);">L5</td><td style="padding:0.6rem 0.75rem;text-align:right;color:var(--gold);">15%</td><td style="padding:0.6rem 0.75rem;text-align:right;color:var(--gold);">−20 to −27%</td><td style="padding:0.6rem 0.75rem;color:var(--gold);">Capitulation catch</td></tr>
-          </tbody>
-        </table>
+      <div style="max-width:720px;margin:0 auto;color:var(--text-secondary);line-height:1.75;font-size:1rem;">
+        <p>Rather than drop full position on rotation entry, the system stages capital across multiple price levels. A seed portion enters near current price to avoid missing the move entirely. The majority of the budget sits at moderate pullback levels — the statistical sweet spot where most corrections bottom. A final tranche waits at capitulation depths, ready to catch the rare deep-crash scenario that wipes out buyers who over-committed early.</p>
+        <p>Each asset's grid is tuned to its own volatility profile. A 15% pullback in a tech mega-cap represents a very different event than a 15% pullback in a speculative name — so the levels scale accordingly.</p>
       </div>
     </div>
   </section>
@@ -220,19 +205,19 @@
         <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Crypto markets have a structural edge that equities don't: transparent, real-time liquidation data. When cumulative forced selling clusters at a price level, that level acts as a magnet. The core sleeve places DCA orders there rather than buying arbitrary dips.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;max-width:960px;margin:0 auto 2rem;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:960px;margin:0 auto 2rem;">
         <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">BTC · 10% ALLOCATION</div>
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">BTC</div>
           <div class="card__title">Digital Store of Value</div>
-          <p class="card__text">Largest crypto weight. Anchor position. DCA levels cluster around the aggregated Long Max Pain across Binance, Bybit, OKX open interest.</p>
+          <p class="card__text">Largest crypto weight. Anchor position. Entries cluster around aggregated liquidation zones where forced selling has historically reversed.</p>
         </div>
         <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">SOL · 8% ALLOCATION</div>
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">SOL</div>
           <div class="card__title">High-Throughput L1 Beta</div>
-          <p class="card__text">Captures the L1 performance premium. Same 5-level zone-anchored DCA mechanism.</p>
+          <p class="card__text">Captures the L1 performance premium. Same zone-anchored DCA mechanism scaled to SOL's volatility profile.</p>
         </div>
         <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">HYPE · 7% ALLOCATION</div>
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">HYPE</div>
           <div class="card__title">Hyperliquid Itself</div>
           <p class="card__text">A bet on the venue running the rest of the strategy. Smaller weight because it's already the execution dependency.</p>
         </div>
@@ -240,7 +225,7 @@
 
       <div style="max-width:680px;margin:0 auto;padding:1.25rem;border-left:2px solid var(--gold);background:rgba(201,169,97,0.05);">
         <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.5rem;">ZONE MECHANICS</div>
-        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">Every 4 hours, a zone aggregator computes volume-weighted Long Max Pain and Short Max Pain across Binance, Bybit, and OKX. Between those two levels, five DCA entries are interpolated with a 6% ATR multiplier. L1 seeds near current price, L2 sits at the Long MP magnet itself, L3–L5 extend deeper for increasingly rare conditions. The OI ratio (long vs short open interest balance) serves as a secondary regime signal — short-heavy order books tend to revert upward as shorts cover.</p>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">A zone aggregator pulls volume-weighted Long and Short Max Pain levels from major perp exchanges on a regular refresh interval. DCA entries are placed between those magnet levels, seeded near the current price and extending deeper for increasingly rare conditions. Open interest ratios — the long-vs-short balance on the order book — serve as a secondary regime signal.</p>
       </div>
     </div>
   </section>
@@ -255,38 +240,23 @@
       </div>
 
       <div style="max-width:900px;margin:0 auto 2rem;">
-        <h3 style="font-family:var(--font-display);font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">Four-Gate Validator</h3>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.75rem;">
-          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 1</div><p class="card__text" style="margin:0;">RSI divergence or overbought exhaustion signal.</p></div>
-          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 2</div><p class="card__text" style="margin:0;">90-day Z-Score indicating overextension.</p></div>
-          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 3</div><p class="card__text" style="margin:0;">Momentum exhaustion check (diminishing up-day returns).</p></div>
-          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 4</div><p class="card__text" style="margin:0;">Confluence: at least two independent weakness signals agree.</p></div>
+        <h3 style="font-family:var(--font-display);font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">Multi-Gate Short Validator</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:1.25rem;text-align:center;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.6;">
+          Every short candidate must pass a sequence of independent weakness signals before the sleeve will open a position. Any single gate alone produces too many false positives; confluence across all of them is what drives signal quality.
+        </p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;">
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 1</div><p class="card__text" style="margin:0;">Momentum exhaustion detected on price action.</p></div>
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 2</div><p class="card__text" style="margin:0;">Statistical overextension on multi-month lookback.</p></div>
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 3</div><p class="card__text" style="margin:0;">Diminishing up-day returns confirming weakness.</p></div>
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 4</div><p class="card__text" style="margin:0;">Confluence: multiple independent signals agree.</p></div>
         </div>
       </div>
 
       <div style="max-width:720px;margin:0 auto;">
-        <h3 style="font-family:var(--font-display);font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">The 10-Level Back-Loaded TP Grid</h3>
-        <p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:1rem;text-align:center;">Trim less at shallow profit levels, more at deep ones, because deep profits are more contested and more likely to reverse. 60% trimmed across the grid; 40% runner held to break-even.</p>
-        <table style="width:100%;font-family:var(--font-mono);font-size:0.8rem;border-collapse:collapse;">
-          <thead>
-            <tr style="border-bottom:1px solid var(--border-default);">
-              <th style="padding:0.6rem 0.3rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">PROFIT</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+5%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+10%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+15%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+20%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+25%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+30%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+35%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+40%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+45%</th>
-              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+50%</th>
-            </tr>
-          </thead>
-          <tbody style="color:var(--text-secondary);">
-            <tr><td style="padding:0.6rem 0.3rem;">Trim</td><td style="padding:0.6rem 0.3rem;text-align:right;">3%</td><td style="padding:0.6rem 0.3rem;text-align:right;">3%</td><td style="padding:0.6rem 0.3rem;text-align:right;">4%</td><td style="padding:0.6rem 0.3rem;text-align:right;">5%</td><td style="padding:0.6rem 0.3rem;text-align:right;">5%</td><td style="padding:0.6rem 0.3rem;text-align:right;">6%</td><td style="padding:0.6rem 0.3rem;text-align:right;">7%</td><td style="padding:0.6rem 0.3rem;text-align:right;">8%</td><td style="padding:0.6rem 0.3rem;text-align:right;">9%</td><td style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);">10%</td></tr>
-          </tbody>
-        </table>
+        <h3 style="font-family:var(--font-display);font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">Back-Loaded Take-Profit Grid</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:0;text-align:center;line-height:1.7;">
+          Exits run through a multi-level grid that trims less at shallow profit and more at deep profit — because deep profits are more contested and more likely to reverse. A majority of the position is banked progressively across the grid; a runner portion stays on to break-even, capturing tail upside without giving back gains already realized.
+        </p>
       </div>
     </div>
   </section>
@@ -300,22 +270,22 @@
         <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Paper trading has been running continuously since April 17, 2026 with a $5,000 starting capital. This snapshot was captured at 12:22 UTC on April 23.</p>
       </div>
 
-      <div class="metrics" style="max-width:900px;margin:0 auto 2rem;">
-        <div class="metric">
-          <div class="metric__value gradient-text">$5,102.74</div>
-          <div class="metric__label">Equity · started $5,000</div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;max-width:1000px;margin:0 auto 2rem;">
+        <div style="background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:1.5rem 1.25rem;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:clamp(1.4rem,3.2vw,2.1rem);font-weight:700;line-height:1.1;color:var(--gold);letter-spacing:-0.01em;margin-bottom:0.5rem;word-break:keep-all;">$5,102.74</div>
+          <div style="font-family:var(--font-body);font-size:0.8rem;color:var(--text-secondary);letter-spacing:0.02em;">Equity · started $5,000</div>
         </div>
-        <div class="metric">
-          <div class="metric__value" style="color:var(--green);">+$102.74</div>
-          <div class="metric__label">Total P&amp;L · +2.05%</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:1.5rem 1.25rem;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:clamp(1.4rem,3.2vw,2.1rem);font-weight:700;line-height:1.1;color:var(--green);letter-spacing:-0.01em;margin-bottom:0.5rem;word-break:keep-all;">+$102.74</div>
+          <div style="font-family:var(--font-body);font-size:0.8rem;color:var(--text-secondary);letter-spacing:0.02em;">Total P&amp;L · +2.05%</div>
         </div>
-        <div class="metric">
-          <div class="metric__value" style="color:var(--green);">95.2%</div>
-          <div class="metric__label">Win Rate · 20W / 1L</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:1.5rem 1.25rem;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:clamp(1.4rem,3.2vw,2.1rem);font-weight:700;line-height:1.1;color:var(--green);letter-spacing:-0.01em;margin-bottom:0.5rem;word-break:keep-all;">95.2%</div>
+          <div style="font-family:var(--font-body);font-size:0.8rem;color:var(--text-secondary);letter-spacing:0.02em;">Win Rate · 20W / 1L</div>
         </div>
-        <div class="metric">
-          <div class="metric__value gradient-text">13</div>
-          <div class="metric__label">Open Positions</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:1.5rem 1.25rem;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:clamp(1.4rem,3.2vw,2.1rem);font-weight:700;line-height:1.1;color:var(--gold);letter-spacing:-0.01em;margin-bottom:0.5rem;word-break:keep-all;">13</div>
+          <div style="font-family:var(--font-body);font-size:0.8rem;color:var(--text-secondary);letter-spacing:0.02em;">Open Positions</div>
         </div>
       </div>
 
