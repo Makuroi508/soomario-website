@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0D0A14">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Soomario — Elite Vault</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -276,7 +277,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <!-- ═══ SITE NAV ═══ -->
 <nav class="site-nav">
   <a href="https://soomariostrategies.com" class="sn-left">
-    <img src="soomario-logo.png" alt="Soomario" class="sn-logo" onerror="this.style.display='none'">
+    <img src="../soomario-logo.png" alt="Soomario" class="sn-logo" onerror="this.style.display='none'">
     <div class="sn-brand-text">
       <span class="sn-brand-name">SOOMARIO</span>
       <span class="sn-brand-sub">STRATEGIES</span>
@@ -593,31 +594,32 @@ setInterval(() => {
 //  INJECT TOOLTIP LABELS (on load)
 // ═══════════════════════════════════════════
 function initTooltips() {
+  const safe = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
   // KPI row
-  document.getElementById('kl-pnl').innerHTML = T('Vault P&L', 'Total profit or loss in the vault since launch, including closed trades and open positions. This is your actual return.');
-  document.getElementById('kl-pos').innerHTML = T('HYPE Position', 'Current HYPE trade direction and leverage. Long means expecting price to rise.');
-  document.getElementById('kl-equity').innerHTML = T('Vault Value', 'Total value of the vault right now, including open positions and available cash.');
-  document.getElementById('kl-signal').innerHTML = T('Last Signal', 'When the RSI crossover last triggered a trade entry or exit.', 'tip-r');
+  safe('kl-pnl', T('Vault P&L', 'Total profit or loss in the vault since launch, including closed trades and open positions. This is your actual return.'));
+  safe('kl-pos', T('HYPE Position', 'Current HYPE trade direction and leverage. Long means expecting price to rise.'));
+  safe('kl-equity', T('Vault Value', 'Total value of the vault right now, including open positions and available cash.'));
+  safe('kl-signal', T('Last Signal', 'When the RSI crossover last triggered a trade entry or exit.', 'tip-r'));
 
-  // Vault sidebar
-  document.getElementById('kl-dep').innerHTML = T('Depositors', 'Number of people who have deposited funds into this vault.');
-  document.getElementById('kl-share').innerHTML = T('Profit Share', 'The fee taken from profits only. 10% profit share means if the vault makes $1,000, $100 goes to Soomario.', 'tip-r');
+  // Vault sidebar (removed in v3 restructure — safe() handles absent ids)
+  safe('kl-dep', T('Depositors', 'Number of people who have deposited funds into this vault.'));
+  safe('kl-share', T('Profit Share', 'The fee taken from profits only. 10% profit share means if the vault makes $1,000, $100 goes to Soomario.', 'tip-r'));
 
   // Ratios (Simple trades view)
-  document.getElementById('kl-pf').innerHTML = T('Profit Factor', 'Total gains divided by total losses. Above 1.5 is good, above 2 is great.');
-  document.getElementById('kl-wr').innerHTML = T('Win Rate', 'Percentage of trades that made money. A trade closed for any profit counts as a win.');
-  document.getElementById('kl-sh').innerHTML = T('Sharpe', 'Measures return vs risk. Above 1 is good, above 2 is great, above 3 is exceptional.');
-  document.getElementById('kl-so').innerHTML = T('Sortino', 'Like Sharpe but only penalises downside risk. Higher is better.');
-  document.getElementById('kl-aw').innerHTML = T('Avg Win', 'Average dollar profit on winning trades.');
-  document.getElementById('kl-al').innerHTML = T('Avg Loss', 'Average dollar loss on losing trades. Smaller is better.', 'tip-r');
+  safe('kl-pf', T('Profit Factor', 'Total gains divided by total losses. Above 1.5 is good, above 2 is great.'));
+  safe('kl-wr', T('Win Rate', 'Percentage of trades that made money. A trade closed for any profit counts as a win.'));
+  safe('kl-sh', T('Sharpe', 'Measures return vs risk. Above 1 is good, above 2 is great, above 3 is exceptional.'));
+  safe('kl-so', T('Sortino', 'Like Sharpe but only penalises downside risk. Higher is better.'));
+  safe('kl-aw', T('Avg Win', 'Average dollar profit on winning trades.'));
+  safe('kl-al', T('Avg Loss', 'Average dollar loss on losing trades. Smaller is better.', 'tip-r'));
 
   // Ratios (Detailed trades view — duplicates)
-  document.getElementById('kl-pf2').innerHTML = T('Profit Factor', 'Total gains divided by total losses. Above 1.5 is good, above 2 is great.');
-  document.getElementById('kl-wr2').innerHTML = T('Win Rate', 'Percentage of trades that made money. A trade closed for any profit counts as a win.');
-  document.getElementById('kl-sh2').innerHTML = T('Sharpe', 'Measures return vs risk. Above 1 is good, above 2 is great, above 3 is exceptional.');
-  document.getElementById('kl-so2').innerHTML = T('Sortino', 'Like Sharpe but only penalises downside risk. Higher is better.');
-  document.getElementById('kl-aw2').innerHTML = T('Avg Win', 'Average dollar profit on winning trades.');
-  document.getElementById('kl-al2').innerHTML = T('Avg Loss', 'Average dollar loss on losing trades. Smaller is better.', 'tip-r');
+  safe('kl-pf2', T('Profit Factor', 'Total gains divided by total losses. Above 1.5 is good, above 2 is great.'));
+  safe('kl-wr2', T('Win Rate', 'Percentage of trades that made money. A trade closed for any profit counts as a win.'));
+  safe('kl-sh2', T('Sharpe', 'Measures return vs risk. Above 1 is good, above 2 is great, above 3 is exceptional.'));
+  safe('kl-so2', T('Sortino', 'Like Sharpe but only penalises downside risk. Higher is better.'));
+  safe('kl-aw2', T('Avg Win', 'Average dollar profit on winning trades.'));
+  safe('kl-al2', T('Avg Loss', 'Average dollar loss on losing trades. Smaller is better.', 'tip-r'));
 }
 initTooltips();
 
