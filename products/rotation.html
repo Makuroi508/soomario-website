@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Soomario Rotation — a three-sleeve multi-asset strategy on Hyperliquid combining Fastest Horse equity rotation, liquidation-zone DCA on BTC/SOL/HYPE, and unlock-driven crypto shorts with a 10-level take-profit grid. Currently paper trading.">
+  <meta property="og:title" content="Soomario Rotation — Fastest Horse + Crypto Core + Hedged Shorts">
+  <meta property="og:description" content="Three-sleeve multi-asset strategy. Stock rotation, crypto DCA, hedged shorts. Paper trading on Hyperliquid.">
+  <title>Soomario Rotation — Three-Sleeve Multi-Asset Strategy | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="canonical" href="https://soomariostrategies.com/products/rotation.html">
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="section" style="padding-top:3rem;">
+    <div class="container">
+      <div style="margin-bottom:2rem;">
+        <span class="badge badge--soon" style="font-size:0.7rem;padding:0.3rem 0.7rem;">PAPER TRADING</span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:0.5rem;">
+        <span class="gradient-text">Soomario Rotation</span>
+      </h1>
+      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:640px;margin-bottom:0.5rem;font-style:italic;">
+        Three decoupled return sources. One portfolio.
+      </p>
+      <p style="font-size:1rem;color:var(--text-secondary);max-width:680px;margin-bottom:2rem;">
+        A multi-asset algorithmic strategy combining three structurally different sources of alpha: a long-horizon equity rotation engine ("Fastest Horse"), a liquidation-zone DCA on BTC/SOL/HYPE, and an unlock-driven crypto short book with a 10-level take-profit grid. Runs on Hyperliquid as a unified execution venue using HIP-3 xyz stock perpetuals alongside crypto perps.
+      </p>
+
+      <div class="metrics" style="max-width:800px;">
+        <div class="metric">
+          <div class="metric__value gradient-text">3</div>
+          <div class="metric__label">Decoupled Sleeves</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">12</div>
+          <div class="metric__label">Stock Universe</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">25/40/25/10</div>
+          <div class="metric__label">Sleeve Allocation</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">Vault</div>
+          <div class="metric__label">10% profit share at launch</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:2rem;">
+        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn btn--primary">Join Discord for Launch Updates</a>
+        <a href="alpha.html" class="btn btn--outline">See the Crypto-Only Sister (Alpha) →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Thesis -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">THE THESIS</div>
+      <h2 class="section-title"><span class="gradient-text">Most Strategies Fail Three Ways</span></h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
+        <p>Most retail algorithmic strategies fail for one of three reasons: they fight cyclicality with purely technical signals, they anchor to fundamentals without regard to entry timing, or they concentrate risk in a single asset class and blow up when the regime shifts.</p>
+        <p>Rotation is built to avoid all three. Rather than pick one edge and hope it persists, the strategy runs three sleeves with structurally different return sources. The stock sleeve compounds through secular growth. The crypto core captures digital-asset asymmetry while dollar-cost-averaging through volatility. The short sleeve realizes gains when supply dilution hits oversold AI-era cryptos — often during the same periods when the long sleeves are in drawdown.</p>
+        <p>The resulting equity curve is not dominated by any single market regime. Each sleeve has its own signals, its own cadence, and its own risk controls. They share only the execution venue.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sleeve Overview -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">THE THREE SLEEVES</div>
+        <h2 class="section-title"><span class="gradient-text">One Portfolio, Three Engines</span></h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;max-width:1040px;margin:0 auto;">
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">SLEEVE 1 · 65% of book</div>
+          <div class="card__title">Fastest Horse · Equity Rotation</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Weekly rebalance engine scoring a 12-stock mega-cap universe on a 100-point composite dominated by long-horizon visionary upside. TSLA held as permanent core; top 5 names fill rotation slots. Entries use a 5-level DCA grid sized to volatility.</p>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">TSLA 25% core + 5 × 8% rotations</div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--green);margin-bottom:0.5rem;letter-spacing:0.1em;">SLEEVE 2 · 25% of book</div>
+          <div class="card__title">Crypto Core · Liquidation-Zone DCA</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Three permanent core holdings — BTC, SOL, HYPE — with entries dynamically placed at liquidation max-pain zones aggregated from Binance, Bybit, and OKX open interest. Rather than buying arbitrary pullbacks, the system waits for structural liquidation magnets.</p>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">BTC 10% · SOL 8% · HYPE 7%</div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--red);margin-bottom:0.5rem;letter-spacing:0.1em;">SLEEVE 3 · 10% of book</div>
+          <div class="card__title">Hedged Shorts · Unlock-Driven Grid</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Opportunistic short sleeve, capped at 4 simultaneous positions. Candidates from the token unlock calendar and technical weakness screener, validated through four gates. Exits via a back-loaded 10-level TP grid that banks partial gains and keeps a 40% runner to break-even.</p>
+          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);">Up to 4 × 2.5% shorts · 5× leverage</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sleeve 1: Fastest Horse Detail -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">SLEEVE 1 DETAIL</div>
+        <h2 class="section-title"><span class="gradient-text">Fastest Horse Scoring</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">The highest-return equity allocation over 3-to-5 years is not the stock with the best recent performance or the cheapest multiple. It's the stock with the largest risk-adjusted upside to a credible long-horizon target. Score it, rank it, rotate into the top five, reassess weekly.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;max-width:960px;margin:0 auto 2rem;">
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 1 · 25 POINTS</div>
+          <div class="card__title">Consensus Upside</div>
+          <p class="card__text">Wall Street 12-month price target versus current price. A sanity check against sell-side positioning. Sourced from StockAnalysis, MarketBeat, TipRanks, Public.com, Benzinga with yfinance primary + static fallback.</p>
+        </div>
+        <div class="card" style="border-color:var(--gold);">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 2 · 50 POINTS</div>
+          <div class="card__title">Visionary Upside</div>
+          <p class="card__text">Long-horizon conviction targets from ARK Research, InvestAnswers theses, and Jon Erlichman profit-growth aggregates. Dominates the score because visionary targets are the hardest to fake — they change slowly and reflect genuine analyst thesis conviction rather than news cycles.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.5rem;letter-spacing:0.1em;">LAYER 3 · 25 POINTS</div>
+          <div class="card__title">Technical Momentum</div>
+          <p class="card__text">4H RSI, Supertrend, and position relative to MA-50 — all on Hyperliquid candles. Technicals confirm or veto the thesis; they don't drive the pick. The rotation is not a momentum chase.</p>
+        </div>
+      </div>
+
+      <div style="max-width:680px;margin:0 auto;padding:1rem;background:rgba(201,169,97,0.04);border-left:2px solid var(--gold);">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.5rem;">CHURN CONTROL</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">An 8-point hysteresis prevents weekly thrashing. A held stock must be beaten by ≥8 points before rotation; a new candidate must exceed the lowest held score by ≥8 points to enter. When scores cluster tightly, positions stay stable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Universe + Visionary Targets -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">UNIVERSE &amp; VISIONARY TARGETS</div>
+        <h2 class="section-title"><span class="gradient-text">MAG-12 on Hyperliquid</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Twelve mega-cap US equities traded as HIP-3 xyz perpetuals. One permanent core (TSLA), six AI-infrastructure names, three mega-cap tech names, and two crypto-adjacent names (added in v3.1, replacing NFLX/META/SNDK).</p>
+      </div>
+
+      <div style="max-width:880px;margin:0 auto;overflow-x:auto;">
+        <table style="width:100%;font-family:var(--font-mono);font-size:0.85rem;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-default);">
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">SYMBOL</th>
+              <th style="padding:0.75rem 0.5rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">CURRENT</th>
+              <th style="padding:0.75rem 0.5rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">WS 12MO</th>
+              <th style="padding:0.75rem 0.5rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">VISIONARY</th>
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">THESIS</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--gold);font-weight:700;">TSLA</td><td style="padding:0.55rem 0.5rem;text-align:right;">$389</td><td style="padding:0.55rem 0.5rem;text-align:right;">$400</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$2,600 / 2029</td><td style="padding:0.55rem 0.5rem;">ARK base case; FSD + Optimus + xAI flywheel</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">NVDA</td><td style="padding:0.55rem 0.5rem;text-align:right;">$202</td><td style="padding:0.55rem 0.5rem;text-align:right;">$264</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$1,150 / 2030</td><td style="padding:0.55rem 0.5rem;">Rubin GPU + AI monopoly</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">MU</td><td style="padding:0.55rem 0.5rem;text-align:right;">$448</td><td style="padding:0.55rem 0.5rem;text-align:right;">$460</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$1,200 / 2030</td><td style="padding:0.55rem 0.5rem;">HBM TAM $100B by 2028</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">PLTR</td><td style="padding:0.55rem 0.5rem;text-align:right;">$146</td><td style="padding:0.55rem 0.5rem;text-align:right;">$194</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$650 / 2030</td><td style="padding:0.55rem 0.5rem;">Agentic enterprise + Erlichman +484% 5yr</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">AMZN</td><td style="padding:0.55rem 0.5rem;text-align:right;">$251</td><td style="padding:0.55rem 0.5rem;text-align:right;">$287</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$600 / 2030</td><td style="padding:0.55rem 0.5rem;">AWS AI reaccel + ads + logistics</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">TSM</td><td style="padding:0.55rem 0.5rem;text-align:right;">$366</td><td style="padding:0.55rem 0.5rem;text-align:right;">$374</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$550 / 2030</td><td style="padding:0.55rem 0.5rem;">2nm/1nm foundry leader + TeraFab</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">MSFT</td><td style="padding:0.55rem 0.5rem;text-align:right;">$423</td><td style="padding:0.55rem 0.5rem;text-align:right;">$581</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$850 / 2030</td><td style="padding:0.55rem 0.5rem;">Azure + Copilot enterprise compound</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">GOOGL</td><td style="padding:0.55rem 0.5rem;text-align:right;">$337</td><td style="padding:0.55rem 0.5rem;text-align:right;">$375</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$550 / 2030</td><td style="padding:0.55rem 0.5rem;">Gemini + cloud capex through 2030</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">AAPL</td><td style="padding:0.55rem 0.5rem;text-align:right;">$270</td><td style="padding:0.55rem 0.5rem;text-align:right;">$299</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$500 / 2030</td><td style="padding:0.55rem 0.5rem;">AI iPhone cycle + services margins</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">AMD</td><td style="padding:0.55rem 0.5rem;text-align:right;">$278</td><td style="padding:0.55rem 0.5rem;text-align:right;">$280</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$500 / 2030</td><td style="padding:0.55rem 0.5rem;">MI450 ramp + Erlichman +617% 5yr</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">CRCL</td><td style="padding:0.55rem 0.5rem;text-align:right;">$106</td><td style="padding:0.55rem 0.5rem;text-align:right;">$132</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$900 / 2029</td><td style="padding:0.55rem 0.5rem;">USDC network + subscription revenue</td></tr>
+            <tr><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">MSTR</td><td style="padding:0.55rem 0.5rem;text-align:right;">$170</td><td style="padding:0.55rem 0.5rem;text-align:right;">$340</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--text-primary);">$2,800 / 2029</td><td style="padding:0.55rem 0.5rem;">BTC proxy + convertible accumulation</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:1.5rem;max-width:680px;margin-left:auto;margin-right:auto;">
+        Targets refreshed quarterly. v3.2 (April 2026) standardized horizons to 2029 or 2030, corrected MU downward from a stale $1,475, and extended GOOGL and AMD horizons to capture long-term compounding.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stock DCA Grid -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">STOCK ENTRY STRUCTURE</div>
+        <h2 class="section-title"><span class="gradient-text">Five-Level Volatility-Adjusted DCA</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Dips are more likely than deep crashes. The grid loads 50% of the budget in the middle levels (the modal correction zone) and lightens the tails.</p>
+      </div>
+
+      <div style="max-width:720px;margin:0 auto;">
+        <table style="width:100%;font-family:var(--font-mono);font-size:0.9rem;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-default);">
+              <th style="padding:0.75rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">LEVEL</th>
+              <th style="padding:0.75rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">BUDGET %</th>
+              <th style="padding:0.75rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">PULLBACK</th>
+              <th style="padding:0.75rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">PURPOSE</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L1</td><td style="padding:0.6rem 0.75rem;text-align:right;">15%</td><td style="padding:0.6rem 0.75rem;text-align:right;">Near current</td><td style="padding:0.6rem 0.75rem;">Seed position on rotation entry</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L2</td><td style="padding:0.6rem 0.75rem;text-align:right;">20%</td><td style="padding:0.6rem 0.75rem;text-align:right;">−5 to −6%</td><td style="padding:0.6rem 0.75rem;">Shallow dip add</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L3</td><td style="padding:0.6rem 0.75rem;text-align:right;">25%</td><td style="padding:0.6rem 0.75rem;text-align:right;">−10 to −12%</td><td style="padding:0.6rem 0.75rem;">Modal correction zone</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.6rem 0.75rem;">L4</td><td style="padding:0.6rem 0.75rem;text-align:right;">25%</td><td style="padding:0.6rem 0.75rem;text-align:right;">−15 to −17%</td><td style="padding:0.6rem 0.75rem;">Deep correction</td></tr>
+            <tr><td style="padding:0.6rem 0.75rem;color:var(--gold);">L5</td><td style="padding:0.6rem 0.75rem;text-align:right;color:var(--gold);">15%</td><td style="padding:0.6rem 0.75rem;text-align:right;color:var(--gold);">−20 to −27%</td><td style="padding:0.6rem 0.75rem;color:var(--gold);">Capitulation catch</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sleeve 2: Crypto Core Detail -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">SLEEVE 2 DETAIL</div>
+        <h2 class="section-title"><span class="gradient-text">Crypto Core · Zone-Anchored DCA</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Crypto markets have a structural edge that equities don't: transparent, real-time liquidation data. When cumulative forced selling clusters at a price level, that level acts as a magnet. The core sleeve places DCA orders there rather than buying arbitrary dips.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;max-width:960px;margin:0 auto 2rem;">
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">BTC · 10% ALLOCATION</div>
+          <div class="card__title">Digital Store of Value</div>
+          <p class="card__text">Largest crypto weight. Anchor position. DCA levels cluster around the aggregated Long Max Pain across Binance, Bybit, OKX open interest.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">SOL · 8% ALLOCATION</div>
+          <div class="card__title">High-Throughput L1 Beta</div>
+          <p class="card__text">Captures the L1 performance premium. Same 5-level zone-anchored DCA mechanism.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">HYPE · 7% ALLOCATION</div>
+          <div class="card__title">Hyperliquid Itself</div>
+          <p class="card__text">A bet on the venue running the rest of the strategy. Smaller weight because it's already the execution dependency.</p>
+        </div>
+      </div>
+
+      <div style="max-width:680px;margin:0 auto;padding:1.25rem;border-left:2px solid var(--gold);background:rgba(201,169,97,0.05);">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.5rem;">ZONE MECHANICS</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">Every 4 hours, a zone aggregator computes volume-weighted Long Max Pain and Short Max Pain across Binance, Bybit, and OKX. Between those two levels, five DCA entries are interpolated with a 6% ATR multiplier. L1 seeds near current price, L2 sits at the Long MP magnet itself, L3–L5 extend deeper for increasingly rare conditions. The OI ratio (long vs short open interest balance) serves as a secondary regime signal — short-heavy order books tend to revert upward as shorts cover.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sleeve 3: Shorts Detail -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">SLEEVE 3 DETAIL</div>
+        <h2 class="section-title"><span class="gradient-text">Hedged Shorts · 10-Level TP Grid</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Shorting is the most dangerous sleeve — funding drains returns, squeezes force liquidation, and the asymmetry of the trade punishes overconviction. Rotation treats shorts as tactical: capped at 10% of capital, capped at 4 simultaneous positions, validated through four gates before entry, exited through a back-loaded grid that banks partial profits fast.</p>
+      </div>
+
+      <div style="max-width:900px;margin:0 auto 2rem;">
+        <h3 style="font-family:var(--font-display);font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">Four-Gate Validator</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.75rem;">
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 1</div><p class="card__text" style="margin:0;">RSI divergence or overbought exhaustion signal.</p></div>
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 2</div><p class="card__text" style="margin:0;">90-day Z-Score indicating overextension.</p></div>
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 3</div><p class="card__text" style="margin:0;">Momentum exhaustion check (diminishing up-day returns).</p></div>
+          <div class="card card--flat" style="padding:1rem;"><div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.3rem;">GATE 4</div><p class="card__text" style="margin:0;">Confluence: at least two independent weakness signals agree.</p></div>
+        </div>
+      </div>
+
+      <div style="max-width:720px;margin:0 auto;">
+        <h3 style="font-family:var(--font-display);font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">The 10-Level Back-Loaded TP Grid</h3>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:1rem;text-align:center;">Trim less at shallow profit levels, more at deep ones, because deep profits are more contested and more likely to reverse. 60% trimmed across the grid; 40% runner held to break-even.</p>
+        <table style="width:100%;font-family:var(--font-mono);font-size:0.8rem;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-default);">
+              <th style="padding:0.6rem 0.3rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">PROFIT</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+5%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+10%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+15%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+20%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+25%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+30%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+35%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+40%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+45%</th>
+              <th style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;">+50%</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr><td style="padding:0.6rem 0.3rem;">Trim</td><td style="padding:0.6rem 0.3rem;text-align:right;">3%</td><td style="padding:0.6rem 0.3rem;text-align:right;">3%</td><td style="padding:0.6rem 0.3rem;text-align:right;">4%</td><td style="padding:0.6rem 0.3rem;text-align:right;">5%</td><td style="padding:0.6rem 0.3rem;text-align:right;">5%</td><td style="padding:0.6rem 0.3rem;text-align:right;">6%</td><td style="padding:0.6rem 0.3rem;text-align:right;">7%</td><td style="padding:0.6rem 0.3rem;text-align:right;">8%</td><td style="padding:0.6rem 0.3rem;text-align:right;">9%</td><td style="padding:0.6rem 0.3rem;text-align:right;color:var(--gold);">10%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Paper Trading Snapshot -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">LIVE PAPER SNAPSHOT · APRIL 23, 2026</div>
+        <h2 class="section-title"><span class="gradient-text">6 Days In</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Paper trading has been running continuously since April 17, 2026 with a $5,000 starting capital. This snapshot was captured at 12:22 UTC on April 23.</p>
+      </div>
+
+      <div class="metrics" style="max-width:900px;margin:0 auto 2rem;">
+        <div class="metric">
+          <div class="metric__value gradient-text">$5,102.74</div>
+          <div class="metric__label">Equity · started $5,000</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value" style="color:var(--green);">+$102.74</div>
+          <div class="metric__label">Total P&amp;L · +2.05%</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value" style="color:var(--green);">95.2%</div>
+          <div class="metric__label">Win Rate · 20W / 1L</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">13</div>
+          <div class="metric__label">Open Positions</div>
+        </div>
+      </div>
+
+      <div style="max-width:680px;margin:0 auto;padding:1.25rem;background:rgba(248,113,113,0.06);border-left:2px solid var(--red);">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--red);letter-spacing:0.1em;margin-bottom:0.5rem;">HONEST CAVEAT</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">A 6-day window with 21 trades is directional at best. The Sharpe, Sortino, and CAGR you'd compute from this sample are not long-run estimators — they will regress toward more modest numbers as the trade count grows. Launch to live capital is gated on 90+ trading days of continuous operation validating the expected Sharpe / drawdown profile. That's the contract.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Execution Infrastructure -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">INFRASTRUCTURE</div>
+        <h2 class="section-title"><span class="gradient-text">Single Venue, Single Stack</span></h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;max-width:960px;margin:0 auto;">
+        <div class="card card--flat">
+          <div class="card__title">Hyperliquid HIP-3 · Unified Venue</div>
+          <p class="card__text">Stocks route as xyz:TSLA, crypto routes natively. One SDK, one order book convention, one funding model. Dramatically smaller operational surface than a multi-venue strategy.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Railway + SQLite</div>
+          <p class="card__text">All state — DCA levels, visionary targets, consensus cache, zone snapshots, equity curve — lives in SQLite on a Railway persistent volume. <code>BEGIN IMMEDIATE</code> transactions with a 10-second timeout. No Postgres needed.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">APScheduler · Asymmetric Cadences</div>
+          <p class="card__text">Stock rotation is weekly. Shorts cycle every 4 hours. Zones refresh every 4 hours. Prices snapshot every 5 minutes. Consensus refreshes daily at 6 AM UTC. Each sleeve runs at its natural speed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rotation vs Alpha -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">ROTATION VS ALPHA</div>
+        <h2 class="section-title"><span class="gradient-text">Same Philosophy, Different Markets</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:840px;margin:0 auto;">
+        <div class="card">
+          <div class="card__title">Soomario Alpha</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Single-sleeve crypto-only strategy. 228-coin pipeline, long HYPE, short weakest alts. Market-neutral by design. Live and running.</p>
+          <a href="alpha.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);">Learn More →</a>
+        </div>
+        <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+          <div class="card__title">Soomario Rotation</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Three-sleeve multi-asset strategy. Equity rotation + zone-anchored crypto core + hedged shorts. Paper trading.</p>
+          <span style="font-family:var(--font-display);font-size:0.7rem;color:var(--violet);">YOU ARE HERE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk Disclosure + CTA -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">RISK DISCLOSURE</div>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;font-size:0.92rem;margin-bottom:2rem;">
+        <p><strong style="color:var(--text-primary);">Regime risk.</strong> The scoring engine assumes visionary targets from ARK and similar analysts remain informative. A regime where these targets lose credibility (e.g., prolonged AI capex contraction) degrades the signal across multiple sleeves simultaneously.</p>
+        <p><strong style="color:var(--text-primary);">Correlation risk.</strong> Stocks, crypto longs, and crypto shorts all benefit from risk-on environments. In a coordinated selloff, only the short sleeve provides genuine diversification — and shorts are capped at 10%, limiting hedge capacity.</p>
+        <p><strong style="color:var(--text-primary);">Execution risk.</strong> Hyperliquid is a single venue. Prolonged HL outages freeze everything. Stock perps are HL-only, so no fallback venue for equity trades exists today.</p>
+        <p><strong style="color:var(--text-primary);">Liquidity risk.</strong> HL stock perps have thinner books than cash equities. Slippage on large orders can erode the DCA edge.</p>
+        <p><strong style="color:var(--text-primary);">Short squeeze risk.</strong> The short sleeve runs 5× leverage. A coordinated squeeze on any of the four active shorts could force liquidation before the grid trims meaningfully. The 10% cap and 4-position limit bound the damage.</p>
+        <p><strong style="color:var(--text-primary);">Paper vs live.</strong> Paper trading doesn't model slippage, order queue behavior, or the psychology of real capital. Live results will differ from paper — sometimes materially. Nothing in this document constitutes investment advice.</p>
+      </div>
+
+      <div class="card" style="text-align:center;max-width:420px;margin:0 auto;">
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:900;margin-bottom:0.25rem;" class="gradient-text">Launching Soon</div>
+        <div style="font-size:0.9rem;color:var(--text-muted);margin-bottom:0.25rem;">Paper since April 17 · live after 90+ validated days</div>
+        <div style="font-size:1rem;color:var(--text-secondary);margin-bottom:1.5rem;">3 sleeves · MAG-12 universe · Zone DCA · Unlock shorts · 10% profit share when live</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn btn--primary" style="width:100%;">Join Discord for Launch Updates →</a>
+          <a href="alpha.html" class="btn btn--outline" style="width:100%;">Trade the Crypto-Only Version (Alpha)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">EXPLORE MORE</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;max-width:700px;margin:0 auto;">
+        <a href="accumulator.html" class="card">
+          <div class="card__title">Accumulator →</div>
+          <p class="card__text">Signal-driven DCA on 12 AI/semi stocks plus BTC &amp; SOL. $7/mo with 7-day trial. Start small while Rotation validates.</p>
+        </a>
+        <a href="alpha.html" class="card">
+          <div class="card__title">Alpha →</div>
+          <p class="card__text">Rotation's crypto-only sister — 228-coin pipeline, long-short spread, market-neutral. Live and running. Vault · 10% profit share.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

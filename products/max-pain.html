@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Soomario Max Pain Vault — a hybrid TradingView + Python trading system on Hyperliquid. 18 coins, per-coin tuning, 82% win rate backtested across 693 trades. Vault — 10% profit share.">
+  <meta property="og:title" content="Soomario Max Pain Vault — Hybrid Trading for Hyperliquid Perpetuals">
+  <meta property="og:description" content="TradingView signals. Python safety net. 18 coins, 693 backtested trades, 82% win rate, 11.8% max drawdown. Vault only — 10% profit share.">
+  <title>Soomario Max Pain Vault — Hybrid Trading on Hyperliquid | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="canonical" href="https://soomariostrategies.com/products/max-pain.html">
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="section" style="padding-top:3rem;">
+    <div class="container">
+      <div style="margin-bottom:2rem;">
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE</span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:0.5rem;">
+        <span class="gradient-text">Soomario Max Pain Vault</span>
+      </h1>
+      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:640px;margin-bottom:0.5rem;font-style:italic;">
+        TradingView does the signal math. Python does the safety work.
+      </p>
+      <p style="font-size:1rem;color:var(--text-secondary);max-width:680px;margin-bottom:2rem;">
+        A hybrid automated trading system on Hyperliquid. Entry and exit signals are generated on TradingView using per-coin backtested indicators. A Python bot on Railway executes the trades and runs an independent hard stop-loss safety net, checking every open position every 45 seconds.
+      </p>
+
+      <div class="metrics" style="max-width:800px;">
+        <div class="metric">
+          <div class="metric__value gradient-text">18</div>
+          <div class="metric__label">Coins</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value" style="color:var(--green);">82%</div>
+          <div class="metric__label">Win Rate · 693 Trades</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">3.76</div>
+          <div class="metric__label">Sharpe Ratio</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">Vault</div>
+          <div class="metric__label">10% profit share</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:2rem;">
+        <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" class="btn btn--primary">Deposit to Vault →</a>
+        <a href="../dashboards/vault.html" class="btn btn--outline">View Live Dashboard</a>
+      </div>
+
+      <div style="margin-top:1rem;font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">
+        Vault: 0x843e160b4e7c453b38b14ac085a976db448d1b93
+      </div>
+    </div>
+  </section>
+
+  <!-- The Thesis -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">THE THESIS</div>
+      <h2 class="section-title"><span class="gradient-text">Price Travels to Pain</span></h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
+        <p>"Max pain" originally described the price level at which the maximum number of options contracts expire worthless — a level markets have a curious habit of drifting toward near expiry. The strategy generalizes that idea to perpetual futures: look for price levels where forced liquidations from over-leveraged positions create mechanical reversal pressure, and trade into them.</p>
+        <p>Retail traders in crypto perps fight a structural disadvantage. Professional firms deploy quant research teams, risk managers, and millions in infrastructure. Individuals typically compete with a charting app and willpower. Studies show median retail account lifespans under 90 days. The gap isn't intelligence — it's tooling, discipline, and execution quality.</p>
+        <p>Max Pain Vault closes that gap by combining two tools that are both strong on their own and stronger together: TradingView's charting engine for signal generation, and a custom Python bot for fast execution and independent risk checks. Neither can do the job alone. Together they remove the three failure modes that kill most retail trading: signal inconsistency, emotional exits, and execution latency.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hybrid Architecture -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">ARCHITECTURE</div>
+        <h2 class="section-title"><span class="gradient-text">Three Layers, No Single Point of Failure</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Each layer solves a specific problem, and the layers are independent enough that a failure in one doesn't cascade.</p>
+      </div>
+
+      <div class="steps" style="max-width:900px;margin:0 auto;">
+        <div class="step">
+          <div class="step__title">1. Signal Generation · TradingView</div>
+          <p class="step__text">Each of the 18 coins runs the Soomario Max Pain v3.2 BALANCED pine script on its own chart. The strategy evaluates three conditions on every candle close: an RSI crossover on per-coin thresholds, a volume-weighted Liquidation Z-Score spike, and a Supertrend flip. All three must align for a signal to fire.</p>
+        </div>
+        <div class="step">
+          <div class="step__title">2. Execution · Railway Bot</div>
+          <p class="step__text">When TradingView alerts, it webhooks a Python Flask service on Railway. The bot validates the signal, sets the tier-appropriate leverage, and market-opens the position on Hyperliquid via the official SDK. End-to-end latency from webhook to on-chain confirmation averages 800 milliseconds. If an opposing signal arrives on a coin with an existing position, the bot closes and flips automatically.</p>
+        </div>
+        <div class="step">
+          <div class="step__title">3. Safety · Independent 45s Stop-Loss</div>
+          <p class="step__text">TradingView only evaluates exits on candle close — up to 59 minutes between checks on 1H. The bot's safety loop polls Hyperliquid every 45 seconds, computes unrealized P&amp;L on every open position, and force-closes anything past its hard stop-loss threshold without waiting for a pine-side signal.</p>
+        </div>
+      </div>
+
+      <div style="max-width:680px;margin:2rem auto 0;padding:1.25rem;border-left:2px solid var(--gold);background:rgba(201,169,97,0.05);">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.5rem;">ANTI-FRAGILITY PRINCIPLE</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">TradingView offline? The bot still enforces hard stops. Railway offline? TradingView still fires close signals on candle. Hyperliquid API flaky? The bot retries with backoff. Redundancy is the risk management.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Three Indicators -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">SIGNAL DISCIPLINE</div>
+        <h2 class="section-title"><span class="gradient-text">Three Indicators, All Must Agree</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Any one of these alone throws too many false positives. Requiring all three cuts the trade count but drives the win rate toward 82%.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;max-width:960px;margin:0 auto;">
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">INDICATOR 1</div>
+          <div class="card__title">RSI</div>
+          <p class="card__text">Momentum on a 0–100 scale. Per-coin tuned length and thresholds because different assets have different momentum structures — PUMP uses length 5 for responsiveness; TAO uses length 2 for high-volatility extremes.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">INDICATOR 2</div>
+          <div class="card__title">Liquidation Z-Score</div>
+          <p class="card__text">Custom indicator measuring how unusual the current candle's volume-weighted move is versus recent history. Z=3 is three standard deviations — statistically rare, typically a forced-liquidation event. Spikes combined with RSI extremes mark local capitulation.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">INDICATOR 3</div>
+          <div class="card__title">Supertrend</div>
+          <p class="card__text">Volatility-adaptive trend indicator with dynamic support/resistance lines that flip decisively on trend changes. Flips confirm the reversal that RSI and Z-Score are hinting at. Per-coin period and multiplier, always.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leverage Tiers -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">POSITION SIZING</div>
+        <h2 class="section-title"><span class="gradient-text">Three Tiers, Conservative by Design</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Earlier versions ran 5×–8× leverage and produced occasional 15%+ single-trade losses. The current 3× cap eliminated those tails. Max simultaneous all-coin wipeout is ~25% — survivable.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;max-width:960px;margin:0 auto;">
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">TIER 1 · CONVICTION</div>
+          <div class="card__title">8% size · 3× leverage</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">The bot's best-edge coins by backtest. ~1.4% of vault at maximum loss per trade.</p>
+          <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);">PUMP · NEAR · HYPE</div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">TIER 2 · STANDARD</div>
+          <div class="card__title">5% size · 3× leverage</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Twelve liquid majors and mid-caps. ~0.9% of vault at maximum loss per trade.</p>
+          <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);">SOL, AVAX, DOGE, AAVE, XLM, BNB, SUI, TRX, LTC, +3</div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.1em;">TIER 3 · CAUTION</div>
+          <div class="card__title">4% size · 2× leverage</div>
+          <p class="card__text" style="margin-bottom:0.75rem;">Genuine edge but higher volatility and slippage. ~0.5% of vault at maximum loss.</p>
+          <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);">TAO · CRV · HBAR</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Per-Coin Tuning Sample -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">PER-COIN TUNING</div>
+        <h2 class="section-title"><span class="gradient-text">No Two Coins Are Alike</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Each coin carries its own parameter set — eight parameters in total, individually backtested across three-plus years of history. A representative sample:</p>
+      </div>
+
+      <div style="max-width:720px;margin:0 auto;overflow-x:auto;">
+        <table style="width:100%;font-family:var(--font-mono);font-size:0.85rem;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-default);">
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">COIN</th>
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">RSI LEN/OS/OB</th>
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">Z-SCORE</th>
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">ST PRD/MULT</th>
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">HARD SL</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--gold);">PUMP</td><td style="padding:0.55rem 0.5rem;">5 / 40 / 75</td><td style="padding:0.55rem 0.5rem;">2.0</td><td style="padding:0.55rem 0.5rem;">100 / 3.0</td><td style="padding:0.55rem 0.5rem;">−7.0%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--gold);">HYPE</td><td style="padding:0.55rem 0.5rem;">4 / 48 / 46</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 3.0</td><td style="padding:0.55rem 0.5rem;">−10.0%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;">SOL</td><td style="padding:0.55rem 0.5rem;">12 / 50 / 85</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 3.0</td><td style="padding:0.55rem 0.5rem;">−10.5%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;">AVAX</td><td style="padding:0.55rem 0.5rem;">5 / 54 / 32</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">350 / 2.6</td><td style="padding:0.55rem 0.5rem;">−12.0%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;">TAO</td><td style="padding:0.55rem 0.5rem;">2 / 40 / 89</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 5.2</td><td style="padding:0.55rem 0.5rem;">−8.0%</td></tr>
+            <tr><td style="padding:0.55rem 0.5rem;">HBAR</td><td style="padding:0.55rem 0.5rem;">4 / 75 / 95</td><td style="padding:0.55rem 0.5rem;">3.0</td><td style="padding:0.55rem 0.5rem;">300 / 3.0</td><td style="padding:0.55rem 0.5rem;">−9.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:1.5rem;max-width:620px;margin-left:auto;margin-right:auto;">
+        Hard stops range from −6% to −12.5% across the roster — wider for volatile coins (AVAX, CRV), tighter for stable ones (NEAR, LTC).
+      </p>
+    </div>
+  </section>
+
+  <!-- Backtest -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">BACKTEST</div>
+        <h2 class="section-title"><span class="gradient-text">1,184 Days, 693 Trades, Net of Fees</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">January 2023 through April 2026. Full market cycle — the 2023 run, the 2024 consolidation, the early 2026 correction. Pine script run exactly as it runs in production.</p>
+      </div>
+
+      <div class="metrics" style="max-width:960px;margin:0 auto;">
+        <div class="metric">
+          <div class="metric__value gradient-text">+2,322%</div>
+          <div class="metric__label">Total Return · after fees &amp; funding</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">+173.5%</div>
+          <div class="metric__label">CAGR</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">3.76</div>
+          <div class="metric__label">Sharpe</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">2.57</div>
+          <div class="metric__label">Sortino</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value gradient-text">2.88</div>
+          <div class="metric__label">Profit Factor</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value" style="color:var(--green);">11.8%</div>
+          <div class="metric__label">Max Drawdown</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value" style="color:var(--green);">82.0%</div>
+          <div class="metric__label">Win Rate · 693 trades</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value" style="color:var(--green);">37 / 40</div>
+          <div class="metric__label">Profitable Months</div>
+        </div>
+      </div>
+
+      <div style="max-width:680px;margin:2rem auto 0;">
+        <h3 style="font-family:var(--font-display);font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Directional Balance</h3>
+        <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">A strategy that only works in bull markets is leveraged beta dressed up as alpha. Max Pain's backtest is honestly balanced:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="card card--flat" style="text-align:center;padding:1.25rem;">
+            <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:var(--green);margin-bottom:0.25rem;">54%</div>
+            <div style="font-size:0.85rem;color:var(--text-muted);">of returns from longs</div>
+          </div>
+          <div class="card card--flat" style="text-align:center;padding:1.25rem;">
+            <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:var(--red);margin-bottom:0.25rem;">46%</div>
+            <div style="font-size:0.85rem;color:var(--text-muted);">of returns from shorts</div>
+          </div>
+        </div>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-top:1rem;">Shorts were profitable in 32 of 40 months (80%). Average hold time: 62 hours. Net funding over the entire 3.2-year test: $33 on $1,000 starting capital — negligible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Per-Coin Highlights -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">PER-COIN HIGHLIGHTS</div>
+        <h2 class="section-title"><span class="gradient-text">Where the Edge Shows Up</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">Three coins (SOL, TAO, TRX) produced zero losing trades across the backtest. BNB produced one loss in 35 trades.</p>
+      </div>
+
+      <div style="max-width:720px;margin:0 auto;overflow-x:auto;">
+        <table style="width:100%;font-family:var(--font-mono);font-size:0.85rem;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-default);">
+              <th style="padding:0.75rem 0.5rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">COIN</th>
+              <th style="padding:0.75rem 0.5rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">TRADES</th>
+              <th style="padding:0.75rem 0.5rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">WIN RATE</th>
+              <th style="padding:0.75rem 0.5rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">P&amp;L · $1K START</th>
+              <th style="padding:0.75rem 0.5rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">PROFIT FACTOR</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">AVAX</td><td style="padding:0.55rem 0.5rem;text-align:right;">89</td><td style="padding:0.55rem 0.5rem;text-align:right;">80.9%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$7,380</td><td style="padding:0.55rem 0.5rem;text-align:right;">3.27</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">DOGE</td><td style="padding:0.55rem 0.5rem;text-align:right;">114</td><td style="padding:0.55rem 0.5rem;text-align:right;">71.1%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$5,706</td><td style="padding:0.55rem 0.5rem;text-align:right;">1.95</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">SOL</td><td style="padding:0.55rem 0.5rem;text-align:right;">26</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">100.0%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$3,845</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--gold);">∞</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">AAVE</td><td style="padding:0.55rem 0.5rem;text-align:right;">56</td><td style="padding:0.55rem 0.5rem;text-align:right;">75.0%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$3,391</td><td style="padding:0.55rem 0.5rem;text-align:right;">2.27</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">XLM</td><td style="padding:0.55rem 0.5rem;text-align:right;">32</td><td style="padding:0.55rem 0.5rem;text-align:right;">78.1%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$3,016</td><td style="padding:0.55rem 0.5rem;text-align:right;">3.89</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">BNB</td><td style="padding:0.55rem 0.5rem;text-align:right;">35</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">97.1%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$1,561</td><td style="padding:0.55rem 0.5rem;text-align:right;">2263</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">SUI</td><td style="padding:0.55rem 0.5rem;text-align:right;">21</td><td style="padding:0.55rem 0.5rem;text-align:right;">95.2%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$1,433</td><td style="padding:0.55rem 0.5rem;text-align:right;">5.80</td></tr>
+            <tr><td style="padding:0.55rem 0.5rem;color:var(--text-primary);">TRX</td><td style="padding:0.55rem 0.5rem;text-align:right;">29</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">100.0%</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--green);">+$1,169</td><td style="padding:0.55rem 0.5rem;text-align:right;color:var(--gold);">∞</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Monte Carlo Stress -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">MONTE CARLO STRESS TEST</div>
+        <h2 class="section-title"><span class="gradient-text">10,000 Histories, Zero Losing Ones</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">A single backtest is one path through history. Monte Carlo shuffles the 693 trades into 10,000 random orderings — if the edge is real, results stay consistent; if it's fragile, they fall apart.</p>
+      </div>
+
+      <div style="max-width:680px;margin:0 auto;">
+        <table style="width:100%;font-family:var(--font-mono);font-size:0.9rem;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-default);">
+              <th style="padding:0.75rem;text-align:left;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">PERCENTILE</th>
+              <th style="padding:0.75rem;text-align:right;color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.1em;">MAX DRAWDOWN</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-secondary);">
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.65rem 0.75rem;">Median (50th)</td><td style="padding:0.65rem 0.75rem;text-align:right;">4.9%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.65rem 0.75rem;">75th</td><td style="padding:0.65rem 0.75rem;text-align:right;">5.7%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.65rem 0.75rem;">90th</td><td style="padding:0.65rem 0.75rem;text-align:right;">6.5%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.65rem 0.75rem;">95th</td><td style="padding:0.65rem 0.75rem;text-align:right;">7.2%</td></tr>
+            <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:0.65rem 0.75rem;">99th</td><td style="padding:0.65rem 0.75rem;text-align:right;">8.6%</td></tr>
+            <tr><td style="padding:0.65rem 0.75rem;color:var(--gold);">Worst case (10,000th)</td><td style="padding:0.65rem 0.75rem;text-align:right;color:var(--gold);font-weight:700;">13.2%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="max-width:680px;margin:2rem auto 0;padding:1.25rem;border-left:2px solid var(--gold);background:rgba(201,169,97,0.05);">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.5rem;">KEY FINDING</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;">Across 10,000 simulated histories: <strong style="color:var(--green);">0.00% probability of net loss</strong> and <strong style="color:var(--green);">0.00% probability of drawdown exceeding 20%</strong>. Max losing streak in the real backtest: 5 trades — consistent with random variation for an 82% win rate system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk Controls Summary -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">RISK CONTROLS</div>
+        <h2 class="section-title"><span class="gradient-text">The Safety Net in Full</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:960px;margin:0 auto;">
+        <div class="card card--flat">
+          <div class="card__title">Per-Coin Hard Stop</div>
+          <p class="card__text">−6% to −12.5% thresholds, backtested per coin. Enforced by the bot every 45 seconds regardless of TradingView state.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">3× Max Leverage</div>
+          <p class="card__text">Cap applies universally. Tier 3 coins further limited to 2×. No leverage knob in the wrong hands.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">No Leverage Stacking</div>
+          <p class="card__text">Bot refuses duplicate same-direction entries. A second long signal on an already-long coin is logged, not executed.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Auto-Flip Opposite Signals</div>
+          <p class="card__text">When an opposing signal arrives on an open position, the bot closes and flips atomically — never holds against an active signal.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">3× Retry on API Errors</div>
+          <p class="card__text">Hyperliquid 5xx on <code>update_leverage</code> triggers exponential backoff retry. Real failures alert Telegram; transient failures self-resolve.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Public Health Endpoint</div>
+          <p class="card__text">Railway bot exposes uptime, last scan time, and webhook status publicly. Anyone can verify the bot is alive and processing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section class="section">
+    <div class="container" style="max-width:700px;">
+      <div class="section-label">LIVE DASHBOARD</div>
+      <h2 class="section-title"><span class="gradient-text">Every Trade, Verifiable</span></h2>
+      <p style="color:var(--text-secondary);margin-bottom:1rem;">Public dashboard with live vault P&amp;L, open positions, signal scanner, hard-stop distances, recent trade history, and an equity curve on 30-second refresh. The vault contract is at <code style="font-family:var(--font-mono);font-size:0.85rem;color:var(--gold);">0x843e160b4e7c453b38b14ac085a976db448d1b93</code> — every deposit, withdrawal, and trade is on-chain.</p>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;">Every entry, exit, and hard-stop trigger also fires to a public Telegram channel in real time.</p>
+
+      <div class="video-placeholder">
+        <div class="video-placeholder__play">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="video-placeholder__label">DASHBOARD WALKTHROUGH — COMING SOON</div>
+      </div>
+      <div class="text-center" style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;">
+        <a href="../dashboards/vault.html" class="btn btn--ghost">Open Dashboard →</a>
+        <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" class="btn btn--ghost">View on Hyperliquid →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Vault -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">WHY VAULT</div>
+      <h2 class="section-title" style="font-size:1.4rem;"><span class="gradient-text">Self-Custody, Profit-Share Only</span></h2>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;">
+        <p>Max Pain Vault charges one fee: 10% of net profits. No deposit fees, no withdrawal fees, no monthly management fees, no lockups. If the vault loses money, the operator earns nothing until it recovers to its previous high-water mark.</p>
+        <p>Traditional hedge funds charge "2 and 20" — 2% of assets annually plus 20% of profits — which means investors pay in losing years. A pure profit-share structure only earns when depositors earn. That's the alignment.</p>
+        <p>Hyperliquid's native vault infrastructure keeps custody in the smart contract. The operator can direct trading but cannot withdraw depositor funds. Withdrawals are one-click and on-chain. Minimum deposit is $10.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk Disclosure + CTA -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="section-label">RISK DISCLOSURE</div>
+      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;font-size:0.92rem;margin-bottom:2rem;">
+        <p>Trading leveraged crypto perpetuals is substantially risky. Up to 3× leverage amplifies both gains and losses. A worst-case simultaneous hard-stop event across all 18 coins would produce roughly 25% vault drawdown — survivable, but real.</p>
+        <p>Smart contracts carry inherent risk of bugs, exploits, or unforeseen interactions. The strategy depends on TradingView, Railway, and Hyperliquid all functioning; extended outages at any of these can widen losses beyond backtest expectations. Market dynamics change over time — a strategy that worked across 2023–2026 is not guaranteed to continue working. Backtest and Monte Carlo results are historical; they are not predictions. Never deposit funds you cannot afford to lose.</p>
+      </div>
+
+      <div class="card" style="text-align:center;max-width:420px;margin:0 auto;">
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:900;margin-bottom:0.25rem;" class="gradient-text">Vault</div>
+        <div style="font-size:0.9rem;color:var(--text-muted);margin-bottom:0.25rem;">10% profit share · $10 min deposit · withdraw anytime</div>
+        <div style="font-size:1rem;color:var(--text-secondary);margin-bottom:1.5rem;">18 coins · Hybrid architecture · Per-coin tuning · 3× max leverage</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" class="btn btn--primary" style="width:100%;">Deposit to Vault →</a>
+          <a href="../dashboards/vault.html" class="btn btn--outline" style="width:100%;">View Live Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">EXPLORE MORE</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;max-width:700px;margin:0 auto;">
+        <a href="elite.html" class="card">
+          <div class="card__title">Elite →</div>
+          <p class="card__text">HYPE-dominant directional portfolio. Longer track record, fewer moving parts. Vault · 10% profit share.</p>
+        </a>
+        <a href="alpha.html" class="card">
+          <div class="card__title">Alpha →</div>
+          <p class="card__text">Market-neutral spread engine. Long strength, short weakness — 228-coin pipeline. Vault · 10% profit share.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>
