@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="../styles.css">
   <link rel="icon" href="../favicon.ico">
   <link rel="canonical" href="https://soomariostrategies.com/products/accumulator.html">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
 
@@ -43,30 +44,94 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 2. LIVE TRACK RECORD — lead with the numbers            -->
+  <!-- 2. LIVE TRACK RECORD — live showcase, not a screenshot  -->
   <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">LIVE TRACK RECORD · SINCE FEB 9, 2026</div>
-        <h2 class="section-title"><span class="gradient-text">This is the $1,500/month model</span><br>following every signal</h2>
-        <p class="section-subtitle" style="margin:0 auto;">Real signals, real prices, real timestamps. Updated every minute on the live dashboard.</p>
+  <section class="showcase" id="showcase">
+    <div class="showcase__inner">
+
+      <div class="showcase__caption">
+        <div class="showcase__eyebrow">
+          <span class="showcase__pulse"></span>
+          <span>LIVE · SINCE FEB 9, 2026</span>
+        </div>
+        <h2 class="showcase__headline">
+          <span class="gradient-text">If you'd followed every signal</span><br>
+          at $1,500/month…
+        </h2>
+        <div class="showcase__meta">Real trades · real prices · updated every minute</div>
       </div>
 
-      <div style="max-width:960px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--border-default);box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-        <img src="../assets/accumulator-performance.png" alt="Soomario Accumulator Performance Tab" style="width:100%;display:block;">
+      <div class="showcase-summary" id="scSummary">
+        <div>
+          <div class="showcase-summary__lbl">Total P&amp;L</div>
+          <div class="showcase-summary__big sc-skel" id="scPnl" style="height:60px;width:70%;">&nbsp;</div>
+          <div class="showcase-summary__sub" id="scPnlPct"></div>
+        </div>
+        <div class="showcase-summary__right">
+          <div class="showcase-summary__lbl">Current Value</div>
+          <div class="showcase-summary__val sc-skel" id="scValue" style="height:44px;width:60%;margin-left:auto;">&nbsp;</div>
+          <div class="showcase-summary__vsub" id="scInvested"></div>
+        </div>
+      </div>
+
+      <div class="showcase-curve">
+        <div class="showcase-curve__head">
+          <span class="showcase-curve__title">Equity Curve</span>
+          <div class="showcase-curve__legend">
+            <span><span class="showcase-curve__sw showcase-curve__sw--value"></span>Value</span>
+            <span><span class="showcase-curve__sw showcase-curve__sw--invested"></span>Invested</span>
+          </div>
+        </div>
+        <div class="showcase-curve__canvas-wrap">
+          <canvas id="scChart"></canvas>
+          <div id="scChartEmpty" class="sc-err" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;">Loading performance data…</div>
+        </div>
+      </div>
+
+      <div class="showcase-metrics">
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Profit Factor</div>
+          <div class="sc-pill__val" id="scProfitFactor">—</div>
+          <div class="sc-pill__sub">wins ÷ losses</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Win Rate</div>
+          <div class="sc-pill__val" id="scWinRate">—</div>
+          <div class="sc-pill__sub" id="scWinRateSub">—</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Sharpe Ratio</div>
+          <div class="sc-pill__val" id="scSharpe">—</div>
+          <div class="sc-pill__sub">risk-adjusted return</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">CAGR</div>
+          <div class="sc-pill__val" id="scCagr">—</div>
+          <div class="sc-pill__sub">annualized</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Total Buys</div>
+          <div class="sc-pill__val" id="scTotalBuys">—</div>
+          <div class="sc-pill__sub">signals executed</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Avg Buy</div>
+          <div class="sc-pill__val" id="scAvgBuy">—</div>
+          <div class="sc-pill__sub">per signal</div>
+        </div>
       </div>
 
       <div style="max-width:720px;margin:2rem auto 0;padding:1.5rem;background:rgba(201,169,97,0.04);border-left:2px solid var(--gold);">
         <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.16em;margin-bottom:0.6rem;text-transform:uppercase;">Honest context</div>
         <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.7;margin:0;">
-          109 signals over ~2.5 months is a meaningful sample but not a multi-cycle track record. The bulk of these trades happened during a strong AI sector uptrend. Some of these numbers — a 23.17 Sharpe, 93.6% win rate — will normalize over time as trades accumulate across different market regimes. The exceptional performance is real, but expect it to look less exceptional as the sample grows. If you see numbers like these and your instinct is "this seems too good to be true," keep that skepticism. The FAQ below addresses it directly.
+          These signals cover a relatively narrow window, firing mostly during a strong AI sector uptrend. A high win rate and exceptional Sharpe over ~2.5 months is "best plausible case" — not the expected forward baseline. As the sample grows and markets cycle through less favorable regimes, the numbers will normalize. What should hold up over longer timeframes is the structural edge: buying oversold quality assets at scaled sizes beats blind DCA. The magnitude of outperformance will vary. The FAQ below addresses skepticism directly.
         </p>
       </div>
 
       <div class="text-center" style="margin-top:1.5rem;">
         <a href="https://accumulator.soomariostrategies.com/dashboard" target="_blank" class="btn btn--outline">View the live dashboard →</a>
       </div>
+
     </div>
   </section>
 
@@ -235,20 +300,21 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 7. PER-ASSET PERFORMANCE SCREENSHOT                     -->
+  <!-- 7. PER-ASSET LIVE BREAKDOWN                             -->
   <!-- ═══════════════════════════════════════════════════════ -->
   <section class="section">
     <div class="container">
       <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">PER-ASSET BREAKDOWN</div>
+        <div class="section-label">PER-ASSET BREAKDOWN · LIVE</div>
         <h2 class="section-title"><span class="gradient-text">Every position, every buy,</span><br>tracked live</h2>
         <p class="section-subtitle" style="margin:0 auto;max-width:680px;">
-          The dashboard breaks down exactly how each of the 14 assets has performed: total buys, average cost, current value, and P&amp;L — per position, updated every minute.
+          Exactly how each of the 14 assets has performed: buys fired, average cost, current value, and P&amp;L — per position, updated every minute.
         </p>
       </div>
 
-      <div style="max-width:900px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--border-default);box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-        <img src="../assets/accumulator-assets.png" alt="Soomario Accumulator Asset Breakdown" style="width:100%;display:block;">
+      <div style="max-width:900px;margin:0 auto;" id="assetBreakdown">
+        <div class="sc-err" id="abEmpty" style="display:none;padding:2rem 1rem;">Loading asset breakdown…</div>
+        <div id="abList"></div>
       </div>
 
       <div class="text-center" style="margin-top:1.75rem;">
@@ -387,6 +453,330 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- INLINE STYLES FOR LIVE ASSET BREAKDOWN                  -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <style>
+    .ab-row {
+      background: rgba(26, 22, 37, 0.6);
+      border: 1px solid var(--border-default);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 0.6rem;
+      transition: border-color 0.15s ease;
+    }
+    .ab-row:hover { border-color: rgba(201, 169, 97, 0.3); }
+    .ab-row--watching {
+      opacity: 0.55;
+      background: rgba(26, 22, 37, 0.35);
+    }
+    .ab-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.55rem;
+    }
+    .ab-sym {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+    }
+    .ab-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+    .ab-pnl {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-align: right;
+    }
+    .ab-pnl-pct {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      display: block;
+      margin-top: 0.15rem;
+      opacity: 0.85;
+    }
+    .ab-pnl.is-up { color: var(--green); }
+    .ab-pnl.is-down { color: var(--red); }
+    .ab-bar-wrap {
+      height: 4px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 0.35rem 0 0.55rem;
+      position: relative;
+    }
+    .ab-bar {
+      height: 100%;
+      background: var(--green);
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+    .ab-bar.is-neg { background: var(--red); }
+    .ab-foot {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .ab-watching-tag {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
+    }
+    @media (max-width: 600px) {
+      .ab-row { padding: 0.9rem 1rem; }
+      .ab-pnl { font-size: 1rem; }
+    }
+  </style>
+
   <script src="../components.js"></script>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LIVE DATA FETCH (portfolio_value API)                   -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <script>
+  (function(){
+    var API = 'https://accumulator.soomariostrategies.com/api/portfolio_value';
+
+    // Full 14-asset universe with sector labels — so missing assets still render
+    var UNIVERSE = [
+      {s:'BTC',   label:'Bitcoin',        type:'crypto'},
+      {s:'SOL',   label:'Solana',         type:'crypto'},
+      {s:'NVDA',  label:'AI infrastructure', type:'stock'},
+      {s:'AMD',   label:'AI chips',       type:'stock'},
+      {s:'AVGO',  label:'AI chips',       type:'stock'},
+      {s:'ARM',   label:'Chip IP',        type:'stock'},
+      {s:'TSM',   label:'Foundry',        type:'stock'},
+      {s:'ASML',  label:'Lithography',    type:'stock'},
+      {s:'MU',    label:'Memory',         type:'stock'},
+      {s:'MRVL',  label:'AI networking',  type:'stock'},
+      {s:'ALAB',  label:'AI connectivity',type:'stock'},
+      {s:'PLTR',  label:'AI platform',    type:'stock'},
+      {s:'GOOGL', label:'AI cloud',       type:'stock'},
+      {s:'TSLA',  label:'AI & robotics',  type:'stock'}
+    ];
+
+    function fmt$(n, dec){
+      if(n == null || isNaN(n)) return '—';
+      dec = dec == null ? 2 : dec;
+      var sign = n < 0 ? '-' : '';
+      var v = Math.abs(n).toLocaleString(undefined, {minimumFractionDigits: dec, maximumFractionDigits: dec});
+      return sign + '$' + v;
+    }
+    function fmtInt(n){
+      if(n == null || isNaN(n)) return '—';
+      return '$' + Math.round(n).toLocaleString();
+    }
+    function fmtPct(n, dec){
+      if(n == null || isNaN(n)) return '—';
+      dec = dec == null ? 2 : dec;
+      return (n >= 0 ? '+' : '') + Number(n).toFixed(dec) + '%';
+    }
+    function fmtSigned$(n){
+      if(n == null || isNaN(n)) return '—';
+      return (n >= 0 ? '+' : '-') + '$' + Math.abs(n).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+    }
+    function removeSkel(el){
+      if(!el) return;
+      el.classList.remove('sc-skel');
+      el.style.height = '';
+      el.style.width = '';
+    }
+
+    // ───── RENDER: Showcase summary + metric pills ─────
+    function renderShowcase(data){
+      var pnl = data.total_pnl_usd || 0;
+      var pnlPct = data.total_pnl_pct || 0;
+      var value = data.total_value || 0;
+      var invested = data.total_invested || 0;
+      var positive = pnl >= 0;
+      var m = data.metrics || {};
+
+      var pnlEl = document.getElementById('scPnl');
+      if(pnlEl){ removeSkel(pnlEl); pnlEl.textContent = fmtSigned$(pnl); pnlEl.classList.toggle('is-loss', !positive); }
+      var pctEl = document.getElementById('scPnlPct');
+      if(pctEl){ pctEl.textContent = fmtPct(pnlPct, 1) + ' return'; pctEl.style.color = positive ? 'var(--green)' : 'var(--red)'; }
+
+      var valueEl = document.getElementById('scValue');
+      if(valueEl){ removeSkel(valueEl); valueEl.textContent = fmtInt(value); }
+      var invEl = document.getElementById('scInvested');
+      if(invEl){ invEl.textContent = 'of ' + fmtInt(invested) + ' invested'; }
+
+      function setPill(id, text, color){
+        var el = document.getElementById(id);
+        if(!el) return;
+        el.textContent = text;
+        el.classList.remove('is-green', 'is-red', 'is-amber');
+        if(color) el.classList.add(color);
+      }
+      function colorFor(val, good, mid){
+        if(val == null || isNaN(val)) return null;
+        if(val >= good) return 'is-green';
+        if(val >= mid) return 'is-amber';
+        return 'is-red';
+      }
+      setPill('scProfitFactor',
+        m.profit_factor != null ? Number(m.profit_factor).toFixed(2) : '—',
+        colorFor(m.profit_factor, 1.5, 1));
+      setPill('scWinRate',
+        m.win_rate_pct != null ? Number(m.win_rate_pct).toFixed(1) + '%' : '—',
+        m.win_rate_pct >= 60 ? 'is-green' : null);
+      var wrSub = document.getElementById('scWinRateSub');
+      if(wrSub) wrSub.textContent = (m.winning_buys || 0) + 'W / ' + (m.losing_buys || 0) + 'L';
+      setPill('scSharpe',
+        m.sharpe_ratio != null ? Number(m.sharpe_ratio).toFixed(2) : '—',
+        m.sharpe_ratio >= 1 ? 'is-green' : null);
+      setPill('scCagr',
+        m.cagr_pct != null ? fmtPct(m.cagr_pct, 1) : '—',
+        m.cagr_pct >= 0 ? 'is-green' : 'is-red');
+      setPill('scTotalBuys', m.total_buys != null ? m.total_buys : '—', null);
+      setPill('scAvgBuy', m.avg_buy_usd != null ? fmt$(m.avg_buy_usd) : '—', null);
+    }
+
+    // ───── RENDER: Equity curve (Chart.js) ─────
+    var chart = null;
+    function renderChart(data){
+      if(!data.equity_curve || data.equity_curve.length < 2){
+        var e = document.getElementById('scChartEmpty');
+        if(e){ e.style.display = 'flex'; e.textContent = 'Not enough data yet — check back soon.'; }
+        return;
+      }
+      var canvas = document.getElementById('scChart');
+      if(!canvas || !window.Chart) return;
+      if(chart) chart.destroy();
+
+      var labels = data.equity_curve.map(function(_, i){ return i + 1; });
+      var invested = data.equity_curve.map(function(p){ return p.invested; });
+      var value = data.equity_curve.map(function(p){ return p.value; });
+
+      chart = new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: 'Portfolio Value', data: value, borderColor: '#C9A961', backgroundColor: 'rgba(201,169,97,0.1)', borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 4, pointHoverBackgroundColor: '#C9A961', fill: true, tension: 0.35 },
+            { label: 'Invested', data: invested, borderColor: 'rgba(157, 145, 184, 0.5)', borderDash: [5,4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0.2 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(26, 22, 37, 0.95)',
+              borderColor: 'rgba(201, 169, 97, 0.3)',
+              borderWidth: 1,
+              titleColor: '#c9bbdf',
+              bodyColor: '#f5f0fc',
+              padding: 10,
+              titleFont: { family: 'JetBrains Mono', size: 11 },
+              bodyFont: { family: 'JetBrains Mono', size: 12 },
+              callbacks: {
+                title: function(items){ return 'Signal #' + items[0].label; },
+                label: function(item){ return ' ' + item.dataset.label + ': $' + item.raw.toFixed(2); }
+              }
+            }
+          },
+          scales: {
+            x: { display: false },
+            y: {
+              grid: { color: 'rgba(201,169,97,0.06)', drawBorder: false },
+              ticks: { color: '#9d91b8', font: { family: 'JetBrains Mono', size: 10 }, callback: function(v){ return '$' + v.toLocaleString(); }, padding: 8 },
+              border: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    // ───── RENDER: Per-asset breakdown ─────
+    function renderAssetBreakdown(data){
+      var listEl = document.getElementById('abList');
+      var emptyEl = document.getElementById('abEmpty');
+      if(!listEl) return;
+
+      // Build a map from the API's assets[] for O(1) lookup
+      var apiAssets = {};
+      if(Array.isArray(data.assets)){
+        data.assets.forEach(function(a){ apiAssets[a.asset] = a; });
+      }
+
+      // Maximum invested across all assets — for the progress bar scale
+      var maxInvested = 0;
+      Object.keys(apiAssets).forEach(function(k){
+        if(apiAssets[k].invested > maxInvested) maxInvested = apiAssets[k].invested;
+      });
+
+      var html = '';
+      UNIVERSE.forEach(function(u){
+        var a = apiAssets[u.s];
+        if(!a || !a.buy_count || a.buy_count === 0){
+          // Watching state — no signals fired yet for this asset
+          html += '<div class="ab-row ab-row--watching">'
+            + '<div class="ab-head">'
+            +   '<div><div class="ab-sym">' + u.s + '</div><div class="ab-meta">' + u.label + '</div></div>'
+            +   '<div><span class="ab-watching-tag">Watching</span></div>'
+            + '</div>'
+            + '<div class="ab-foot"><span>No signals yet — scanner monitoring</span><span>—</span></div>'
+            + '</div>';
+          return;
+        }
+        var pnlClass = a.pnl_usd >= 0 ? 'is-up' : 'is-down';
+        var barPct = maxInvested > 0 ? Math.round((a.invested / maxInvested) * 100) : 0;
+        var pnlSign = a.pnl_usd >= 0 ? '+' : '-';
+        var pctSign = a.pnl_pct >= 0 ? '+' : '';
+        html += '<div class="ab-row">'
+          + '<div class="ab-head">'
+          +   '<div><div class="ab-sym">' + u.s + '</div><div class="ab-meta">' + a.buy_count + ' buy' + (a.buy_count === 1 ? '' : 's') + ' · avg $' + (a.avg_cost != null ? a.avg_cost.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : '—') + '</div></div>'
+          +   '<div class="ab-pnl ' + pnlClass + '">' + pnlSign + '$' + Math.abs(a.pnl_usd).toFixed(2)
+          +     '<span class="ab-pnl-pct">' + pctSign + Number(a.pnl_pct).toFixed(1) + '%</span>'
+          +   '</div>'
+          + '</div>'
+          + '<div class="ab-bar-wrap"><div class="ab-bar ' + (a.pnl_usd < 0 ? 'is-neg' : '') + '" style="width:' + barPct + '%"></div></div>'
+          + '<div class="ab-foot"><span>Invested: ' + fmtInt(a.invested) + '</span><span>Value: ' + fmtInt(a.value) + '</span></div>'
+          + '</div>';
+      });
+      listEl.innerHTML = html;
+      if(emptyEl) emptyEl.style.display = 'none';
+    }
+
+    // ───── MAIN FETCH + ORCHESTRATE ─────
+    function load(){
+      fetch(API)
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if(!data) return;
+          renderShowcase(data);
+          renderChart(data);
+          renderAssetBreakdown(data);
+        })
+        .catch(function(err){
+          console.warn('accumulator live fetch failed', err);
+          var e = document.getElementById('scChartEmpty');
+          if(e){ e.style.display = 'flex'; e.textContent = 'Live data temporarily unavailable — try refreshing.'; }
+          var ab = document.getElementById('abEmpty');
+          if(ab){ ab.style.display = 'block'; ab.textContent = 'Live data temporarily unavailable.'; }
+        });
+    }
+
+    load();
+    setInterval(load, 60000);
+  })();
+  </script>
 </body>
 </html>
