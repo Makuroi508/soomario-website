@@ -4,97 +4,354 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Soomario Zones — automated DCA at liquidation zones across 21 cryptocurrencies on Hyperliquid. 4-level entries, 3-stage exits.">
-  <title>Soomario Zones — Liquidation Zone DCA | Soomario Strategies</title>
+  <meta name="description" content="Soomario Zones — bi-directional mean-reversion DCA at liquidation max-pain zones. 21 perpetual futures on Hyperliquid. Long the long-liquidation overshoots, short the short-squeeze peaks. Live vault since March 2026.">
+  <meta property="og:title" content="Soomario Zones — Bi-Directional Liquidation DCA">
+  <meta property="og:description" content="Position where forced sellers and forced buyers create temporary mispricings. 21 coins, 4-level DCA, dynamic take-profit. Live Hyperliquid vault.">
+  <title>Soomario Zones — Bi-Directional Liquidation DCA | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link rel="icon" href="../assets/soomario-logo.png" type="image/png">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/products/zones.html">
 </head>
 <body>
+
+  <!-- 1. HERO -->
   <section class="section" style="padding-top:3rem;">
     <div class="container">
-      <div style="margin-bottom:2rem;"><span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE</span></div>
-      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:0.5rem;"><span class="gradient-text">Soomario Zones</span></h1>
-      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:600px;margin-bottom:0.5rem;">Buy where others are being liquidated.</p>
-      <p style="font-size:1rem;color:var(--text-secondary);max-width:600px;margin-bottom:2rem;">An automated strategy that identifies where large clusters of leveraged positions will get liquidated, then systematically buys into those zones using a 4-level DCA approach. When the market snaps back, it scales out across multiple profit targets.</p>
-      <div class="metrics" style="max-width:700px;">
-        <div class="metric"><div class="metric__value gradient-text">21</div><div class="metric__label">Coins Scanned</div></div>
-        <div class="metric"><div class="metric__value" style="color:var(--green);">92.3%</div><div class="metric__label">Win Rate (early)</div></div>
-        <div class="metric"><div class="metric__value gradient-text">4</div><div class="metric__label">DCA Levels</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Vault</div><div class="metric__label">10% profit share</div></div>
+      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE · MARCH 2026</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID VAULT</span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
+        <span class="gradient-text">Position where the forced</span><br>
+        <span style="color:var(--text-primary);">are getting wiped out.</span>
+      </h1>
+      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
+        Zones is a bi-directional mean-reversion engine. When leveraged longs cascade into liquidation, prices overshoot to the downside before reverting — Zones enters long into that overshoot. When leveraged shorts cascade in a squeeze, the symmetric logic applies in reverse. Both directions are valid setups. The strategy positions where forced selling — or forced buying — has temporarily mispriced the asset.
+      </p>
+
+      <div class="metrics" style="margin:2rem 0;max-width:920px;">
+        <div class="metric"><div class="metric__value gradient-text">21</div><div class="metric__label">Coins on Hyperliquid</div></div>
+        <div class="metric"><div class="metric__value gradient-text">Both</div><div class="metric__label">Long &amp; short setups</div></div>
+        <div class="metric"><div class="metric__value gradient-text">4-level</div><div class="metric__label">DCA stack per entry</div></div>
+        <div class="metric"><div class="metric__value gradient-text">8×</div><div class="metric__label">Max leverage cap</div></div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
+        <a href="https://app.hyperliquid.xyz/vaults/0xc61f29df7bc0334df188c95168ff6bcf31e7ef46" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
+        <a href="https://zones.soomariostrategies.com/" target="_blank" rel="noopener" class="btn btn--outline btn--lg">View Live Dashboard →</a>
+        <a href="#how" class="btn btn--ghost btn--lg">How it works ↓</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;font-family:var(--font-mono);">
+        Vault: <a href="https://app.hyperliquid.xyz/vaults/0xc61f29df7bc0334df188c95168ff6bcf31e7ef46" target="_blank" rel="noopener" style="color:var(--gold);">0xc61f…ef46</a> · 10% profit share · self-custody, on-chain
       </div>
     </div>
   </section>
 
+  <!-- 2. THE STRUCTURAL EDGE -->
   <section class="section section--alt">
     <div class="container container--narrow">
-      <div class="section-label">THE THESIS</div>
-      <h2 class="section-title">Liquidation Cascades Create Opportunity</h2>
-      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
-        <p>In leveraged crypto markets, large concentrations of long and short positions create predictable "max pain" price levels. When price approaches these levels, cascading liquidations create sharp, temporary dislocations — prices overshoot fair value before snapping back.</p>
-        <p>Soomario Zones exploits this pattern by identifying where liquidation clusters sit across Binance, Bybit, and OKX, waiting for price to approach these zones, averaging in across 4 price levels as the dislocation deepens, and scaling out across 3 profit targets as the market normalizes.</p>
-        <p>The strategy enters when others are being forced out, and exits into strength.</p>
+      <div class="section-label">THE STRUCTURAL EDGE</div>
+      <h2 class="section-title"><span class="gradient-text">Liquidation data is public.</span><br>Systematic execution is rare.</h2>
+
+      <div style="color:var(--text-secondary);line-height:1.75;display:flex;flex-direction:column;gap:1.1rem;font-size:1.02rem;">
+        <p>
+          Liquidation cascades happen on every major derivatives exchange and the data is observable in real time. Anyone with a Coinglass account can see where leveraged positions cluster and where the next forced-selling event would land. The information asymmetry isn't in the data — it's in execution.
+        </p>
+        <p>
+          Most retail traders see a cascade after it has already happened and react emotionally. Most discretionary traders pick one coin, build one thesis, and miss the parallel setups across 20 other coins. Most algorithmic strategies optimize on chart patterns and ignore the venue-specific microstructure where actual forced selling occurs.
+        </p>
+        <p>
+          Zones treats liquidation proximity as a portfolio-wide statistical signal across 21 coins. The engine doesn't act on every zone touch — it requires its DCA scoring AND an independent conviction filter to clear before deploying capital. In practice, most zone touches across the universe are ignored. When the engine does enter, the dislocation is large enough, the OI fuel is deep enough, and broader conditions support the snap-back.
+        </p>
+        <p>
+          Across 21 coins, the strategy typically holds three to six concurrent positions and turns over capital on a 12–48 hour cycle. The combination of selectivity and the DCA structure — which mechanically improves average entry as dislocation deepens — is what turns a public observation into a tradeable edge.
+        </p>
       </div>
     </div>
   </section>
 
+  <!-- 3. SIGNAL ARCHITECTURE -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">SIGNAL ARCHITECTURE</div>
+        <h2 class="section-title"><span class="gradient-text">Two zones per coin.</span><br>One conviction gate.</h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">
+          The engine continuously ranks all 21 coins by DCA opportunity quality and only commits capital to the highest-ranked candidates that also clear an independent conviction filter. Zone scanning, conviction signaling, and position management run as decoupled loops with independent state.
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1080px;margin:0 auto 2.5rem;">
+        <div class="card" style="border-color:var(--gold);">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">STAGE 1</div>
+          <div class="card__title">Cross-Exchange Zone Aggregation</div>
+          <p class="card__text">Open interest, liquidation density, and 24-hour ranges are pulled from Binance, Bybit, and OKX every cycle. Two max-pain zones are computed per coin: a Long Max Pain band below price (where leveraged longs would be wiped in a downside cascade) and a Short Max Pain band above (where leveraged shorts would be squeezed in an upside cascade). The zones come from observable market microstructure — not chart patterns.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">STAGE 2</div>
+          <div class="card__title">DCA Score Ranking</div>
+          <p class="card__text">Each coin gets a composite score from three observable variables: zone width (wider zones mean larger potential dislocations), proximity (how close current price is to triggering an entry edge), and open interest depth (more OI means more liquidation fuel). Across the 21-coin universe, only top-ranked candidates are eligible for entry consideration.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">STAGE 3</div>
+          <div class="card__title">Conviction Gate</div>
+          <p class="card__text">Before any capital deploys, the candidate must independently clear a conviction filter combining RSI extremes, volume anomalies, longs/shorts imbalance, market-wide Fear &amp; Greed, and trend alignment. The gate also resolves direction: downside-favorable conditions open long; upside-favorable conditions open short. The gate exists specifically to prevent blindly buying every zone.</p>
+        </div>
+      </div>
+
+      <div style="max-width:720px;margin:0 auto;padding:1.25rem;border-left:2px solid var(--gold);background:rgba(201,169,97,0.05);">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.5rem;">SELECTIVITY IS THE POINT</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;line-height:1.7;">
+          Across 21 actively scanned coins, the engine typically opens between zero and four positions per scoring cycle. Most cycles open none. The exact weights, scoring thresholds, and conviction parameters are calibrated against historical data and not published.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. POSITION CONSTRUCTION -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">POSITION CONSTRUCTION</div>
+        <h2 class="section-title"><span class="gradient-text">Stack into the dislocation.</span><br>Scale out as it normalizes.</h2>
+      </div>
+
+      <div style="max-width:880px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;">
+
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--green);margin-bottom:0.5rem;letter-spacing:0.12em;">STEP 1</div>
+          <div class="card__title">4-Level DCA Stack</div>
+          <p class="card__text" style="font-size:0.9rem;">When a coin clears both ranking and conviction, capital deploys across four graduated price levels within the liquidation zone — one immediate entry at the zone edge, three resting limit orders at progressively deeper prices. Allocations are weighted toward the deeper levels because deeper fills represent better entry prices.</p>
+        </div>
+
+        <div class="card" style="border-color:var(--gold);">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">STEP 2</div>
+          <div class="card__title">Tiered Leverage</div>
+          <p class="card__text" style="font-size:0.9rem;">Each coin's leverage is calibrated to its historical volatility band, capped at 8×. Higher-volatility coins trade at the lower end of the leverage range; lower-volatility coins at the higher end. Uniform leverage across heterogeneous volatility profiles either over-risks the volatile coins or under-uses capital on the stable ones.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--green);margin-bottom:0.5rem;letter-spacing:0.12em;">STEP 3</div>
+          <div class="card__title">Dynamic Take-Profit</div>
+          <p class="card__text" style="font-size:0.9rem;">Three profit targets close portions of the position as the market reverts, with a trailing-stop runner protecting the remainder. Targets are computed from the position's actual average entry — as deeper DCA levels fill and average entry improves, profit targets move closer in price terms. The math rewards averaging into the dislocation.</p>
+        </div>
+
+      </div>
+
+      <p style="text-align:center;font-size:0.9rem;color:var(--text-muted);margin-top:2rem;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.65;">
+        The same logic applies to both directions: long entries average down as price falls into the long-side zone; short entries average up as price rises into the short-side zone. Bi-directional by construction, not by overlay.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5. RISK MANAGEMENT -->
   <section class="section">
     <div class="container">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">STRATEGY MECHANICS</div>
-        <h2 class="section-title"><span class="gradient-text">4-Level Entry, 3-Stage Exit</span></h2>
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">RISK MANAGEMENT</div>
+        <h2 class="section-title"><span class="gradient-text">Per-position stops.</span><br>Portfolio-level circuit breaker.</h2>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:800px;margin:0 auto;">
-        <div>
-          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--text-gold);margin-bottom:1rem;">Entry Levels</h3>
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L1</strong> <span style="color:var(--text-secondary);">— Zone edge (20% allocation, market order)</span></div>
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L2</strong> <span style="color:var(--text-secondary);">— Max pain level (25%, limit order)</span></div>
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L3</strong> <span style="color:var(--text-secondary);">— Deep zone (27.5%, limit order)</span></div>
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--text-gold);">L4</strong> <span style="color:var(--text-secondary);">— Deepest zone (27.5%, limit order)</span></div>
-          </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;max-width:1080px;margin:0 auto;">
+        <div class="card card--flat">
+          <div class="card__title">Per-Level Stop Loss</div>
+          <p class="card__text">Every position carries a hard stop at a fixed buffer beyond the deepest DCA level. The buffer accounts for typical wick noise without exposing the position to a thesis breakdown. Enforced bot-side every cycle and re-armed whenever fill state changes.</p>
         </div>
-        <div>
-          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--text-gold);margin-bottom:1rem;">Exit Targets</h3>
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--green);">TP1</strong> <span style="color:var(--text-secondary);">— Quick scalp at zone edge recovery</span></div>
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--green);">TP2</strong> <span style="color:var(--text-secondary);">— Mid-range mean reversion target</span></div>
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--green);">TP3</strong> <span style="color:var(--text-secondary);">— Extended move with trailing stop</span></div>
-            <div class="card card--flat" style="padding:1rem;"><strong style="color:var(--red);">SL</strong> <span style="color:var(--text-secondary);">— Time-based exit if zone thesis fails</span></div>
-          </div>
+        <div class="card card--flat">
+          <div class="card__title">Catastrophic Stop</div>
+          <p class="card__text">A second, wider stop sits at a multiple of the per-level distance, intended to fire only in true black-swan conditions where the per-level stop would have been wicked but missed. No single position can take the portfolio down beyond a bounded amount, regardless of how the standard stop fails.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">State Integrity</div>
+          <p class="card__text">Internal position state is reconciled against three independent sources every cycle: Hyperliquid's clearinghouse state, user fills history, and the local positions file. Discrepancies — orphan limit orders, manually closed positions, ghost state — are detected and resolved automatically.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">48-Hour Time Exit</div>
+          <p class="card__text">Every position has an unconditional 48-hour time exit. A thesis that hasn't played out in 48 hours is statistically less likely to play out at all, and locked capital is dead capital. The time exit closes the position at market regardless of P&amp;L, freeing the slot for a fresher opportunity.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Portfolio Circuit Breaker</div>
+          <p class="card__text">Once trailing drawdown crosses a defined threshold, the breaker pauses all new entries. Existing positions continue to manage normally. The breaker resets when equity recovers above the prior peak.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Equity Sanity Filter</div>
+          <p class="card__text">Equity readings outside a sanity band (for instance, a one-cycle drop to near-zero indicating a stale API response) are flagged as glitches and excluded from the equity log without halting trading. The bug that kills you is rarely the strategy bug — it's the bug where the bot thinks state has changed when it hasn't.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- 6. UNIVERSE -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">THE UNIVERSE</div>
+        <h2 class="section-title"><span class="gradient-text">21 perpetuals on Hyperliquid</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">
+          A curated universe of liquid majors and active mid-caps. Each coin carries its own leverage tier calibrated to its volatility profile. The universe is reviewed periodically, not continuously — adds and removes happen on a manual cadence as market structure evolves.
+        </p>
+      </div>
+
+      <div style="max-width:1000px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.55rem;">
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">BTC</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">ETH</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">SOL</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">XRP</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">HYPE</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">BNB</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">DOGE</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">AVAX</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">LINK</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">BCH</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">SUI</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">ADA</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">LTC</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">UNI</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">DOT</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">NEAR</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">TRX</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">AAVE</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">TAO</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">ZEC</div></div>
+          <div class="card card--flat" style="padding:0.7rem 0.9rem;text-align:center;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">PAXG</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. INFRASTRUCTURE -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="section-label">INFRASTRUCTURE</div>
+      <h2 class="section-title"><span class="gradient-text">The vault is</span><br>its own audit</h2>
+
+      <p style="color:var(--text-secondary);line-height:1.75;font-size:1rem;">
+        The vault address is published. Every deposit, every position, every fill, every realized P&amp;L is visible on Hyperliquid. The dashboard is publicly accessible and shows every position, every order, and every closed trade in real time. Equity is reconcilable against the on-chain vault — there are no LP statements, no quarterly reports, no aggregated performance summaries. The system is its own audit.
+      </p>
+
+      <div style="background:rgba(15,10,26,0.6);border:1px solid var(--border-default);border-radius:12px;padding:1.5rem 1.75rem;margin:1.75rem 0;font-family:var(--font-mono);font-size:0.92rem;color:var(--text-secondary);line-height:1.9;">
+        <div style="color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.12em;margin-bottom:0.75rem;">STACK</div>
+        <div>Execution venue: Hyperliquid perpetual futures</div>
+        <div>Hosting: Railway · Singapore region · 24/7 supervisor process</div>
+        <div>Stack: Python 3.13 · Flask dashboard · Hyperliquid SDK · SQLite + persistent JSON state</div>
+        <div>Primary data: Binance · Bybit · OKX (price, OI, liquidations)</div>
+        <div>Secondary data: Hyperliquid clearinghouse · Alternative.me Fear &amp; Greed</div>
+        <div>Monitoring: live dashboard · on-chain vault verification · capital event tracker</div>
+      </div>
+
+      <div style="background:rgba(201,169,97,0.04);border-left:2px solid var(--gold);padding:1.25rem 1.5rem;margin:1.5rem 0;">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.5rem;">UPDATE CADENCE</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;line-height:1.7;">
+          The engine runs on a 5-minute main cycle for entry and exit decisions and a 1-hour cycle for zone scanner refreshes. Conviction thresholds and leverage tiers are reviewed periodically as market regime evolves — these reviews happen on a manual cadence and are documented when changes ship to the live bot. There is no continuous re-optimization; the strategy is rule-based, not machine-learned.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. EDGE THESIS -->
   <section class="section section--alt">
     <div class="container container--narrow">
-      <div class="section-label">RISK DISCLOSURE</div>
-      <h2 class="section-title" style="font-size:1.3rem;">Understanding the Risks</h2>
-      <div style="color:var(--text-secondary);line-height:1.8;display:flex;flex-direction:column;gap:0.75rem;font-size:0.92rem;">
-        <p>Soomario Zones trades leveraged perpetual futures on Hyperliquid. DCA strategies can increase exposure during extended moves against the position. If all 4 levels fill and price continues falling, the drawdown is amplified.</p>
-        <p>Liquidation zone data is aggregated from multiple exchanges and represents estimates, not guarantees. Zones can shift as market conditions change. Early testing results (92.3% WR) represent a very short sample period.</p>
-        <p>Past performance does not guarantee future results. Never invest more than you can afford to lose.</p>
+      <div class="section-label">EDGE THESIS</div>
+      <h2 class="section-title"><span class="gradient-text">Why this works</span><br>when others don't</h2>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.75rem;">
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Liquidation data is public — execution is rare</div>
+          <p class="card__text">Anyone can see where leveraged positions cluster. Almost nobody systematically positions for the snap-back across 21 coins in parallel. The infrastructure to track 21 markets continuously, rank them by opportunity quality, and execute against them under disciplined rules — that's the moat.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Multi-signal confirmation prevents zone trap</div>
+          <p class="card__text">DCA scoring gets a coin onto the radar. Conviction has to independently clear the gate before any capital deploys. A zone touch alone never opens a position. False starts are cheap; bad fills are expensive.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">DCA structure mechanically improves entries</div>
+          <p class="card__text">The deeper the dislocation, the more the average entry improves. Even adverse scenarios that fill all four levels still produce better cost bases than single-shot entries would have. The structure rewards averaging into the move, not flinching.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Dynamic take-profits track real cost basis</div>
+          <p class="card__text">Targets move with the actual average entry, not the original zone midpoint. Improved fills make targets reachable instead of stranding the position waiting for a snap-back to a price the strategy never paid.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Discipline beats novelty</div>
+          <p class="card__text">Liquidation tracking, DCA averaging, conviction filters, dynamic take-profits — none of these are individually novel. What's rare is applying them with the discipline of a portfolio-wide automated system that runs every five minutes for months without missing cycles.</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- 9. WHAT THIS IS NOT -->
   <section class="section">
+    <div class="container container--narrow">
+      <div class="section-label">HONEST LIMITS</div>
+      <h2 class="section-title"><span class="gradient-text">What Zones isn't</span></h2>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.75rem;">
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not a trend-follower</div>
+          <p class="card__text">Zones is mean-reversion. It enters when prices have dislocated from fair value and exits when they reconverge. In sustained directional markets without liquidation cascades, the engine simply sits on its hands.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not an alpha generator across all market conditions</div>
+          <p class="card__text">The edge depends on liquidation cascades happening with reasonable frequency. In long quiet markets with low leverage and tight ranges, opportunities thin out and the engine produces less.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not unlimited capacity</div>
+          <p class="card__text">The strategy operates on Hyperliquid order book depth. There's a real notional capacity ceiling per coin before slippage degrades fills. Capacity scales with HL's overall liquidity, not infinitely.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not foolproof</div>
+          <p class="card__text">Drawdowns happen. Stops get hit. Some theses don't play out. The edge is statistical, not deterministic. Past performance doesn't guarantee anything; it documents what the strategy has done, not what it will do.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FINAL CTA -->
+  <section class="section section--alt">
     <div class="container container--narrow text-center">
-      <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.5rem);"><span class="gradient-text">Launching Soon</span></h2>
-      <p style="color:var(--text-secondary);margin-bottom:2rem;">Join Discord for launch updates and paper trading results.</p>
-      <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" class="btn btn--primary btn--lg">Join Discord for Updates →</a>
+      <div class="section-label">DEPOSIT INTO THE VAULT</div>
+      <h2 class="section-title"><span class="gradient-text">10% profit share.</span><br>Self-custody, on-chain.</h2>
+      <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
+        Deposit USDC into the Hyperliquid vault. The bot trades for you. Withdraw any time — fees only on profit, no monthly charges, no lockups. Vault performance is publicly verifiable on-chain.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
+        <a href="https://app.hyperliquid.xyz/vaults/0xc61f29df7bc0334df188c95168ff6bcf31e7ef46" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
+        <a href="https://zones.soomariostrategies.com/" target="_blank" rel="noopener" class="btn btn--outline btn--lg">View Live Dashboard →</a>
+      </div>
+
+      <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);max-width:520px;margin:1rem auto 0;line-height:1.6;">
+        <a href="https://app.hyperliquid.xyz/vaults/0xc61f29df7bc0334df188c95168ff6bcf31e7ef46" target="_blank" rel="noopener" style="color:var(--gold);">0xc61f29df7bc0334df188c95168ff6bcf31e7ef46</a>
+      </div>
+
+      <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
+        Zones trades leveraged perpetual futures, which carries substantial risk of loss including the possibility of losing more than the initial deposit in adverse conditions. Past performance does not guarantee future results.
+      </div>
     </div>
   </section>
 
-  <section class="section section--alt">
+  <!-- 11. RELATED -->
+  <section class="section">
     <div class="container">
-      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">EXPLORE MORE</div></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;max-width:700px;margin:0 auto;">
-        <a href="accumulator.html" class="card"><div class="card__title">Accumulator →</div><p class="card__text">Start with DCA signals for 14 assets at $7/mo while you wait for Zones.</p></a>
-        <a href="farms.html" class="card"><div class="card__title">Farms →</div><p class="card__text">Bidirectional range farming at liquidation zones — a complementary strategy.</p></a>
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;max-width:800px;margin:0 auto;">
+        <a href="max-pain.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Max Pain →</div>
+          <p class="card__text">18-coin TradingView + Python hybrid on Hyperliquid. Different signal architecture — RSI, Liquidation Z-Score, Supertrend confluence. Tier-based sizing.</p>
+        </a>
+        <a href="alpha.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Alpha →</div>
+          <p class="card__text">Relative value spread engine on Hyperliquid. HYPE long anchor + weak altcoin shorts. Different return source — token unlock catalysts vs liquidation overshoots.</p>
+        </a>
+        <a href="premia.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Premia →</div>
+          <p class="card__text">Crypto options income on Deribit. Uses Zones' liquidation-cascade data for strike placement. Sells volatility premium against held coins.</p>
+        </a>
       </div>
     </div>
   </section>
