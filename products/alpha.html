@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Soomario Alpha — relative value spread engine pairing HYPE long with systematically shorted weakening altcoins. Token-unlock-driven, multi-signal confirmation, exchange-side stops. Live on Hyperliquid since April 2026.">
+  <meta name="description" content="Soomario Alpha — relative value spread engine pairing HYPE long with systematically shorted weakening altcoins. Live Hyperliquid vault since April 2026.">
   <meta property="og:title" content="Soomario Alpha — Relative Value Spread Engine">
-  <meta property="og:description" content="HYPE long anchor + slot-based weak-altcoin shorts. Token-unlock-driven, market-neutral by construction. Live Hyperliquid vault.">
+  <meta property="og:description" content="HYPE long anchor + slot-based weak-altcoin shorts. Market-neutral by construction. Live Hyperliquid vault.">
   <title>Soomario Alpha — Relative Value Spread Engine | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
 </head>
 <body>
 
-  <!-- 1. HERO -->
+  <!-- ═══ 1. HERO ═══ -->
   <section class="section" style="padding-top:3rem;">
     <div class="container">
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
@@ -29,268 +29,99 @@
         <span style="color:var(--text-primary);">Short the unlocks.</span>
       </h1>
       <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        Alpha is a relative value spread engine. It pairs a long position in HYPE — Hyperliquid's native token — with a basket of systematically selected short positions on weakening altcoins. The shorts are driven by upcoming token unlocks, validated through multi-signal confirmation, and protected by exchange-side stops that fire whether the bot is alive or not. Market-neutral by construction.
+        A relative value spread engine that pairs a long HYPE anchor with systematically shorted weakening altcoins. Token-unlock-driven, multi-signal-confirmed, with stops placed directly on the exchange. Market-neutral by construction.
       </p>
 
-      <div class="metrics" style="margin:2rem 0;max-width:920px;">
+      <div class="metrics" style="margin:2rem 0;max-width:820px;">
         <div class="metric"><div class="metric__value gradient-text">~650</div><div class="metric__label">Assets monitored</div></div>
-        <div class="metric"><div class="metric__value gradient-text">5×</div><div class="metric__label">Max leverage cap</div></div>
-        <div class="metric"><div class="metric__value gradient-text">−40%</div><div class="metric__label">uplRatio stop trigger</div></div>
+        <div class="metric"><div class="metric__value gradient-text">5×</div><div class="metric__label">Max leverage</div></div>
         <div class="metric"><div class="metric__value gradient-text">4hr</div><div class="metric__label">Re-scan cadence</div></div>
+        <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Profit share</div></div>
       </div>
 
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
         <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
         <a href="https://alpha.soomariostrategies.com/" target="_blank" rel="noopener" class="btn btn--outline btn--lg">View Live Dashboard →</a>
-        <a href="#how" class="btn btn--ghost btn--lg">How it works ↓</a>
       </div>
 
       <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;font-family:var(--font-mono);">
-        Vault: <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" style="color:var(--gold);">0x6fac…524e</a> · 10% profit share · self-custody, on-chain
+        Vault: <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" style="color:var(--gold);">0x6fac…524e</a> · self-custody, on-chain
       </div>
     </div>
   </section>
 
-  <!-- 2. THE EDGE — UNLOCK-DRIVEN SHORTS -->
+  <!-- ═══ 2. THE EDGE ═══ -->
   <section class="section section--alt">
-    <div class="container container--narrow">
-      <div class="section-label">THE STRUCTURAL EDGE</div>
+    <div class="container container--narrow text-center">
+      <div class="section-label">THE EDGE</div>
       <h2 class="section-title"><span class="gradient-text">Token unlocks create</span><br>predictable selling pressure</h2>
-
-      <div style="color:var(--text-secondary);line-height:1.75;display:flex;flex-direction:column;gap:1.1rem;font-size:1.02rem;">
-        <p>
-          The thesis is simple. When tokens unlock — to teams, to investors, to ecosystems — recipients sell some portion of their allocation. That sell pressure is structurally bearish for any project whose existing holders aren't aggressively absorbing it. Most of the market doesn't trade unlocks systematically. Either they ignore them entirely, or they trade them anecdotally — "XYZ has a big unlock next week, let's short it" — without statistical discipline.
-        </p>
-        <p>
-          Alpha treats unlocks as a primary signal with confirmation requirements. The engine doesn't short every upcoming unlock — most of them are already priced in. It shorts only the unlocks that coincide with technical, funding, and liquidation conditions suggesting the market is unprepared for the supply increase. That filtering is what turns publicly available data into a tradable edge.
-        </p>
-        <p>
-          Across roughly 17 actively tracked unlock candidates at any given time, the engine typically opens 2–4 short positions per scoring cycle. The selectivity is the point.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. SIGNAL ARCHITECTURE -->
-  <section class="section" id="how">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">SIGNAL ARCHITECTURE</div>
-        <h2 class="section-title"><span class="gradient-text">Four independent signals.</span><br>Composite, not single-shot.</h2>
-        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">
-          Every four hours, Alpha re-scans the universe and produces a composite score for each asset across four independent signal dimensions. A high score on any single signal isn't enough — the engine demands corroboration before deploying capital.
-        </p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;max-width:1080px;margin:0 auto 2.5rem;">
-        <div class="card" style="border-color:var(--gold);">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">SIGNAL 1 · DOMINANT</div>
-          <div class="card__title">Unlock Proximity</div>
-          <p class="card__text">A curated database of upcoming token unlock events. Candidates are weighted by how close the unlock is, what type of recipient is unlocking (team and investor unlocks score higher than ecosystem ones), and how large the unlock is relative to circulating supply.</p>
-        </div>
-        <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">SIGNAL 2</div>
-          <div class="card__title">Technical Overextension</div>
-          <p class="card__text">Multi-hour candle data identifies assets that have rallied beyond reasonable mean-reversion bounds. The kind of overbought setup where unlock-driven selling has somewhere to land. A high reading here adds weight to any unlock candidate already in the queue.</p>
-        </div>
-        <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">SIGNAL 3</div>
-          <div class="card__title">Funding &amp; Crowding</div>
-          <p class="card__text">Perpetual funding rates reveal positioning directly. When longs are paying shorts to hold the trade, the position pays you to wait — every funding period. Structurally favorable conditions for the short side.</p>
-        </div>
-        <div class="card">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">SIGNAL 4</div>
-          <div class="card__title">Liquidation Asymmetry</div>
-          <p class="card__text">The open interest book reveals where liquidation cascades would fire. An asset with heavy long-side liquidation potential below current price is structurally fragile — any dip can trigger forced selling that accelerates the move.</p>
-        </div>
-      </div>
-
-      <div style="max-width:720px;margin:0 auto;padding:1.25rem;border-left:2px solid var(--gold);background:rgba(201,169,97,0.05);">
-        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.5rem;">THE CONFIRMATION RULE</div>
-        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;line-height:1.7;">
-          The composite score weights unlock proximity heavily, but requires corroboration from at least one secondary signal. A high score alone isn't enough — the engine demands either a near-term unlock or strong technical overextension before opening a position. The exact weights and thresholds are calibrated against historical data and not published.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. SPREAD CONSTRUCTION -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">SPREAD CONSTRUCTION</div>
-        <h2 class="section-title"><span class="gradient-text">HYPE long anchor.</span><br>Slot-based short sleeve.</h2>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;max-width:1000px;margin:0 auto;">
-
-        <div class="card" style="border-color:rgba(74,222,128,0.3);">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--green);margin-bottom:0.5rem;letter-spacing:0.12em;">LONG SIDE</div>
-          <div class="card__title">HYPE Anchor</div>
-          <p class="card__text" style="margin-bottom:1rem;">
-            The long side holds a position in HYPE, sized to a fixed pool target with moderate leverage. Established through layered DCA — initial seed at opening, with reserve capital deployed if price tests lower zones. Once profitable, the position transitions through a trail-and-defend lifecycle: peaks tracked, partial exits trim as profit grows, buy-back marker re-enters opportunistically if a defended floor holds.
-          </p>
-          <p class="card__text" style="margin-bottom:0;font-size:0.92rem;color:var(--text-muted);">
-            HYPE is the anchor because Hyperliquid is, by every available metric, the strongest standalone perpetual exchange. Real revenue. Organic user growth. Own L1. No dependence on third-party liquidity. In a crash, HYPE tends to outperform the long tail of speculative alts. In a rally, it participates. As an anchor for a spread strategy, it's nearly ideal.
-          </p>
-        </div>
-
-        <div class="card" style="border-color:rgba(239,68,68,0.3);">
-          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--red);margin-bottom:0.5rem;letter-spacing:0.12em;">SHORT SIDE</div>
-          <div class="card__title">Weak Altcoin Sleeve</div>
-          <p class="card__text" style="margin-bottom:1rem;">
-            The short side operates as a slot-based sleeve. A small fixed number of slots are available; each represents a fraction of equity and gets deployed when the engine identifies a qualifying candidate. New positions enter in two stages: a modest probe when the candidate first clears threshold, then a larger conviction add when either the unlock catalyst is imminent or price has rallied further into overextension.
-          </p>
-          <p class="card__text" style="margin-bottom:0;font-size:0.92rem;color:var(--text-muted);">
-            The conviction add has a rejection condition: if price has rallied too far past the initial probe, the second tranche is canceled. Excessive pump suggests the short thesis may be breaking. Better to leave the position small than to add aggressively into a face-rip.
-          </p>
-        </div>
-
-      </div>
-
-      <div style="max-width:720px;margin:2rem auto 0;padding:1.25rem;background:rgba(15,10,26,0.6);border:1px solid var(--border-default);border-radius:8px;">
-        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.5rem;">LEVERAGE CAP</div>
-        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;line-height:1.7;">
-          All shorts use leverage capped at 5×. This cap is deliberate. Earlier iterations used higher leverage and learned, expensively, that a tighter stop band is not worth the capital efficiency. At 5×, an 8% adverse move triggers exchange-side stop. At 10×, a 4% adverse move does the same — and 4% is inside the noise floor. The 8% band is approximately the volatility budget the strategy needs to ride out normal market noise.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. RISK MANAGEMENT -->
-  <section class="section">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">RISK MANAGEMENT</div>
-        <h2 class="section-title"><span class="gradient-text">Stops on the exchange.</span><br>Not on the bot.</h2>
-        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">
-          The most consequential design choice in Alpha: every position has its stop placed directly on Hyperliquid at the moment of entry. Stops fire whether the bot is alive, reachable, rate-limited, or restarting.
-        </p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;max-width:1080px;margin:0 auto;">
-        <div class="card card--flat">
-          <div class="card__title">Exchange-Side Stops</div>
-          <p class="card__text">A reduce-only stop-market trigger placed directly on Hyperliquid at entry, set at −40% uplRatio (the position has lost 40% of its margin). At 5× leverage that's an 8% adverse price move; at 3× it's 13.3%. Wide on purpose — false stops cost the position and the future opportunity.</p>
-        </div>
-        <div class="card card--flat">
-          <div class="card__title">Bot-Side Redundancy</div>
-          <p class="card__text">Independent of the exchange-side stop, the bot polls every position every five minutes for the same threshold. If the exchange order somehow fails to fire, the bot-side path closes the position via market order. Two layers, same target.</p>
-        </div>
-        <div class="card card--flat">
-          <div class="card__title">Reconcile Guard</div>
-          <p class="card__text">Any state change that would close real positions requires a fresh, force-refreshed read from the exchange to confirm. If the exchange contradicts the close decision, the close is aborted entirely. Invisible during normal operation; exists for the day when something unexpected happens.</p>
-        </div>
-        <div class="card card--flat">
-          <div class="card__title">Staged Take-Profit</div>
-          <p class="card__text">Profitable shorts exit in tranches rather than all at once. Partial profit at successive drawdown levels, with a residual position kept open to capture extended downtrends. Front-load risk reduction, back-load potential.</p>
-        </div>
-        <div class="card card--flat">
-          <div class="card__title">Event-Driven State</div>
-          <p class="card__text">Steady-state monitoring runs entirely off CEX data feeds, which are higher-throughput and free. Hyperliquid state queries happen only when needed for a decision. Earlier versions polled state aggressively and starved themselves of execution windows; this design fixes that.</p>
-        </div>
-        <div class="card card--flat">
-          <div class="card__title">Spread Construction</div>
-          <p class="card__text">Alpha is not a market-direction bet. The HYPE long + weak altcoin shorts construction profits when high-quality assets outperform low-quality ones — a relationship that holds in most market conditions, including drawdowns where quality flight is most pronounced.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. INFRASTRUCTURE -->
-  <section class="section section--alt">
-    <div class="container container--narrow">
-      <div class="section-label">INFRASTRUCTURE</div>
-      <h2 class="section-title"><span class="gradient-text">The vault is</span><br>its own audit</h2>
-
-      <p style="color:var(--text-secondary);line-height:1.75;font-size:1rem;">
-        The vault address is published. Every deposit, every position, every realized P&amp;L is visible on Hyperliquid's public vault page. There is no back-office, no LP statement, no quarterly attestation — the system is its own audit trail. Trades execute on Hyperliquid's matching engine with the exchange's full liquidity. Funds remain in the on-chain vault contract under self-custody rules.
+      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
+        When tokens unlock to teams, investors, or ecosystems, recipients sell some portion. That pressure is structurally bearish for projects whose existing holders aren't aggressively absorbing it. Most market participants either ignore unlocks entirely or trade them anecdotally — Alpha trades them systematically, with multi-signal confirmation, against an HYPE long anchor that profits when quality outperforms.
       </p>
-
-      <div style="background:rgba(15,10,26,0.6);border:1px solid var(--border-default);border-radius:12px;padding:1.5rem 1.75rem;margin:1.75rem 0;font-family:var(--font-mono);font-size:0.92rem;color:var(--text-secondary);line-height:1.9;">
-        <div style="color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.12em;margin-bottom:0.75rem;">STACK</div>
-        <div>Execution venue: Hyperliquid perpetual exchange</div>
-        <div>Hosting: Railway · dedicated container · persistent storage</div>
-        <div>Stack: Python 3.13 · Flask · APScheduler · gunicorn · SQLite</div>
-        <div>Primary data: CEX bulk feeds (Binance, Bybit, OKX) for prices, funding, candles</div>
-        <div>Secondary data: DeFiLlama for emissions and protocol metrics</div>
-        <div>Monitoring: real-time dashboard · on-chain vault verification</div>
-      </div>
-
-      <div style="background:rgba(201,169,97,0.04);border-left:2px solid var(--gold);padding:1.25rem 1.5rem;margin:1.5rem 0;">
-        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.5rem;">UPDATE CADENCE</div>
-        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;line-height:1.7;">
-          The engine runs continuously. The unlock database is curated and refreshed weekly to incorporate newly announced unlock schedules. Scoring weights and thresholds are refined periodically based on out-of-sample performance review, but changes are conservative — the strategy's edge comes from disciplined application of stable rules, not from constant tuning.
-        </p>
-      </div>
     </div>
   </section>
 
-  <!-- 7. EDGE THESIS -->
+  <!-- ═══ 3. WHAT YOU GET ═══ -->
   <section class="section">
-    <div class="container container--narrow">
-      <div class="section-label">EDGE THESIS</div>
-      <h2 class="section-title"><span class="gradient-text">Why this works</span><br>when others don't</h2>
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">WHAT YOU GET</div>
+        <h2 class="section-title"><span class="gradient-text">Hyperliquid vault.</span><br>10% profit share. Self-custody.</h2>
+      </div>
 
-      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.75rem;">
+      <div class="grid-3">
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Public data, rare systematic application</div>
-          <p class="card__text">Token unlock schedules are on every project's tokenomics page and aggregated by DeFiLlama. But trading them at scale, with discipline, against a multi-signal validation framework — that's rare. Most unlock-trading is anecdotal or reactive. Alpha is neither.</p>
+          <div class="card__title">On-chain transparency</div>
+          <p class="card__text">Vault address is published. Every deposit, every position, every realized P&amp;L is visible on Hyperliquid's vault page. The system is its own audit.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Multi-signal confirmation reduces false starts</div>
-          <p class="card__text">The engine doesn't short anything based on a single indicator. It demands agreement from at least two independent sources before deploying capital. This filters out the unlocks that are already priced in — which is most of them.</p>
+          <div class="card__title">Stops on the exchange</div>
+          <p class="card__text">Every position's stop is placed directly on Hyperliquid at entry. Stops fire whether the bot is alive, reachable, rate-limited, or restarting. No single point of failure.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Stops don't depend on bot uptime</div>
-          <p class="card__text">Most automated strategies have a single point of failure: if the bot crashes or gets rate-limited, positions run unmanaged. Alpha's stops fire on the exchange's matching engine whether the bot is alive or not.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Spread construction limits directional risk</div>
-          <p class="card__text">Alpha profits when high-quality assets outperform low-quality ones — a relationship that holds in most market conditions. Particularly pronounced in drawdowns where flight-to-quality is most acute.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Discipline beats novelty</div>
-          <p class="card__text">Average in, average out. Don't try to time tops. Take partial profit. Leave runners. None of these are novel ideas. Few apply them with discipline across hundreds of assets, 24 hours a day.</p>
+          <div class="card__title">No fees, no lockups</div>
+          <p class="card__text">10% of profits, only when you profit. No monthly charges, no deposit fees, no withdrawal fees. Withdraw any time — funds remain in the on-chain vault contract under self-custody.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 8. WHAT THIS IS NOT -->
+  <!-- ═══ 4. HONEST LIMITS ═══ -->
   <section class="section section--alt">
     <div class="container container--narrow">
-      <div class="section-label">HONEST LIMITS</div>
-      <h2 class="section-title"><span class="gradient-text">What Alpha isn't</span></h2>
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">HONEST LIMITS</div>
+        <h2 class="section-title"><span class="gradient-text">What Alpha isn't</span></h2>
+      </div>
 
-      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.75rem;">
+      <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Not a high-frequency strategy</div>
-          <p class="card__text">The pipeline scans every four hours. Performance is measured by months, not minutes. If you're looking for a strategy that fires dozens of trades per day, this isn't it.</p>
+          <div class="card__title" style="color:var(--gold);">Not high-frequency</div>
+          <p class="card__text">The pipeline scans every four hours. Performance is measured by months, not minutes. If you're looking for dozens of trades per day, this isn't it.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Not a directional macro bet</div>
-          <p class="card__text">Alpha doesn't try to call market tops or bottoms. It exploits a specific structural inefficiency. In a generalized risk-on rally where every asset moves up together, the short sleeve gives back gains that the long anchor captures — and that's by design.</p>
+          <p class="card__text">Alpha doesn't try to call market tops or bottoms. In a generalized risk-on rally where everything moves up together, the short sleeve gives back gains the long anchor captures — that's by design.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Not capacity-unlimited</div>
-          <p class="card__text">As assets under management grow, the slot-based approach naturally constrains size. There's a ceiling, and it's lower than most discretionary strategies. Alpha is not designed to absorb unlimited capital.</p>
+          <div class="card__title" style="color:var(--gold);">Capacity-limited</div>
+          <p class="card__text">As assets under management grow, the slot-based approach naturally constrains size. There's a ceiling, and it's lower than most discretionary strategies.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Not foolproof</div>
-          <p class="card__text">Drawdowns happen. Stops get hit. Some unlock theses don't play out — sometimes the recipient holds, sometimes a buyer absorbs, sometimes the news cycle drives a face-rip rally that triggers the stop before the unlock catalyst even arrives. The edge is statistical, not deterministic.</p>
+          <div class="card__title" style="color:var(--gold);">Statistical, not deterministic</div>
+          <p class="card__text">Drawdowns happen. Stops get hit. Some unlock theses don't play out — sometimes a buyer absorbs, sometimes a face-rip rally triggers the stop before the catalyst arrives. The edge is statistical.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 9. FINAL CTA -->
+  <!-- ═══ 5. FINAL CTA ═══ -->
   <section class="section">
     <div class="container container--narrow text-center">
       <div class="section-label">DEPOSIT INTO THE VAULT</div>
       <h2 class="section-title"><span class="gradient-text">10% profit share.</span><br>Self-custody, on-chain.</h2>
       <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
-        Deposit USDC into the Hyperliquid vault. The bot trades for you. Withdraw any time — fees only on profit, no monthly charges, no lockups. Vault performance is publicly verifiable on-chain.
+        Deposit USDC into the Hyperliquid vault. The bot trades for you. Withdraw any time — fees only on profit.
       </p>
 
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
@@ -303,16 +134,16 @@
       </div>
 
       <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
-        Alpha trades leveraged perpetual futures on Hyperliquid, which carries substantial risk of loss including the possibility of liquidation. Past performance does not guarantee future results.
+        Alpha trades leveraged perpetual futures, which carries substantial risk of loss including the possibility of liquidation. Past performance does not guarantee future results.
       </div>
     </div>
   </section>
 
-  <!-- 10. RELATED -->
+  <!-- ═══ 6. RELATED ═══ -->
   <section class="section section--alt">
     <div class="container">
       <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;max-width:800px;margin:0 auto;">
+      <div class="grid-3">
         <a href="elite.html" class="card" style="text-decoration:none;">
           <div class="card__title">Elite →</div>
           <p class="card__text">HYPE + AVAX directional. Concentrated long-bias bot — different exposure, same conviction in HYPE quality.</p>
