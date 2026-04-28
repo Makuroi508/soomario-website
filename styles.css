@@ -282,6 +282,11 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
   color: var(--violet);
 }
 
+.badge--beta {
+  background: rgba(251, 191, 36, 0.10);
+  color: #fbbf24;
+}
+
 .badge--new {
   background: rgba(96, 165, 250, 0.12);
   color: var(--blue);
@@ -1636,21 +1641,27 @@ body { padding-top: 72px; }
 /* ── Vault Strategies discovery grid ── */
 .strategies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
-  max-width: 1100px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1rem;
+  max-width: 1280px;
   margin: 0 auto;
+}
+@media (max-width: 1100px) {
+  .strategies-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .strategies-grid { grid-template-columns: 1fr; }
 }
 .strat-card {
   background: var(--bg-card);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: 1.75rem 1.5rem;
+  padding: 1.5rem 1.4rem;
   display: flex;
   flex-direction: column;
   transition: all var(--duration) var(--ease-out);
   position: relative;
-  min-height: 220px;
+  min-height: 240px;
 }
 .strat-card:hover {
   border-color: var(--border-strong);
@@ -1666,7 +1677,7 @@ body { padding-top: 72px; }
 }
 .strat-card__name {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   color: var(--gold);
   line-height: 1.1;
 }
@@ -1682,19 +1693,20 @@ body { padding-top: 72px; }
   flex-shrink: 0;
 }
 .strat-card__badge--live  { background: rgba(74, 222, 128, 0.12); color: var(--green); border: 1px solid rgba(74, 222, 128, 0.25); }
+.strat-card__badge--beta  { background: rgba(251, 191, 36, 0.10); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.28); }
 .strat-card__badge--paper { background: rgba(139, 92, 246, 0.12); color: var(--violet); border: 1px solid rgba(139, 92, 246, 0.25); }
 .strat-card__tagline {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 .strat-card__pitch {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
   line-height: 1.55;
   flex: 1;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1rem;
 }
 .strat-card__footer {
   display: flex;

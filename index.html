@@ -200,8 +200,8 @@
     <div class="container">
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">FOR LARGER DEPOSITS</div>
-        <h2 class="section-title"><span class="gradient-text">Vault Strategies</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">Hands-off, on-chain. Deposit to a Hyperliquid vault; the bot trades for you. 10% profit share only — no monthly fees, no lockups.</p>
+        <h2 class="section-title"><span class="gradient-text">Strategies</span></h2>
+        <p class="section-subtitle" style="margin:0 auto;">Hands-off automated strategies on Hyperliquid vaults, OKX copy trading, and Deribit. Profit share only on the live vaults — no monthly fees, no lockups.</p>
       </div>
 
       <div class="strategies-grid">
@@ -219,26 +219,39 @@
           </div>
         </a>
 
-        <a href="products/alpha.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Alpha</div>
-            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
-          </div>
-          <div class="strat-card__tagline">Market-neutral long/short</div>
-          <p class="strat-card__pitch">228-coin scanner picks strong longs, weak shorts, and holds them as a spread. Works in any market regime.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% profit share</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
         <a href="products/max-pain.html" class="strat-card" style="text-decoration:none;">
           <div class="strat-card__head">
             <div class="strat-card__name">Max Pain</div>
             <span class="strat-card__badge strat-card__badge--live">LIVE</span>
           </div>
           <div class="strat-card__tagline">18-coin per-coin tuning</div>
-          <p class="strat-card__pitch">Hybrid TradingView+Python bot trading 18 coins on Hyperliquid. 82% backtest win rate, 3.76 Sharpe, 45-second safety loop.</p>
+          <p class="strat-card__pitch">Hybrid TradingView + Python bot trading 18 coins on Hyperliquid. Per-coin parameter sets, 45-second exchange-side safety loop.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% profit share</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/aphelion.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Aphelion</div>
+            <span class="strat-card__badge strat-card__badge--beta">LIVE · BETA</span>
+          </div>
+          <div class="strat-card__tagline">Multi-signal accumulator</div>
+          <p class="strat-card__pitch">Buys oversold assets in scaled increments with layered defense. 15 assets across stocks and crypto on Hyperliquid; 6-asset crypto subset on OKX copy trading.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">OKX copy trade</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/alpha.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Alpha</div>
+            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
+          </div>
+          <div class="strat-card__tagline">Relative-value spread</div>
+          <p class="strat-card__pitch">HYPE long anchor paired with systematically shorted weak altcoins. Token-unlock-driven shorts with multi-signal confirmation. Market-neutral by construction.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">10% profit share</span>
             <span class="strat-card__link">Learn more →</span>
@@ -250,10 +263,36 @@
             <div class="strat-card__name">Zones</div>
             <span class="strat-card__badge strat-card__badge--live">LIVE</span>
           </div>
-          <div class="strat-card__tagline">DCA at liquidation levels</div>
-          <p class="strat-card__pitch">Places buy orders at aggregated liquidation max-pain zones across Binance, Bybit, OKX. 4-level DCA entries, 21 coins.</p>
+          <div class="strat-card__tagline">Bi-directional liquidation DCA</div>
+          <p class="strat-card__pitch">Mean-reverts both directions: longs the long-liquidation overshoots, shorts the short-squeeze peaks. 21 coins on Hyperliquid.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">10% profit share</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/rotation.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Rotation</div>
+            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
+          </div>
+          <div class="strat-card__tagline">3-sleeve multi-asset</div>
+          <p class="strat-card__pitch">Fastest Horse equity rotation, zone-DCA crypto core, hedged shorts. 12-stock MAG universe. In paper validation.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">10% at launch</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/covered-calls.html" class="strat-card" style="text-decoration:none;">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Covered Calls</div>
+            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
+          </div>
+          <div class="strat-card__tagline">Crypto options income</div>
+          <p class="strat-card__pitch">Sells call options against crypto holdings on Deribit. Wide strikes, systematic rolls, automated lifecycle. 7 coins, paper validation.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">Deribit · paper</span>
             <span class="strat-card__link">Learn more →</span>
           </div>
         </a>
@@ -265,19 +304,6 @@
           </div>
           <div class="strat-card__tagline">Range-farming grid</div>
           <p class="strat-card__pitch">Long-only adaptive grid with ATR trailing stops. Profits from sideways range mechanics. In validation phase.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% at launch</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/rotation.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Rotation</div>
-            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
-          </div>
-          <div class="strat-card__tagline">3-sleeve multi-asset</div>
-          <p class="strat-card__pitch">Fastest Horse equity rotation (65%) + zone-DCA crypto core (25%) + hedged shorts (10%). 12-stock MAG universe.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">10% at launch</span>
             <span class="strat-card__link">Learn more →</span>
