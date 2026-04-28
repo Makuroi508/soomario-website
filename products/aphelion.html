@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Aphelion is a multi-signal accumulator with layered defense. Buys oversold assets in scaled increments across 15 stocks and crypto on Hyperliquid; 6-coin subset available on OKX copy trading. Live beta — April 2026.">
+  <meta property="og:title" content="Aphelion — Multi-Signal Accumulator with Layered Defense">
+  <meta property="og:description" content="Buys oversold conditions across 15 assets on Hyperliquid. 6-coin subset on OKX copy trading. Pre-placed limit defense. Layered take-profit. Live beta.">
+  <title>Aphelion — Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/products/aphelion.html">
+</head>
+<body>
+
+  <!-- 1. HERO -->
+  <section class="section" style="padding-top:3rem;">
+    <div class="container">
+      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <span class="badge badge--beta" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE · BETA</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">15 ASSETS · 2 VENUES</span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
+        <span class="gradient-text">Buy oversold conditions.</span><br>
+        <span style="color:var(--text-primary);">Defend with limits, not hopes.</span>
+      </h1>
+      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
+        Aphelion is a multi-signal accumulator with layered defense. It buys oversold assets in scaled increments, holds through normal volatility, and exits via three predetermined take-profit levels with a daily-evaluated trailing stop. A pre-positioned defense limit sits on the exchange book ready to fill if any position approaches its liquidation zone — no slippage, no bot dependency.
+      </p>
+
+      <div class="metrics" style="margin:2rem 0;max-width:920px;">
+        <div class="metric"><div class="metric__value gradient-text">15</div><div class="metric__label">Assets · 8 stocks + 7 crypto</div></div>
+        <div class="metric"><div class="metric__value gradient-text">2×</div><div class="metric__label">Isolated leverage</div></div>
+        <div class="metric"><div class="metric__value gradient-text">2 venues</div><div class="metric__label">Hyperliquid + OKX</div></div>
+        <div class="metric"><div class="metric__value gradient-text">6yr</div><div class="metric__label">Backtest window</div></div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
+        <a href="https://www.okx.com/copy-trading" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Follow on OKX Copy Trading →</a>
+        <a href="#how" class="btn btn--ghost btn--lg">How it works ↓</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
+        Search "Soomario Aphelion" on OKX to follow. Hyperliquid vault pending — full 15-asset universe will deploy there once vault is live.
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. BETA WARNING -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div style="padding:1.75rem;background:rgba(251,191,36,0.04);border-left:3px solid #fbbf24;border-radius:0 8px 8px 0;">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:#fbbf24;letter-spacing:0.16em;margin-bottom:0.6rem;text-transform:uppercase;">Live beta — read before following</div>
+        <p style="color:var(--text-secondary);font-size:0.98rem;line-height:1.7;margin:0 0 0.8rem;">
+          Aphelion went live in April 2026. Live trading sample is small. The 6-year backtest covers a meaningful range of regimes, but past performance under a fixed parameter set is not a guarantee that the same parameter set survives the next regime intact.
+        </p>
+        <p style="color:var(--text-secondary);font-size:0.98rem;line-height:1.7;margin:0;">
+          The strategy uses 2× isolated leverage on long positions only. Drawdowns happen. Defense limits fill. Some positions trail-out at small losses. The edge is statistical, not deterministic. Do not commit capital you cannot afford to lose to a beta strategy.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. TWO DEPLOYMENTS -->
+  <section class="section" id="venues">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">TWO DEPLOYMENTS</div>
+        <h2 class="section-title"><span class="gradient-text">Same engine,</span><br>two execution venues</h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">
+          Aphelion runs against the same signal stream on both venues. The Hyperliquid deployment trades the full 15-asset universe; the OKX deployment exposes the 6-asset crypto subset to copy-trading followers.
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;max-width:1000px;margin:0 auto;">
+
+        <div class="card" style="border-color:rgba(74,222,128,0.25);">
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+            <span class="badge badge--live" style="font-size:0.65rem;">OKX · LIVE COPY TRADING</span>
+          </div>
+          <div class="card__title">OKX — Crypto Subset</div>
+          <p class="card__text" style="margin-bottom:1rem;">
+            Available right now via OKX copy trading. Followers see every entry, defense fill, take-profit close, and trail close in real time as the engine executes. The followed account is the audit trail — no LP statements, no quarterly reports.
+          </p>
+          <div style="font-family:var(--font-mono);font-size:0.85rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
+            Universe: SOL · HYPE · AVAX · LINK · XRP · DOGE<br>
+            Account name: <span style="color:var(--gold);">Soomario Aphelion</span>
+          </div>
+          <a href="https://www.okx.com/copy-trading" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;text-align:center;">Search on OKX Copy Trading →</a>
+        </div>
+
+        <div class="card" style="border-color:rgba(251,191,36,0.25);">
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+            <span class="badge badge--beta" style="font-size:0.65rem;">HYPERLIQUID · VAULT PENDING</span>
+          </div>
+          <div class="card__title">Hyperliquid — Full Universe</div>
+          <p class="card__text" style="margin-bottom:1rem;">
+            The Hyperliquid deployment runs the full 15-asset universe — 8 US equity perpetuals plus 7 crypto majors. Currently trading on a wallet account; a dedicated Aphelion vault is in setup. Once live, vault followers get the same on-chain transparency as the rest of the Soomario lineup.
+          </p>
+          <div style="font-family:var(--font-mono);font-size:0.85rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
+            Universe: 8 US equity perps + 7 crypto<br>
+            Status: <span style="color:#fbbf24;">Vault pending — track for updates</span>
+          </div>
+          <a href="https://twitter.com/SoomarioStrat" target="_blank" rel="noopener" class="btn btn--outline" style="width:100%;text-align:center;">Follow @SoomarioStrat for vault launch</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SIGNAL LOGIC -->
+  <section class="section section--alt" id="how">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">SIGNAL LOGIC</div>
+        <h2 class="section-title"><span class="gradient-text">Three signals.</span><br>All must align.</h2>
+        <p class="section-subtitle" style="margin:0 auto;max-width:680px;">
+          The engine pulls daily OHLCV for 15 assets and computes three independent indicators. Only when all three agree does the strength score cross threshold and a position open. On most days, zero positions open.
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1000px;margin:0 auto 2.5rem;">
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">SIGNAL 1</div>
+          <div class="card__title">RSI Oversold Detection</div>
+          <p class="card__text">A fast-reacting Relative Strength Index identifies short-term capitulation moves — the kind of price action that emotionally looks terrible on the chart but historically marks reversal points in mean-reverting markets. Stocks and crypto carry their own oversold thresholds.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">SIGNAL 2</div>
+          <div class="card__title">Volume Capitulation</div>
+          <p class="card__text">A volume Z-score that measures up-volume against down-volume separately, flagging candles where forced selling has dominated. This is the difference between "drifting lower" and "panic-selling lower" — Aphelion only acts on the latter.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">SIGNAL 3</div>
+          <div class="card__title">Trend Extension</div>
+          <p class="card__text">Price extension below the long-period moving average — how stretched is the asset relative to its own trend? Combined with the other two signals, this filters out healthy pullbacks and keeps only the genuine dislocations where buyers historically get paid.</p>
+        </div>
+      </div>
+
+      <div style="max-width:680px;margin:0 auto;padding:1.25rem;border-left:2px solid var(--gold);background:rgba(201,169,97,0.05);">
+        <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.12em;margin-bottom:0.5rem;">THE STRENGTH SCORE</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;margin:0;line-height:1.7;">
+          The three signals combine into a weighted strength score from 0 to 100. Only crossings of a minimum threshold trigger a signal; everything else is logged and skipped. The exact threshold and weights are calibrated against backtest data and not published.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. POSITION CONSTRUCTION -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">POSITION CONSTRUCTION</div>
+        <h2 class="section-title"><span class="gradient-text">Layered entry.</span><br>Layered defense. Layered exits.</h2>
+      </div>
+
+      <div style="max-width:880px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;">
+
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--green);margin-bottom:0.5rem;letter-spacing:0.12em;">STEP 1</div>
+          <div class="card__title">Primary Entry</div>
+          <p class="card__text" style="font-size:0.9rem;">Each confirmed signal opens a long position at 2× isolated leverage. Sizing follows an accumulator formula that scales by signal multiplier and days since the asset last received a signal. Multiple signals in the same day stack additively up to a daily cap.</p>
+        </div>
+
+        <div class="card" style="border-color:var(--gold);">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--gold);margin-bottom:0.5rem;letter-spacing:0.12em;">STEP 2</div>
+          <div class="card__title">Defense Layer</div>
+          <p class="card__text" style="font-size:0.9rem;">As soon as a position opens, the engine places a passive limit BUY order on the exchange book above the position's calculated liquidation price. If price ever drops to that trigger, the order fills automatically — no slippage, no bot dependency, no polling lag. The position averages down to a new lower basis and the take-profit ladder resets.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--green);margin-bottom:0.5rem;letter-spacing:0.12em;">STEP 3</div>
+          <div class="card__title">Layered Exit</div>
+          <p class="card__text" style="font-size:0.9rem;">Three predetermined take-profit levels close fixed fractions of the original position size as price moves up. The remainder rides on a daily-evaluated trailing stop that arms once profitable and tracks the all-time peak. Multi-layer exits capture more of the outcome distribution than any single exit decision could.</p>
+        </div>
+
+      </div>
+
+      <p style="text-align:center;font-size:0.9rem;color:var(--text-muted);margin-top:2rem;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.65;">
+        In the 6-year backtest, defense fired on roughly 2% of position lifecycles — most positions exit via take-profit or trail without ever needing it. The defense layer's value is in the small fraction of cases where it does fire — precisely when the position would otherwise have been liquidated.
+      </p>
+    </div>
+  </section>
+
+  <!-- 6. RISK CONTROLS -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">RISK CONTROLS</div>
+        <h2 class="section-title"><span class="gradient-text">Six layers</span> of protection</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:1000px;margin:0 auto;">
+        <div class="card card--flat">
+          <div class="card__title">Pre-placed Limit Defense</div>
+          <p class="card__text">A resting limit order on the exchange book above each position's liquidation price. Fills with maker pricing and zero slippage. Doesn't depend on the bot being online.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">5-Minute Reconciliation</div>
+          <p class="card__text">Every five minutes, the engine queries the exchange for ground-truth position state and reconciles against internal records. External closes are detected. Defense fills are reconstructed. State drift never compounds.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Account-Level Kill Switch</div>
+          <p class="card__text">Halts all new entries if intraday losses exceed a threshold or total unrealized PnL drops below a floor. Sticky — once tripped, requires explicit operator reset before new signals are accepted.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Daily &amp; Per-Trade Caps</div>
+          <p class="card__text">A per-trade notional cap and a daily total cap apply on top of position-level controls. Multiple signals in a single day cannot collectively breach the daily limit regardless of strength scores.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">2× Leverage Ceiling</div>
+          <p class="card__text">Higher leverage produced higher returns but markedly more liquidations across the 6-year window. At 2×, the all-15 universe backtest produced zero liquidations across roughly 1,000 position lifecycles. Survival is the constraint.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Long-Only by Construction</div>
+          <p class="card__text">Aphelion does not short. The strategy is a long-bias accumulator. In a generalized sell-off where every asset drops together, it accumulates more aggressively — that's the design and the risk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. UNIVERSE -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">THE UNIVERSE</div>
+        <h2 class="section-title"><span class="gradient-text">15 assets.</span><br>Two venues, different surfaces.</h2>
+      </div>
+
+      <div style="max-width:1000px;margin:0 auto;">
+
+        <div style="margin-bottom:1.75rem;">
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
+            <span class="badge badge--live" style="font-size:0.65rem;">OKX COPY TRADING · 6 ASSETS</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.65rem;">
+            <div class="card card--flat" style="padding:0.85rem 1rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--gold);">SOL</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Solana</div></div>
+            <div class="card card--flat" style="padding:0.85rem 1rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--gold);">HYPE</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Hyperliquid</div></div>
+            <div class="card card--flat" style="padding:0.85rem 1rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--gold);">AVAX</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Avalanche</div></div>
+            <div class="card card--flat" style="padding:0.85rem 1rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--gold);">LINK</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Chainlink</div></div>
+            <div class="card card--flat" style="padding:0.85rem 1rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--gold);">XRP</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Ripple</div></div>
+            <div class="card card--flat" style="padding:0.85rem 1rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--gold);">DOGE</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Dogecoin</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
+            <span class="badge badge--beta" style="font-size:0.65rem;">HYPERLIQUID · 15 ASSETS · VAULT PENDING</span>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);letter-spacing:0.12em;margin-bottom:0.6rem;">8 US EQUITIES (HIP-3 PERPETUALS)</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.55rem;">
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">NVDA</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">TSLA</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">AVGO</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">PLTR</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">MSTR</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">COIN</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">META</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text-primary);">GOOGL</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);letter-spacing:0.12em;margin-bottom:0.6rem;">7 CRYPTO PERPETUALS</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.55rem;">
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">BTC</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">ETH</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">SOL</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">HYPE</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">AVAX</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">LINK</div></div>
+              <div class="card card--flat" style="padding:0.7rem 0.9rem;"><div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--gold);">XRP</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:1.75rem;max-width:600px;margin-left:auto;margin-right:auto;">
+        The OKX deployment is a strict subset of the Hyperliquid deployment. Same engine, same signals, same defense logic — different venue.
+      </p>
+    </div>
+  </section>
+
+  <!-- 8. INFRASTRUCTURE -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">INFRASTRUCTURE</div>
+      <h2 class="section-title"><span class="gradient-text">The followed account</span><br>is the audit trail</h2>
+
+      <p style="color:var(--text-secondary);line-height:1.75;font-size:1rem;">
+        OKX copy-trading followers see every entry, every defense fill, every take-profit close, and every trail close in real time as the engine executes. There are no LP statements, quarterly reports, or attribution disclosures because the followed account itself is the record. Once the Hyperliquid vault is live, vault followers will get the same transparency from the on-chain side.
+      </p>
+
+      <div style="background:rgba(15,10,26,0.6);border:1px solid var(--border-default);border-radius:12px;padding:1.5rem 1.75rem;margin:1.75rem 0;font-family:var(--font-mono);font-size:0.92rem;color:var(--text-secondary);line-height:1.9;">
+        <div style="color:var(--gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.12em;margin-bottom:0.75rem;">STACK</div>
+        <div>Execution venues: Hyperliquid + OKX</div>
+        <div>Hosting: Railway (3 services — signals, HL executor, OKX executor)</div>
+        <div>Stack: Python 3.13 · Flask · APScheduler · SQLite</div>
+        <div>Primary data: daily OHLCV across 15 assets</div>
+        <div>Secondary data: live exchange WebSocket feeds for execution</div>
+        <div>Monitoring: per-bot dashboard · structured JSONL logs · Telegram alerts</div>
+      </div>
+
+      <p style="color:var(--text-secondary);line-height:1.75;font-size:1rem;">
+        The signal engine and the executor run as separate Railway services so a scheduler crash in one cannot block trade execution in the other. Defense limits are placed as resting maker orders on the exchange book — not polling-based market triggers — which means a position protected by Aphelion stays protected even if the bot itself is unreachable for hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- 9. WHAT THIS IS NOT -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="section-label">HONEST LIMITS</div>
+      <h2 class="section-title"><span class="gradient-text">What Aphelion isn't</span></h2>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.75rem;">
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not a market-timing strategy</div>
+          <p class="card__text">The engine doesn't predict tops or bottoms. It buys oversold conditions and holds through volatility. Long stretches of grinding sideways action will see Aphelion accumulate slowly without exciting moves.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not high-frequency</div>
+          <p class="card__text">Most days, zero signals fire. Most weeks, fewer than three new positions open. The selectivity is the point, not a bug.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not infinite capacity</div>
+          <p class="card__text">At current sizing, Aphelion operates well under any individual asset's order book depth. At 100× larger AUM, the strategy would either need to reduce per-trade sizes proportionally or accept market impact on entries. Capacity is real and finite.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not a replacement for diversification</div>
+          <p class="card__text">Long-bias on 15 risk assets with 2× leverage is correlated to broad equity and crypto risk. In a generalized sell-off where every asset moves down together, Aphelion accumulates more aggressively. That's the design, but it concentrates exposure to systemic moves.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not foolproof</div>
+          <p class="card__text">Drawdowns happen. Defense limits get filled. Some positions trail-out at small losses. The edge is statistical, not deterministic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FINAL CTA -->
+  <section class="section section--alt">
+    <div class="container container--narrow text-center">
+      <div class="section-label">FOLLOW ON OKX</div>
+      <h2 class="section-title"><span class="gradient-text">Live now via copy trading</span></h2>
+      <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
+        Search "Soomario Aphelion" on OKX copy trading to mirror the 6-asset crypto deployment. Hyperliquid vault for the full 15-asset universe is pending — follow on Twitter for launch.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
+        <a href="https://www.okx.com/copy-trading" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Follow on OKX →</a>
+        <a href="https://twitter.com/SoomarioStrat" target="_blank" rel="noopener" class="btn btn--outline btn--lg">@SoomarioStrat</a>
+      </div>
+
+      <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;">
+        Aphelion trades leveraged perpetual futures, which carries substantial risk of loss including the possibility of liquidation. Past performance does not guarantee future results.
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. RELATED -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;max-width:800px;margin:0 auto;">
+        <a href="accumulator.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Accumulator → $7/mo</div>
+          <p class="card__text">Same buy-the-dip philosophy delivered as Telegram signals. You execute manually on your own broker. 14 assets.</p>
+        </a>
+        <a href="zones.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Zones →</div>
+          <p class="card__text">Bi-directional liquidation DCA on 21 coins. Hyperliquid vault. Lower-frequency, market-neutral cousin.</p>
+        </a>
+        <a href="elite.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Elite →</div>
+          <p class="card__text">HYPE + AVAX directional. Concentrated long-bias bot, 10% profit share, no monthly fee.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>
