@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Soomario Farms — bidirectional range-farming bot that harvests volatility at liquidation zones on Hyperliquid perpetual futures. Currently in paper validation.">
-  <meta property="og:title" content="Soomario Farms — Range Farming at Liquidation Zones">
-  <meta property="og:description" content="Bidirectional range farming on Hyperliquid. Captures round-trip profits as price oscillates within zones. Paper trading.">
-  <title>Soomario Farms — Range Farming at Liquidation Zones | Soomario Strategies</title>
+  <meta name="description" content="Soomario Farms — long-only liquidation-zone grid bot with Pionex-style seed runner and ATR trailing stop. Currently in paper validation on Hyperliquid perpetual futures.">
+  <meta property="og:title" content="Soomario Farms — Liquidation-Zone Grid">
+  <meta property="og:description" content="Long-only grid trading anchored to liquidation zones on Hyperliquid. Seed runner, ATR trailing stop, drawdown halt. Paper trading.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://soomariostrategies.com/products/farms.html">
+  <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
+  <title>Soomario Farms — Liquidation-Zone Grid | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -22,20 +25,20 @@
     <div class="container">
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
         <span class="badge badge--soon" style="font-size:0.7rem;padding:0.3rem 0.7rem;">PAPER TRADING</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID · 8 ASSETS</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID · LONG-ONLY GRID</span>
       </div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
-        <span class="gradient-text">Harvest volatility.</span><br>
-        <span style="color:var(--text-primary);">Farm the range.</span>
+        <span class="gradient-text">Stack the grid.</span><br>
+        <span style="color:var(--text-primary);">Ride the runner.</span>
       </h1>
       <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        A bidirectional range-farming bot that uses liquidation-zone data to define trading ranges, then captures round-trip profits as price oscillates within them. No directional conviction needed — Farms harvests volatility itself.
+        A long-only liquidation-zone grid with a Pionex-style seed runner. Persistent buy/sell pairs accumulate from the zone band; an ATR trailing stop carries the seed when price escapes the range upward. The data is the edge — the grid is just the execution mechanic.
       </p>
 
       <div class="metrics" style="margin:2rem 0;max-width:820px;">
-        <div class="metric"><div class="metric__value gradient-text">8</div><div class="metric__label">Assets farmed</div></div>
-        <div class="metric"><div class="metric__value gradient-text">5×</div><div class="metric__label">Max leverage</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Both</div><div class="metric__label">Long &amp; short</div></div>
+        <div class="metric"><div class="metric__value gradient-text">Long</div><div class="metric__label">Direction by construction</div></div>
+        <div class="metric"><div class="metric__value gradient-text">Zone</div><div class="metric__label">Range anchor</div></div>
+        <div class="metric"><div class="metric__value gradient-text">ATR</div><div class="metric__label">Trail discipline</div></div>
         <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Profit share at launch</div></div>
       </div>
 
@@ -54,9 +57,9 @@
   <section class="section section--alt">
     <div class="container container--narrow text-center">
       <div class="section-label">THE EDGE</div>
-      <h2 class="section-title"><span class="gradient-text">Sideways markets</span><br>are a profit center, not a problem</h2>
-      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Most strategies need direction to make money. Range-bound markets — where price oscillates without committing to a trend — are precisely where they underperform. Farms inverts that: it positions for the round-trips that happen inside zones, capturing profit on both the bounce off the floor and the rejection off the ceiling. Volatility is the input, not the enemy.
+      <h2 class="section-title"><span class="gradient-text">Most grids fail</span><br>because they're placed by guess</h2>
+      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:660px;">
+        A grid earns when price oscillates and dies when price escapes. Place it at fixed percentages from spot and you're guessing where to be. Anchor it to the liquidation-zone topology of the asset and you're betting on a structural area where forced flow already concentrates. Farms places its grid where the leverage data says price has reasons to range — and runs an ATR trailing stop on a seed runner so when the range breaks upward, the strategy participates instead of getting capped.
       </p>
     </div>
   </section>
@@ -66,17 +69,17 @@
     <div class="container">
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">WHAT YOU GET</div>
-        <h2 class="section-title"><span class="gradient-text">A strategy that thrives</span><br>where directional bots stall</h2>
+        <h2 class="section-title"><span class="gradient-text">A grid built for trend escape,</span><br>not just sideways grind</h2>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <div class="card__title">Bidirectional by construction</div>
-          <p class="card__text">Goes long at the zone floor, short at the ceiling. No directional conviction needed — Farms doesn't care if BTC is going up or down, only that it's bouncing within a definable range.</p>
+          <div class="card__title">Zone-anchored range</div>
+          <p class="card__text">The grid range is built from liquidation-zone topology, not from arbitrary percent bands. Levels concentrate where forced flow concentrates — the structural reason price has to slow down inside the band.</p>
         </div>
         <div class="card">
-          <div class="card__title">Range invalidation protection</div>
-          <p class="card__text">When price escapes the zone, the position closes automatically. Trends can hurt — but they don't compound, because Farms recognizes when a range has broken and steps aside.</p>
+          <div class="card__title">Seed runner with ATR trail</div>
+          <p class="card__text">An initial seed position participates in immediate moves while the grid fills around it. When price exits the range upward, the seed transitions to an ATR trailing stop and rides the move — the grid doesn't just stop earning at the top, the runner keeps going.</p>
         </div>
         <div class="card">
           <div class="card__title">No fees, no lockups (at launch)</div>
@@ -100,12 +103,12 @@
           <p class="card__text">Live performance will differ from paper due to slippage, funding costs, and execution friction. Mainnet deployment is contingent on validation period completion.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Trending markets hurt range-farming</div>
-          <p class="card__text">Strong directional moves break ranges and can cause repeated stop-outs. Farms is structurally a sideways-market strategy — when the market commits to a trend, the bot may sit out for extended periods or take losses on broken ranges.</p>
+          <div class="card__title" style="color:var(--gold);">Long-only by construction</div>
+          <p class="card__text">An earlier bidirectional version was retired after a sharp pump in April 2026 produced compounded losses on the short side. The current design forgoes the ability to short on weakness — and forgoes the worst-case downside that pairs of opposing positions create. It's a deliberate trade-off, not a feature.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Bidirectional means losses on both sides</div>
-          <p class="card__text">Strong breakouts that invalidate the zone can hit both long and short positions in sequence. The exposure isn't fully hedged — it's range-dependent.</p>
+          <div class="card__title" style="color:var(--gold);">Sustained downtrends hurt</div>
+          <p class="card__text">A long-only grid accumulating into a falling market is sitting on losing inventory. The drawdown halt — calculated on combined realised plus unrealised P&amp;L — fires before the position becomes catastrophic, but it does fire. Farms is structurally built for ranging-to-rising regimes.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Statistical, not deterministic</div>
@@ -142,11 +145,11 @@
       <div class="grid-3">
         <a href="zones.html" class="card" style="text-decoration:none;">
           <div class="card__title">Zones →</div>
-          <p class="card__text">The live sister strategy. Same liquidation-zone data, different approach — Zones DCAs into dislocations and holds for mean-reversion. Live on Hyperliquid since March.</p>
+          <p class="card__text">The live sister strategy. Same liquidation-zone data, different execution — Zones DCAs into dislocations across graduated levels and holds for mean-reversion. Live on Hyperliquid since March.</p>
         </a>
         <a href="max-pain.html" class="card" style="text-decoration:none;">
           <div class="card__title">Max Pain →</div>
-          <p class="card__text">18-coin TradingView + Python hybrid on Hyperliquid. Live vault — directional momentum strategy with per-coin tuning.</p>
+          <p class="card__text">18-coin TradingView + Python hybrid on Hyperliquid. Live vault — mean-reversion at the exhaustion of liquidation cascades, with per-coin tuning.</p>
         </a>
         <a href="accumulator.html" class="card" style="text-decoration:none;">
           <div class="card__title">Accumulator →</div>
