@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="What is a covered call in crypto? How selling out-of-the-money calls against held assets harvests theta and volatility premium, with strike and expiration mechanics explained.">
+  <title>Covered Calls Explained — Volatility Harvesting in Crypto | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/covered-calls.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+    .article .formula { background: rgba(0,0,0,0.25); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem 1rem; font-family: var(--font-mono); font-size: 0.88rem; color: var(--text-primary); margin: 1rem 0; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">STRATEGY · 7 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Covered Calls Explained</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">Selling time, not direction. How covered calls harvest the volatility premium that crypto markets pay generously and consistently.</p>
+
+      <h2 class="gradient-text">What is a Call Option?</h2>
+      <p>A <strong>call option</strong> is a contract that gives the buyer the right (but not the obligation) to buy an asset at a specified <em>strike price</em> on or before a specified <em>expiration date</em>. The buyer pays a <em>premium</em> upfront for that right. If the asset's price stays below the strike, the option expires worthless and the buyer's premium is gone. If the asset's price moves above the strike, the option has value — the buyer can exercise it (or sell it) for the difference.</p>
+      <p>The call <strong>seller</strong> is on the other side of the trade. The seller collects the premium upfront and accepts the obligation: if the buyer exercises, the seller has to deliver the asset at the strike price, regardless of where it is trading. Selling calls generates income; selling calls without owning the underlying is risky (a "naked" call has unbounded upside loss). Selling calls <em>against</em> an asset you already hold is a covered call — and it has a defined risk profile.</p>
+
+      <h2 class="gradient-text">The Covered Call Trade</h2>
+      <p>A covered call has two legs:</p>
+      <p><strong>Leg one:</strong> own the underlying asset (BTC, ETH, SOL, etc.).</p>
+      <p><strong>Leg two:</strong> sell a call option against that holding, with a strike price above current spot.</p>
+      <p>The seller collects the premium immediately. Three outcomes at expiration:</p>
+      <p><strong>Outcome A — price stays below the strike.</strong> The option expires worthless. The seller keeps the premium <em>and</em> keeps the asset. This is the win. The position can be re-opened the next cycle.</p>
+      <p><strong>Outcome B — price closes above the strike.</strong> The option is exercised. The seller delivers the asset at the strike price, keeps the premium, and gives up any upside above the strike. The seller still made money — premium plus appreciation up to the strike — but missed the rally above the strike.</p>
+      <p><strong>Outcome C — price drops sharply.</strong> The option is worthless (good — premium kept), but the underlying asset has lost value. The premium partially offsets the spot loss. Covered calls do not protect against major declines; they soften them slightly via the premium.</p>
+
+      <div class="callout">
+        <p><strong>The trade-off in plain language:</strong> the seller of a covered call gives up the highest-upside outcomes in exchange for a steady premium that is collected regardless of which outcome occurs. Over many cycles, in markets that do not relentlessly trend up, this trade pays.</p>
+      </div>
+
+      <h2 class="gradient-text">Why Covered Calls Work in Crypto</h2>
+      <p>Two structural facts about crypto options markets create the edge.</p>
+
+      <h3>The Volatility Premium</h3>
+      <p>Option prices are derived in part from <em>implied volatility</em> — the market's forecast of how much the underlying will move before expiration. Across most asset classes and most periods, implied volatility runs <em>higher</em> than realised volatility ends up being. Buyers of options consistently pay more for protection or upside exposure than the actual statistical movement justifies. This gap is called the <strong>volatility risk premium</strong>, and it accrues to sellers.</p>
+      <p>Crypto's volatility premium is unusually rich. Implied volatility on Deribit BTC and ETH options has historically traded 5–15 percentage points above realised volatility on average — a gap that translates into meaningful premium income for sellers. Reason: crypto's directional uncertainty plus the asymmetric demand for upside calls (retail and miners hedging long exposure) pushes implied vol systematically above realised.</p>
+
+      <h3>Theta Decay</h3>
+      <p><strong>Theta</strong> is the rate at which an option loses value as time passes, all else equal. Options are wasting assets — every day that goes by, an option is worth slightly less than the day before, because there is one less day for the underlying to move into the money. Theta is negative for option buyers (they lose value daily) and positive for option sellers (they gain value daily).</p>
+      <p>Theta is not linear. It accelerates as expiration approaches. A 90-day option loses time value slowly. A 14-day option loses time value rapidly. The steepest section of the time-decay curve is approximately the last 30–45 days before expiration — and that section is the one a covered-call strategy wants to hold.</p>
+
+      <div class="formula">
+        Premium income ≈ volatility premium captured + theta accumulated through hold
+      </div>
+
+      <h2 class="gradient-text">Strike Selection</h2>
+      <p>Picking the strike is the core decision. Three considerations.</p>
+      <p><strong>Out-of-the-money depth.</strong> A strike very close to current price (1–2% OTM) collects the largest premium but is most likely to be exercised — you get assigned and lose the upside frequently. A strike far out-of-the-money (20%+ OTM) collects almost nothing and rarely matters. The sweet spot is wide enough that exercise is unlikely in most market conditions but close enough that the premium is meaningful — typically 7–12% OTM in crypto.</p>
+      <p><strong>The 5% hard floor.</strong> Strikes below 5% OTM should be filtered out entirely, regardless of premium. They generate exercise events too frequently and they cap upside in a market that occasionally moves 30% in a week. Premia hard-filters this.</p>
+      <p><strong>USDC-settled vs inverse.</strong> On Deribit, BTC and ETH have inverse-settled options (collateralised in BTC/ETH, denominated in coin terms). Most other assets have USDC-settled linear options (collateralised and denominated in USDC). Linear is operationally cleaner; inverse has tax and settlement quirks. Premia prefers USDC-settled where available.</p>
+
+      <h2 class="gradient-text">Expiration Selection</h2>
+      <p>The 14–45 day window is the operational sweet spot. Shorter expirations (1–7 days) are tempting because theta acceleration is highest, but the volatility risk near expiry — gamma exposure if the strike is approached — is also highest. Longer expirations (60+ days) are safer but capture less of the steep part of the decay curve and lock the position into a stale strike for too long.</p>
+      <p>Mechanical roll discipline matters. When an option is held to expiration (or close to it), the next position opens on the same asset with a fresh strike at the same OTM depth and a fresh expiration in the same window. Premia automates this — no manual roll decisions, no strike-picking by feel.</p>
+
+      <h2 class="gradient-text">How Soomario Premia Trades This</h2>
+      <p><a href="../products/premia.html" style="color:var(--gold);">Soomario Premia</a> runs the covered-call trade across seven crypto holdings (BTC, ETH, SOL, AVAX, DOGE, XRP, TRX) on Deribit, fully automated through a five-signal timing engine that decides <em>when</em> to open new positions rather than running a rigid grid.</p>
+      <p>The engine reads conviction scoring, Supertrend direction, range farmability, zone proximity, and macro regime indicators to identify moments when selling premium is favourable — typically when realised volatility has compressed below implied volatility (rich premium environment) and the underlying is not in an obvious breakout. When conditions deteriorate, the engine pauses opening new positions rather than mechanically rolling. Strike selection lands in the 7–12% OTM sweet spot with a 5% hard floor; expirations stay in the 14–45 day band.</p>
+      <p>Position sizing matches the account's holdings exactly — fully covered, no naked exposure. Maximum one open position per asset prevents over-concentration in a single expiration. Premia is currently in paper validation; the live deployment is pending.</p>
+
+      <h2 class="gradient-text">The Honest Trade-Offs</h2>
+      <p>Covered calls cap upside in strong rallies. In a 2020-style bull run where BTC doubles in three months, a covered-call strategy delivers premium income but assigns out of every position above strike — leaving the strategy materially behind a buy-and-hold benchmark. This is the single biggest psychological challenge of running covered calls during exuberant markets. The defence is to remember that the strategy is designed to outperform across <em>most</em> regimes, not the rare runaway-rally regime.</p>
+      <p>Covered calls do not protect against major declines. In a -50% drawdown, the premium income offsets a small fraction of the spot loss, not the bulk of it. Covered calls are an income-enhancement strategy on top of long exposure, not a hedge. If hedging is the goal, protective puts are the right tool.</p>
+      <p>Premium income is taxable. Many jurisdictions treat option premium as ordinary income, which can be less favourable than long-term capital gains. Tax treatment varies by country and individual circumstance.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="../products/premia.html" class="btn btn--primary btn--sm">Explore Soomario Premia →</a>
+          <a href="mean-reversion-vs-momentum.html" class="btn btn--outline btn--sm">Mean Reversion vs Momentum</a>
+          <a href="glossary.html" class="btn btn--outline btn--sm">Glossary</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

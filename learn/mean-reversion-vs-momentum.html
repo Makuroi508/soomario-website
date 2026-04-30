@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="Mean reversion vs momentum: the two most fundamental opposing strategy shapes in trading. When each works, why they are decoupled, and how Soomario uses both.">
+  <title>Mean Reversion vs Momentum — The Two Fundamental Strategy Shapes | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/mean-reversion-vs-momentum.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .compare-col { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; }
+    .compare-col h4 { font-family: var(--font-heading); color: var(--text-gold); margin: 0 0 0.6rem; font-size: 1rem; }
+    .compare-col p { font-size: 0.88rem; line-height: 1.65; margin-bottom: 0.5rem; }
+    .compare-col p:last-child { margin-bottom: 0; }
+    @media (max-width: 600px) { .compare { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">CONCEPT · 6 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Mean Reversion vs Momentum</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">Two opposite philosophies of how prices behave. Each describes the market accurately some of the time. Each fails when the other is right.</p>
+
+      <h2 class="gradient-text">The Two Shapes, in One Sentence</h2>
+      <p><strong>Mean reversion</strong> says: price has overshot, and a return to fair value is likely. Buy weakness, sell strength.</p>
+      <p><strong>Momentum</strong> says: price that is moving will continue moving. Buy strength, sell weakness.</p>
+      <p>Both are true. They are true at different times. They are sometimes true on the same asset at different timeframes. The question is not which one is correct in the abstract — it is which one matches the regime you are trading.</p>
+
+      <h2 class="gradient-text">Side by Side</h2>
+
+      <div class="compare">
+        <div class="compare-col">
+          <h4>Mean Reversion</h4>
+          <p><strong>Thesis:</strong> price excursions are temporary. Crowds overreact, then unwind.</p>
+          <p><strong>Entry:</strong> when price is far from baseline (oversold / overbought).</p>
+          <p><strong>Exit:</strong> when price returns toward baseline.</p>
+          <p><strong>Win rate:</strong> typically high (small bounces are common).</p>
+          <p><strong>Average win:</strong> small. Bounces are partial.</p>
+          <p><strong>Average loss:</strong> larger. Rare but painful — the move that doesn't revert.</p>
+          <p><strong>Best regime:</strong> ranging, choppy, sideways markets.</p>
+          <p><strong>Worst regime:</strong> strong sustained trends.</p>
+        </div>
+        <div class="compare-col">
+          <h4>Momentum</h4>
+          <p><strong>Thesis:</strong> trends persist. Price that is moving in a direction will continue.</p>
+          <p><strong>Entry:</strong> on confirmation that a trend is establishing.</p>
+          <p><strong>Exit:</strong> when the trend weakens or reverses.</p>
+          <p><strong>Win rate:</strong> typically lower (most signals fail).</p>
+          <p><strong>Average win:</strong> large. The trend that runs is what pays.</p>
+          <p><strong>Average loss:</strong> small. Tight stops cut losing breakouts quickly.</p>
+          <p><strong>Best regime:</strong> trending markets, breakouts, regime shifts.</p>
+          <p><strong>Worst regime:</strong> chop and false breakouts.</p>
+        </div>
+      </div>
+
+      <h2 class="gradient-text">Why Each Shape Fails When the Other is Right</h2>
+      <p>The shapes are mathematical opposites. A mean-reversion strategy is structurally short volatility — it makes money when price returns to the average and loses money when price keeps going. A momentum strategy is structurally long volatility — it makes money when price keeps going and loses money when it whipsaws.</p>
+      <p>This means the two strategies have <strong>negatively correlated drawdowns</strong>. The market regimes where mean-reversion strategies struggle (strong trending) are exactly the regimes where momentum strategies thrive. The regimes where momentum strategies struggle (relentless chop) are where mean reversion shines. A portfolio that runs both is structurally diversified in a way that just owning two trending strategies is not.</p>
+
+      <div class="callout">
+        <p><strong>The deepest reason to combine the two:</strong> you do not have to predict which regime is coming. You allocate to both, and let the regime decide which one earns. The losses in one are partially offset by the gains in the other.</p>
+      </div>
+
+      <h2 class="gradient-text">Reading the Win Rate Honestly</h2>
+      <p>One of the most common mistakes in evaluating strategies is using win rate as a quality metric. A 90% win rate sounds great until you realise that mean-reversion strategies <em>structurally</em> have high win rates and that the 10% of losing trades can be very large. A 35% win rate sounds bad until you realise that momentum strategies <em>structurally</em> have lower win rates and that the average win can be 4× the average loss.</p>
+      <p>Win rate without context is uninformative. Always pair it with profit factor (the ratio of gross profit to gross loss). A 70% win-rate mean-reversion strategy with profit factor 1.4 is better than a 90% win-rate mean-reversion strategy with profit factor 1.05 — even though the headline win rate looks worse. See <a href="how-to-read-a-backtest.html" style="color:var(--gold);">How to Read a Backtest</a> for the full framework.</p>
+
+      <h2 class="gradient-text">Soomario's Mix</h2>
+
+      <h3>The Mean-Reversion Strategies</h3>
+      <p><a href="../products/max-pain.html" style="color:var(--gold);">Max Pain</a> is the platform's flagship mean-reversion strategy. It enters at the exhaustion of liquidation cascades — the point where forced flow has finished firing and price is positioned for a snap-back. Per-coin parameter tuning across 18 coins. Backtested win rate runs in the 80%+ range with a profit factor that justifies it.</p>
+      <p><a href="../products/zones.html" style="color:var(--gold);">Zones</a> is a softer-edged mean-reversion strategy: instead of waiting for a single exhaustion entry, it DCAs into liquidation zones across multiple levels, accumulating size as price moves deeper. Bi-directional across 21 coins. The DCA structure smooths the entry but is still fundamentally a mean-reversion bet.</p>
+      <p><a href="../products/aphelion.html" style="color:var(--gold);">Aphelion</a> applies mean-reversion logic to a long-bias accumulator: it buys oversold conditions across 15 stocks and crypto, with multi-signal validation and pre-positioned exchange limits as defence. Mean reversion in shape, but with directional bias toward accumulation.</p>
+
+      <h3>The Momentum Strategy</h3>
+      <p><a href="../products/elite.html" style="color:var(--gold);">Elite</a> is the platform's concentrated momentum capture. It takes large positions in HYPE and AVAX when the strategy's filters detect a clean trend establishing, and rides them with stops that move with the trend. Lower trade frequency, fewer winners, but the winners that run pay for everything else.</p>
+
+      <h3>The Hybrid Strategies</h3>
+      <p><a href="../products/alpha.html" style="color:var(--gold);">Alpha</a> is a market-neutral relative-value strategy that uses momentum-style filters (technical overextension on the short candidates) but is not directional in either shape. <a href="../products/premia.html" style="color:var(--gold);">Premia</a> sells volatility, which is its own shape — neither mean reversion nor momentum, but a third structural bet (volatility-risk-premium harvesting) that decouples from both. <a href="../products/farms.html" style="color:var(--gold);">Farms</a> is a range-trading strategy that prospers in chop, similar in regime preference to mean reversion but mechanically different — see <a href="range-trading-and-grids.html" style="color:var(--gold);">Range Trading and Grid Bots</a>.</p>
+
+      <h2 class="gradient-text">How to Pick</h2>
+      <p>If you have a strong view that the market is in a sustained trend, momentum strategies (Elite) align with that view. If you have a view that the market is range-bound or that recent moves have been overdone, mean-reversion strategies (Max Pain, Zones, Aphelion) align with that view. If you do not have a strong directional view, hold both and let the regime decide which one earns.</p>
+      <p>Most allocators benefit from holding both shapes simultaneously. Predicting regime turns is hard; structurally diversifying across opposing strategy shapes is straightforward. The cost of holding both is that some strategies are always underperforming; the benefit is that the portfolio's drawdowns are smaller and shorter than any single strategy's.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="../tools/compare.html" class="btn btn--primary btn--sm">Compare All Products →</a>
+          <a href="how-to-read-a-backtest.html" class="btn btn--outline btn--sm">How to Read a Backtest</a>
+          <a href="risk-management.html" class="btn btn--outline btn--sm">Risk Management</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="What are grid bots and range-trading strategies? How a grid captures sideways oscillation, when grids fail, and how Soomario Farms anchors its grid to liquidation zones.">
+  <title>Range Trading and Grid Bots — How Sideways Markets Pay | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/range-trading-and-grids.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">STRATEGY · 6 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Range Trading and Grid Bots</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">How a grid captures profit from sideways oscillation, why grids fail in trends, and how anchoring a grid to liquidation zones changes the trade.</p>
+
+      <h2 class="gradient-text">The Setup</h2>
+      <p>Most of the time, most assets do not trend. They oscillate inside a range. Price tests the upper boundary, gets rejected, drifts back to the lower boundary, gets bid back up, repeats. This pattern can persist for days, weeks, sometimes months. The standard tools for trading it — buy near support, sell near resistance, repeat — work in concept but require constant attention and discretion.</p>
+      <p>A <strong>grid bot</strong> automates the same idea. Place a series of buy orders at evenly-spaced levels below current price. Place a corresponding series of sell orders at evenly-spaced levels above. As price oscillates inside the grid, the orders execute pairwise: a buy fills, then a sell at a higher level fills, capturing the spread between them. Each completed pair is a small profit. The grid runs continuously, indifferent to direction, capturing every oscillation as profit.</p>
+
+      <h2 class="gradient-text">How a Grid Captures Profit</h2>
+      <p>The arithmetic is simple. If a grid has spacing of 0.35% between levels, and price oscillates from one level to an adjacent level and back, a complete buy-then-sell round trip captures 0.35% minus fees. Across hundreds of oscillations, the cumulative profit accumulates linearly.</p>
+      <p>Two things matter for grid profitability:</p>
+      <p><strong>Number of completed round trips.</strong> The more times price ranges across the grid, the more profit accumulates. A wide-ranging asset in chop is the ideal environment.</p>
+      <p><strong>Spacing relative to fees.</strong> If the spacing between levels is too tight, fees consume the spread. If spacing is too wide, fewer round trips complete in a given period. The right spacing balances frequency against per-trade economics.</p>
+
+      <h2 class="gradient-text">When Grids Fail: The Trend Risk</h2>
+      <p>Grid bots have one fundamental weakness: they are short volatility in disguise. When price escapes the grid in a sustained trend — up or down — the grid suffers.</p>
+      <p>If price trends <strong>upward</strong> past the top of the grid, all the sell orders execute and there is nothing left to sell. The grid stops earning. Worse, the buy orders that did execute on the way up are now positions held at lower-than-current prices, but the grid has used its capital and cannot accumulate more. The strategy missed most of the rally.</p>
+      <p>If price trends <strong>downward</strong> past the bottom of the grid, the buy orders all execute. The grid is now fully invested at progressively worse prices, and price keeps going down. The strategy is sitting on a stack of losing positions with no remaining capital to average further. This is the failure mode that has historically blown up many naïve grid strategies.</p>
+
+      <div class="callout">
+        <p><strong>The grid does not predict direction.</strong> It harvests volatility while price stays inside its boundaries. Outside those boundaries, the grid converts from an income strategy to a directional position you did not consciously take.</p>
+      </div>
+
+      <h2 class="gradient-text">Defending the Grid</h2>
+      <p>Three defences are standard, and they matter more than the grid mechanic itself.</p>
+
+      <h3>Range Selection</h3>
+      <p>Naïve grids set their boundaries at fixed percentages from current price. Better grids set boundaries at <em>structural</em> levels — places where price is empirically likely to slow down or reverse. Liquidation zones are the cleanest version of this. Setting the bottom of the grid at the deepest meaningful long-liquidation zone and the top at a corresponding short-liquidation zone gives the grid a structural reason to stay inside its boundaries.</p>
+
+      <h3>ATR-Adaptive Stops</h3>
+      <p>The grid needs an exit when its assumptions break. An <strong>ATR trailing stop</strong> — a trailing stop placed at a distance proportional to recent volatility — fires when price exits the grid in a sustained way. If the grid's assumptions about ranging behaviour are wrong, the stop locks in whatever position remains and ends the strategy on that asset until conditions change. ATR-based sizing means the stop is wider in volatile regimes (so it doesn't false-fire on noise) and tighter in calm ones (so it doesn't give back too much).</p>
+
+      <h3>Long-Only by Construction</h3>
+      <p>Bidirectional grids — those that take both long and short grid positions — sound more capital-efficient. In practice, they have a structural failure mode: a sharp upward move causes the short positions to be liquidated <em>and</em> the long-side grid to be fully consumed, simultaneously. The April 2026 pump that triggered Soomario's redesign of Farms is a case in point: a bidirectional grid running through a strong trend can lose meaningfully more than a long-only grid would have. Long-only grids forgo the ability to short, but they also forgo the worst-case downside that pairs of opposing positions create.</p>
+
+      <h2 class="gradient-text">How Soomario Farms Trades This</h2>
+      <p><a href="../products/farms.html" style="color:var(--gold);">Soomario Farms</a> is the platform's grid strategy, currently in paper validation after a redesign from a bidirectional approach to a long-only approach. The mechanics:</p>
+      <p><strong>Zone-anchored range.</strong> The grid range is built from the long max-pain zone (lower) extended downward by a fraction of zone width. This is not an arbitrary range — it is the structural area where long-side liquidation density supports a recovery thesis. See <a href="liquidation-zones.html" style="color:var(--gold);">Liquidation Zones Explained</a>.</p>
+      <p><strong>Arithmetic spacing.</strong> Levels are evenly spaced at a target percentage of price (rather than geometrically scaled). This produces predictable per-level fills and predictable economics.</p>
+      <p><strong>Many levels in a tight band.</strong> Roughly 75 grid levels spread across the zone band, allowing many round trips per oscillation cycle.</p>
+      <p><strong>Seed position.</strong> The strategy opens an initial position at current price as a "seed" runner — capital that participates in immediate moves while the grid fills around it. When price exits the range upward, the seed transitions to an ATR trailing stop and rides the move out.</p>
+      <p><strong>Persistent buy/sell pairs.</strong> Each filled buy creates a corresponding sell order at the next-higher grid level. The pairs do not cross; they do not require detection logic to manage. Simpler is more robust.</p>
+      <p><strong>Drawdown halt with unrealised P&amp;L.</strong> Earlier versions of the drawdown halt only counted realised P&amp;L, which let unrealised losses pile up while the halt never fired. The current version includes unrealised P&amp;L in its calculation. Honest defence comes from honest accounting.</p>
+
+      <h2 class="gradient-text">The Honest Limits</h2>
+      <p>Grid strategies are not magic. They earn in chop and lose in trend. They earn from many small wins and pay back a fraction of those wins when the range breaks. The edge is not in the grid mechanic itself — it is in the combination of where the grid is placed (zone-anchored), how it defends itself (ATR stop), and what it does when the assumption breaks (seed position transitions, drawdown halts fire).</p>
+      <p>The Farms paper-trading data is encouraging — across multiple paper runs, the strategy has produced positive results in an environment where the bidirectional version had failed. But paper trading has known limitations: no slippage realism in dislocations, no market impact, no surprise outages. Live performance will deviate, and it will deviate downward more often than upward. Soomario's approach is to run the strategy in paper through enough regime variety to surface the failure modes, then deploy a live vault with the lessons embedded.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="../products/farms.html" class="btn btn--primary btn--sm">Explore Soomario Farms →</a>
+          <a href="liquidation-zones.html" class="btn btn--outline btn--sm">Liquidation Zones</a>
+          <a href="mean-reversion-vs-momentum.html" class="btn btn--outline btn--sm">Mean Reversion vs Momentum</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>
