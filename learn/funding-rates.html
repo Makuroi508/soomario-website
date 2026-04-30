@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="What are funding rates in crypto perpetual futures? How they keep perp prices anchored to spot, what positive and negative funding signal, and how Soomario uses funding as a positioning indicator.">
+  <title>Funding Rates Explained — How Perp Funding Works | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/funding-rates.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+    .article .formula { background: rgba(0,0,0,0.25); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem 1rem; font-family: var(--font-mono); font-size: 0.88rem; color: var(--text-primary); margin: 1rem 0; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">FUNDAMENTALS · 5 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Funding Rates Explained</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">The mechanism that keeps perpetual futures anchored to spot — and a powerful positioning signal in its own right.</p>
+
+      <h2 class="gradient-text">The Problem Perps Need to Solve</h2>
+      <p>Traditional futures contracts have an expiry date. As expiry approaches, the futures price converges with the spot price because, at the moment of expiry, the contract settles at spot. That convergence is enforced by arbitrage: anyone who can buy spot and sell futures (or vice versa) closes any meaningful gap.</p>
+      <p>Perpetual futures have no expiry. Without a forced settlement date, what stops the perp price from drifting away from spot? In a hot market, traders pile into longs; the perp's mark price gets pushed above the spot price and stays there. Without a corrective mechanism, this drift could persist indefinitely. The mechanism that prevents it is <strong>funding</strong>.</p>
+
+      <h2 class="gradient-text">How Funding Works Mechanically</h2>
+      <p>At regular intervals — every 8 hours on most centralised exchanges, every 1 hour on Hyperliquid — the exchange calculates a <strong>funding rate</strong> based on the gap between the perp price and an index price (a weighted average of multiple spot exchanges). One side pays the other:</p>
+      <p><strong>Positive funding rate:</strong> the perp is trading <em>above</em> spot. Longs pay shorts. Each long position is debited a small fraction of the position's notional value; each short position is credited the same fraction.</p>
+      <p><strong>Negative funding rate:</strong> the perp is trading <em>below</em> spot. Shorts pay longs. The flow reverses.</p>
+
+      <div class="formula">
+        Funding payment = position size × funding rate
+      </div>
+
+      <p>The size of a single funding payment is usually small — often a few basis points (0.01%–0.10%). But it compounds. A position held for a week through a +0.10% rate every 8 hours pays roughly 2.1% in funding over that week. Held for a month, it's nearly 9%. Funding is not a one-time cost; it is a continuous flow that can dominate the economics of a position over long horizons.</p>
+
+      <h2 class="gradient-text">Why Funding Stabilises the Price</h2>
+      <p>When longs are paying shorts, holding a long position has a continuous cost. That cost makes longs less attractive at the margin and shorts more attractive. Over time, this supply-and-demand pressure pushes some leveraged longs to close and attracts new shorts — which pulls the perp price back toward spot. The system self-corrects through economic incentive rather than through a forced settlement.</p>
+      <p>It usually works. There are exceptions during extreme market stress, when funding can hit the maximum cap (often ±0.75% per 8 hours, equivalent to roughly +9.5% annualised at the cap) and the perp can still trade meaningfully off spot. But under normal conditions, funding holds the perp price within a tight band around spot.</p>
+
+      <h2 class="gradient-text">Funding as a Positioning Signal</h2>
+      <p>Funding does not predict price direction. What it does is <strong>measure crowdedness</strong> on each side of a market.</p>
+      <p>If funding is strongly positive, longs are aggressive — there are more long positions than the market can comfortably support without paying shorts to take the other side. That's a crowded long. If funding is strongly negative, shorts are aggressive — that's a crowded short. Neither condition tells you what price will do next, but both tell you something useful about how susceptible the market is to a squeeze in the opposite direction.</p>
+      <p>A market with extremely positive funding is a market where any meaningful spot decline triggers cascading long liquidations, because so many leveraged longs are crowded near similar entry prices. A market with extremely negative funding is the mirror image — vulnerable to a short squeeze.</p>
+
+      <div class="callout">
+        <p><strong>Funding is not a directional indicator.</strong> Crowded markets sometimes get more crowded before they unwind. Funding is most useful when combined with other signals — technical exhaustion, liquidation-density mapping, fundamental events — rather than used alone.</p>
+      </div>
+
+      <h2 class="gradient-text">How Soomario Uses Funding</h2>
+      <p><strong>Alpha</strong> reads funding directly as one of its four primary signals. When the engine identifies a candidate to short — typically an altcoin facing an upcoming token unlock — funding adds confirmation. If longs on that asset are paying shorts at unusually elevated rates, the structural conditions for a short are favourable: the funding flow itself pays the position while the engine waits for the unlock catalyst to play out. The trade earns funding even before the thesis triggers.</p>
+      <p><strong>Max Pain and Zones</strong> use funding as one input among many in their conviction filters. A long entry into a deeply oversold asset with extremely negative funding (shorts paying longs) is a higher-quality entry than the same setup with neutral funding, because the funding flow is paying you to hold the position.</p>
+      <p><strong>Elite</strong> tracks funding as a regime indicator on HYPE. Sustained positive funding through a period of price consolidation is treated differently from neutral funding through the same consolidation — the former suggests positioning is building, the latter that the market has gone quiet.</p>
+
+      <h2 class="gradient-text">How to Read Funding Yourself</h2>
+      <p>Every perpetuals exchange publishes the current funding rate for every market on its trading interface, usually next to the mark price. Hyperliquid and most centralised exchanges also publish the historical funding curve — useful for seeing whether the current level is unusual or just typical for that asset.</p>
+      <p>A few rules of thumb that hold most of the time. Funding above +0.05% per 8 hours (roughly +55% annualised) is meaningful crowdedness. Funding above +0.10% per 8 hours is rare and usually corrects within days. Funding that has stayed positive for weeks even at modest levels indicates structural long bias that may persist longer than you expect.</p>
+
+      <h2 class="gradient-text">The Limit of Funding as a Signal</h2>
+      <p>Funding measures positioning on perpetuals only. It does not capture spot demand, options positioning, or behaviour from large holders who don't use leverage. A market can be heavily long in perps (positive funding) while spot is being aggressively accumulated by long-term holders — those two signals agree in direction. Or a market can be heavily long in perps while spot is being distributed — those two signals disagree, and the perp positioning is much more vulnerable.</p>
+      <p>Funding is a clean signal about leveraged positioning. It is one piece of a larger picture, never the whole picture.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="how-to-read-a-backtest.html" class="btn btn--primary btn--sm">Next: How to Read a Backtest →</a>
+          <a href="perpetual-futures.html" class="btn btn--outline btn--sm">← Perpetual Futures</a>
+          <a href="../products/alpha.html" class="btn btn--outline btn--sm">See Alpha</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

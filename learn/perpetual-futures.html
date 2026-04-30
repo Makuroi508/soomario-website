@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="What are perpetual futures? How perps differ from spot trading and traditional futures, how leverage and liquidation work, and why Soomario strategies trade them.">
+  <title>Perpetual Futures Explained — How Perps Work | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/learn/perpetual-futures.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">FUNDAMENTALS · 6 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Perpetual Futures Explained</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">What perps are, how they're different from spot trading and traditional futures, and why most Soomario strategies trade them instead of buying coins outright.</p>
+
+      <h2 class="gradient-text">What is a Perpetual Future?</h2>
+      <p>A <strong>perpetual future</strong> — usually called a "perp" — is a derivative contract that tracks the price of an underlying asset (Bitcoin, Ethereum, an altcoin, even a stock) without ever expiring. You can hold a perp position for a minute, a month, or a year. Its value rises and falls with the spot price of the asset, but you never actually own the asset itself.</p>
+      <p>Two things make perps different from owning the asset directly. First, you can use <strong>leverage</strong> — control a larger position than your collateral would otherwise allow. Second, you can <strong>short</strong> — profit when the price goes down — as easily as you can go long.</p>
+
+      <h2 class="gradient-text">Perps vs Spot Trading</h2>
+      <p>Spot trading is simple ownership. You give up cash, you receive Bitcoin. The Bitcoin sits in your wallet. If the price doubles, your Bitcoin doubles in value. If the price drops to zero, your Bitcoin is worth zero. There is no margin call, no liquidation, no funding fee — but you also can't profit when the price falls, and you can't put up $1,000 of collateral to control a $5,000 position.</p>
+      <p>Perp trading replaces ownership with a <strong>contract</strong>. You post collateral (called <em>margin</em>); the exchange tracks your position size and your unrealised profit or loss in real time. If your position moves in your favour, your account balance grows. If it moves against you and consumes too much of your margin, the exchange forcibly closes the position to prevent your account going negative — that's a <strong>liquidation</strong>.</p>
+
+      <h2 class="gradient-text">Perps vs Traditional Futures</h2>
+      <p>Traditional futures contracts have a fixed expiry date — March, June, September, December. To stay exposed past expiry, you have to "roll" your position into the next contract. Rolling has costs: you pay spreads, you cross order books, you sometimes lose money to <em>contango</em> (when far-dated contracts trade above spot).</p>
+      <p>Perps eliminate the expiry. There is no rollover. The contract just continues. To prevent the perp price from drifting away from the spot price (which it would otherwise do, since there's no expiry forcing convergence), perps use a mechanism called <strong>funding</strong>: every few hours, longs pay shorts or shorts pay longs depending on which side is more crowded. This is how the perp price stays anchored to spot. Funding deserves its own page — see <a href="funding-rates.html" style="color:var(--gold);">Funding Rates Explained</a>.</p>
+
+      <h2 class="gradient-text">Leverage and Margin</h2>
+      <p>Leverage is the multiplier between your collateral and your position size. With 5× leverage, $1,000 of collateral controls a $5,000 position. A 1% move in the underlying asset moves your position by $50 — which is a 5% gain or loss on your collateral. The same 1% move on a $1,000 spot position would move you by only $10.</p>
+      <p>Leverage is a tool, not a strategy. It amplifies both gains and losses identically. The reason traders use leverage is <em>capital efficiency</em>: you don't have to tie up the full notional value of a position to control it. The reason traders blow up using leverage is <em>position sizing</em>: they take positions too large for the volatility of the asset, get caught in a normal market move, and get liquidated.</p>
+
+      <div class="callout">
+        <p><strong>Soomario uses modest leverage by design.</strong> Most strategies cap leverage at 2×–8×, with the specific cap chosen so that an 8% adverse move (the rough magnitude of a normal volatility cluster) doesn't trigger liquidation. Higher leverage means tighter stop bands, which means more false stops in normal market noise. False stops are more expensive than wider drawdowns.</p>
+      </div>
+
+      <h2 class="gradient-text">Liquidation: How Positions Die</h2>
+      <p>Every leveraged position has a <strong>liquidation price</strong> — the price at which the position has lost enough to consume nearly all your margin. Hit that price and the exchange closes your position automatically, taking the rest of your margin as a fee. The liquidation price is calculable up-front: at 5× leverage, your liquidation price is roughly 20% away from your entry (less, after fees). At 10× leverage, roughly 10% away. At 25×, roughly 4%.</p>
+      <p>A liquidation is the worst possible exit because (a) you don't choose the price, (b) you pay liquidation fees on top of the loss, and (c) cascading liquidations can create slippage that pushes the executed price even further than the trigger. Avoiding liquidation is the single most important risk control in leveraged trading. Every strategy on Soomario uses stop-loss orders placed <em>before</em> the liquidation price — so if a stop has to fire, it fires at a price you chose, on the exchange's matching engine, with the exchange's full liquidity, regardless of whether the strategy bot is online.</p>
+
+      <h2 class="gradient-text">Why Soomario Trades Perps</h2>
+      <p>Three structural advantages, in rough order of importance:</p>
+      <p><strong>Capital efficiency.</strong> A vault running mean-reversion or relative-value strategies needs to express positions in dozens of assets simultaneously. Tying up the full notional value of every position would require multiples of the capital actually deposited. Modest leverage on perps lets the same capital express more strategy ideas.</p>
+      <p><strong>Short-side access.</strong> Strategies like Alpha (which shorts weakening altcoins) and Rotation's short sleeve depend on being able to express bearish views with the same ease as bullish ones. Spot can't do this. Perps can.</p>
+      <p><strong>Funding as a feature, not a tax.</strong> When the engine is short an asset where longs are paying shorts to hold the trade, the <em>funding flow itself pays the position</em> while the engine waits for the thesis to play out. This isn't profit you get on spot. See <a href="funding-rates.html" style="color:var(--gold);">Funding Rates Explained</a> for how this works.</p>
+
+      <h2 class="gradient-text">A Note on Hyperliquid</h2>
+      <p>Most of Soomario's vault strategies trade on <strong>Hyperliquid</strong>, a perpetuals exchange that runs on its own purpose-built blockchain (HyperEVM). Three things make it relevant: vaults are first-class citizens (anyone can deposit into a public vault, on-chain, with no aggregator), state queries are instant (the order book and positions are visible directly), and the exchange supports <strong>HIP-3 perpetuals</strong> — derivatives that track US equities like NVDA, TSLA, and AVGO 24/7, which is what makes Aphelion's and Rotation's stock-perp sleeves possible.</p>
+      <p>The vault model means Soomario doesn't custody depositor funds. Deposits go into a public smart contract; the strategy executes against pooled capital; depositors can withdraw at will (subject to the vault's lockup period, if any). This is materially different from a hedge fund or copy-trading service.</p>
+
+      <h2 class="gradient-text">The Honest Risks</h2>
+      <p><strong>Liquidation is permanent.</strong> Spot losses can recover when the price recovers. A liquidated perp position is closed; the recovery doesn't help you because you no longer have the position.</p>
+      <p><strong>Funding can erode small edges.</strong> If you're long an asset where funding is structurally positive (longs pay shorts), the funding bill compounds over time. Strategies have to be designed around this — either by avoiding crowded sides or by sizing positions so funding is small relative to expected return.</p>
+      <p><strong>Exchange and protocol risk.</strong> Holding perps means trusting the exchange's solvency, the soundness of its matching engine, and (on decentralised perps) the security of the underlying smart contracts. These risks are real and not zero. Soomario uses Hyperliquid because its protocol design and track record are best-in-class — but no exchange is risk-free.</p>
+
+      <h2 class="gradient-text">Where to Start</h2>
+      <p>If you've never traded perps before, the lowest-friction way to <em>understand</em> them is to read this page, then read <a href="funding-rates.html" style="color:var(--gold);">Funding Rates Explained</a>, then read one strategy whitepaper. The lowest-friction way to <em>experience</em> them is the <a href="../products/accumulator.html" style="color:var(--gold);">Accumulator</a> — which, despite the platform's perp focus, is itself a spot-only signal service that costs $7/month and uses no leverage. The vault products are the right next step once you're comfortable with the mechanics described here.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="funding-rates.html" class="btn btn--primary btn--sm">Next: Funding Rates →</a>
+          <a href="how-vaults-work.html" class="btn btn--outline btn--sm">How Vaults Work</a>
+          <a href="risk-management.html" class="btn btn--outline btn--sm">Risk Management</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

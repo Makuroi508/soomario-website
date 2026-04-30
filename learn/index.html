@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Learn how algorithmic trading strategies work. DCA explained, liquidation zones, Hyperliquid vaults, risk management, and a full trading glossary.">
+  <meta name="description" content="Learn how algorithmic trading strategies work. Perpetual futures, funding rates, smart DCA, liquidation zones, vaults, risk management, and a full trading glossary.">
   <title>Learn — Trading Education | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,27 +22,45 @@
         <span class="gradient-text">Understand Before You Invest</span>
       </h1>
       <p style="font-size:1.05rem;color:var(--text-secondary);max-width:600px;margin-bottom:3rem;">
-        We don't believe in black boxes. Every strategy we offer has a clear explanation of how it works, why it works, and what the risks are.
+        We don't believe in black boxes. Every strategy on the platform has a clear explanation of how it works, why it works, and what the risks are.
       </p>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+      <div style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--text-muted);margin-bottom:1.25rem;">— FUNDAMENTALS</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-bottom:3rem;">
+
+        <a href="perpetual-futures.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">FUNDAMENTALS · 6 MIN READ</div>
+          <div class="card__title">Perpetual Futures Explained</div>
+          <p class="card__text">What perps are, how they differ from spot trading and traditional futures, how leverage and liquidation work, and why most Soomario strategies trade them.</p>
+        </a>
+
+        <a href="funding-rates.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">FUNDAMENTALS · 5 MIN READ</div>
+          <div class="card__title">Funding Rates Explained</div>
+          <p class="card__text">The mechanism that keeps perp prices anchored to spot — and a powerful positioning signal in its own right. Core to understanding how Alpha and other crypto-perp strategies generate edge.</p>
+        </a>
+
+        <a href="how-to-read-a-backtest.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">EVALUATION · 7 MIN READ</div>
+          <div class="card__title">How to Read a Backtest</div>
+          <p class="card__text">What win rate, Sharpe, profit factor, and max drawdown actually mean. The biases to watch for. A practical framework for comparing strategies critically.</p>
+        </a>
+
+      </div>
+
+      <div style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--text-muted);margin-bottom:1.25rem;">— STRATEGY CONCEPTS</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-bottom:3rem;">
 
         <a href="what-is-dca.html" class="card">
           <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">STRATEGY · 5 MIN READ</div>
           <div class="card__title">What is Smart DCA?</div>
-          <p class="card__text">How signal-driven dollar-cost averaging improves on basic DCA by timing entries with RSI and moving average scoring. The math behind the Accumulator.</p>
+          <p class="card__text">How signal-driven dollar-cost averaging improves on basic DCA by timing entries with momentum, trend, and volatility indicators. The thesis behind the Accumulator.</p>
         </a>
 
         <a href="liquidation-zones.html" class="card">
           <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">CONCEPT · 6 MIN READ</div>
           <div class="card__title">Liquidation Zones Explained</div>
-          <p class="card__text">Why concentrated leverage creates predictable price dislocations — and how Farms, Zones, and Farms exploit them for profit.</p>
-        </a>
-
-        <a href="how-vaults-work.html" class="card">
-          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">PLATFORM · 4 MIN READ</div>
-          <div class="card__title">How Hyperliquid Vaults Work</div>
-          <p class="card__text">The self-custody vault model: deposit, let bots trade, verify everything on-chain. How it's different from traditional fund management.</p>
+          <p class="card__text">Why concentrated leverage creates predictable price dislocations — and how Max Pain, Zones, and Farms exploit them.</p>
         </a>
 
         <a href="risk-management.html" class="card">
@@ -51,10 +69,27 @@
           <p class="card__text">What can go wrong, how Soomario manages risk, and how to think about position sizing, leverage, and drawdowns.</p>
         </a>
 
+      </div>
+
+      <div style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--text-muted);margin-bottom:1.25rem;">— PLATFORM &amp; REFERENCE</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+
+        <a href="how-vaults-work.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">PLATFORM · 4 MIN READ</div>
+          <div class="card__title">How Hyperliquid Vaults Work</div>
+          <p class="card__text">The self-custody vault model: deposit, let bots trade, verify everything on-chain. How it differs from traditional fund management.</p>
+        </a>
+
         <a href="glossary.html" class="card">
           <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">REFERENCE</div>
           <div class="card__title">Trading Glossary</div>
-          <p class="card__text">A–Z definitions of every term used across Soomario products: DCA, RSI, Sharpe ratio, drawdown, vault, profit factor, and more.</p>
+          <p class="card__text">A–Z definitions of every term used across Soomario products: DCA, RSI, Sharpe, drawdown, vault, funding rate, theta, max pain zone, and more.</p>
+        </a>
+
+        <a href="../whitepapers/platform.html" class="card">
+          <div style="font-family:var(--font-display);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.75rem;">WHITEPAPER · ~25 PAGES</div>
+          <div class="card__title">The Platform Whitepaper</div>
+          <p class="card__text">The unified credential for all nine Soomario strategies — what we analyse, why, and the risk controls that bound every position. The deepest available read.</p>
         </a>
 
       </div>
@@ -64,7 +99,7 @@
   <section class="section section--alt">
     <div class="container container--narrow text-center">
       <h2 class="section-title" style="font-size:1.5rem;"><span class="gradient-text">Ready to Start?</span></h2>
-      <p style="color:var(--text-secondary);margin-bottom:1.5rem;">The Accumulator is the easiest entry point — $7/mo for smart DCA signals across 14 assets.</p>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;">The Accumulator is the easiest entry point — $7/mo for smart DCA signals across 14 assets, no leverage.</p>
       <a href="../products/accumulator.html" class="btn btn--primary">Learn About the Accumulator →</a>
     </div>
   </section>
