@@ -81,6 +81,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://soomariostrategies.com/learn/mean-reversion-vs-momentum.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soomariostrategies.com/learn/token-unlocks.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soomariostrategies.com/learn/covered-calls.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soomariostrategies.com/learn/range-trading-and-grids.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://soomariostrategies.com/learn/liquidation-zones.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
