@@ -253,10 +253,13 @@
           <div>
             <div class="site-footer__col-title">Learn</div>
             <ul class="site-footer__links">
+              <li><a href="${depth}learn/perpetual-futures.html">Perpetual Futures</a></li>
+              <li><a href="${depth}learn/funding-rates.html">Funding Rates</a></li>
+              <li><a href="${depth}learn/how-to-read-a-backtest.html">How to Read a Backtest</a></li>
               <li><a href="${depth}learn/what-is-dca.html">What is DCA?</a></li>
               <li><a href="${depth}learn/liquidation-zones.html">Liquidation Zones</a></li>
-              <li><a href="${depth}learn/how-vaults-work.html">How Vaults Work</a></li>
               <li><a href="${depth}learn/risk-management.html">Risk Management</a></li>
+              <li><a href="${depth}learn/how-vaults-work.html">How Vaults Work</a></li>
               <li><a href="${depth}learn/glossary.html">Glossary</a></li>
             </ul>
           </div>

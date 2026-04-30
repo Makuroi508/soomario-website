@@ -61,6 +61,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://soomariostrategies.com/learn/perpetual-futures.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soomariostrategies.com/learn/funding-rates.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soomariostrategies.com/learn/how-to-read-a-backtest.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://soomariostrategies.com/learn/what-is-dca.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
