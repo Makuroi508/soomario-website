@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0F0B14">
   <meta name="description" content="The AUREUS whitepaper, v1 — a tokenized fund protocol for systematic strategy access on Arbitrum. Operated by Soomario Strategies.">
-  <title>AUREUS Whitepaper v1 | Soomario Strategies</title>
+  <title>AUREUS Whitepaper v1.2 | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -111,7 +111,7 @@
     <div class="wp-topbar__inner">
       <div class="wp-topbar__brand">
         <span class="wp-topbar__title">AUREUS</span>
-        <span class="wp-topbar__version">V1.0</span>
+        <span class="wp-topbar__version">V1.2</span>
       </div>
       <nav class="wp-topbar__nav">
         <a href="index.html">OVERVIEW</a>
@@ -127,18 +127,21 @@
 
     <!-- HEADER -->
     <header class="wp-header">
-      <div class="wp-header__eyebrow">Whitepaper · Version 1.0</div>
+      <div class="wp-header__eyebrow">Whitepaper · Version 1.2</div>
       <h1 class="wp-header__title">AUREUS</h1>
       <div class="wp-header__sub">A tokenized fund protocol for systematic strategy access on Arbitrum</div>
       <div class="wp-header__meta">May 2026 · Operated by Soomario Strategies</div>
+      <div style="max-width:580px;margin:24px auto 0;padding:14px 18px;background:var(--au-surface);border-left:2px solid var(--au-bronze);font-size:13px;line-height:1.65;color:var(--au-text-secondary);font-style:italic;text-align:left;">
+        This version supersedes v1.0 and v1.1. Material changes from v1.0: (1) Forge contract is freshly deployed for AUREUS rather than upgraded from a prior protocol; (2) launch security posture clarified — structured pre-launch security testing instead of formal third-party audit, with formal audit planned for after launch; (3) STRCx description corrected. v1.2 adds: (4) Recovery Fund address published with seeded starting balance language; (5) "labeled multisig" wording replaced with "labeled wallet" — the Recovery Fund is currently a single-key EOA, not a multisig.
+      </div>
     </header>
 
     <!-- EXECUTIVE SUMMARY -->
     <section class="wp-section">
       <div class="wp-section__num">EXECUTIVE SUMMARY</div>
       <h2 class="wp-h1">In Brief</h2>
-      <p>AUREUS is a tokenized fund. Members deposit USDC and receive AUR tokens that represent proportional ownership of a treasury. That treasury is deployed across systematic trading strategies on Hyperliquid, with a permanent reserve held in STRCx, a yield-bearing stable asset. Profits are distributed to Members weekly.</p>
-      <p>AUREUS is built on Arbitrum. It is operated by Soomario Strategies, a team with extensive experience in systematic trading and DeFi protocol operations. The protocol's distinguishing feature is a comprehensive on-chain transparency layer — a non-upgradable proof-of-reserves oracle, an append-only trade ledger, and rate-limited admin functions — that allows Members to verify the protocol's state independently and continuously.</p>
+      <p>AUREUS is a tokenized fund. Members deposit USDC and receive AUR tokens that represent proportional ownership of a treasury. That treasury is deployed across systematic trading strategies on Hyperliquid, with a permanent reserve held in STRCx, a yield-bearing tokenized preferred stock. Profits are distributed to Members weekly.</p>
+      <p>AUREUS is built on Arbitrum One. It is operated by Soomario Strategies, a team with extensive experience in systematic trading and DeFi protocol operations. The protocol's distinguishing feature is a comprehensive on-chain transparency layer — a non-upgradable proof-of-reserves oracle, an append-only trade ledger, and rate-limited admin functions — that allows Members to verify the protocol's state independently and continuously.</p>
       <p>A portion of protocol profits — 10% of every profitable epoch — routes to a Recovery Fund that supports the prior token community of the team's previous protocol. This is described in Section II.</p>
       <p>The full Roman-treasury vocabulary used throughout this document — Aerarium, Forge, Members, Team, epoch, Recovery Fund — is explained in the Glossary.</p>
     </section>
@@ -178,9 +181,13 @@
     <section class="wp-section" id="recovery">
       <div class="wp-section__num">SECTION · II</div>
       <h2 class="wp-h1">The Recovery Fund</h2>
-      <p>AUREUS includes a mechanism called the Recovery Fund. Ten percent of every profitable epoch routes to a labeled multisig until $350,000 is reached. At that point, a snapshot is taken of NGET token balances as of a specific Arbitrum block, and the Recovery Fund is airdropped pro-rata to those addresses. After the airdrop completes, the 10% allocation redirects to the Team.</p>
+      <p>AUREUS includes a mechanism called the Recovery Fund. Ten percent of every profitable epoch routes to a labeled wallet — <code>0x9eC5279bf6148a0f027B7329f694B0bd00302678</code> — until $350,000 is reached. At that point, a snapshot is taken of NGET token balances as of a specific Arbitrum block, and the Recovery Fund is airdropped pro-rata to those addresses. After the airdrop completes, the 10% allocation redirects to the Team.</p>
+
+      <p>The Recovery Fund does not start at zero. It carries a seeded starting balance of approximately $3,000 — residual capital from the prior Nugget Fund's October 2025 liquidation — currently active in Soomario Elite and Aphelion strategies. The exact starting balance at AUREUS launch will reflect those strategies' performance up to that point. The wallet address above can be queried at any time to verify current balance.</p>
+
+      <p>The labeled wallet is currently a single-key EOA, not a multi-signature wallet. The team may migrate the Recovery Fund to a multi-signature wallet once balance crosses a meaningful threshold; if so, the migration will be publicly announced and the new address communicated before the change takes effect.</p>
       <p>NGET is the token of a prior protocol operated by the AUREUS team. The Recovery Fund honors that prior community as AUREUS grows. The Recovery Fund participates in AUREUS strategies alongside other Member capital — it is not parked as idle USDC — which accelerates the recovery and reflects the operator's confidence in the new protocol's design.</p>
-      <p>NGET and AUREUS are otherwise separate protocols. There is no migration. New AUREUS Members do not need to understand or interact with NGET in any way; the Recovery Fund operates entirely in the background from a new Member's perspective.</p>
+      <p>NGET and AUREUS are otherwise entirely separate protocols. AUR is a freshly deployed ERC-20 token with a new contract address, with no shared state or storage with the existing NGET token. There is no migration between them. New AUREUS Members do not need to understand or interact with NGET in any way; the Recovery Fund operates entirely in the background from a new Member's perspective. Holders of NGET retain their NGET balances unchanged.</p>
 
       <h3 class="wp-h3">Why this is built into the protocol</h3>
       <p>Putting the Recovery Fund into the smart contract rather than handling it as a separate program is a deliberate design choice. It means:</p>
@@ -241,10 +248,11 @@
       <p>Members do not need to understand the strategies to participate. They need to understand that capital is being deployed into them, that returns and losses both flow through, and that the on-chain transparency layer makes the operator's claims about performance verifiable.</p>
 
       <h3 class="wp-h3">STRCx Reserve</h3>
-      <p>STRCx is a yield-bearing stable asset issued by Backed Finance. It tokenizes exposure to short-duration credit instruments and earns ~11.5% APY at the time of writing. AUREUS holds a permanent 20% of treasury in STRCx with a never-sell rule.</p>
+      <p>STRCx is a yield-bearing asset issued by Backed Finance that tokenizes <strong>Strategy Inc.'s perpetual preferred stock (STRC)</strong>. Strategy Inc. is the public company formerly known as MicroStrategy. The preferred stock earns variable dividends — currently ~11.5% APY at the time of writing — and its issuer's solvency is directly tied to the value and management of a large Bitcoin treasury.</p>
+      <p>AUREUS holds a permanent 20% of treasury in STRCx with a never-sell rule.</p>
       <p>The reserve serves three purposes:</p>
       <ul>
-        <li><strong>Floor return.</strong> Even during strategy drawdowns, STRCx continues earning. This dampens portfolio volatility.</li>
+        <li><strong>Floor return.</strong> Even during strategy drawdowns, STRCx continues earning dividends. This dampens portfolio volatility.</li>
         <li><strong>Redemption backstop.</strong> STRCx is liquid and verifiable through a Chainlink price feed. It backs the protocol's ability to honor redemptions even during strategy stress.</li>
         <li><strong>Long-term compounding.</strong> Because the reserve is permanent and never sold, its yield compounds indefinitely. Over multi-year horizons this contributes meaningfully to NAV.</li>
       </ul>
@@ -277,7 +285,7 @@
       <p>The 5% Operations allocation covers ongoing protocol costs: keeper hosting, monitoring infrastructure, audit costs, contract deployment gas, frontend hosting, legal and accounting work. Anything left after costs goes to the Team budget as discretionary reserve.</p>
 
       <h3 class="wp-h3">The Recovery Fund allocation</h3>
-      <p>The 10% Recovery Fund allocation goes to a labeled multisig wallet that participates in AUREUS strategies alongside other Member capital. When the $350,000 threshold is reached, the snapshot-and-airdrop sequence described in Section II executes. The threshold is reached when the Recovery Fund's value — its accrued allocations plus its strategy participation gains — first crosses $350,000. The exact mainnet block at which this happens will be publicly announced before the airdrop executes.</p>
+      <p>The 10% Recovery Fund allocation goes to the labeled wallet <code>0x9eC5279bf6148a0f027B7329f694B0bd00302678</code> that participates in AUREUS strategies alongside other Member capital. When the $350,000 threshold is reached, the snapshot-and-airdrop sequence described in Section II executes. The threshold is reached when the Recovery Fund's value — its accrued allocations plus its strategy participation gains — first crosses $350,000. The exact mainnet block at which this happens will be publicly announced before the airdrop executes.</p>
 
       <h3 class="wp-h3">Fee economics</h3>
       <p>Redemption fees (Section VI) route to staked AUR holders as additional yield, not to the Team or Operations. Specifically, redemption fees flow back into the Forge contract's reward accumulator, so they show up in Member claim amounts at the next epoch close. This creates an aligned incentive: the more Members who exit at premium tiers (ASAP at 5%), the more yield accrues to Members who remain.</p>
@@ -399,8 +407,19 @@
       <p><strong>Mitigation:</strong> The ReservesOracle, PositionLogger, and rate limits collectively make operator drift visible before it becomes catastrophic. Members can exit through any of three paths at any time.</p>
 
       <h3 class="wp-h3">Smart contract risk</h3>
-      <p>The Forge contract underlying AUREUS is production-tested through prior operation but has not been formally audited in its V2 upgrade form. The new contracts (ReservesOracle, PositionLogger, AureusRedemption) have not been audited. Mainnet launch is contingent on a formal audit by Sherlock or a peer firm. Even after audit, smart contract risk is not zero — novel attack vectors exist that no audit can fully prevent.</p>
-      <p><strong>Mitigation:</strong> Pre-audit AI-driven adversarial testing, formal audit, rate-limited admin actions, 24-hour timelocks on oracle configuration changes, emergency pause functionality.</p>
+      <p>The AUREUS smart contracts (Forge, AureusRedemption, ReservesOracle, PositionLogger, OTCv2) have not been audited by an external security firm at the time of v1 launch.</p>
+      <p>Before mainnet deployment, the protocol undergoes a structured pre-launch security testing protocol that includes:</p>
+      <ul>
+        <li>Static analysis with Slither, Mythril, and Echidna invariant fuzzing</li>
+        <li>AI-driven adversarial code review against the full contract suite</li>
+        <li>Working proof-of-concept exploit attempts on every identified attack surface</li>
+        <li>Multi-model cross-verification using different AI families to surface findings each missed</li>
+        <li>Fix-and-retest cycles until all critical and high-severity findings are addressed</li>
+      </ul>
+      <p>This testing protocol is documented in the public <code>RED_TEAM_RUNBOOK.md</code> document and its findings will be published as <code>RED_TEAM_FINDINGS.md</code> before launch. Empirically, this approach catches a meaningful fraction of issues that a formal third-party audit would find — but it is not equivalent to a formal audit, and Members should understand that gap.</p>
+      <p>A formal external audit by a firm such as Sherlock is planned for after mainnet launch, once the protocol has accumulated operating history and any post-launch parameter changes are stable. The audit will produce a public report. Findings that require contract changes will be addressed through the Forge's upgrade mechanism (UUPS) and re-tested against the existing test suite.</p>
+      <p>Until the formal audit completes, smart contract risk in AUREUS is non-zero in ways that an audit would have reduced. The risks the pre-launch testing reduces are mechanical bugs, well-known attack patterns, and economic exploits with prior precedent. The risks the pre-launch testing does not eliminate are novel attack vectors with no training-data precedent and subtle business-logic flaws unique to AUREUS that no general security tool is trained on.</p>
+      <p><strong>Additional mitigations:</strong> rate-limited admin actions, 24-hour timelocks on oracle configuration changes, emergency pause functionality, capped total Member deposits during the unaudited window.</p>
 
       <h3 class="wp-h3">Strategy risk</h3>
       <p>The Soomario Strategies have a positive backtest history but may underperform in live conditions. Crypto markets are highly volatile. Tokenized stocks are a new asset class with different liquidity profiles than spot equities. Drawdowns of 20% or more on the strategy component of the treasury are within historical range.</p>
@@ -410,11 +429,11 @@
       <p>Several counterparties exist in the AUREUS stack:</p>
       <ul>
         <li><strong>Hyperliquid</strong> — The decentralized exchange where trading strategies execute. If Hyperliquid experienced a critical failure, position values could be impaired.</li>
-        <li><strong>Backed Finance (STRCx issuer)</strong> — The issuer of the STRCx reserve token. Failure of those collateral structures could impair STRCx value.</li>
+        <li><strong>Strategy Inc. and Backed Finance (STRCx)</strong> — STRCx is a Backed Finance tokenization of Strategy Inc.'s perpetual preferred stock (STRC). Strategy Inc. is the public company that holds a large Bitcoin treasury and pays variable preferred dividends out of operating cash flow and treasury management activities. STRCx therefore inherits two layers of risk: (a) Strategy Inc.'s solvency and dividend-paying capacity, which is directly tied to Bitcoin's price and the company's ability to service obligations during BTC drawdowns, and (b) Backed Finance's operational integrity in maintaining the tokenization. A deep, sustained Bitcoin bear market could reduce the STRC dividend rate or, in an extreme scenario, impair the underlying preferred stock's value.</li>
         <li><strong>Chainlink</strong> — Provides the STRCx/USD price feed. A failure or manipulation would corrupt the ReservesOracle's hard layer calculation.</li>
         <li><strong>USDC issuer (Circle)</strong> — All deposits are in USDC. A USDC depeg or issuer failure would impair all dollar-denominated positions.</li>
       </ul>
-      <p><strong>Mitigation:</strong> These are systemic crypto risks that no protocol can eliminate. AUREUS chooses widely-trusted counterparties and diversifies across them where possible.</p>
+      <p><strong>Mitigation:</strong> These are systemic crypto risks that no protocol can eliminate. AUREUS chooses widely-trusted counterparties and diversifies across them where possible. The decision to use STRCx over a Treasury-backed alternative like USDY is a deliberate trade for higher yield in exchange for the additional BTC-correlated counterparty risk described above.</p>
 
       <h3 class="wp-h3">Liquidity risk</h3>
       <p>The ASAP redemption tier has rate limits (1% per Member per 24 hours, 5% protocol-wide per 7 days). During a stress scenario where many Members want to exit simultaneously, the limits would extend exit times beyond 48 hours.</p>
@@ -433,14 +452,15 @@
       <h2 class="wp-h1">Roadmap</h2>
 
       <h3 class="wp-h3">Now (Q2 2026)</h3>
-      <p>Contracts are written. Announcement is published. Pre-audit AI-driven red-team testing in progress. Formal audit is the next gating milestone.</p>
+      <p>Contracts are written and have been deployed end-to-end on Arbitrum Sepolia in a structured trial that validated the full lifecycle (mint → stake → epoch close → claim → redeem → burn). The trial summary is published as <code>SEPOLIA_TRIAL_SUMMARY.md</code>.</p>
+      <p>Mainnet contract code requires modifications identified during the trial — including a profit-split refactor to match the economics in Section V of this document, a fresh-deployment script for AUR (replacing the prior plan that would have upgraded a different contract), and several operational fixes documented in <code>MAINNET_PREREQUISITES.md</code>.</p>
 
       <h3 class="wp-h3">Next 30–60 days</h3>
       <ul>
-        <li>Complete AI red-team phase</li>
-        <li>Submit to formal audit (Sherlock or peer firm)</li>
-        <li>Address audit findings</li>
-        <li>Deploy to Arbitrum mainnet</li>
+        <li>Implement the mainnet contract changes documented in <code>MAINNET_PREREQUISITES.md</code></li>
+        <li>Execute the full pre-launch security testing protocol per <code>RED_TEAM_RUNBOOK.md</code> and publish findings as <code>RED_TEAM_FINDINGS.md</code></li>
+        <li>Address all critical and high-severity findings; document accepted risk for medium and below</li>
+        <li>Deploy contracts to Arbitrum mainnet with initial deposit caps in place</li>
         <li>Open Member onboarding</li>
         <li>Begin first epochs of live operation</li>
       </ul>
@@ -450,6 +470,8 @@
         <li>Continuous operation through first quarter of live performance</li>
         <li>Track record building</li>
         <li>Recovery Fund accumulation toward $350K threshold</li>
+        <li>Commission formal external audit (Sherlock or peer firm) once initial operating history is established</li>
+        <li>Publish audit findings and remediation as <code>AUDIT_REPORT_v1.md</code></li>
         <li>Frontend integration of dashboard widgets showing real-time NAV, ReservesOracle data, withdrawal queue</li>
       </ul>
 
@@ -479,20 +501,30 @@
           <tr><td>AureusRedemption</td><td>Manages three-tier withdrawal flow</td><td>No</td></tr>
           <tr><td>ReservesOracle</td><td>On-chain proof-of-reserves</td><td>No</td></tr>
           <tr><td>PositionLogger</td><td>Append-only trade ledger</td><td>No</td></tr>
-          <tr><td>OTC (V2)</td><td>Decentralized AUR marketplace</td><td>Limited</td></tr>
+          <tr><td>OTCv2</td><td>Decentralized AUR marketplace</td><td>Limited</td></tr>
         </tbody>
       </table>
 
-      <p>The Forge is reused from an existing Arbitrum protocol through a UUPS proxy upgrade. The remaining four contracts are new for AUREUS.</p>
+      <p>All five contracts are freshly deployed for AUREUS. AUR is a freshly deployed ERC-20 with no shared state with any prior protocol's token.</p>
 
       <h3 class="wp-h3">Upgrade mechanism</h3>
-      <p>The Forge uses OpenZeppelin's UUPS upgrade pattern. The proxy contract (already deployed and live) delegates calls to an implementation contract that can be replaced. Upgrades require multi-sig approval. Storage layout compatibility is verified before each upgrade — past upgrades that broke layout would corrupt existing Member balances, so this check is strictly enforced. ReservesOracle, PositionLogger, and AureusRedemption are deployed without upgrade hooks. Their code is immutable post-deployment. Configuration parameters are adjustable through admin functions subject to 24-hour timelocks.</p>
+      <p>The Forge uses OpenZeppelin's UUPS upgrade pattern. The proxy contract delegates calls to an implementation contract that can be replaced. Upgrades require multi-sig approval. Storage layout compatibility is verified before each upgrade — past upgrades that broke layout would corrupt existing Member balances, so this check is strictly enforced. ReservesOracle, PositionLogger, and AureusRedemption are deployed without upgrade hooks. Their code is immutable post-deployment. Configuration parameters are adjustable through admin functions subject to 24-hour timelocks.</p>
 
       <h3 class="wp-h3">Oracle architecture</h3>
       <p>The ReservesOracle reads multiple sources: direct on-chain queries for USDC balances at tracked addresses, the Chainlink STRCx/USD price feed for reserve valuation, the Hyperliquid bridge contract for the cross-chain position floor, and keeper-reported state for Hyperliquid open positions. The keeper bot, operated by the AUREUS team, posts position updates to the contract at least every 24 hours and on 5% portfolio movement. Keeper authority is limited to posting position data — it cannot modify hard-layer values or affect Member balances.</p>
 
-      <h3 class="wp-h3">Backtest, audit, and review materials</h3>
-      <p>The following documents are or will be made publicly available: this whitepaper, the architecture documentation, the backtest memo, the audit report (post-audit completion), and the red-team findings document. Source code is published in the GitHub repository at <code>github.com/Makuroi508/aureus</code> once the audit completes.</p>
+      <h3 class="wp-h3">Pre-launch security testing and audit materials</h3>
+      <p>The following documents are or will be made publicly available:</p>
+      <ul>
+        <li>This whitepaper (<code>AUREUS_WHITEPAPER.md</code>) — published</li>
+        <li>Sepolia trial summary (<code>SEPOLIA_TRIAL_SUMMARY.md</code>) — published</li>
+        <li>Mainnet prerequisites and pre-launch scope (<code>MAINNET_PREREQUISITES.md</code>) — published</li>
+        <li>Architecture documentation (<code>AUREUS_ARCHITECTURE.md</code>) — pre-launch</li>
+        <li>Pre-launch security testing protocol (<code>RED_TEAM_RUNBOOK.md</code>) — published</li>
+        <li>Pre-launch security testing findings (<code>RED_TEAM_FINDINGS.md</code>) — at launch</li>
+        <li>Formal audit report — post-launch, after the audit completes</li>
+      </ul>
+      <p>Source code is published in the GitHub repository at <code>github.com/Makuroi508/aureus</code>, accessible from mainnet launch.</p>
     </section>
 
     <!-- 13. GLOSSARY -->
@@ -508,7 +540,7 @@
         <dd>The fastest exit tier. The Member redeems AUR for USDC immediately at the on-chain verified hard NAV, paying a 5% fee. Subject to rate limits (1% per Member per 24h, 5% protocol-wide per 7d).</dd>
 
         <dt>AUR</dt>
-        <dd>The token Members hold. Represents proportional ownership of the Aerarium. Minted when USDC is deposited; burned when redeemed.</dd>
+        <dd>The token Members hold. Represents proportional ownership of the Aerarium. Minted when USDC is deposited; burned when redeemed. A freshly deployed ERC-20 with no shared state with any prior protocol's token.</dd>
 
         <dt>AUREUS</dt>
         <dd>The protocol as a whole. From the Latin for "golden," referencing both the historical Roman gold standard and the protocol's reserve-asset character.</dd>
@@ -523,7 +555,7 @@
         <dd>One full cycle of accounting. AUREUS uses one-week epochs. Each epoch ends with <code>closeEpoch</code> setting a new NAV and distributing profits.</dd>
 
         <dt>Forge</dt>
-        <dd>The contract that mints and burns AUR. Reused from an existing Arbitrum protocol through a UUPS upgrade. Holds Member stakes and the reward accumulator.</dd>
+        <dd>The contract that mints and burns AUR. Freshly deployed for AUREUS. Uses the UUPS upgrade pattern. Holds Member stakes and the reward accumulator.</dd>
 
         <dt>Hard NAV</dt>
         <dd>The component of total NAV that is verifiable on-chain without trusting the operator. Computed by ReservesOracle from USDC balances, STRCx value (via Chainlink), and the Hyperliquid bridge floor.</dd>
@@ -541,7 +573,7 @@
         <dd>The value of one AUR in USDC. Calculated by dividing total treasury value by total AUR supply. Used as the price for minting and redemption.</dd>
 
         <dt>NGET</dt>
-        <dd>The legacy token of a prior protocol operated by the AUREUS team. Separate from AUR. Holders of NGET at a designated snapshot block will be eligible for the Recovery Fund airdrop.</dd>
+        <dd>The legacy token of a prior protocol operated by the AUREUS team. Separate from AUR — different contract, different address, no shared state. Holders of NGET at a designated snapshot block will be eligible for the Recovery Fund airdrop.</dd>
 
         <dt>OTC marketplace</dt>
         <dd>A built-in on-chain marketplace where Members can buy and sell AUR. Takes a 0.5% fee per fill, which routes to staked AUR holders.</dd>
@@ -549,8 +581,11 @@
         <dt>PositionLogger</dt>
         <dd>A non-upgradable contract that records every trade executed by the protocol. Append-only — past entries cannot be modified.</dd>
 
+        <dt>Pre-launch security testing</dt>
+        <dd>The structured testing protocol AUREUS uses before mainnet launch in place of a formal third-party audit at launch. Includes static analysis (Slither, Mythril), invariant fuzzing (Echidna), AI-driven adversarial code review, and proof-of-concept exploit attempts. Documented in <code>RED_TEAM_RUNBOOK.md</code>. Findings published as <code>RED_TEAM_FINDINGS.md</code>. A formal external audit is planned for after launch.</dd>
+
         <dt>Recovery Fund</dt>
-        <dd>A labeled multisig that receives 10% of each profitable epoch until $350,000 is reached. At threshold, the Recovery Fund is airdropped pro-rata to NGET holders as of a designated snapshot block.</dd>
+        <dd>A labeled wallet at <code>0x9eC5279bf6148a0f027B7329f694B0bd00302678</code> that receives 10% of each profitable epoch until $350,000 is reached. Starts with approximately $3,000 seeded from prior Nugget Fund liquidation residual, currently active in Soomario Elite and Aphelion strategies. At threshold, the Recovery Fund is airdropped pro-rata to NGET holders as of a designated snapshot block. Currently a single-key EOA; may be migrated to a multisig once balance grows meaningfully.</dd>
 
         <dt>ReservesOracle</dt>
         <dd>A non-upgradable contract that publishes the protocol's verified reserve composition on-chain. Composed of a hard layer (verifiable) and soft layer (keeper-reported).</dd>
@@ -562,7 +597,7 @@
         <dd>The suite of systematic trading bots operated by the AUREUS team on Hyperliquid. Receives 80% of treasury allocation.</dd>
 
         <dt>STRCx</dt>
-        <dd>A yield-bearing stable asset issued by Backed Finance. Held as 20% permanent reserve, never sold. Earns ~11.5% APY.</dd>
+        <dd>A yield-bearing asset issued by Backed Finance that tokenizes Strategy Inc.'s perpetual preferred stock (STRC). Strategy Inc. is the public company (formerly known as MicroStrategy) that holds a large Bitcoin treasury. STRCx pays variable dividends (currently ~11.5% APY) and carries Strategy Inc. / Bitcoin counterparty risk. Held as 20% permanent reserve in AUREUS, never sold.</dd>
 
         <dt>Team</dt>
         <dd>The AUREUS operator. Receives 5% of each profitable epoch (15% post-Recovery). Plain-language replacement for "operator" or specific personal references in client-facing materials.</dd>
@@ -576,6 +611,7 @@
     <div class="wp-final">
       <h2>Final note</h2>
       <p>This whitepaper describes the AUREUS protocol as designed for v1 launch. Specific numbers — the 80/5/5/10 profit split, the 15% NAV rate limit, the 1%/24h and 5%/7d ASAP caps, the $350K Recovery Fund target — are launch parameters. They may be adjusted in future protocol versions through transparent, timelocked governance actions. Material changes will be communicated to Members in advance with the option to exit before changes take effect.</p>
+      <p>For questions, technical details, the published pre-launch testing materials, or to participate in AUREUS, see the resources at the soomariostrategies.com website and the GitHub repository.</p>
       <p>AUREUS is built on a single principle: the protocol's state should be verifiable by Members in real time, not relied upon as the operator's word. Every architectural choice — the proof-of-reserves oracle, the append-only trade ledger, the rate-limited admin actions, the three-tier withdrawal flow — exists to serve that principle. Returns are generated by disciplined systematic trading. Trust is generated by structural visibility into what that trading actually does.</p>
       <p>Both matter. The protocol provides the second so the first can be evaluated honestly.</p>
     </div>
