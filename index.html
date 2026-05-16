@@ -3,730 +3,399 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Intelligent dollar-cost averaging for the systematic retail investor. Precise signals for 14 AI stocks and cryptos, delivered to Telegram the moment capitulation strikes. 7-day free trial.">
-  <meta property="og:title" content="Soomario Strategies — Buy smart. Accumulate patiently.">
-  <meta property="og:description" content="Intelligent DCA for 14 AI stocks and cryptos. See live performance since Feb 2026. 7-day free trial, then $7/mo.">
+  <meta name="theme-color" content="#0F0B14">
+  <meta name="description" content="AUREUS — a tokenized fund protocol on Arbitrum. Members deposit USDC, the Aerarium deploys across Soomario Strategies, profits distribute weekly. Continuous on-chain proof of reserves. Currently pre-audit.">
+  <meta property="og:title" content="AUREUS — Tokenized Fund Protocol">
+  <meta property="og:description" content="A tokenized fund protocol on Arbitrum, operated by Soomario Strategies. Aerarium · Forge · Recovery. Currently pre-audit.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://soomariostrategies.com">
+  <meta property="og:url" content="https://soomariostrategies.com/aureus/">
   <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@SoomarioStrat">
-  <title>Soomario Strategies — Buy smart. Accumulate patiently.</title>
+  <title>AUREUS — Tokenized Fund Protocol on Arbitrum | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="canonical" href="https://soomariostrategies.com/">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/aureus/">
+  <style>
+    /* AUREUS design tokens (Imperial Treasury palette — locked) */
+    .au-scope {
+      --au-bg: #0F0B14;
+      --au-surface: #17121F;
+      --au-elevated: #21192B;
+      --au-border: #30263C;
+      --au-border-strong: #4A3B5D;
+      --au-gold: #C9A44C;
+      --au-gold-bright: #E0C676;
+      --au-bronze: #8B6B3F;
+      --au-purple-imperial: #4B365F;
+      --au-plum-deep: #2B1F38;
+      --au-success: #5FA777;
+      --au-alert: #C96B5D;
+      --au-text: #F2EAD9;
+      --au-text-secondary: #B8AC99;
+      --au-text-muted: #756B5E;
+      --au-hairline: rgba(201, 164, 76, 0.15);
+
+      background: var(--au-bg);
+      color: var(--au-text);
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .au-scope * { box-sizing: border-box; }
+
+    /* Typography */
+    .au-display { font-family: Cinzel, serif; font-weight: 700; font-size: 64px; letter-spacing: 0.05em; line-height: 1; color: var(--au-text); margin: 0; }
+    .au-title-1 { font-family: Cinzel, serif; font-weight: 600; font-size: 32px; letter-spacing: 0.05em; line-height: 1.2; color: var(--au-text); margin: 0; }
+    .au-title-2 { font-family: Cinzel, serif; font-weight: 600; font-size: 22px; letter-spacing: 0.06em; line-height: 1.3; color: var(--au-text); margin: 0; }
+    .au-body-large { font-size: 16px; line-height: 1.65; color: var(--au-text); }
+    .au-body { font-size: 14px; line-height: 1.65; color: var(--au-text-secondary); }
+    .au-eyebrow { font-family: Inter, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--au-bronze); }
+    .au-italic { font-family: Cinzel, serif; font-style: italic; font-weight: 400; }
+    .au-data { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-variant-numeric: tabular-nums lining-nums; color: var(--au-text); }
+    .au-data-large { font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 500; font-variant-numeric: tabular-nums lining-nums; color: var(--au-text); }
+    .au-caption { font-size: 12px; color: var(--au-text-muted); }
+
+    /* Layout */
+    .au-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .au-section { padding: 80px 0; }
+    .au-section-tight { padding: 48px 0; }
+
+    /* Hero */
+    .au-hero { padding: 120px 0 80px; text-align: center; }
+    .au-hero__eyebrow-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px; }
+    .au-trace { height: 1px; background: linear-gradient(90deg, transparent, var(--au-gold) 50%, transparent); flex: 0 0 80px; max-width: 80px; }
+    .au-hero__subtitle { font-family: Cinzel, serif; font-style: italic; font-size: 18px; color: var(--au-bronze); margin-top: 14px; letter-spacing: 0.05em; }
+    .au-hero__lede { max-width: 580px; margin: 32px auto 40px; color: var(--au-text-secondary); font-size: 16px; line-height: 1.7; }
+    .au-cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* Status pill */
+    .au-pill { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--au-bronze); color: var(--au-bronze); border-radius: 0; }
+    .au-pill--success { border-color: var(--au-success); color: var(--au-success); }
+    .au-pill--gold { border-color: var(--au-gold); color: var(--au-gold); }
+    .au-pill__dot { width: 4px; height: 4px; background: currentColor; }
+
+    /* Buttons */
+    .au-btn { font-family: Inter, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border: 1px solid var(--au-gold); color: var(--au-gold); background: transparent; cursor: pointer; text-decoration: none; display: inline-block; transition: color 120ms, border-color 120ms; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+    .au-btn:hover { color: var(--au-gold-bright); border-color: var(--au-gold-bright); }
+    .au-btn--ghost { border-color: var(--au-border-strong); color: var(--au-text-secondary); }
+    .au-btn--ghost:hover { color: var(--au-text); border-color: var(--au-bronze); }
+
+    /* Section header */
+    .au-section-header { margin-bottom: 48px; text-align: center; }
+    .au-section-header .au-eyebrow { display: block; margin-bottom: 16px; color: var(--au-gold); }
+
+    /* Pillar cards (two-corner cut, top-right + bottom-left) */
+    .au-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .au-pillar { background: var(--au-surface); border: 1px solid var(--au-border); padding: 32px 28px 28px; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px)); }
+    .au-pillar__numeral { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: var(--au-gold); margin-bottom: 12px; }
+    .au-pillar__title { font-family: Cinzel, serif; font-weight: 600; font-size: 22px; letter-spacing: 0.06em; color: var(--au-text); margin: 0 0 6px; }
+    .au-pillar__sub { font-family: Cinzel, serif; font-style: italic; font-size: 13px; color: var(--au-bronze); margin-bottom: 24px; }
+    .au-pillar__body { font-size: 14px; line-height: 1.65; color: var(--au-text-secondary); margin-bottom: 20px; }
+    .au-data-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--au-hairline); font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+    .au-data-row__label { color: var(--au-text-muted); }
+    .au-data-row__value { color: var(--au-gold); }
+
+    /* How it works steps */
+    .au-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .au-step { background: var(--au-surface); border: 1px solid var(--au-border); padding: 24px 20px; }
+    .au-step__num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--au-bronze); margin-bottom: 12px; }
+    .au-step__title { font-family: Cinzel, serif; font-weight: 600; font-size: 15px; letter-spacing: 0.05em; color: var(--au-text); margin-bottom: 8px; }
+    .au-step__body { font-size: 13px; line-height: 1.55; color: var(--au-text-secondary); }
+
+    /* Transparency cards */
+    .au-transparency { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .au-trans-card { background: var(--au-surface); border: 1px solid var(--au-border); padding: 28px; }
+    .au-trans-card__title { font-family: Cinzel, serif; font-weight: 600; font-size: 18px; letter-spacing: 0.05em; color: var(--au-text); margin-bottom: 6px; }
+    .au-trans-card__sub { font-family: Cinzel, serif; font-style: italic; font-size: 12px; color: var(--au-bronze); margin-bottom: 18px; }
+    .au-trans-card__body { font-size: 13px; line-height: 1.65; color: var(--au-text-secondary); margin-bottom: 18px; }
+
+    /* Recovery section */
+    .au-recovery { background: var(--au-surface); border: 1px solid var(--au-border); padding: 48px; clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
+    .au-recovery__grid { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
+    .au-recovery__stats { display: flex; flex-direction: column; gap: 16px; }
+    .au-stat { padding: 16px 18px; background: var(--au-elevated); border: 1px solid var(--au-border); }
+    .au-stat__label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--au-text-muted); margin-bottom: 6px; }
+    .au-stat__value { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 500; color: var(--au-gold); }
+
+    /* Roadmap */
+    .au-roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .au-phase { padding: 24px 20px; background: var(--au-surface); border: 1px solid var(--au-border); position: relative; }
+    .au-phase--active { border-color: var(--au-gold); }
+    .au-phase__step { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--au-bronze); margin-bottom: 10px; }
+    .au-phase--active .au-phase__step { color: var(--au-gold); }
+    .au-phase__name { font-family: Cinzel, serif; font-weight: 600; font-size: 14px; letter-spacing: 0.05em; color: var(--au-text); margin-bottom: 6px; }
+    .au-phase__when { font-size: 12px; color: var(--au-text-muted); }
+
+    /* Hairline divider */
+    .au-hr { height: 1px; background: var(--au-hairline); border: 0; margin: 0; }
+
+    /* Limits / honest notes */
+    .au-note { background: var(--au-plum-deep); border-left: 2px solid var(--au-bronze); padding: 20px 24px; margin: 32px 0; font-size: 13px; line-height: 1.7; color: var(--au-text-secondary); }
+    .au-note strong { color: var(--au-text); font-weight: 500; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .au-display { font-size: 44px; }
+      .au-pillars, .au-transparency { grid-template-columns: 1fr; }
+      .au-steps, .au-roadmap { grid-template-columns: repeat(2, 1fr); }
+      .au-recovery__grid { grid-template-columns: 1fr; gap: 32px; }
+      .au-section { padding: 56px 0; }
+      .au-hero { padding: 80px 0 56px; }
+    }
+    @media (max-width: 600px) {
+      .au-steps, .au-roadmap { grid-template-columns: 1fr; }
+      .au-recovery { padding: 28px 20px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 1. HERO — single CTA, conversion focused                -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__bg-orb" style="width:520px;height:520px;background:var(--gold);opacity:0.035;top:10%;left:18%;"></div>
-      <div class="hero__bg-orb" style="width:420px;height:420px;background:var(--violet);opacity:0.06;bottom:15%;right:18%;"></div>
-    </div>
+<div class="au-scope">
 
-    <div class="container text-center" style="position:relative;z-index:1;padding-top:3rem;">
-      <img src="soomario-logo.png" alt="Soomario Strategies" class="hero__logo">
+  <!-- HERO -->
+  <section class="au-hero">
+    <div class="au-container">
+      <div class="au-hero__eyebrow-row">
+        <div class="au-trace"></div>
+        <div class="au-pill"><span class="au-pill__dot"></span>PRE-AUDIT · MAINNET PENDING</div>
+        <div class="au-trace"></div>
+      </div>
 
-      <h1 class="hero__headline" style="margin-top:1rem;">
-        <span class="gradient-text">Buy smart.</span><br>
-        <span style="color:var(--text-primary);">Accumulate patiently.</span>
-      </h1>
+      <h1 class="au-display">AUREUS</h1>
+      <div class="au-hero__subtitle">A tokenized fund protocol for systematic strategy access</div>
 
-      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:620px;margin:1.5rem auto 0;line-height:1.55;">
-        Intelligent dollar-cost averaging for the systematic retail investor. Precise signals for 14 AI stocks and cryptos, delivered to Telegram the moment capitulation strikes.
+      <p class="au-hero__lede">
+        Members deposit USDC and receive AUR, representing proportional ownership of a treasury deployed across Soomario Strategies on Hyperliquid. Profits distribute weekly. The protocol's distinguishing feature is a continuous on-chain transparency layer that makes the operator's claims independently verifiable.
       </p>
 
-      <p class="hero__sub" style="margin-top:1.5rem;">7-DAY FREE TRIAL · TELEGRAM SIGNALS · CANCEL ANYTIME</p>
-
-      <div class="hero__ctas">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Try Accumulator Free for 7 Days →</a>
-        <a href="#showcase" class="btn btn--ghost btn--lg">See live performance ↓</a>
-      </div>
-
-      <div style="margin-top:2.5rem;">
-        <div style="display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-bottom:0.75rem;">
-          <div class="live-dot"></div>
-          <span style="font-family:var(--font-display);font-size:0.72rem;letter-spacing:0.18em;color:var(--green);font-weight:600;">LIVE PRICES</span>
-          <span style="font-size:0.82rem;color:var(--text-muted);">Real model portfolio · updated every minute</span>
-        </div>
-        <div class="ticker">
-          <div class="ticker__track" id="tickerTrack"></div>
-        </div>
+      <div class="au-cta-row">
+        <a href="whitepaper.html" class="au-btn">Read the whitepaper</a>
+        <a href="mailto:aureus@soomariostrategies.com?subject=AUREUS%20launch%20notice" class="au-btn au-btn--ghost">Notify me at launch</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 2. LIVE PERFORMANCE SHOWCASE                            -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="showcase" id="showcase">
-    <div class="showcase__inner">
+  <!-- THREE PILLARS -->
+  <section class="au-section">
+    <div class="au-container">
+      <header class="au-section-header">
+        <div class="au-eyebrow">The Protocol</div>
+        <h2 class="au-title-1">Three pillars</h2>
+      </header>
 
-      <div class="showcase__caption">
-        <div class="showcase__eyebrow">
-          <span class="showcase__pulse"></span>
-          <span>LIVE · SINCE FEB 9, 2026</span>
-        </div>
-        <h2 class="showcase__headline">
-          <span class="gradient-text">If you'd followed every signal</span><br>
-          at $1,500/month…
-        </h2>
-        <div class="showcase__meta">Real trades · real prices · updated every minute</div>
-      </div>
+      <div class="au-pillars">
+        <article class="au-pillar">
+          <div class="au-pillar__numeral">·  I  ·</div>
+          <h3 class="au-pillar__title">Aerarium</h3>
+          <div class="au-pillar__sub">the treasury</div>
+          <p class="au-pillar__body">A fixed-proportion treasury, split between active trading capital and a permanent yield-bearing reserve. The split is operationally enforced for v1 and will move into the smart contract in a future version after additional audit.</p>
+          <div class="au-data-row"><span class="au-data-row__label">Soomario Strategies</span><span class="au-data-row__value">80%</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">STRCx reserve</span><span class="au-data-row__value">20%</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Reserve yield</span><span class="au-data-row__value">~11.5% APY</span></div>
+        </article>
 
-      <div class="showcase-summary" id="scSummary">
-        <div>
-          <div class="showcase-summary__lbl">Total P&amp;L</div>
-          <div class="showcase-summary__big sc-skel" id="scPnl" style="height:60px;width:70%;">&nbsp;</div>
-          <div class="showcase-summary__sub" id="scPnlPct"></div>
-        </div>
-        <div class="showcase-summary__right">
-          <div class="showcase-summary__lbl">Current Value</div>
-          <div class="showcase-summary__val sc-skel" id="scValue" style="height:44px;width:60%;margin-left:auto;">&nbsp;</div>
-          <div class="showcase-summary__vsub" id="scInvested"></div>
-        </div>
-      </div>
+        <article class="au-pillar">
+          <div class="au-pillar__numeral">·  II  ·</div>
+          <h3 class="au-pillar__title">Forge</h3>
+          <div class="au-pillar__sub">mint and burn</div>
+          <p class="au-pillar__body">The contract that issues AUR against USDC deposits and burns AUR against redemptions. Pending state for one epoch prevents pre-distribution capture. Per-epoch NAV movement is rate-capped at the contract level.</p>
+          <div class="au-data-row"><span class="au-data-row__label">NAV rate cap</span><span class="au-data-row__value">±15% / epoch</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Pending period</span><span class="au-data-row__value">1 epoch</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Upgrade pattern</span><span class="au-data-row__value">UUPS</span></div>
+        </article>
 
-      <div class="showcase-curve">
-        <div class="showcase-curve__head">
-          <span class="showcase-curve__title">Equity Curve</span>
-          <div class="showcase-curve__legend">
-            <span><span class="showcase-curve__sw showcase-curve__sw--value"></span>Value</span>
-            <span><span class="showcase-curve__sw showcase-curve__sw--invested"></span>Invested</span>
-          </div>
-        </div>
-        <div class="showcase-curve__canvas-wrap">
-          <canvas id="scChart"></canvas>
-          <div id="scChartEmpty" class="sc-err" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;">Loading performance data…</div>
-        </div>
-      </div>
-
-      <div class="showcase-metrics">
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Profit Factor</div>
-          <div class="sc-pill__val" id="scProfitFactor">—</div>
-          <div class="sc-pill__sub">wins ÷ losses</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Win Rate</div>
-          <div class="sc-pill__val" id="scWinRate">—</div>
-          <div class="sc-pill__sub" id="scWinRateSub">—</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Sharpe Ratio</div>
-          <div class="sc-pill__val" id="scSharpe">—</div>
-          <div class="sc-pill__sub">risk-adjusted return</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">CAGR</div>
-          <div class="sc-pill__val" id="scCagr">—</div>
-          <div class="sc-pill__sub">annualized</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Total Buys</div>
-          <div class="sc-pill__val" id="scTotalBuys">—</div>
-          <div class="sc-pill__sub">signals executed</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Avg Buy</div>
-          <div class="sc-pill__val" id="scAvgBuy">—</div>
-          <div class="sc-pill__sub">per signal</div>
-        </div>
-      </div>
-
-      <div class="text-center" style="margin-top:1rem;">
-        <a href="https://accumulator.soomariostrategies.com/dashboard" target="_blank" class="btn btn--ghost">View full dashboard →</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 3. BUDGET SCALER                                        -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="scaler">
-    <div class="scaler__inner">
-      <h2 class="scaler__headline"><span class="gradient-text">What about your budget?</span></h2>
-      <p class="scaler__lede">Same signals. Same trades. Same prices. Scaled to what you'd actually invest.</p>
-
-      <div class="scaler__card">
-        <div class="scaler__input-row">
-          <span class="scaler__input-lbl">Monthly Budget</span>
-          <span class="scaler__budget" id="slBudget">$1,500</span>
-        </div>
-        <input type="range" min="50" max="5000" step="50" value="1500" class="scaler__slider" id="slRange" aria-label="Monthly budget">
-        <div class="scaler__slider-scale">
-          <span>$50</span>
-          <span>$2,500</span>
-          <span>$5,000</span>
-        </div>
-
-        <div class="scaler__outputs">
-          <div class="scaler__out">
-            <div class="scaler__out-lbl">Your P&amp;L would be</div>
-            <div class="scaler__out-val sc-skel" id="slPnl" style="height:40px;">&nbsp;</div>
-            <div class="scaler__out-sub" id="slPnlSub"></div>
-          </div>
-          <div class="scaler__out">
-            <div class="scaler__out-lbl">Portfolio worth today</div>
-            <div class="scaler__out-val sc-skel" id="slValue" style="height:40px;color:var(--gold);">&nbsp;</div>
-            <div class="scaler__out-sub" id="slValueSub"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="scaler__cta">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Get these signals — 7 days free →</a>
-      </div>
-      <p class="scaler__disclaimer">
-        Values scale linearly from the live $1,500/month model. Past performance doesn't guarantee future results — but these are real signals, real prices, and real timestamps since Feb 9, 2026.
-      </p>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 4. VAULT STRATEGIES — discovery                         -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section" id="strategies">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">FOR LARGER DEPOSITS</div>
-        <h2 class="section-title"><span class="gradient-text">Strategies</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">Hands-off automated strategies on Hyperliquid vaults, OKX copy trading, and Deribit. Profit share only on the live vaults — no monthly fees, no lockups.</p>
-      </div>
-
-      <div class="strategies-grid">
-
-        <a href="products/elite.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Elite</div>
-            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
-          </div>
-          <div class="strat-card__tagline">HYPE &amp; AVAX directional</div>
-          <p class="strat-card__pitch">Concentrated long-bias bot running the strategy that built Soomario's track record. HYPE-dominant, high conviction.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% profit share</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/max-pain.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Max Pain</div>
-            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
-          </div>
-          <div class="strat-card__tagline">18-coin per-coin tuning</div>
-          <p class="strat-card__pitch">Hybrid TradingView + Python bot trading 18 coins on Hyperliquid. Per-coin parameter sets, 45-second exchange-side safety loop.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% profit share</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/aphelion.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Aphelion</div>
-            <span class="strat-card__badge strat-card__badge--beta">LIVE · BETA</span>
-          </div>
-          <div class="strat-card__tagline">Multi-signal accumulator</div>
-          <p class="strat-card__pitch">Buys oversold assets in scaled increments with layered defense. 15 assets across stocks and crypto on Hyperliquid; 6-asset crypto subset on OKX copy trading.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">OKX copy trade</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/alpha.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Alpha</div>
-            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
-          </div>
-          <div class="strat-card__tagline">Relative-value spread</div>
-          <p class="strat-card__pitch">HYPE long anchor paired with systematically shorted weak altcoins. Token-unlock-driven shorts with multi-signal confirmation. Market-neutral by construction.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% profit share</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/zones.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Zones</div>
-            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
-          </div>
-          <div class="strat-card__tagline">Bi-directional liquidation DCA</div>
-          <p class="strat-card__pitch">Mean-reverts both directions: longs the long-liquidation overshoots, shorts the short-squeeze peaks. 21 coins on Hyperliquid.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% profit share</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/rotation.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Rotation</div>
-            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
-          </div>
-          <div class="strat-card__tagline">3-sleeve multi-asset</div>
-          <p class="strat-card__pitch">Fastest Horse equity rotation, zone-DCA crypto core, hedged shorts. 12-stock MAG universe. In paper validation.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% at launch</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/premia.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Premia</div>
-            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
-          </div>
-          <div class="strat-card__tagline">The volatility premium, harvested</div>
-          <p class="strat-card__pitch">Sells call options against crypto holdings on Deribit. Wide strikes, mechanical rolls, full-lifecycle automation. 7 coins, paper validation.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">Deribit · paper</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/farms.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Farms</div>
-            <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
-          </div>
-          <div class="strat-card__tagline">Range-farming grid</div>
-          <p class="strat-card__pitch">Long-only adaptive grid with ATR trailing stops. Profits from sideways range mechanics. In validation phase.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% at launch</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
+        <article class="au-pillar">
+          <div class="au-pillar__numeral">·  III  ·</div>
+          <h3 class="au-pillar__title">Recovery</h3>
+          <div class="au-pillar__sub">for the prior community</div>
+          <p class="au-pillar__body">Ten percent of every profitable epoch routes to a labeled multisig until $350,000 is reached. At that point, a snapshot of NGET balances is taken and the Recovery Fund airdrops pro-rata. The mechanism is encoded; the threshold is automatic.</p>
+          <div class="au-data-row"><span class="au-data-row__label">Per profitable epoch</span><span class="au-data-row__value">10%</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Target threshold</span><span class="au-data-row__value">$350,000</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Distribution</span><span class="au-data-row__value">Pro-rata airdrop</span></div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 4b. PLATFORM WHITEPAPER CALLOUT                         -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt" style="padding-top:3.5rem;padding-bottom:3.5rem;">
-    <div class="container container--narrow">
-      <div class="card" style="border-color:var(--border-strong);padding:clamp(1.75rem,4vw,2.5rem);">
-        <div style="display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center;">
-          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;">
-            <span class="badge badge--live" style="font-size:0.65rem;padding:0.25rem 0.6rem;">VERSION 1.0</span>
-            <span style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--text-muted);">PLATFORM CREDENTIAL</span>
-          </div>
+  <hr class="au-hr">
+
+  <!-- HOW IT WORKS -->
+  <section class="au-section">
+    <div class="au-container">
+      <header class="au-section-header">
+        <div class="au-eyebrow">Mechanism</div>
+        <h2 class="au-title-1">How AUREUS works</h2>
+      </header>
+
+      <div class="au-steps">
+        <div class="au-step">
+          <div class="au-step__num">STEP · 01</div>
+          <div class="au-step__title">Deposit USDC</div>
+          <div class="au-step__body">Send USDC to the Forge. AUR mints against current NAV. Position enters pending state for one epoch.</div>
+        </div>
+        <div class="au-step">
+          <div class="au-step__num">STEP · 02</div>
+          <div class="au-step__title">Aerarium deploys</div>
+          <div class="au-step__body">80% of the treasury operates across Soomario Strategies on Hyperliquid. 20% holds in STRCx as permanent reserve.</div>
+        </div>
+        <div class="au-step">
+          <div class="au-step__num">STEP · 03</div>
+          <div class="au-step__title">Weekly distribution</div>
+          <div class="au-step__body">Profits split four ways at epoch close. Staked AUR holders receive 80%. Members can claim or compound.</div>
+        </div>
+        <div class="au-step">
+          <div class="au-step__num">STEP · 04</div>
+          <div class="au-step__title">Exit on Member's terms</div>
+          <div class="au-step__body">Three withdrawal paths — OTC marketplace, end-of-epoch redemption, or ASAP redemption — with different cost and timing.</div>
+        </div>
+      </div>
+
+      <div class="au-note">
+        <strong>On exit paths:</strong> OTC charges 0.5% and clears whenever a counterparty fills. End-of-epoch charges 2% and processes within 24 hours of the next close. ASAP charges 5% and processes within 48 hours, rate-limited to 1% per Member per 24 hours and 5% protocol-wide per 7 days. For most Members in most circumstances, end-of-epoch is the right path.
+      </div>
+    </div>
+  </section>
+
+  <hr class="au-hr">
+
+  <!-- TRANSPARENCY -->
+  <section class="au-section">
+    <div class="au-container">
+      <header class="au-section-header">
+        <div class="au-eyebrow">On-chain Infrastructure</div>
+        <h2 class="au-title-1">Transparency layer</h2>
+        <p class="au-body" style="max-width: 620px; margin: 16px auto 0;">Three contracts work together so the protocol's state is independently verifiable by Members at any time, without requiring trust in the operator's reporting.</p>
+      </header>
+
+      <div class="au-transparency">
+        <article class="au-trans-card">
+          <h3 class="au-trans-card__title">ReservesOracle</h3>
+          <div class="au-trans-card__sub">proof of reserves</div>
+          <p class="au-trans-card__body">Non-upgradable contract holding the verified reserve calculation. A hard layer reads USDC balances and the STRCx Chainlink feed directly. A soft layer carries keeper-reported Hyperliquid position state. Divergence between layers is publicly computable in real time.</p>
+          <div class="au-data-row"><span class="au-data-row__label">Hard-layer sources</span><span class="au-data-row__value">USDC · STRCx · HL bridge</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Config change delay</span><span class="au-data-row__value">24-hour timelock</span></div>
+        </article>
+
+        <article class="au-trans-card">
+          <h3 class="au-trans-card__title">PositionLogger</h3>
+          <div class="au-trans-card__sub">append-only ledger</div>
+          <p class="au-trans-card__body">A complete public audit trail of every trade executed by the protocol. Each entry includes a reference hash linking back to the corresponding Hyperliquid trade ID. Past entries cannot be modified — only new ones added.</p>
+          <div class="au-data-row"><span class="au-data-row__label">Mutability</span><span class="au-data-row__value">Append-only</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Audit window</span><span class="au-data-row__value">Indefinite</span></div>
+        </article>
+
+        <article class="au-trans-card">
+          <h3 class="au-trans-card__title">NAV Rate Limit</h3>
+          <div class="au-trans-card__sub">contract-enforced cap</div>
+          <p class="au-trans-card__body">The operator publishes NAV at each epoch close. The Forge enforces a maximum movement of 15% per epoch. Larger movements cannot be applied in a single transaction; they must be spaced across multiple epochs, each one visible.</p>
+          <div class="au-data-row"><span class="au-data-row__label">Max move</span><span class="au-data-row__value">±15% / epoch</span></div>
+          <div class="au-data-row"><span class="au-data-row__label">Epoch length</span><span class="au-data-row__value">1 week</span></div>
+        </article>
+      </div>
+
+      <div class="au-note">
+        <strong>What this proves and does not prove.</strong> The transparency layer proves what assets the protocol holds. It does not prove that those assets are being managed optimally — that remains the operator's responsibility. What it accomplishes is bounding the worst failure modes: drift from disclosed strategy becomes visible, and Members have the information they need to exit when they see something concerning.
+      </div>
+    </div>
+  </section>
+
+  <hr class="au-hr">
+
+  <!-- RECOVERY FUND -->
+  <section class="au-section">
+    <div class="au-container">
+      <header class="au-section-header">
+        <div class="au-eyebrow">Structural Commitment</div>
+        <h2 class="au-title-1">The Recovery Fund</h2>
+      </header>
+
+      <div class="au-recovery">
+        <div class="au-recovery__grid">
           <div>
-            <h2 style="font-family:var(--font-heading);font-size:clamp(1.5rem,3.2vw,2rem);color:var(--text-primary);margin:0 0 0.75rem;line-height:1.25;">
-              <span class="gradient-text">The Platform Whitepaper</span>
-            </h2>
-            <p style="color:var(--text-secondary);font-size:1.02rem;line-height:1.65;margin:0 0 1.5rem;max-width:620px;">
-              A unified account of how all nine Soomario strategies operate — the analytical toolkit they share, the structural inefficiencies each one targets, the risk controls that bound them, and the limits we acknowledge openly. The data is public; the systematic application is rare.
-            </p>
-            <div style="display:flex;flex-wrap:wrap;gap:0.6rem;">
-              <a href="tools/whitepaper.html" class="btn btn--primary">Read the Whitepaper →</a>
-              <a href="whitepapers/platform.html" class="btn btn--ghost">Open directly</a>
+            <p class="au-body-large" style="margin-bottom: 16px;">NGET is the token of a prior protocol operated by the AUREUS team. The Recovery Fund honors that community as AUREUS grows.</p>
+            <p class="au-body" style="margin-bottom: 16px;">Ten percent of every profitable epoch routes to a labeled multisig. The fund participates in AUREUS strategies alongside other Member capital — it is not parked as idle USDC — which accelerates the recovery and reflects the operator's confidence in the new design.</p>
+            <p class="au-body" style="margin-bottom: 16px;">When the fund reaches $350,000 in value, a snapshot of NGET token balances is taken at a specified Arbitrum block, and the Recovery Fund airdrops pro-rata to those addresses. After the airdrop completes, the 10% allocation redirects to the Team.</p>
+            <p class="au-body">NGET and AUREUS are otherwise separate protocols. There is no migration. New AUREUS Members do not need to understand or interact with NGET in any way; the Recovery Fund operates entirely in the background from a new Member's perspective.</p>
+          </div>
+          <aside class="au-recovery__stats">
+            <div class="au-stat">
+              <div class="au-stat__label">Allocation per profitable epoch</div>
+              <div class="au-stat__value">10%</div>
             </div>
-          </div>
+            <div class="au-stat">
+              <div class="au-stat__label">Target threshold</div>
+              <div class="au-stat__value">$350,000</div>
+            </div>
+            <div class="au-stat">
+              <div class="au-stat__label">Distribution model</div>
+              <div class="au-stat__value">Pro-rata</div>
+            </div>
+            <div class="au-stat">
+              <div class="au-stat__label">Post-threshold flow</div>
+              <div class="au-stat__value">Redirects to Team</div>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 5. DCA CALCULATOR                                       -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="calc" id="calculator">
-    <div class="calc__inner">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">TRY BEFORE YOU SUBSCRIBE</div>
-        <h2 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Size a Safe Position</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">Model the Accumulator's daily budget math with your own numbers.</p>
-      </div>
+  <hr class="au-hr">
 
-      <div class="calc__card">
-        <div class="calc__row">
-          <span class="scaler__input-lbl">Monthly Budget</span>
-          <span class="scaler__budget" id="calcBudget">$500</span>
-        </div>
-        <input type="range" min="50" max="5000" step="50" value="500" class="scaler__slider calc__slider" id="calcRange" aria-label="Calculator budget">
-        <div class="scaler__slider-scale">
-          <span>$50</span>
-          <span>$2,500</span>
-          <span>$5,000</span>
-        </div>
+  <!-- ROADMAP / STATUS -->
+  <section class="au-section">
+    <div class="au-container">
+      <header class="au-section-header">
+        <div class="au-eyebrow">Launch Path</div>
+        <h2 class="au-title-1">Roadmap</h2>
+        <p class="au-body" style="max-width: 580px; margin: 16px auto 0;">Mainnet launch is gated on completion of formal audit. The estimated path to first epoch:</p>
+      </header>
 
-        <div class="calc__row" style="margin-top:1.5rem;">
-          <span class="scaler__input-lbl">Asset Mix</span>
+      <div class="au-roadmap">
+        <div class="au-phase au-phase--active">
+          <div class="au-phase__step">PHASE · I</div>
+          <div class="au-phase__name">Red-team</div>
+          <div class="au-phase__when">Now · in progress</div>
         </div>
-        <div class="calc__mix">
-          <button class="calc__mix-btn is-active" data-mix="both">Crypto + Stocks</button>
-          <button class="calc__mix-btn" data-mix="crypto">Crypto only</button>
-          <button class="calc__mix-btn" data-mix="stocks">Stocks only</button>
+        <div class="au-phase">
+          <div class="au-phase__step">PHASE · II</div>
+          <div class="au-phase__name">Formal audit</div>
+          <div class="au-phase__when">Sherlock or peer</div>
         </div>
-
-        <div class="calc__grid">
-          <div class="calc__out">
-            <div class="calc__out-lbl">Safe daily rate</div>
-            <div class="calc__out-val" id="calcDaily">$8.33</div>
-            <div class="calc__out-sub">across 1× signals</div>
-          </div>
-          <div class="calc__out">
-            <div class="calc__out-lbl">Typical signal buy</div>
-            <div class="calc__out-val" id="calcTypical">$20.83</div>
-            <div class="calc__out-sub">at 2.5× multiplier</div>
-          </div>
-          <div class="calc__out">
-            <div class="calc__out-lbl">Crash-day allocation</div>
-            <div class="calc__out-val" id="calcCrash">$41.67</div>
-            <div class="calc__out-sub">at 5× max multiplier</div>
-          </div>
-          <div class="calc__out">
-            <div class="calc__out-lbl">Assets tracked</div>
-            <div class="calc__out-val" id="calcAssets">14</div>
-            <div class="calc__out-sub">AI + crypto</div>
-          </div>
+        <div class="au-phase">
+          <div class="au-phase__step">PHASE · III</div>
+          <div class="au-phase__name">Mainnet deploy</div>
+          <div class="au-phase__when">Post-audit</div>
+        </div>
+        <div class="au-phase">
+          <div class="au-phase__step">PHASE · IV</div>
+          <div class="au-phase__name">Epoch 1</div>
+          <div class="au-phase__when">First Members onboard</div>
         </div>
       </div>
 
-      <div class="text-center" style="margin-top:1.75rem;">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--outline btn--lg">Start following these signals →</a>
+      <div class="au-note" style="margin-top: 32px;">
+        <strong>Estimated 30 to 60 days to mainnet</strong> from publication. The estimate is contingent on audit findings and the time required to address them. The dashboard, mint flow, and redemption interface will be published alongside mainnet launch — at this stage AUREUS is documentation and contract code in pre-audit testing.
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 6. TRUST BAR                                            -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <div class="section--alt" style="padding:2rem 0;">
-    <div class="container">
-      <div class="trust-bar">
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Your keys, your funds — always
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
-          Every trade verifiable on-chain
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          Vault model — 10% profit share only
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Live since Nov 2025
-        </div>
+  <!-- FINAL CTA -->
+  <section class="au-section" style="text-align: center; padding-bottom: 120px;">
+    <div class="au-container" style="max-width: 640px;">
+      <h2 class="au-title-1" style="margin-bottom: 16px;">For the deeper read</h2>
+      <p class="au-body" style="margin-bottom: 32px;">The whitepaper covers all of the above plus the technical architecture, governance limits, full risk disclosures, and the strategy track record. It is the canonical reference.</p>
+      <div class="au-cta-row">
+        <a href="whitepaper.html" class="au-btn">Read the whitepaper</a>
+        <a href="mailto:aureus@soomariostrategies.com?subject=AUREUS%20launch%20notice" class="au-btn au-btn--ghost">Notify me at launch</a>
       </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 7. FINAL CTA                                            -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container text-center">
-      <h2 class="section-title" style="margin-bottom:1rem;">
-        <span class="gradient-text">Ready to start?</span>
-      </h2>
-      <p class="section-subtitle" style="margin:0 auto 2rem;max-width:560px;">
-        Seven days free. Cancel any time. Your first signal usually fires within 24 hours.
-      </p>
-      <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Start Free Trial →</a>
-      <div style="margin-top:1rem;font-size:0.85rem;color:var(--text-muted);">$7/month after trial · cancel in one click</div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- SCRIPTS                                                 -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <script src="components.js"></script>
+</div>
 
-  <script>
-  (function(){
-    var API = 'https://accumulator.soomariostrategies.com/api/portfolio_value';
-    var MODEL_BUDGET = 1500;
-
-    var liveData = null;
-
-    function fmt$(n, dec){
-      if(n == null || isNaN(n)) return '—';
-      dec = dec == null ? 2 : dec;
-      var sign = n < 0 ? '-' : '';
-      var v = Math.abs(n).toLocaleString(undefined, {minimumFractionDigits: dec, maximumFractionDigits: dec});
-      return sign + '$' + v;
-    }
-    function fmtInt(n){
-      if(n == null || isNaN(n)) return '—';
-      return '$' + Math.round(n).toLocaleString();
-    }
-    function fmtPct(n, dec){
-      if(n == null || isNaN(n)) return '—';
-      dec = dec == null ? 2 : dec;
-      return (n >= 0 ? '+' : '') + Number(n).toFixed(dec) + '%';
-    }
-    function fmtSigned$(n){
-      if(n == null || isNaN(n)) return '—';
-      return (n >= 0 ? '+' : '-') + '$' + Math.abs(n).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-    }
-
-    function renderTicker(data){
-      var track = document.getElementById('tickerTrack');
-      if(!track || !data.prices) return;
-      var tickers = Object.keys(data.prices).sort();
-      var html = '';
-      tickers.forEach(function(t){
-        var isCrypto = t === 'BTC' || t === 'SOL';
-        var p = data.prices[t];
-        var a = data.assets ? data.assets.find(function(x){ return x.asset === t; }) : null;
-        var pnl = a ? a.pnl_pct : null;
-        var priceStr = isCrypto
-          ? '$' + p.toLocaleString(undefined, {maximumFractionDigits:0})
-          : '$' + p.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-        var pnlHtml = pnl !== null
-          ? '<span class="ticker__pnl ticker__pnl--' + (pnl >= 0 ? 'up' : 'down') + '">' + (pnl >= 0 ? '+' : '') + pnl.toFixed(1) + '%</span>'
-          : '';
-        html += '<div class="ticker__item"><span class="ticker__symbol">' + t + '</span><span class="ticker__price">' + priceStr + '</span>' + pnlHtml + '</div>';
-      });
-      track.innerHTML = html + html;
-    }
-
-    function removeSkel(el){
-      el.classList.remove('sc-skel');
-      el.style.height = '';
-      el.style.width = '';
-    }
-
-    function renderShowcase(data){
-      var pnl = data.total_pnl_usd || 0;
-      var pnlPct = data.total_pnl_pct || 0;
-      var value = data.total_value || 0;
-      var invested = data.total_invested || 0;
-      var positive = pnl >= 0;
-      var m = data.metrics || {};
-
-      var pnlEl = document.getElementById('scPnl');
-      removeSkel(pnlEl);
-      pnlEl.textContent = fmtSigned$(pnl);
-      pnlEl.classList.toggle('is-loss', !positive);
-
-      var pctEl = document.getElementById('scPnlPct');
-      pctEl.textContent = fmtPct(pnlPct, 1) + ' return';
-      pctEl.style.color = positive ? 'var(--green)' : 'var(--red)';
-
-      var valueEl = document.getElementById('scValue');
-      removeSkel(valueEl);
-      valueEl.textContent = fmtInt(value);
-
-      document.getElementById('scInvested').textContent = 'of ' + fmtInt(invested) + ' invested';
-
-      function setPill(id, text, color){
-        var el = document.getElementById(id);
-        if(!el) return;
-        el.textContent = text;
-        el.classList.remove('is-green', 'is-red', 'is-amber');
-        if(color) el.classList.add(color);
-      }
-      function colorFor(val, good, mid){
-        if(val == null || isNaN(val)) return null;
-        if(val >= good) return 'is-green';
-        if(val >= mid) return 'is-amber';
-        return 'is-red';
-      }
-      setPill('scProfitFactor',
-        m.profit_factor != null ? Number(m.profit_factor).toFixed(2) : '—',
-        colorFor(m.profit_factor, 1.5, 1));
-      setPill('scWinRate',
-        m.win_rate_pct != null ? Number(m.win_rate_pct).toFixed(1) + '%' : '—',
-        m.win_rate_pct >= 60 ? 'is-green' : null);
-      document.getElementById('scWinRateSub').textContent =
-        (m.winning_buys || 0) + 'W / ' + (m.losing_buys || 0) + 'L';
-      setPill('scSharpe',
-        m.sharpe_ratio != null ? Number(m.sharpe_ratio).toFixed(2) : '—',
-        m.sharpe_ratio >= 1 ? 'is-green' : null);
-      setPill('scCagr',
-        m.cagr_pct != null ? fmtPct(m.cagr_pct, 1) : '—',
-        m.cagr_pct >= 0 ? 'is-green' : 'is-red');
-      setPill('scTotalBuys', m.total_buys != null ? m.total_buys : '—', null);
-      setPill('scAvgBuy',
-        m.avg_buy_usd != null ? fmt$(m.avg_buy_usd) : '—', null);
-    }
-
-    var chart = null;
-    function renderChart(data){
-      if(!data.equity_curve || data.equity_curve.length < 2){
-        var e = document.getElementById('scChartEmpty');
-        if(e){ e.style.display = 'flex'; e.textContent = 'Not enough data yet — check back soon.'; }
-        return;
-      }
-      var canvas = document.getElementById('scChart');
-      if(!canvas || !window.Chart) return;
-      if(chart) chart.destroy();
-
-      var labels = data.equity_curve.map(function(_, i){ return i + 1; });
-      var invested = data.equity_curve.map(function(p){ return p.invested; });
-      var value = data.equity_curve.map(function(p){ return p.value; });
-
-      chart = new Chart(canvas.getContext('2d'), {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: 'Portfolio Value',
-              data: value,
-              borderColor: '#C9A961',
-              backgroundColor: 'rgba(201,169,97,0.1)',
-              borderWidth: 2.5,
-              pointRadius: 0,
-              pointHoverRadius: 4,
-              pointHoverBackgroundColor: '#C9A961',
-              fill: true,
-              tension: 0.35
-            },
-            {
-              label: 'Invested',
-              data: invested,
-              borderColor: 'rgba(157, 145, 184, 0.5)',
-              borderDash: [5,4],
-              borderWidth: 1.5,
-              pointRadius: 0,
-              fill: false,
-              tension: 0.2
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: 'index', intersect: false },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: 'rgba(26, 22, 37, 0.95)',
-              borderColor: 'rgba(201, 169, 97, 0.3)',
-              borderWidth: 1,
-              titleColor: '#c9bbdf',
-              bodyColor: '#f5f0fc',
-              padding: 10,
-              titleFont: { family: 'JetBrains Mono', size: 11 },
-              bodyFont: { family: 'JetBrains Mono', size: 12 },
-              callbacks: {
-                title: function(items){ return 'Signal #' + items[0].label; },
-                label: function(item){ return ' ' + item.dataset.label + ': $' + item.raw.toFixed(2); }
-              }
-            }
-          },
-          scales: {
-            x: { display: false },
-            y: {
-              grid: { color: 'rgba(201,169,97,0.06)', drawBorder: false },
-              ticks: {
-                color: '#9d91b8',
-                font: { family: 'JetBrains Mono', size: 10 },
-                callback: function(v){ return '$' + v.toLocaleString(); },
-                padding: 8
-              },
-              border: { display: false }
-            }
-          }
-        }
-      });
-    }
-
-    function renderScaler(){
-      var budget = parseInt(document.getElementById('slRange').value, 10);
-      document.getElementById('slBudget').textContent = '$' + budget.toLocaleString();
-
-      if(!liveData) return;
-
-      var scale = budget / MODEL_BUDGET;
-      var scaledPnl = (liveData.total_pnl_usd || 0) * scale;
-      var scaledValue = (liveData.total_value || 0) * scale;
-      var scaledInvested = (liveData.total_invested || 0) * scale;
-      var pctReturn = liveData.total_pnl_pct || 0;
-      var positive = scaledPnl >= 0;
-
-      var pnlEl = document.getElementById('slPnl');
-      removeSkel(pnlEl);
-      pnlEl.textContent = fmtSigned$(scaledPnl);
-      pnlEl.classList.toggle('is-loss', !positive);
-      document.getElementById('slPnlSub').textContent = fmtPct(pctReturn, 1) + ' return';
-
-      var valEl = document.getElementById('slValue');
-      removeSkel(valEl);
-      valEl.textContent = fmtInt(scaledValue);
-      document.getElementById('slValueSub').textContent = 'from ' + fmtInt(scaledInvested) + ' invested';
-    }
-
-    document.getElementById('slRange').addEventListener('input', renderScaler);
-
-    var calcState = { budget: 500, mix: 'both' };
-    function renderCalc(){
-      var b = calcState.budget;
-      document.getElementById('calcBudget').textContent = '$' + b.toLocaleString();
-      var avgMult = 2.5;
-      var dailyRate = b / (30 * avgMult);
-      var typical = dailyRate * avgMult;
-      var crash = dailyRate * 5;
-      var assetCount = calcState.mix === 'crypto' ? 2 : calcState.mix === 'stocks' ? 12 : 14;
-
-      document.getElementById('calcDaily').textContent = fmt$(dailyRate);
-      document.getElementById('calcTypical').textContent = fmt$(typical);
-      document.getElementById('calcCrash').textContent = fmt$(crash);
-      document.getElementById('calcAssets').textContent = assetCount;
-    }
-
-    document.getElementById('calcRange').addEventListener('input', function(e){
-      calcState.budget = parseInt(e.target.value, 10);
-      renderCalc();
-    });
-
-    document.querySelectorAll('.calc__mix-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('.calc__mix-btn').forEach(function(b){ b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        calcState.mix = btn.dataset.mix;
-        renderCalc();
-      });
-    });
-
-    renderCalc();
-
-    function load(){
-      fetch(API)
-        .then(function(r){ return r.json(); })
-        .then(function(data){
-          if(!data) return;
-          liveData = data;
-          renderTicker(data);
-          renderShowcase(data);
-          renderChart(data);
-          renderScaler();
-        })
-        .catch(function(err){
-          console.warn('showcase fetch failed', err);
-          var chartEl = document.getElementById('scChartEmpty');
-          if(chartEl){
-            chartEl.style.display = 'flex';
-            chartEl.textContent = 'Live data temporarily unavailable — try refreshing.';
-          }
-        });
-    }
-
-    load();
-    setInterval(load, 60000);
-  })();
-  </script>
-
+<script src="../components.js"></script>
 </body>
 </html>

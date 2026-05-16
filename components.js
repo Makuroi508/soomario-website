@@ -98,14 +98,15 @@
               <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--beta">BETA</span></a>
               <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/max-pain.html" class="nav-dropdown__item">Max Pain <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/alpha.html" class="nav-dropdown__item">Alpha <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/zones.html" class="nav-dropdown__item">Zones <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/farms.html" class="nav-dropdown__item">Farms <span class="badge badge--live">LIVE</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--soon">PAPER</span></a>
               <a href="${depth}products/premia.html" class="nav-dropdown__item">Premia <span class="badge badge--soon">PAPER</span></a>
-              <a href="${depth}products/farms.html" class="nav-dropdown__item">Farms <span class="badge badge--soon">PAPER</span></a>
             </div></div>
           </div>
+
+          <a href="${depth}aureus/index.html" class="site-nav__link ${isActiveSection('aureus') ? 'active' : ''}">Aureus <span class="badge badge--soon" style="margin-left:0.35rem;font-size:0.55rem;padding:0.12rem 0.4rem;">PRE-AUDIT</span></a>
 
           <a href="${depth}learn/index.html" class="site-nav__link ${isActiveSection('learn') ? 'active' : ''}">Learn</a>
 
@@ -116,7 +117,6 @@
               <a href="https://www.okx.com/copy-trading" class="nav-dropdown__item" target="_blank">Aphelion (OKX) <span class="badge badge--beta">BETA</span></a>
               <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}dashboards/vault.html" class="nav-dropdown__item">Max Pain Vault <span class="badge badge--live">LIVE</span></a>
-              <a href="https://alpha.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Alpha <span class="badge badge--live">LIVE</span></a>
               <a href="${SITE.dashboards.zones}" class="nav-dropdown__item" target="_blank">Zones <span class="badge badge--live">LIVE</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="https://soomario-covered-calls-production.up.railway.app/" class="nav-dropdown__item" target="_blank">Premia <span class="badge badge--soon">PAPER</span></a>
@@ -168,11 +168,18 @@
           <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--beta">BETA</span></a>
           <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/max-pain.html" class="mobile-menu__link">Max Pain <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/alpha.html" class="mobile-menu__link">Alpha <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/zones.html" class="mobile-menu__link">Zones <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/farms.html" class="mobile-menu__link">Farms <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--soon">PAPER</span></a>
           <a href="${depth}products/premia.html" class="mobile-menu__link">Premia <span class="badge badge--soon">PAPER</span></a>
-          <a href="${depth}products/farms.html" class="mobile-menu__link">Farms <span class="badge badge--soon">PAPER</span></a>
+        </div>
+      </div>
+
+      <div class="mobile-menu__group">
+        <div class="mobile-menu__group-title">Aureus</div>
+        <div class="mobile-menu__links">
+          <a href="${depth}aureus/index.html" class="mobile-menu__link">Aureus Overview <span class="badge badge--soon">PRE-AUDIT</span></a>
+          <a href="${depth}aureus/whitepaper.html" class="mobile-menu__link">Aureus Whitepaper</a>
         </div>
       </div>
 
@@ -183,7 +190,6 @@
           <a href="https://www.okx.com/copy-trading" class="mobile-menu__link" target="_blank">Aphelion (OKX)</a>
           <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
           <a href="${depth}dashboards/vault.html" class="mobile-menu__link">Max Pain Vault</a>
-          <a href="https://alpha.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Alpha</a>
           <a href="${SITE.dashboards.zones}" class="mobile-menu__link" target="_blank">Zones</a>
           <a href="https://soomario-covered-calls-production.up.railway.app/" class="mobile-menu__link" target="_blank">Premia</a>
           <a href="${SITE.dashboards.farms}" class="mobile-menu__link" target="_blank">Farms</a>
@@ -242,7 +248,6 @@
               <li><a href="${depth}products/aphelion.html">Aphelion</a></li>
               <li><a href="${depth}products/elite.html">Elite</a></li>
               <li><a href="${depth}products/max-pain.html">Max Pain</a></li>
-              <li><a href="${depth}products/alpha.html">Alpha</a></li>
               <li><a href="${depth}products/zones.html">Zones</a></li>
               <li><a href="${depth}products/rotation.html">Rotation</a></li>
               <li><a href="${depth}products/premia.html">Premia</a></li>
@@ -267,10 +272,12 @@
           <div>
             <div class="site-footer__col-title">Community</div>
             <ul class="site-footer__links">
+              <li><a href="${depth}aureus/index.html">Aureus <span class="badge badge--soon" style="font-size:0.5rem;padding:0.1rem 0.35rem;margin-left:0.25rem;">PRE-AUDIT</span></a></li>
+              <li><a href="${depth}aureus/whitepaper.html">Aureus Whitepaper</a></li>
               <li><a href="${SITE.discord}" target="_blank">Discord</a></li>
               <li><a href="${SITE.twitter}" target="_blank">Twitter / X</a></li>
               <li><a href="${SITE.hyperliquid}" target="_blank">Hyperliquid</a></li>
-              <li><a href="${depth}tools/whitepaper.html">Whitepaper</a></li>
+              <li><a href="${depth}tools/whitepaper.html">Platform Whitepaper</a></li>
               <li><a href="${depth}tools/calculator.html">DCA Calculator</a></li>
             </ul>
           </div>
