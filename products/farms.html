@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Soomario Farms — long-only liquidation-zone grid bot with Pionex-style seed runner and ATR trailing stop. Currently in paper validation on Hyperliquid perpetual futures.">
-  <meta property="og:title" content="Soomario Farms — Liquidation-Zone Grid">
-  <meta property="og:description" content="Long-only grid trading anchored to liquidation zones on Hyperliquid. Seed runner, ATR trailing stop, drawdown halt. Paper trading.">
+  <meta name="description" content="Soomario Farms — bidirectional liquidation-zone range farming on Hyperliquid. Live vault, ~50 perpetuals scanned, 5 concurrent grids, structural-flow strategy with no directional view.">
+  <meta property="og:title" content="Soomario Farms — Bidirectional Zone Farming">
+  <meta property="og:description" content="A non-directional strategy that farms the oscillation around exchange-aggregated liquidation zones. Live vault on Hyperliquid.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://soomariostrategies.com/products/farms.html">
   <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
-  <title>Soomario Farms — Liquidation-Zone Grid | Soomario Strategies</title>
+  <title>Soomario Farms — Bidirectional Zone Farming | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -24,31 +24,35 @@
   <section class="section" style="padding-top:3rem;">
     <div class="container">
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--soon" style="font-size:0.7rem;padding:0.3rem 0.7rem;">PAPER TRADING</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID · LONG-ONLY GRID</span>
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE · MAY 2026</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID VAULT</span>
       </div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
-        <span class="gradient-text">Stack the grid.</span><br>
-        <span style="color:var(--text-primary);">Ride the runner.</span>
+        <span class="gradient-text">Trade the oscillation,</span><br>
+        <span style="color:var(--text-primary);">not the direction.</span>
       </h1>
       <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        A long-only liquidation-zone grid with a Pionex-style seed runner. Persistent buy/sell pairs accumulate from the zone band; an ATR trailing stop carries the seed when price escapes the range upward. The data is the edge — the grid is just the execution mechanic.
+        A bidirectional, non-directional strategy that places concentric grids around exchange-aggregated liquidation zones. Up to five concurrent grids across ~50 scanned perpetuals, scored every 30 minutes on seven dimensions, rotated continuously toward the highest-conviction setups.
       </p>
 
       <div class="metrics" style="margin:2rem 0;max-width:820px;">
-        <div class="metric"><div class="metric__value gradient-text">Long</div><div class="metric__label">Direction by construction</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Zone</div><div class="metric__label">Range anchor</div></div>
-        <div class="metric"><div class="metric__value gradient-text">ATR</div><div class="metric__label">Trail discipline</div></div>
-        <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Profit share at launch</div></div>
+        <div class="metric"><div class="metric__value gradient-text">~50</div><div class="metric__label">Perps scanned</div></div>
+        <div class="metric"><div class="metric__value gradient-text">5</div><div class="metric__label">Concurrent grids</div></div>
+        <div class="metric"><div class="metric__value gradient-text">30m</div><div class="metric__label">Scan cadence</div></div>
+        <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Profit share</div></div>
       </div>
 
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
-        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Join Discord for Launch Updates →</a>
-        <a href="zones.html" class="btn btn--outline btn--lg">See the Live Sister (Zones) →</a>
+        <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
+        <a href="https://farms.soomariostrategies.com/" target="_blank" rel="noopener" class="btn btn--outline btn--lg">View Live Dashboard →</a>
       </div>
 
-      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
-        Currently in paper validation. Mainnet vault deployment pending — follow on Discord for launch.
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;margin-bottom:0.5rem;">
+        New to Hyperliquid? <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" rel="noopener" style="color:var(--gold);">Sign up via our referral ↗</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;font-family:var(--font-mono);">
+        Vault: <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" style="color:var(--gold);">0x6fac…524e</a> · self-custody, on-chain
       </div>
     </div>
   </section>
@@ -57,9 +61,9 @@
   <section class="section section--alt">
     <div class="container container--narrow text-center">
       <div class="section-label">THE EDGE</div>
-      <h2 class="section-title"><span class="gradient-text">Most grids fail</span><br>because they're placed by guess</h2>
+      <h2 class="section-title"><span class="gradient-text">Crypto perps reveal</span><br>where liquidations cluster</h2>
       <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:660px;">
-        A grid earns when price oscillates and dies when price escapes. Place it at fixed percentages from spot and you're guessing where to be. Anchor it to the liquidation-zone topology of the asset and you're betting on a structural area where forced flow already concentrates. Farms places its grid where the leverage data says price has reasons to range — and runs an ATR trailing stop on a seed runner so when the range breaks upward, the strategy participates instead of getting capped.
+        Unlike spot markets, perpetual futures expose a continuously updating ledger of leveraged positions whose liquidation prices are publicly inferable from open-interest data. When price approaches a dense cluster, forced flow compresses price toward that cluster, producing a brief window of mean-reverting behaviour. Most retail systems are directional momentum strategies trying to predict the next leg. Farms is structural — it monetises the oscillation around well-defined liquidation anchors without taking a view on direction.
       </p>
     </div>
   </section>
@@ -69,28 +73,56 @@
     <div class="container">
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">WHAT YOU GET</div>
-        <h2 class="section-title"><span class="gradient-text">A grid built for trend escape,</span><br>not just sideways grind</h2>
+        <h2 class="section-title"><span class="gradient-text">Patience, not prediction</span></h2>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <div class="card__title">Zone-anchored range</div>
-          <p class="card__text">The grid range is built from liquidation-zone topology, not from arbitrary percent bands. Levels concentrate where forced flow concentrates — the structural reason price has to slow down inside the band.</p>
+          <div class="card__title">Bidirectional grids on five assets</div>
+          <p class="card__text">Up to five concurrent assets, each running concentric grids spanning long max-pain to short max-pain. Long-side and short-side fills both monetise the same structural anchor — direction-agnostic by construction.</p>
         </div>
         <div class="card">
-          <div class="card__title">Seed runner with ATR trail</div>
-          <p class="card__text">An initial seed position participates in immediate moves while the grid fills around it. When price exits the range upward, the seed transitions to an ATR trailing stop and rides the move — the grid doesn't just stop earning at the top, the runner keeps going.</p>
+          <div class="card__title">Rotation toward best opportunity</div>
+          <p class="card__text">Every 30-minute refresh, the rotation engine evaluates each active grid against the current farmability cross-section. Grids that fall out of the top five for two hours rotate out; replacements that pass the entry gate rotate in. Capital follows opportunity.</p>
         </div>
         <div class="card">
-          <div class="card__title">No fees, no lockups (at launch)</div>
-          <p class="card__text">10% of profits, only when you profit. No monthly charges, no deposit fees, no withdrawal fees. Self-custody on the Hyperliquid vault contract once live.</p>
+          <div class="card__title">Three-layer risk framework</div>
+          <p class="card__text">Position-level hard stops 1.5% beyond the lowest grid level with ATR trailing on the seed. Asset-level breakout detection pauses redeployment for 4 hours after a confirmed breakout. Portfolio-level circuit breakers at 12% peak drawdown and 5% daily loss, both with auto-resume.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 4. HONEST LIMITS ═══ -->
+  <!-- ═══ 4. EMPIRICAL FOUNDATION ═══ -->
   <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">EMPIRICAL FOUNDATION</div>
+        <h2 class="section-title"><span class="gradient-text">32 days of out-of-sample data</span></h2>
+        <p style="color:var(--text-secondary);max-width:580px;margin:1.25rem auto 0;line-height:1.7;">
+          The current production parameters are grounded in a 32-day out-of-sample observation window covering 10 April through 12 May 2026. The scanner produced 77,734 zone snapshots across 50 symbols at consistent 30-minute cadence. What that data says, plainly:
+        </p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1rem;">
+        <div class="card card--flat">
+          <div class="card__title">The signal has positive edge.</div>
+          <p class="card__text">Across all firing-ready entries during the window, the median forward return was positive at every horizon — +0.13% at 6h, +0.46% at 24h, +0.66% at 48h, +1.13% at 7d. Sixty-two percent of entries produced positive 7-day returns.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Capacity utilisation is structurally low — by design.</div>
+          <p class="card__text">Of the five concurrent grid slots, expected occupied capacity over the window was approximately 1.0 of 5 (20%). Half of all snapshots showed zero firing-ready candidates. The strategy waits patiently for favourable conditions rather than deploying capital continuously.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Edge capture varies sharply by asset.</div>
+          <p class="card__text">A subset of assets (BTC, TRX, BNB, LTC, BCH, PAXG) exhibits clean mean-reversion with low stop-hit rates. A second subset (NEAR, XRP, WLD, HYPE, ENA) shows high forward returns on average but high realised volatility around those returns. A universe prune is scheduled in the next strategy revision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5. HONEST LIMITS ═══ -->
+  <section class="section">
     <div class="container container--narrow">
       <div class="text-center" style="margin-bottom:2rem;">
         <div class="section-label">HONEST LIMITS</div>
@@ -99,61 +131,69 @@
 
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Paper trading — not live capital</div>
-          <p class="card__text">Live performance will differ from paper due to slippage, funding costs, and execution friction. Mainnet deployment is contingent on validation period completion.</p>
+          <div class="card__title" style="color:var(--gold);">Not a continuous-deployment strategy</div>
+          <p class="card__text">Capital is idle roughly 80% of the time in the observed window — the entry gate rejects setups whose price has drifted too far from the anchor. If you expect every dollar to be at work continuously, this strategy is the wrong shape.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Long-only by construction</div>
-          <p class="card__text">An earlier bidirectional version was retired after a sharp pump in April 2026 produced compounded losses on the short side. The current design forgoes the ability to short on weakness — and forgoes the worst-case downside that pairs of opposing positions create. It's a deliberate trade-off, not a feature.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Sustained downtrends hurt</div>
-          <p class="card__text">A long-only grid accumulating into a falling market is sitting on losing inventory. The drawdown halt — calculated on combined realised plus unrealised P&amp;L — fires before the position becomes catastrophic, but it does fire. Farms is structurally built for ranging-to-rising regimes.</p>
+          <div class="card__title" style="color:var(--gold);">Trending markets erode the edge</div>
+          <p class="card__text">Mean-reversion edge is conditional on price oscillating around the anchor. Assets in persistent one-direction trends do not retest the anchor, and grids deployed on them either rotate out at minor losses or get stopped on breakouts. Trending regimes are the structural drag.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Statistical, not deterministic</div>
-          <p class="card__text">Past paper-trading performance doesn't guarantee future results. The strategy depends on liquidation-zone ranges remaining stable enough to capture round-trips. Market structure changes can degrade the edge.</p>
+          <p class="card__text">Past performance does not predict future returns. The 32-day observation window covered a specific market state and does not guarantee replication. The strategy depends on liquidation-zone topology remaining a meaningful anchor — market structure changes can degrade the edge.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Leveraged perpetuals carry liquidation risk</div>
+          <p class="card__text">Farms trades leveraged perpetual futures on Hyperliquid. The portfolio drawdown halt at 12% reduces tail risk but does not eliminate it. The full deposit is at risk of loss.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 5. FINAL CTA ═══ -->
-  <section class="section">
+  <!-- ═══ 6. FINAL CTA ═══ -->
+  <section class="section section--alt">
     <div class="container container--narrow text-center">
-      <div class="section-label">PAPER TRADING NOW</div>
-      <h2 class="section-title"><span class="gradient-text">Watch it run.</span><br>Decide before launch.</h2>
+      <div class="section-label">DEPOSIT INTO THE VAULT</div>
+      <h2 class="section-title"><span class="gradient-text">10% profit share.</span><br>Self-custody, on-chain.</h2>
       <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
-        Farms is in paper validation. Join Discord to track progress and get notified at launch.
+        Deposit USDC into the Hyperliquid vault. The strategy trades for you. Withdraw any time — fees only on profit.
       </p>
 
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
-        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Join Discord →</a>
-        <a href="https://twitter.com/SoomarioStrat" target="_blank" rel="noopener" class="btn btn--outline btn--lg">@SoomarioStrat</a>
+        <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
+        <a href="https://farms.soomariostrategies.com/" target="_blank" rel="noopener" class="btn btn--outline btn--lg">View Live Dashboard →</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:520px;margin:0.75rem auto 0;line-height:1.6;text-align:center;">
+        New to Hyperliquid? <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" rel="noopener" style="color:var(--gold);">Sign up via our referral ↗</a>
+      </div>
+
+      <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);max-width:520px;margin:0.75rem auto 0;line-height:1.6;">
+        <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" style="color:var(--gold);">0x6fac24317a95cd3ae38d7e5113142bad4e8a524e</a>
       </div>
 
       <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
-        Farms is paper-trading only. Nothing represents executed trades. Live capital deployment is contingent on completion of validation period.
+        Farms trades leveraged perpetual futures, which carries substantial risk of loss including the possibility of liquidation. Past performance does not guarantee future results.
       </div>
     </div>
   </section>
 
-  <!-- ═══ 6. RELATED ═══ -->
-  <section class="section section--alt">
+  <!-- ═══ 7. RELATED ═══ -->
+  <section class="section">
     <div class="container">
       <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
       <div class="grid-3">
         <a href="zones.html" class="card" style="text-decoration:none;">
           <div class="card__title">Zones →</div>
-          <p class="card__text">The live sister strategy. Same liquidation-zone data, different execution — Zones DCAs into dislocations across graduated levels and holds for mean-reversion. Live on Hyperliquid since March.</p>
+          <p class="card__text">Same liquidation-zone thesis, different execution. Zones DCAs into dislocations across graduated levels and holds for mean-reversion. Live since March.</p>
         </a>
         <a href="max-pain.html" class="card" style="text-decoration:none;">
           <div class="card__title">Max Pain →</div>
-          <p class="card__text">18-coin TradingView + Python hybrid on Hyperliquid. Live vault — mean-reversion at the exhaustion of liquidation cascades, with per-coin tuning.</p>
+          <p class="card__text">18-coin TradingView + Python hybrid on Hyperliquid. Mean-reversion at the exhaustion of liquidation cascades, with per-coin tuning.</p>
         </a>
         <a href="accumulator.html" class="card" style="text-decoration:none;">
           <div class="card__title">Accumulator →</div>
-          <p class="card__text">$7/mo signals service for the buy-the-dip retail investor. Manual execution while you wait for Farms to go live.</p>
+          <p class="card__text">$7/mo signals service for the buy-the-dip retail investor. No leverage, execute on your own broker.</p>
         </a>
       </div>
     </div>
