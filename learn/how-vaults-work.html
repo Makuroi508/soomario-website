@@ -63,7 +63,7 @@
       <p>Soomario's product dashboards do exactly this — they pull live data from the Hyperliquid API and display it in a readable format. But you do not have to trust the dashboards. You can query the API directly or use any third-party explorer. The vault is its own audit trail.</p>
 
       <h2 class="gradient-text">Soomario's Vaults</h2>
-      <p>Soomario currently operates four live vaults on Hyperliquid plus three more in paper-trading validation, all on the same vault model — 10% performance fee, no management fee, no lockup beyond Hyperliquid's standard settlement.</p>
+      <p>Soomario currently operates four live vaults on Hyperliquid plus two more in paper-trading validation, all on the same vault model — 10% performance fee, no management fee, no lockup beyond Hyperliquid's standard settlement.</p>
 
       <div style="margin: 1.5rem 0;">
         <div class="vault-row">
@@ -77,18 +77,18 @@
           <span class="status" style="color:var(--green);">● LIVE</span>
         </div>
         <div class="vault-row">
-          <span class="name"><a href="../products/alpha.html" style="color:var(--text-gold);">Alpha</a></span>
-          <span class="desc">Market-neutral relative-value spread: HYPE long anchor + unlock-driven shorts.</span>
-          <span class="status" style="color:var(--green);">● LIVE</span>
-        </div>
-        <div class="vault-row">
           <span class="name"><a href="../products/zones.html" style="color:var(--text-gold);">Zones</a></span>
           <span class="desc">Bi-directional DCA across liquidation max-pain zones, 21 coins.</span>
           <span class="status" style="color:var(--green);">● LIVE</span>
         </div>
         <div class="vault-row">
+          <span class="name"><a href="../products/farms.html" style="color:var(--text-gold);">Farms</a></span>
+          <span class="desc">Bidirectional liquidation-zone range farming, ~50 perps scanned, up to 5 concurrent grids.</span>
+          <span class="status" style="color:var(--green);">● LIVE</span>
+        </div>
+        <div class="vault-row">
           <span class="name"><a href="../products/rotation.html" style="color:var(--text-gold);">Rotation</a></span>
-          <span class="desc">Three-sleeve multi-asset: equity rotation, crypto core, hedged shorts.</span>
+          <span class="desc">Long-only multi-asset: equity rotation + crypto core with liquidation-aware DCA.</span>
           <span class="status" style="color:var(--violet);">◐ PAPER</span>
         </div>
         <div class="vault-row">
@@ -96,14 +96,9 @@
           <span class="desc">Volatility-harvesting covered calls on Deribit (separate from Hyperliquid).</span>
           <span class="status" style="color:var(--violet);">◐ PAPER</span>
         </div>
-        <div class="vault-row">
-          <span class="name"><a href="../products/farms.html" style="color:var(--text-gold);">Farms</a></span>
-          <span class="desc">Liquidation-zone grid with Pionex-style seed runner, long-only.</span>
-          <span class="status" style="color:var(--violet);">◐ PAPER</span>
-        </div>
       </div>
 
-      <p>The ninth product, the <a href="../products/accumulator.html" style="color:var(--gold);">Accumulator</a>, is not a vault — it is a $7/month signal subscription. You execute the trades yourself on whatever broker or exchange you prefer, with no leverage and no custody handoff.</p>
+      <p>The non-vault product, the <a href="../products/accumulator.html" style="color:var(--gold);">Accumulator</a>, is a $7/month signal subscription. You execute the trades yourself on whatever broker or exchange you prefer, with no leverage and no custody handoff.</p>
 
       <h2 class="gradient-text">Risks to Understand</h2>
       <p>Self-custody does not mean risk-free. Three risks remain even when funds are in a smart-contract vault.</p>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="What are liquidation zones in crypto? How concentrated leverage creates predictable price dislocations, and how Soomario's Max Pain, Zones, Alpha, and Farms strategies use them.">
+  <meta name="description" content="What are liquidation zones in crypto? How concentrated leverage creates predictable price dislocations, and how Soomario's Max Pain, Zones, and Farms strategies use them.">
   <title>Liquidation Zones Explained — How Leverage Creates Opportunity | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
       <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
       <div class="section-label">CONCEPT · 6 MIN READ</div>
       <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Liquidation Zones Explained</span></h1>
-      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">Why concentrated leverage creates predictable price dislocations — and how four Soomario strategies trade them.</p>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">Why concentrated leverage creates predictable price dislocations — and how three Soomario strategies trade them.</p>
 
       <h2 class="gradient-text">What is a Liquidation?</h2>
       <p>In leveraged trading, a <strong>liquidation</strong> happens when a position has lost enough value that the exchange forcibly closes it to prevent further losses to the trader's margin. If you open a 10× long position on ETH at $3,000, a roughly 10% drop wipes out your margin — the exchange liquidates your position by market-selling it at whatever price is available. See <a href="perpetual-futures.html" style="color:var(--gold);">Perpetual Futures Explained</a> for the underlying mechanics.</p>
@@ -55,15 +55,13 @@
       <p>This is not random. It is a mechanical process driven by the mathematics of leverage and margin requirements. The larger the concentration of leveraged positions in a zone, the more violent the cascade, and the sharper the snap-back. Strategies that can map the zones, wait for the cascade to fire, and enter at the exhaustion have a structural edge that does not depend on directional market views.</p>
 
       <h2 class="gradient-text">How Soomario Uses Liquidation Zones</h2>
-      <p>Four Soomario strategies use liquidation-zone data, in materially different ways:</p>
+      <p>Three Soomario strategies use liquidation-zone data, in materially different ways:</p>
 
       <p><strong><a href="../products/max-pain.html" style="color:var(--gold);">Max Pain</a></strong> is the platform's flagship liquidation-cascade strategy. It trades 18 coins on Hyperliquid using a hybrid TradingView Pine Script signal layer plus a Python execution bot with an independent 45-second exchange-side stop-loss safety loop. Per-coin parameter tuning lets each market's specific liquidation profile inform its own settings. The strategy enters at exhaustion of a long cascade (long entry) or a short cascade (short entry) and exits as price snaps back.</p>
 
       <p><strong><a href="../products/zones.html" style="color:var(--gold);">Zones</a></strong> takes a bi-directional DCA approach across 21 coins. Capital deploys in graduated levels as price moves deeper into a zone — deeper entries get larger allocations because they are objectively better prices. Once filled, the strategy scales out across multiple take-profit stages as price reverts. The trading pattern is asymmetric to the cascade: you are accumulating <em>into</em> the cascade rather than waiting for the end.</p>
 
-      <p><strong><a href="../products/alpha.html" style="color:var(--gold);">Alpha</a></strong> uses liquidation density as one of its four primary signals — but for a different purpose. Rather than entering long-side at the bottom of a cascade, Alpha reads liquidation maps to identify <em>structurally fragile</em> assets: those with heavy long-side liquidation potential immediately below current price. An asset with a thick band of unprotected longs underneath is a higher-quality short candidate, because any meaningful adverse move triggers forced selling that supports the short thesis.</p>
-
-      <p><strong><a href="../products/farms.html" style="color:var(--gold);">Farms</a></strong> uses zone aggregation as the structural anchor for its grid. Farms is currently long-only (Pionex-style grid long), so it is not direction-agnostic the way earlier versions were — but the grid itself is built around the liquidation-zone topology of the asset, with arithmetic spacing inside the zone band and an ATR trailing stop above the zone to capture exits when price escapes upward. The zone data is the edge; the grid is just the execution mechanic.</p>
+      <p><strong><a href="../products/farms.html" style="color:var(--gold);">Farms</a></strong> uses zone topology as the structural anchor for its grid. Bidirectional concentric grids span the long max-pain to short max-pain range, extended below the long max-pain to catch dip-and-reverse patterns. Up to five concurrent grids run across the top-scored assets from a 50-perpetual universe, with a rotation engine continuously reallocating capital toward the highest-conviction setups. Farms is the only strategy here that monetises the <em>oscillation</em> around the zone, not the entry-and-exit through it.</p>
 
       <h2 class="gradient-text">The Limit of Zone Trading</h2>
       <p>Liquidation zone analysis is a structural signal, not a directional forecast. It tells you where forced flow is likely to concentrate and where exhaustion is likely to occur — but it does not tell you when. A strategy can correctly identify a zone, enter at what looks like exhaustion, and still face a deeper move because new leveraged positions opened on the way down. This is why zone strategies use stops, position sizing, and DCA rather than single-shot entries: the zone is the right place to be looking, but the exact bottom of any cascade is not knowable in advance.</p>
@@ -72,7 +70,7 @@
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="../products/max-pain.html" class="btn btn--primary btn--sm">Explore Max Pain →</a>
           <a href="../products/zones.html" class="btn btn--outline btn--sm">Explore Zones</a>
-          <a href="../products/alpha.html" class="btn btn--outline btn--sm">Explore Alpha</a>
+          <a href="../products/farms.html" class="btn btn--outline btn--sm">Explore Farms</a>
         </div>
       </div>
     </div>
