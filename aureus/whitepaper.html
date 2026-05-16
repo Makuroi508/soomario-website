@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0F0B14">
+  <meta name="description" content="The AUREUS whitepaper, v1 — a tokenized fund protocol for systematic strategy access on Arbitrum. Operated by Soomario Strategies.">
+  <title>AUREUS Whitepaper v1 | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../soomario-logo.png">
+  <link rel="canonical" href="https://soomariostrategies.com/aureus/whitepaper.html">
+  <style>
+    .au-scope {
+      --au-bg: #0F0B14;
+      --au-surface: #17121F;
+      --au-elevated: #21192B;
+      --au-border: #30263C;
+      --au-border-strong: #4A3B5D;
+      --au-gold: #C9A44C;
+      --au-gold-bright: #E0C676;
+      --au-bronze: #8B6B3F;
+      --au-success: #5FA777;
+      --au-text: #F2EAD9;
+      --au-text-secondary: #B8AC99;
+      --au-text-muted: #756B5E;
+      --au-hairline: rgba(201, 164, 76, 0.15);
+
+      background: var(--au-bg);
+      color: var(--au-text);
+      font-family: Inter, system-ui, sans-serif;
+    }
+    .au-scope * { box-sizing: border-box; }
+
+    /* Sticky topbar */
+    .wp-topbar { position: sticky; top: 0; background: rgba(15,11,20,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--au-border); z-index: 10; }
+    .wp-topbar__inner { max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wp-topbar__brand { display: flex; align-items: center; gap: 12px; }
+    .wp-topbar__title { font-family: Cinzel, serif; font-weight: 600; font-size: 14px; letter-spacing: 0.1em; color: var(--au-gold); }
+    .wp-topbar__version { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--au-text-muted); padding: 3px 8px; border: 1px solid var(--au-bronze); color: var(--au-bronze); }
+    .wp-topbar__nav { display: flex; gap: 18px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; }
+    .wp-topbar__nav a { color: var(--au-text-muted); text-decoration: none; transition: color 120ms; }
+    .wp-topbar__nav a:hover { color: var(--au-gold); }
+    @media (max-width: 800px) { .wp-topbar__nav { display: none; } }
+
+    /* Document layout */
+    .wp-doc { max-width: 760px; margin: 0 auto; padding: 64px 24px 120px; }
+
+    /* Header */
+    .wp-header { text-align: center; padding-bottom: 56px; margin-bottom: 56px; border-bottom: 1px solid var(--au-border); }
+    .wp-header__eyebrow { font-family: Inter, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--au-bronze); margin-bottom: 28px; }
+    .wp-header__title { font-family: Cinzel, serif; font-weight: 700; font-size: 56px; letter-spacing: 0.06em; color: var(--au-text); margin: 0 0 14px; line-height: 1; }
+    .wp-header__sub { font-family: Cinzel, serif; font-style: italic; font-weight: 400; font-size: 18px; color: var(--au-bronze); margin: 0 0 24px; }
+    .wp-header__meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: var(--au-text-muted); }
+
+    /* Sections */
+    .wp-section { margin-bottom: 48px; }
+    .wp-section__num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: var(--au-gold); margin-bottom: 12px; }
+    .wp-h1 { font-family: Cinzel, serif; font-weight: 600; font-size: 32px; letter-spacing: 0.04em; color: var(--au-text); margin: 0 0 24px; line-height: 1.2; }
+    .wp-h2 { font-family: Cinzel, serif; font-weight: 600; font-size: 20px; letter-spacing: 0.05em; color: var(--au-text); margin: 36px 0 14px; }
+    .wp-h3 { font-family: Cinzel, serif; font-weight: 500; font-size: 16px; letter-spacing: 0.05em; color: var(--au-gold); margin: 28px 0 10px; }
+
+    .wp-doc p { font-size: 15px; line-height: 1.75; color: var(--au-text-secondary); margin: 0 0 16px; }
+    .wp-doc p strong { color: var(--au-text); font-weight: 500; }
+    .wp-doc ul { color: var(--au-text-secondary); font-size: 15px; line-height: 1.7; padding-left: 24px; margin: 0 0 16px; }
+    .wp-doc ul li { margin-bottom: 6px; }
+    .wp-doc ul li strong { color: var(--au-text); }
+
+    /* Tables */
+    .wp-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+    .wp-table th { font-family: Inter, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--au-bronze); text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--au-border); }
+    .wp-table td { padding: 12px 14px; border-bottom: 1px solid var(--au-hairline); color: var(--au-text-secondary); vertical-align: top; }
+    .wp-table td:first-child { color: var(--au-text); font-weight: 500; }
+    .wp-table td.au-data, .wp-table .num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums lining-nums; color: var(--au-gold); }
+
+    /* Code-ish formula block */
+    .wp-formula { background: var(--au-surface); border: 1px solid var(--au-border); border-left: 2px solid var(--au-gold); padding: 14px 18px; margin: 14px 0 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--au-text); }
+
+    /* Callout */
+    .wp-callout { background: var(--au-elevated); border-left: 2px solid var(--au-bronze); padding: 18px 22px; margin: 20px 0; font-size: 14px; line-height: 1.7; color: var(--au-text-secondary); }
+    .wp-callout strong { color: var(--au-text); font-weight: 500; }
+
+    /* Glossary */
+    .wp-glossary dt { font-family: Cinzel, serif; font-weight: 600; font-size: 15px; letter-spacing: 0.04em; color: var(--au-gold); margin-top: 18px; }
+    .wp-glossary dd { font-size: 14px; line-height: 1.7; color: var(--au-text-secondary); margin: 4px 0 0; padding-left: 0; }
+
+    /* TOC */
+    .wp-toc { background: var(--au-surface); border: 1px solid var(--au-border); padding: 24px 28px; margin-bottom: 48px; }
+    .wp-toc__title { font-family: Cinzel, serif; font-weight: 600; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--au-gold); margin: 0 0 14px; }
+    .wp-toc ol { list-style: none; padding: 0; margin: 0; counter-reset: tocnum; }
+    .wp-toc ol li { counter-increment: tocnum; padding: 6px 0; border-top: 1px solid var(--au-hairline); display: flex; gap: 16px; font-size: 13px; }
+    .wp-toc ol li:first-child { border-top: none; }
+    .wp-toc ol li::before { content: counter(tocnum, upper-roman); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--au-bronze); min-width: 28px; }
+    .wp-toc ol li a { color: var(--au-text-secondary); text-decoration: none; }
+    .wp-toc ol li a:hover { color: var(--au-gold); }
+
+    /* Final note */
+    .wp-final { background: var(--au-surface); border: 1px solid var(--au-border); padding: 32px 36px; margin-top: 48px; }
+    .wp-final h2 { font-family: Cinzel, serif; font-weight: 600; font-size: 18px; letter-spacing: 0.06em; color: var(--au-gold); margin: 0 0 16px; }
+    .wp-final p { font-size: 14px; line-height: 1.75; color: var(--au-text-secondary); margin-bottom: 14px; }
+    .wp-final p:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+<div class="au-scope">
+
+  <div class="wp-topbar">
+    <div class="wp-topbar__inner">
+      <div class="wp-topbar__brand">
+        <span class="wp-topbar__title">AUREUS</span>
+        <span class="wp-topbar__version">V1.0</span>
+      </div>
+      <nav class="wp-topbar__nav">
+        <a href="index.html">OVERVIEW</a>
+        <a href="#mechanism">MECHANISM</a>
+        <a href="#transparency">TRANSPARENCY</a>
+        <a href="#risks">RISKS</a>
+        <a href="#glossary">GLOSSARY</a>
+      </nav>
+    </div>
+  </div>
+
+  <article class="wp-doc">
+
+    <!-- HEADER -->
+    <header class="wp-header">
+      <div class="wp-header__eyebrow">Whitepaper · Version 1.0</div>
+      <h1 class="wp-header__title">AUREUS</h1>
+      <div class="wp-header__sub">A tokenized fund protocol for systematic strategy access on Arbitrum</div>
+      <div class="wp-header__meta">May 2026 · Operated by Soomario Strategies</div>
+    </header>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="wp-section">
+      <div class="wp-section__num">EXECUTIVE SUMMARY</div>
+      <h2 class="wp-h1">In Brief</h2>
+      <p>AUREUS is a tokenized fund. Members deposit USDC and receive AUR tokens that represent proportional ownership of a treasury. That treasury is deployed across systematic trading strategies on Hyperliquid, with a permanent reserve held in STRCx, a yield-bearing stable asset. Profits are distributed to Members weekly.</p>
+      <p>AUREUS is built on Arbitrum. It is operated by Soomario Strategies, a team with extensive experience in systematic trading and DeFi protocol operations. The protocol's distinguishing feature is a comprehensive on-chain transparency layer — a non-upgradable proof-of-reserves oracle, an append-only trade ledger, and rate-limited admin functions — that allows Members to verify the protocol's state independently and continuously.</p>
+      <p>A portion of protocol profits — 10% of every profitable epoch — routes to a Recovery Fund that supports the prior token community of the team's previous protocol. This is described in Section II.</p>
+      <p>The full Roman-treasury vocabulary used throughout this document — Aerarium, Forge, Members, Team, epoch, Recovery Fund — is explained in the Glossary.</p>
+    </section>
+
+    <!-- TOC -->
+    <nav class="wp-toc">
+      <div class="wp-toc__title">Table of Contents</div>
+      <ol>
+        <li><a href="#problem">The Problem AUREUS Solves</a></li>
+        <li><a href="#recovery">The Recovery Fund</a></li>
+        <li><a href="#mechanism">How AUREUS Works</a></li>
+        <li><a href="#aerarium">The Treasury — Aerarium</a></li>
+        <li><a href="#economics">Profit Distribution and Economics</a></li>
+        <li><a href="#withdrawals">Withdrawal Mechanics</a></li>
+        <li><a href="#transparency">Transparency Infrastructure</a></li>
+        <li><a href="#performance">Strategy Performance and Track Record</a></li>
+        <li><a href="#governance">Governance and Operator Authority</a></li>
+        <li><a href="#risks">Risks and Limitations</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#technical">Technical Appendix</a></li>
+        <li><a href="#glossary">Glossary</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1. PROBLEM -->
+    <section class="wp-section" id="problem">
+      <div class="wp-section__num">SECTION · I</div>
+      <h2 class="wp-h1">The Problem AUREUS Solves</h2>
+      <p>Two practical problems exist for retail crypto investors who want access to systematic trading strategies:</p>
+      <p><strong>Copy-trading is structurally limited.</strong> Most copy-trading platforms can only follow one wallet on one chain trading one asset class. If a strategy is multi-asset — combining crypto perpetuals with tokenized US equities, for example — copy-trading cannot express it. The signal is lost in translation.</p>
+      <p><strong>Self-directed trading requires expertise most investors don't have.</strong> Following a trader on Twitter is not a strategy. Running a disciplined system across dozens of assets, with risk controls and position sizing rules, requires both technical skill and emotional discipline that few investors maintain over time.</p>
+      <p>AUREUS addresses both by pooling capital into a single treasury that the operator deploys across systematic strategies on the Member's behalf. The Member's position is tokenized — represented by AUR — so they hold a transferable, liquid asset rather than being locked into a long-term commitment. They earn the strategy returns through that token's appreciation and through periodic profit distributions, without making any trading decisions themselves.</p>
+      <p>The model is not novel. Tokenized funds exist. What AUREUS does differently — and what the architecture is specifically built to demonstrate — is make the fund's state visible on-chain in real time, so that the failure modes of opaque pooled vehicles become visible before they become catastrophic.</p>
+    </section>
+
+    <!-- 2. RECOVERY -->
+    <section class="wp-section" id="recovery">
+      <div class="wp-section__num">SECTION · II</div>
+      <h2 class="wp-h1">The Recovery Fund</h2>
+      <p>AUREUS includes a mechanism called the Recovery Fund. Ten percent of every profitable epoch routes to a labeled multisig until $350,000 is reached. At that point, a snapshot is taken of NGET token balances as of a specific Arbitrum block, and the Recovery Fund is airdropped pro-rata to those addresses. After the airdrop completes, the 10% allocation redirects to the Team.</p>
+      <p>NGET is the token of a prior protocol operated by the AUREUS team. The Recovery Fund honors that prior community as AUREUS grows. The Recovery Fund participates in AUREUS strategies alongside other Member capital — it is not parked as idle USDC — which accelerates the recovery and reflects the operator's confidence in the new protocol's design.</p>
+      <p>NGET and AUREUS are otherwise separate protocols. There is no migration. New AUREUS Members do not need to understand or interact with NGET in any way; the Recovery Fund operates entirely in the background from a new Member's perspective.</p>
+
+      <h3 class="wp-h3">Why this is built into the protocol</h3>
+      <p>Putting the Recovery Fund into the smart contract rather than handling it as a separate program is a deliberate design choice. It means:</p>
+      <ul>
+        <li>The mechanism is auditable on-chain by anyone</li>
+        <li>The 10% allocation cannot be redirected without a visible protocol change</li>
+        <li>Progress toward $350K is publicly observable in real time</li>
+        <li>The recovery happens automatically once the threshold is reached, not at the operator's discretion</li>
+      </ul>
+      <p>This is consistent with AUREUS's broader design philosophy: structural commitments encoded in code are more durable than commitments held in goodwill.</p>
+    </section>
+
+    <!-- 3. HOW IT WORKS -->
+    <section class="wp-section" id="mechanism">
+      <div class="wp-section__num">SECTION · III</div>
+      <h2 class="wp-h1">How AUREUS Works</h2>
+      <p>In the simplest description: Members deposit USDC, receive AUR, and earn returns through that AUR's value over time and through profit distributions paid weekly.</p>
+
+      <h3 class="wp-h3">Minting AUR</h3>
+      <p>A Member sends USDC to the Forge — the contract that mints AUR. The Forge calculates how many AUR to mint based on the current NAV per AUR:</p>
+      <div class="wp-formula">AUR minted = USDC deposited / current NAV</div>
+      <p>The newly minted AUR enters a pending state for one epoch. This prevents Members from depositing immediately before a profit distribution to capture rewards they did not actually fund. Their AUR becomes fully active at the next epoch close.</p>
+
+      <h3 class="wp-h3">Holding and earning</h3>
+      <p>Once active, the Member's AUR earns returns in two ways:</p>
+      <p><strong>Through epoch profit distributions.</strong> Each week, profitable strategy returns are distributed to staked AUR holders pro-rata. Members can claim distributed USDC to their wallet, or leave it in the contract to compound automatically.</p>
+      <p><strong>Through NAV appreciation.</strong> Some portion of profits remains in the treasury, raising the NAV per AUR over time. When a Member eventually redeems their AUR, they receive USDC at the current NAV, which should be higher than when they deposited (assuming the strategies have been net-profitable).</p>
+
+      <h3 class="wp-h3">Exiting</h3>
+      <p>Three paths to exit exist, covered in detail in Section VI:</p>
+      <ul>
+        <li><strong>OTC</strong> — sell AUR to another Member through a built-in marketplace, 0.5% fee</li>
+        <li><strong>End-of-epoch redemption</strong> — burn AUR for USDC at the next NAV close, 2% fee, processed within 24 hours</li>
+        <li><strong>ASAP redemption</strong> — burn AUR for USDC immediately at the on-chain verified NAV, 5% fee, processed within 48 hours, subject to rate limits</li>
+      </ul>
+
+      <h3 class="wp-h3">Where the value comes from</h3>
+      <p>The treasury holds two components, described in Section IV. The first deploys capital into systematic strategies on Hyperliquid. The second holds a permanent reserve in STRCx, which itself earns yield (currently ~11.5% APY). Both contribute to NAV growth. Strategy returns are the larger contributor in profitable conditions; STRCx is the steady floor that earns regardless of strategy performance.</p>
+    </section>
+
+    <!-- 4. AERARIUM -->
+    <section class="wp-section" id="aerarium">
+      <div class="wp-section__num">SECTION · IV</div>
+      <h2 class="wp-h1">The Treasury — Aerarium</h2>
+      <p>The treasury — called the Aerarium, from the Roman public reserve — is split into two components in fixed proportions:</p>
+
+      <table class="wp-table">
+        <thead><tr><th>Component</th><th>Allocation</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Soomario Strategies on Hyperliquid</td><td class="num">80%</td><td>Active capital, generates trading returns</td></tr>
+          <tr><td>STRCx Reserve</td><td class="num">20%</td><td>Permanent reserve, never sold, earns ~11.5% APY</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="wp-h3">Soomario Strategies</h3>
+      <p>The active 80% is deployed across Soomario Strategies — a suite of systematic trading bots operated by the AUREUS team on Hyperliquid. These include strategies covering crypto perpetuals and tokenized US equities (via Hyperliquid's HIP-3 stocks). The specific composition is dynamic and managed by the operator.</p>
+      <p>The strategies themselves are not novel inventions. They are systematic implementations of trading approaches — DCA at liquidation zones, momentum following, mean reversion, signal-based execution. What's different in AUREUS is not the strategies' design, but the fact that their state is observable on-chain through PositionLogger and verifiable through the keeper-reported reserves.</p>
+      <p>Members do not need to understand the strategies to participate. They need to understand that capital is being deployed into them, that returns and losses both flow through, and that the on-chain transparency layer makes the operator's claims about performance verifiable.</p>
+
+      <h3 class="wp-h3">STRCx Reserve</h3>
+      <p>STRCx is a yield-bearing stable asset issued by Backed Finance. It tokenizes exposure to short-duration credit instruments and earns ~11.5% APY at the time of writing. AUREUS holds a permanent 20% of treasury in STRCx with a never-sell rule.</p>
+      <p>The reserve serves three purposes:</p>
+      <ul>
+        <li><strong>Floor return.</strong> Even during strategy drawdowns, STRCx continues earning. This dampens portfolio volatility.</li>
+        <li><strong>Redemption backstop.</strong> STRCx is liquid and verifiable through a Chainlink price feed. It backs the protocol's ability to honor redemptions even during strategy stress.</li>
+        <li><strong>Long-term compounding.</strong> Because the reserve is permanent and never sold, its yield compounds indefinitely. Over multi-year horizons this contributes meaningfully to NAV.</li>
+      </ul>
+      <p>The treasury split is operationally enforced for v1. A future protocol version may move the split into the smart contract itself; that change would require additional audit and is not part of the v1 launch.</p>
+    </section>
+
+    <!-- 5. ECONOMICS -->
+    <section class="wp-section" id="economics">
+      <div class="wp-section__num">SECTION · V</div>
+      <h2 class="wp-h1">Profit Distribution and Economics</h2>
+      <p>Each epoch — one week — the operator calculates the realized profit or loss from the strategies. If the epoch is profitable, the profit splits four ways:</p>
+
+      <table class="wp-table">
+        <thead><tr><th>Recipient</th><th>Pre-Recovery</th><th>Post-Recovery</th></tr></thead>
+        <tbody>
+          <tr><td>Members (staked AUR holders)</td><td class="num">80%</td><td class="num">80%</td></tr>
+          <tr><td>Team</td><td class="num">5%</td><td class="num">15%</td></tr>
+          <tr><td>Operations</td><td class="num">5%</td><td class="num">5%</td></tr>
+          <tr><td>Recovery Fund</td><td class="num">10%</td><td class="num">0%</td></tr>
+        </tbody>
+      </table>
+
+      <p>If the epoch is unprofitable, no rewards are distributed to anyone. Stakers, Team, Operations, and Recovery Fund all wait for the next profitable epoch. The operator does not earn on losses.</p>
+
+      <h3 class="wp-h3">The Team allocation</h3>
+      <p>The Team allocation funds operator compensation. Pre-Recovery, this is 5% — deliberately lower than industry norm to fund the Recovery Fund. After the Recovery Fund reaches its threshold and is distributed, the Team allocation increases to 15%, which is closer to typical fund operator economics.</p>
+      <p>The Team allocation is paid in USDC at epoch close. It is not deferred, vested, or tokenized — it is the operator's salary and operational margin.</p>
+
+      <h3 class="wp-h3">The Operations allocation</h3>
+      <p>The 5% Operations allocation covers ongoing protocol costs: keeper hosting, monitoring infrastructure, audit costs, contract deployment gas, frontend hosting, legal and accounting work. Anything left after costs goes to the Team budget as discretionary reserve.</p>
+
+      <h3 class="wp-h3">The Recovery Fund allocation</h3>
+      <p>The 10% Recovery Fund allocation goes to a labeled multisig wallet that participates in AUREUS strategies alongside other Member capital. When the $350,000 threshold is reached, the snapshot-and-airdrop sequence described in Section II executes. The threshold is reached when the Recovery Fund's value — its accrued allocations plus its strategy participation gains — first crosses $350,000. The exact mainnet block at which this happens will be publicly announced before the airdrop executes.</p>
+
+      <h3 class="wp-h3">Fee economics</h3>
+      <p>Redemption fees (Section VI) route to staked AUR holders as additional yield, not to the Team or Operations. Specifically, redemption fees flow back into the Forge contract's reward accumulator, so they show up in Member claim amounts at the next epoch close. This creates an aligned incentive: the more Members who exit at premium tiers (ASAP at 5%), the more yield accrues to Members who remain.</p>
+    </section>
+
+    <!-- 6. WITHDRAWALS -->
+    <section class="wp-section" id="withdrawals">
+      <div class="wp-section__num">SECTION · VI</div>
+      <h2 class="wp-h1">Withdrawal Mechanics</h2>
+      <p>Three exit paths exist. Each has different cost, NAV basis, and timing.</p>
+
+      <table class="wp-table">
+        <thead><tr><th>Path</th><th>Fee</th><th>NAV used</th><th>Processing time</th><th>Capacity limits</th></tr></thead>
+        <tbody>
+          <tr><td>OTC marketplace</td><td class="num">0.5%</td><td>Counterparty price</td><td>Whenever</td><td>Market-driven</td></tr>
+          <tr><td>End-of-epoch (EOE)</td><td class="num">2%</td><td>Next epoch close</td><td>&lt;24 hours after close</td><td>None</td></tr>
+          <tr><td>ASAP redemption</td><td class="num">5%</td><td>Hard-verified NAV</td><td>&lt;48 hours</td><td>1% / Member / 24h; 5% / protocol / 7d</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="wp-h3">OTC marketplace</h3>
+      <p>The cheapest exit path. Members can list AUR for sale at any price; other Members or external buyers can fill those orders. The protocol takes a 0.5% fee on each fill, which routes to the staked AUR reward pool.</p>
+      <p>The OTC marketplace is fully on-chain and trustless. It does not require the operator's involvement to clear. Limitations: order matching depends on counterparty availability, so during periods of one-sided sentiment, exits via OTC may be slow or require accepting a discount to NAV.</p>
+
+      <h3 class="wp-h3">End-of-epoch redemption</h3>
+      <p>The Member submits a redemption request mid-epoch. At the next epoch close, the operator processes the request: burns the Member's AUR, calculates the payout at that epoch's NAV minus the 2% fee, and sends USDC to the Member's wallet. Used when the Member wants a guaranteed exit but doesn't need the funds immediately. Processed manually by the operator's multisig, typically within 24 hours after the epoch closes. The 2% fee routes to remaining stakers.</p>
+
+      <h3 class="wp-h3">ASAP redemption</h3>
+      <p>The Member submits a redemption request that the operator processes as soon as possible. The NAV used is the hard-verified value from the ReservesOracle (the on-chain proof-of-reserves) at processing time, not the operator's last published NAV. The 5% fee compensates for liquidity provision urgency. ASAP is rate-limited to prevent stress on the treasury — per-Member 1% per 24h, protocol-wide 5% per 7d. If a request would exceed either cap, it must wait for the rolling window to expire or be split across multiple smaller requests over time.</p>
+
+      <h3 class="wp-h3">Why three tiers</h3>
+      <p>The tiered structure is intentional. It compensates the protocol for the different liquidity demands each exit path imposes. OTC requires nothing from the treasury — the redemption is satisfied by another buyer's deposit. EOE gives the operator one week to manage treasury composition before processing. ASAP requires immediate liquidity, which is more expensive to provide. For most Members in most circumstances, EOE is the right path. ASAP exists for cases where time matters more than cost. OTC exists for Members who can accept a market-clearing price and want zero protocol fees.</p>
+
+      <h3 class="wp-h3">Manual processing</h3>
+      <p>All three withdrawal types are processed manually by the operator's multisig. There is no automated process that pulls funds out of strategies and into a redemption queue. This is a deliberate choice — automated redemption logic was considered and rejected because it expands attack surface and concentrates failure modes. Manual processing keeps human judgment in the loop for every exit.</p>
+    </section>
+
+    <!-- 7. TRANSPARENCY -->
+    <section class="wp-section" id="transparency">
+      <div class="wp-section__num">SECTION · VII</div>
+      <h2 class="wp-h1">Transparency Infrastructure</h2>
+      <p>A central design principle of AUREUS is that the protocol's state should be independently verifiable by Members at any time, without requiring trust in the operator's reporting. This is implemented through three pieces of on-chain infrastructure that operate continuously.</p>
+
+      <h3 class="wp-h3">The opacity problem in pooled funds</h3>
+      <p>In a typical tokenized fund — both in DeFi and in traditional finance — the operator's claimed Net Asset Value is the only published number. There is no continuous on-chain reference for what the protocol actually holds at any given moment. Members and observers must trust that the operator's numbers reflect reality. This isn't a hypothetical concern. Opacity in pooled investment vehicles is the precondition for most large-scale fund failures, whether through fraud, accounting errors, or undisclosed drawdowns. The structural answer is to make state visible enough that errors become detectable in real time rather than after the fact.</p>
+
+      <h3 class="wp-h3">How AUREUS solves it</h3>
+      <p>Three contracts work together to keep the protocol's state continuously observable:</p>
+      <p><strong>ReservesOracle</strong> — A non-upgradable smart contract that holds the protocol's verified reserve calculation, composed of two layers. The <strong>hard layer</strong> reads USDC balances held by the protocol, plus the STRCx reserve value (read from a Chainlink price feed), plus the Hyperliquid bridge floor. These are values that can be verified on-chain at any time by anyone with an RPC connection, without trusting the operator. The <strong>soft layer</strong> carries Hyperliquid position state reported by a keeper bot — the operator's claim about open positions, updated at least daily and on significant movement. Members and observers can compute the divergence between hard and soft layers at any time. A growing gap — particularly during stress — is a public signal visible in real time. The contract is non-upgradable; configuration changes require a 24-hour timelock before taking effect.</p>
+      <p><strong>PositionLogger</strong> — An append-only ledger of every trade executed by the protocol. Each entry includes a reference hash linking back to the corresponding Hyperliquid trade ID. Past entries cannot be modified, only new ones added. This creates a complete public audit trail. After-the-fact rewriting of trade history is not possible.</p>
+      <p><strong>NAV rate limit on the Forge</strong> — The operator publishes a new NAV at each epoch close. The Forge contract enforces a maximum movement of 15% per epoch in either direction. Larger movements cannot be applied in a single transaction; they would need to be spaced across multiple epochs, with every epoch visible. The 15% threshold accommodates legitimate strategy P&amp;L on a one-week timeframe while preventing the operator from publishing accounting changes that would require explanation but bypass it.</p>
+
+      <h3 class="wp-h3">What this accomplishes</h3>
+      <p>These three layers prove <strong>what assets the protocol holds</strong>. They do not prove <strong>that those assets are being managed optimally</strong> — that remains the operator's responsibility. What the transparency layer accomplishes is bounding the worst failure modes: an operator cannot quietly drift from disclosed strategy without it being visible, and Members have the information they need to exit when they observe something concerning.</p>
+      <div class="wp-callout">This is risk reduction, not risk elimination. Members still take on operator risk. The infrastructure makes that risk smaller and earlier to detect than in conventional pooled fund designs.</div>
+    </section>
+
+    <!-- 8. PERFORMANCE -->
+    <section class="wp-section" id="performance">
+      <div class="wp-section__num">SECTION · VIII</div>
+      <h2 class="wp-h1">Strategy Performance and Track Record</h2>
+      <p>The Soomario Strategies that AUREUS deploys capital into have a backtest history across multiple market regimes. A summary:</p>
+      <ul>
+        <li><strong>Backtest window:</strong> 2020–2026, across multiple market cycles</li>
+        <li><strong>Asset coverage:</strong> Crypto perpetuals (multiple base assets) plus tokenized US equities</li>
+        <li><strong>Backtest aggregate:</strong> Positive net returns in the high double digits annualized, with maximum drawdown bounded in the single digits</li>
+      </ul>
+      <p>The detailed backtest memo, including individual strategy results, parameter sets, and methodology, is published separately. It includes per-strategy performance tables, aggregate portfolio simulation, maximum drawdown analysis, sensitivity testing across different parameter regimes, and disclosure of assumptions, slippage models, and known limitations.</p>
+
+      <h3 class="wp-h3">A caveat in plain language</h3>
+      <p><strong>Past performance does not predict future results.</strong></p>
+      <p>This is not legal boilerplate. It is the central truth of strategy investing: a backtest is what happened in historical conditions with known outcomes. Live performance will differ. Sometimes the difference is favorable (strategies discovered structural alpha that persists). Sometimes the difference is unfavorable (market structure shifted, the strategy's premise no longer holds). Investors who expect future returns to match backtested returns are misreading the data.</p>
+      <p>Live performance figures will be published continuously through the dashboard once mainnet launches. The dashboard shows actual epoch-by-epoch returns, not retrospective backtests. Members should weight live data more heavily than the backtest, particularly as the live track record extends.</p>
+    </section>
+
+    <!-- 9. GOVERNANCE -->
+    <section class="wp-section" id="governance">
+      <div class="wp-section__num">SECTION · IX</div>
+      <h2 class="wp-h1">Governance and Operator Authority</h2>
+      <p>AUREUS is operated by Soomario Strategies, run by the AUREUS team. The protocol is not a DAO. There is no token-weighted voting on protocol parameters. Operational decisions — strategy selection, parameter tuning, treasury composition — rest with the operator.</p>
+      <p>This is intentional. Pooled fund vehicles benefit from clear operator authority and accountability. Distributing trading decisions across token-weighted votes generally degrades performance and slows reaction time to market conditions.</p>
+
+      <h3 class="wp-h3">Operator can</h3>
+      <ul>
+        <li>Execute trades through the Soomario Strategies on Hyperliquid</li>
+        <li>Set the NAV at each epoch close (within the 15% rate limit)</li>
+        <li>Process redemption requests at the operator's multisig</li>
+        <li>Update the strategy composition over time</li>
+        <li>Deploy contract upgrades (UUPS pattern)</li>
+        <li>Configure the ReservesOracle's tracked addresses (subject to 24-hour timelock)</li>
+      </ul>
+
+      <h3 class="wp-h3">Operator cannot</h3>
+      <ul>
+        <li>Move the NAV more than 15% in a single epoch</li>
+        <li>Modify past entries in the PositionLogger</li>
+        <li>Bypass the redemption rate limits without modifying the contract</li>
+        <li>Make changes to the ReservesOracle that take effect before 24 hours pass</li>
+        <li>Take more than the 5% (or post-Recovery, 15%) Team allocation from any single epoch</li>
+        <li>Withdraw or modify the Recovery Fund allocation before the $350K threshold</li>
+        <li>Mint AUR without depositing corresponding USDC into the protocol</li>
+      </ul>
+
+      <h3 class="wp-h3">Multi-signature requirements</h3>
+      <p>All operator actions on protocol contracts require multi-signature approval. The operator does not act unilaterally; multiple signers must approve each transaction. The specific multisig configuration (signer count, threshold) will be disclosed in the technical documentation prior to mainnet launch.</p>
+
+      <h3 class="wp-h3">Future governance</h3>
+      <p>The operator retains the option to evolve toward distributed governance over time. This is not a v1 commitment. If Member-driven governance is introduced in a future protocol version, the details will be communicated clearly and Members will have the option to exit before changes take effect.</p>
+    </section>
+
+    <!-- 10. RISKS -->
+    <section class="wp-section" id="risks">
+      <div class="wp-section__num">SECTION · X</div>
+      <h2 class="wp-h1">Risks and Limitations</h2>
+      <p>This section is deliberately explicit. AUREUS Members are taking on real, identifiable risks. The protocol does not eliminate them; it bounds them.</p>
+
+      <h3 class="wp-h3">Operator risk</h3>
+      <p>The strategies are executed by a human operator using systematic rules. Disciplined operation under stress is a real human responsibility, and even careful operators make mistakes. The transparency infrastructure makes the consequences of poor operation visible faster than in conventional pooled funds, but it does not eliminate the risk. Members should assume operator judgment is a factor in returns and that adverse outcomes from operator decisions are possible.</p>
+      <p><strong>Mitigation:</strong> The ReservesOracle, PositionLogger, and rate limits collectively make operator drift visible before it becomes catastrophic. Members can exit through any of three paths at any time.</p>
+
+      <h3 class="wp-h3">Smart contract risk</h3>
+      <p>The Forge contract underlying AUREUS is production-tested through prior operation but has not been formally audited in its V2 upgrade form. The new contracts (ReservesOracle, PositionLogger, AureusRedemption) have not been audited. Mainnet launch is contingent on a formal audit by Sherlock or a peer firm. Even after audit, smart contract risk is not zero — novel attack vectors exist that no audit can fully prevent.</p>
+      <p><strong>Mitigation:</strong> Pre-audit AI-driven adversarial testing, formal audit, rate-limited admin actions, 24-hour timelocks on oracle configuration changes, emergency pause functionality.</p>
+
+      <h3 class="wp-h3">Strategy risk</h3>
+      <p>The Soomario Strategies have a positive backtest history but may underperform in live conditions. Crypto markets are highly volatile. Tokenized stocks are a new asset class with different liquidity profiles than spot equities. Drawdowns of 20% or more on the strategy component of the treasury are within historical range.</p>
+      <p><strong>Mitigation:</strong> 20% STRCx reserve acts as a floor regardless of strategy performance. The Aerarium split provides structural diversification. The keeper bot reports position state continuously, so strategy drawdowns become visible in real time.</p>
+
+      <h3 class="wp-h3">Counterparty risk</h3>
+      <p>Several counterparties exist in the AUREUS stack:</p>
+      <ul>
+        <li><strong>Hyperliquid</strong> — The decentralized exchange where trading strategies execute. If Hyperliquid experienced a critical failure, position values could be impaired.</li>
+        <li><strong>Backed Finance (STRCx issuer)</strong> — The issuer of the STRCx reserve token. Failure of those collateral structures could impair STRCx value.</li>
+        <li><strong>Chainlink</strong> — Provides the STRCx/USD price feed. A failure or manipulation would corrupt the ReservesOracle's hard layer calculation.</li>
+        <li><strong>USDC issuer (Circle)</strong> — All deposits are in USDC. A USDC depeg or issuer failure would impair all dollar-denominated positions.</li>
+      </ul>
+      <p><strong>Mitigation:</strong> These are systemic crypto risks that no protocol can eliminate. AUREUS chooses widely-trusted counterparties and diversifies across them where possible.</p>
+
+      <h3 class="wp-h3">Liquidity risk</h3>
+      <p>The ASAP redemption tier has rate limits (1% per Member per 24 hours, 5% protocol-wide per 7 days). During a stress scenario where many Members want to exit simultaneously, the limits would extend exit times beyond 48 hours.</p>
+      <p><strong>Mitigation:</strong> Three exit paths exist with different urgency-cost tradeoffs. OTC has no rate limits but requires counterparty matching. EOE has no rate limits but requires waiting for the next epoch close.</p>
+
+      <h3 class="wp-h3">Tax and regulatory risk</h3>
+      <p>AUREUS is a tokenized fund. Token mints, profit claims, redemptions, and OTC sales likely trigger tax events in most jurisdictions. The specific treatment varies by country and individual circumstance. AUREUS is not a regulated investment vehicle and does not provide tax documentation. Members are responsible for their own tax reporting. The protocol may be unavailable or restricted in some jurisdictions. Members are responsible for confirming legal eligibility to participate in their own jurisdiction.</p>
+
+      <h3 class="wp-h3">Custody risk</h3>
+      <p>While AUR tokens are held in Members' own wallets, USDC deposits and staked AUR are held by the protocol contracts. Loss of access to a Member's wallet (lost keys, compromised seed phrase) results in loss of access to their AUR. The protocol cannot recover lost Member wallets.</p>
+    </section>
+
+    <!-- 11. ROADMAP -->
+    <section class="wp-section" id="roadmap">
+      <div class="wp-section__num">SECTION · XI</div>
+      <h2 class="wp-h1">Roadmap</h2>
+
+      <h3 class="wp-h3">Now (Q2 2026)</h3>
+      <p>Contracts are written. Announcement is published. Pre-audit AI-driven red-team testing in progress. Formal audit is the next gating milestone.</p>
+
+      <h3 class="wp-h3">Next 30–60 days</h3>
+      <ul>
+        <li>Complete AI red-team phase</li>
+        <li>Submit to formal audit (Sherlock or peer firm)</li>
+        <li>Address audit findings</li>
+        <li>Deploy to Arbitrum mainnet</li>
+        <li>Open Member onboarding</li>
+        <li>Begin first epochs of live operation</li>
+      </ul>
+
+      <h3 class="wp-h3">Months 2–6</h3>
+      <ul>
+        <li>Continuous operation through first quarter of live performance</li>
+        <li>Track record building</li>
+        <li>Recovery Fund accumulation toward $350K threshold</li>
+        <li>Frontend integration of dashboard widgets showing real-time NAV, ReservesOracle data, withdrawal queue</li>
+      </ul>
+
+      <h3 class="wp-h3">Beyond</h3>
+      <ul>
+        <li>Possible STRCx allocation enforcement on-chain (currently operational)</li>
+        <li>Possible governance evolution (currently centralized operator)</li>
+        <li>Possible expansion of strategy universe as new asset classes become available on Hyperliquid</li>
+        <li>Possible additional reserve assets if STRCx alternatives emerge</li>
+      </ul>
+      <p>None of the "Beyond" items are committed timeline; they are future considerations contingent on first proving out v1.</p>
+    </section>
+
+    <!-- 12. TECHNICAL -->
+    <section class="wp-section" id="technical">
+      <div class="wp-section__num">SECTION · XII</div>
+      <h2 class="wp-h1">Technical Appendix</h2>
+      <p>This is a brief technical summary for general audiences. The detailed architecture document (<code>AUREUS_ARCHITECTURE.md</code>) is the canonical source for developers and auditors.</p>
+
+      <h3 class="wp-h3">Chain and contracts</h3>
+      <p>AUREUS runs on Arbitrum One. The protocol consists of five smart contracts:</p>
+
+      <table class="wp-table">
+        <thead><tr><th>Contract</th><th>Purpose</th><th>Upgradable?</th></tr></thead>
+        <tbody>
+          <tr><td>Forge (V2)</td><td>Mints/burns AUR, distributes rewards</td><td>Yes, UUPS pattern</td></tr>
+          <tr><td>AureusRedemption</td><td>Manages three-tier withdrawal flow</td><td>No</td></tr>
+          <tr><td>ReservesOracle</td><td>On-chain proof-of-reserves</td><td>No</td></tr>
+          <tr><td>PositionLogger</td><td>Append-only trade ledger</td><td>No</td></tr>
+          <tr><td>OTC (V2)</td><td>Decentralized AUR marketplace</td><td>Limited</td></tr>
+        </tbody>
+      </table>
+
+      <p>The Forge is reused from an existing Arbitrum protocol through a UUPS proxy upgrade. The remaining four contracts are new for AUREUS.</p>
+
+      <h3 class="wp-h3">Upgrade mechanism</h3>
+      <p>The Forge uses OpenZeppelin's UUPS upgrade pattern. The proxy contract (already deployed and live) delegates calls to an implementation contract that can be replaced. Upgrades require multi-sig approval. Storage layout compatibility is verified before each upgrade — past upgrades that broke layout would corrupt existing Member balances, so this check is strictly enforced. ReservesOracle, PositionLogger, and AureusRedemption are deployed without upgrade hooks. Their code is immutable post-deployment. Configuration parameters are adjustable through admin functions subject to 24-hour timelocks.</p>
+
+      <h3 class="wp-h3">Oracle architecture</h3>
+      <p>The ReservesOracle reads multiple sources: direct on-chain queries for USDC balances at tracked addresses, the Chainlink STRCx/USD price feed for reserve valuation, the Hyperliquid bridge contract for the cross-chain position floor, and keeper-reported state for Hyperliquid open positions. The keeper bot, operated by the AUREUS team, posts position updates to the contract at least every 24 hours and on 5% portfolio movement. Keeper authority is limited to posting position data — it cannot modify hard-layer values or affect Member balances.</p>
+
+      <h3 class="wp-h3">Backtest, audit, and review materials</h3>
+      <p>The following documents are or will be made publicly available: this whitepaper, the architecture documentation, the backtest memo, the audit report (post-audit completion), and the red-team findings document. Source code is published in the GitHub repository at <code>github.com/Makuroi508/aureus</code> once the audit completes.</p>
+    </section>
+
+    <!-- 13. GLOSSARY -->
+    <section class="wp-section" id="glossary">
+      <div class="wp-section__num">SECTION · XIII</div>
+      <h2 class="wp-h1">Glossary</h2>
+
+      <dl class="wp-glossary">
+        <dt>Aerarium</dt>
+        <dd>The treasury. From the Latin term for the Roman public reserve held in the Temple of Saturn. In AUREUS, the Aerarium refers to the combined Soomario Strategies allocation and STRCx Reserve that backs all AUR tokens.</dd>
+
+        <dt>ASAP redemption</dt>
+        <dd>The fastest exit tier. The Member redeems AUR for USDC immediately at the on-chain verified hard NAV, paying a 5% fee. Subject to rate limits (1% per Member per 24h, 5% protocol-wide per 7d).</dd>
+
+        <dt>AUR</dt>
+        <dd>The token Members hold. Represents proportional ownership of the Aerarium. Minted when USDC is deposited; burned when redeemed.</dd>
+
+        <dt>AUREUS</dt>
+        <dd>The protocol as a whole. From the Latin for "golden," referencing both the historical Roman gold standard and the protocol's reserve-asset character.</dd>
+
+        <dt>closeEpoch</dt>
+        <dd>The contract function that finalizes an epoch's accounting: new NAV is set, profits are distributed, the next epoch begins. Called by the operator's multisig.</dd>
+
+        <dt>End-of-epoch (EOE) redemption</dt>
+        <dd>The middle exit tier. Member submits a redemption request; processed at the next epoch close at that close's NAV, paying a 2% fee. Processed within 24 hours of epoch close.</dd>
+
+        <dt>Epoch</dt>
+        <dd>One full cycle of accounting. AUREUS uses one-week epochs. Each epoch ends with <code>closeEpoch</code> setting a new NAV and distributing profits.</dd>
+
+        <dt>Forge</dt>
+        <dd>The contract that mints and burns AUR. Reused from an existing Arbitrum protocol through a UUPS upgrade. Holds Member stakes and the reward accumulator.</dd>
+
+        <dt>Hard NAV</dt>
+        <dd>The component of total NAV that is verifiable on-chain without trusting the operator. Computed by ReservesOracle from USDC balances, STRCx value (via Chainlink), and the Hyperliquid bridge floor.</dd>
+
+        <dt>Hyperliquid</dt>
+        <dd>The decentralized exchange where Soomario Strategies execute trades. Provides perpetuals on crypto and tokenized equities.</dd>
+
+        <dt>Keeper</dt>
+        <dd>An off-chain bot operated by the AUREUS team that posts Hyperliquid position state to the ReservesOracle. Reports at least every 24 hours and on 5% portfolio movement.</dd>
+
+        <dt>Member</dt>
+        <dd>A holder of AUR. Anyone with AUR in their wallet is a Member.</dd>
+
+        <dt>NAV (Net Asset Value)</dt>
+        <dd>The value of one AUR in USDC. Calculated by dividing total treasury value by total AUR supply. Used as the price for minting and redemption.</dd>
+
+        <dt>NGET</dt>
+        <dd>The legacy token of a prior protocol operated by the AUREUS team. Separate from AUR. Holders of NGET at a designated snapshot block will be eligible for the Recovery Fund airdrop.</dd>
+
+        <dt>OTC marketplace</dt>
+        <dd>A built-in on-chain marketplace where Members can buy and sell AUR. Takes a 0.5% fee per fill, which routes to staked AUR holders.</dd>
+
+        <dt>PositionLogger</dt>
+        <dd>A non-upgradable contract that records every trade executed by the protocol. Append-only — past entries cannot be modified.</dd>
+
+        <dt>Recovery Fund</dt>
+        <dd>A labeled multisig that receives 10% of each profitable epoch until $350,000 is reached. At threshold, the Recovery Fund is airdropped pro-rata to NGET holders as of a designated snapshot block.</dd>
+
+        <dt>ReservesOracle</dt>
+        <dd>A non-upgradable contract that publishes the protocol's verified reserve composition on-chain. Composed of a hard layer (verifiable) and soft layer (keeper-reported).</dd>
+
+        <dt>Soft NAV</dt>
+        <dd>The component of total NAV reported by the keeper bot from Hyperliquid position state. Trusted but verifiable against the hard NAV.</dd>
+
+        <dt>Soomario Strategies</dt>
+        <dd>The suite of systematic trading bots operated by the AUREUS team on Hyperliquid. Receives 80% of treasury allocation.</dd>
+
+        <dt>STRCx</dt>
+        <dd>A yield-bearing stable asset issued by Backed Finance. Held as 20% permanent reserve, never sold. Earns ~11.5% APY.</dd>
+
+        <dt>Team</dt>
+        <dd>The AUREUS operator. Receives 5% of each profitable epoch (15% post-Recovery). Plain-language replacement for "operator" or specific personal references in client-facing materials.</dd>
+
+        <dt>UUPS</dt>
+        <dd>Universal Upgradeable Proxy Standard. The OpenZeppelin pattern used for the Forge contract's upgrade mechanism. Allows the implementation to be replaced while preserving the proxy address and Member balances.</dd>
+      </dl>
+    </section>
+
+    <!-- FINAL NOTE -->
+    <div class="wp-final">
+      <h2>Final note</h2>
+      <p>This whitepaper describes the AUREUS protocol as designed for v1 launch. Specific numbers — the 80/5/5/10 profit split, the 15% NAV rate limit, the 1%/24h and 5%/7d ASAP caps, the $350K Recovery Fund target — are launch parameters. They may be adjusted in future protocol versions through transparent, timelocked governance actions. Material changes will be communicated to Members in advance with the option to exit before changes take effect.</p>
+      <p>AUREUS is built on a single principle: the protocol's state should be verifiable by Members in real time, not relied upon as the operator's word. Every architectural choice — the proof-of-reserves oracle, the append-only trade ledger, the rate-limited admin actions, the three-tier withdrawal flow — exists to serve that principle. Returns are generated by disciplined systematic trading. Trust is generated by structural visibility into what that trading actually does.</p>
+      <p>Both matter. The protocol provides the second so the first can be evaluated honestly.</p>
+    </div>
+
+  </article>
+
+</div>
+
+<script src="../components.js"></script>
+</body>
+</html>
