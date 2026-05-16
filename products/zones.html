@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Soomario Zones — bi-directional mean-reversion DCA at liquidation max-pain zones. 21 perpetual futures on Hyperliquid. Live vault since March 2026.">
-  <meta property="og:title" content="Soomario Zones — Bi-Directional Liquidation DCA">
-  <meta property="og:description" content="Position where forced sellers and forced buyers create temporary mispricings. 21 coins on Hyperliquid.">
-  <title>Soomario Zones — Bi-Directional Liquidation DCA | Soomario Strategies</title>
+  <meta name="description" content="Soomario Zones — a discretion-free, programmatic DCA strategy that enters Hyperliquid perpetuals at liquidation-anchored price levels. 21 coins, three-level deployment, cascading take-profits, catastrophic stop outside L4.">
+  <meta property="og:title" content="Soomario Zones — Liquidation-Anchored DCA">
+  <meta property="og:description" content="Three-level liquidation-zone DCA with cascading take-profits and a catastrophic stop outside the deepest level. Live Hyperliquid vault.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://soomariostrategies.com/products/zones.html">
+  <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
+  <title>Soomario Zones — Liquidation-Anchored DCA | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -23,19 +26,20 @@
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
         <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE · MARCH 2026</span>
         <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID VAULT</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">LONG-ONLY MODE</span>
       </div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
-        <span class="gradient-text">Position where</span><br>
-        <span style="color:var(--text-primary);">the forced are wiped out.</span>
+        <span class="gradient-text">Buy where forced flow</span><br>
+        <span style="color:var(--text-primary);">runs out of room.</span>
       </h1>
       <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        A bi-directional mean-reversion engine that positions where forced selling — or forced buying — has temporarily mispriced the asset. Long the long-liquidation overshoots; short the short-squeeze peaks. Both directions, by construction.
+        A discretion-free DCA strategy that enters at three levels anchored to aggregated liquidation Max Pain. L1 marketable at price, L2 at the Max Pain itself, L4 at the deepest band. Cascading take-profits, a self-tightening trail, and a catastrophic stop placed outside the L4 deploy zone.
       </p>
 
       <div class="metrics" style="margin:2rem 0;max-width:820px;">
-        <div class="metric"><div class="metric__value gradient-text">21</div><div class="metric__label">Coins on Hyperliquid</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Both</div><div class="metric__label">Long &amp; short</div></div>
-        <div class="metric"><div class="metric__value gradient-text">8×</div><div class="metric__label">Max leverage</div></div>
+        <div class="metric"><div class="metric__value gradient-text">21</div><div class="metric__label">Coin universe</div></div>
+        <div class="metric"><div class="metric__value gradient-text">3</div><div class="metric__label">DCA levels (L1·L2·L4)</div></div>
+        <div class="metric"><div class="metric__value gradient-text">72.7%</div><div class="metric__label">Live win rate (77 cycles)</div></div>
         <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Profit share</div></div>
       </div>
 
@@ -58,9 +62,9 @@
   <section class="section section--alt">
     <div class="container container--narrow text-center">
       <div class="section-label">THE EDGE</div>
-      <h2 class="section-title"><span class="gradient-text">Liquidation data is public.</span><br>Systematic execution is rare.</h2>
-      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Anyone can see where leveraged positions cluster. Almost nobody systematically positions for the snap-back across 21 coins in parallel — most retail traders see a cascade after it has already happened, most discretionary traders pick one coin at a time. The infrastructure to track 21 markets continuously and act on disciplined rules is the moat.
+      <h2 class="section-title"><span class="gradient-text">Liquidation Max Pain</span><br>is a real anchor</h2>
+      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:660px;">
+        Most retail DCA strategies build their ladders on fixed percentages — buy every 2% down, every $1 of price. This treats price as homogeneous, which it is not. In leveraged markets, price moves through clusters of stop orders and liquidation triggers that are geographically dense around specific levels, and when price arrives at such a cluster, forced selling accelerates the move and reliably overshoots before reversing. Liquidation Max Pain — computable in real time from aggregated open interest across Binance, Bybit, and OKX — is the closest publicly observable proxy for where leveraged positioning will be forcefully unwound. Empirically, price revisits the long Max Pain during pullbacks more often than round numbers, moving averages, or named support, and the bounces from those visits are more violent than average. Zones places its entries at the four-level band around that anchor.
       </p>
     </div>
   </section>
@@ -70,27 +74,91 @@
     <div class="container">
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">WHAT YOU GET</div>
-        <h2 class="section-title"><span class="gradient-text">Hyperliquid vault.</span><br>10% profit share. Self-custody.</h2>
+        <h2 class="section-title"><span class="gradient-text">Three-level deployment</span></h2>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <div class="card__title">21-coin universe</div>
-          <p class="card__text">Liquid majors and active mid-caps on Hyperliquid: BTC · ETH · SOL · XRP · HYPE · BNB · DOGE · AVAX · LINK · BCH · SUI · ADA · LTC · UNI · DOT · NEAR · TRX · AAVE · TAO · ZEC · PAXG.</p>
+          <div class="card__title">Atomic three-order entry</div>
+          <p class="card__text">When a candidate clears conviction and proximity, L1 enters as an aggressive marketable limit at current price plus 50 bps. L2 and L4 sit as post-only limits at the Max Pain level and the deepest band — all three orders submitted as a single atomic batch so they hit the book in the same block. Weights: ~28 / 34 / 38%. The deeper levels carry larger size because they're objectively better prices.</p>
         </div>
         <div class="card">
-          <div class="card__title">On-chain transparency</div>
-          <p class="card__text">Vault address is published. Every position, every fill, every realized P&amp;L is visible on Hyperliquid. The dashboard shows live state in real time. The system is its own audit.</p>
+          <div class="card__title">Cascading take-profits + trail</div>
+          <p class="card__text">Partial closes fire at +2.5%, +4.0%, and +5.5% from weighted-average entry, closing 30/30/20% of original size and leaving a 20% runner. A trailing stop arms at +5% and tightens after each TP fires, so each successive leg of the move is captured at a tighter giveback than the last.</p>
         </div>
         <div class="card">
-          <div class="card__title">No fees, no lockups</div>
-          <p class="card__text">10% of profits, only when you profit. No monthly charges, no deposit fees, no withdrawal fees. Withdraw any time — funds remain in the on-chain vault contract.</p>
+          <div class="card__title">Catastrophic stop outside L4</div>
+          <p class="card__text">If the trail and TPs don't fire, the position can still hit the catastrophic stop — placed 5% below the L3 zone reference, intentionally outside the L4 deploy band. L4 gets room to fill and average down before any forced exit. When price crosses, an IOC market-close exits all remaining size at once.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 4. HONEST LIMITS ═══ -->
+  <!-- ═══ 4. THE L3 STORY ═══ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">DESIGN DECISION</div>
+        <h2 class="section-title"><span class="gradient-text">Why three levels, not four</span></h2>
+        <p style="color:var(--text-secondary);max-width:580px;margin:1.25rem auto 0;line-height:1.7;">
+          The original Zones design deployed at four levels: L1 / L2 / L3 / L4. After roughly two months of live operation, a pattern became visible in the closed-trade record. Positions that filled L1, L2, and L3 but never reached L4 had a mean realized PnL of −$10.12 across 22 historical trades. Positions that did fill L4 — meaning price moved deep enough that the strategy's full DCA conviction was warranted — had a mean realized PnL of +$2.22.
+        </p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1rem;">
+        <div class="card card--flat">
+          <div class="card__title">L3 was a structural trap.</div>
+          <p class="card__text">A fill at L3 indicated that price had pushed deep enough to threaten the position but not deep enough to trigger the deep-DCA L4 fill that materially improves average entry. Positions that stalled at L3 averaged down enough to commit meaningful capital but not enough to be priced for the reversion the strategy is built to capture. L3 was retired from the deployment in May 2026.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">L3's capital was redistributed.</div>
+          <p class="card__text">The freed allocation moved to L1 / L2 / L4 in renormalized weights (~28 / 34 / 38%). L3 retains one role — as the reference price for the catastrophic stop — but no longer carries any deployable size. The change improved expected per-trade economics without changing the conviction stack or the entry conditions.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">The 48-hour time-exit was also retired.</div>
+          <p class="card__text">A 48-hour time-based force close, originally a backstop against stale positions, was analysed against the same closed-trade record. Time-exit closes were nearly always P&L-positive but consistently truncated otherwise-running winners. The feature was disabled pending further validation; positions now run until TP, trail, or catastrophic SL fires.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5. EMPIRICAL FOUNDATION ═══ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">LIVE PERFORMANCE</div>
+        <h2 class="section-title"><span class="gradient-text">67 days, 77 closed cycles</span></h2>
+        <p style="color:var(--text-secondary);max-width:580px;margin:1.25rem auto 0;line-height:1.7;">
+          Live data through the strategy's first 67 days. The numbers reveal a clear directional asymmetry that has shaped the current configuration.
+        </p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:1.5rem;">
+        <div class="card card--flat" style="text-align:center;">
+          <div style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--gold);margin-bottom:0.5rem;">LONG CYCLES</div>
+          <div style="font-family:var(--font-mono);font-size:2rem;color:var(--text-primary);line-height:1.1;">79.7%</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">win rate · 64 positions · +$83.05 net</div>
+        </div>
+        <div class="card card--flat" style="text-align:center;">
+          <div style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--gold);margin-bottom:0.5rem;">SHORT CYCLES</div>
+          <div style="font-family:var(--font-mono);font-size:2rem;color:var(--text-primary);line-height:1.1;">38.5%</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">win rate · 13 positions · −$45.49 net</div>
+        </div>
+        <div class="card card--flat" style="text-align:center;">
+          <div style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--gold);margin-bottom:0.5rem;">COMBINED</div>
+          <div style="font-family:var(--font-mono);font-size:2rem;color:var(--text-primary);line-height:1.1;">72.7%</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">win rate · 77 cycles · +$37.56 net</div>
+        </div>
+      </div>
+
+      <div class="card card--flat">
+        <div class="card__title">Currently long-only.</div>
+        <p class="card__text">The short side underperformed in the current market regime — liquidation cascades on the downside more often produce follow-through than mean reversion, while upside cascades tend to revert cleanly. Shorts have been disabled at the configuration level pending further regime analysis. The vault currently runs in long-only mode. Max single-position drawdown across the live window was 11.8% against position notional.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6. HONEST LIMITS ═══ -->
   <section class="section section--alt">
     <div class="container container--narrow">
       <div class="text-center" style="margin-bottom:2rem;">
@@ -100,32 +168,32 @@
 
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Not a trend-follower</div>
-          <p class="card__text">Zones is mean-reversion. It enters when prices have dislocated and exits when they reconverge. In sustained directional markets without liquidation cascades, the engine simply sits on its hands.</p>
+          <div class="card__title" style="color:var(--gold);">Not regime-agnostic</div>
+          <p class="card__text">The strategy's edge is conditional on liquidation cascades overshooting their Max Pain anchor — the structural pattern that has held in the current market regime. If aggregated leverage profile changes materially, or if exchanges modify margin mechanics in ways that dampen cascade behaviour, the edge would degrade. The long-only restriction is itself an acknowledgement that the short-side variant of the same thesis is currently impaired.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Edge depends on cascade frequency</div>
-          <p class="card__text">In long quiet markets with low leverage and tight ranges, opportunities thin out and the engine produces less. The strategy works when there's something for it to mean-revert against.</p>
+          <div class="card__title" style="color:var(--gold);">Not high-frequency</div>
+          <p class="card__text">The proximity gate rejects most candidates most of the time. A typical scanner cycle produces ten ranked candidates; in practice, only two to three clear conviction and zero to one is close enough to L1 (within 2.0% of the band) to actually deploy. Capital is often idle waiting for setups that meet both filters simultaneously.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Capacity-limited</div>
-          <p class="card__text">The strategy operates on Hyperliquid order book depth. There's a real notional ceiling per coin before slippage degrades fills. Capacity scales with HL's liquidity, not infinitely.</p>
+          <div class="card__title" style="color:var(--gold);">Not protected against trend regimes</div>
+          <p class="card__text">If price breaks below L4 without bouncing — a regime where cascades follow through rather than reverse — the catastrophic stop fires for a meaningful loss. The 5% buffer below L3 provides room for L4 to fill, but it does not protect the position from trends that simply continue past the strategy's lowest deploy zone.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Statistical, not deterministic</div>
-          <p class="card__text">Drawdowns happen. Stops get hit. Some theses don't play out. The edge is statistical — past performance documents what the strategy has done, not what it will do.</p>
+          <div class="card__title" style="color:var(--gold);">Leveraged perpetuals carry liquidation risk</div>
+          <p class="card__text">Zones uses modest perpetual leverage. The catastrophic stop and per-position safeguards reduce tail risk, but Hyperliquid's standard liquidation mechanics still apply at the position level. The full deposit is at risk of loss.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 5. FINAL CTA ═══ -->
+  <!-- ═══ 7. FINAL CTA ═══ -->
   <section class="section">
     <div class="container container--narrow text-center">
       <div class="section-label">DEPOSIT INTO THE VAULT</div>
       <h2 class="section-title"><span class="gradient-text">10% profit share.</span><br>Self-custody, on-chain.</h2>
       <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
-        Deposit USDC into the Hyperliquid vault. The bot trades for you. Withdraw any time — fees only on profit.
+        Deposit USDC into the Hyperliquid vault. The strategy trades for you. Withdraw any time — fees only on profit.
       </p>
 
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
@@ -142,27 +210,27 @@
       </div>
 
       <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
-        Zones trades leveraged perpetual futures, which carries substantial risk of loss. Past performance does not guarantee future results.
+        Zones trades leveraged perpetual futures, which carries substantial risk of loss including the possibility of liquidation. Past performance does not guarantee future results.
       </div>
     </div>
   </section>
 
-  <!-- ═══ 6. RELATED ═══ -->
+  <!-- ═══ 8. RELATED ═══ -->
   <section class="section section--alt">
     <div class="container">
       <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
       <div class="grid-3">
         <a href="max-pain.html" class="card" style="text-decoration:none;">
           <div class="card__title">Max Pain →</div>
-          <p class="card__text">18-coin TradingView + Python hybrid on Hyperliquid. Different signal architecture. Tier-based sizing.</p>
+          <p class="card__text">Same liquidation-cascade thesis, different timing. Max Pain enters at single-shot exhaustion across 18 coins with per-coin parameter tuning. Hybrid TradingView + Python execution.</p>
         </a>
-        <a href="alpha.html" class="card" style="text-decoration:none;">
-          <div class="card__title">Alpha →</div>
-          <p class="card__text">Relative value spread engine on Hyperliquid. HYPE long anchor + weak altcoin shorts. Different return source.</p>
+        <a href="farms.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Farms →</div>
+          <p class="card__text">Same Max Pain anchor, different execution. Bidirectional concentric grids placed around the zone — monetises the oscillation rather than the entry-and-exit through it. ~50 perps scanned, 5 concurrent grids.</p>
         </a>
-        <a href="premia.html" class="card" style="text-decoration:none;">
-          <div class="card__title">Premia →</div>
-          <p class="card__text">Crypto options income on Deribit. Sells volatility premium against held coins.</p>
+        <a href="accumulator.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Accumulator →</div>
+          <p class="card__text">$7/mo signals service for the buy-the-dip retail investor. No leverage, execute on your own broker.</p>
         </a>
       </div>
     </div>
