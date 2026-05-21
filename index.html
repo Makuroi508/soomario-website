@@ -21,6 +21,80 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="canonical" href="https://soomariostrategies.com/">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+  <!-- Whop embedded checkout — async, mounts iframes on demand -->
+  <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
+
+  <style>
+    /* ── Embedded checkout modal ─────────────────────────────── */
+    .checkout-modal {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(13, 10, 18, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .checkout-modal.is-open { display: flex; }
+    .checkout-card {
+      position: relative;
+      width: 100%; max-width: 480px;
+      max-height: 92vh; overflow-y: auto;
+      background: var(--bg-card, #1a1625);
+      border: 1px solid rgba(212, 168, 67, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 80px rgba(212,168,67,0.08);
+      padding: 1.5rem;
+    }
+    .checkout-close {
+      position: absolute; top: 0.85rem; right: 0.85rem;
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(255,255,255,0.04); border: none;
+      color: var(--text-muted, #888); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .checkout-close:hover { background: rgba(255,255,255,0.10); color: #fff; }
+    .checkout-host {
+      min-height: 540px;
+      background: #0d0a12;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .checkout-host iframe {
+      width: 100% !important; border: none !important;
+      min-height: 540px; display: block;
+    }
+
+    /* ── Founding-member badge ───────────────────────────────── */
+    .founding-badge {
+      display: inline-flex; align-items: center;
+      gap: 0.6rem; flex-wrap: wrap; justify-content: center;
+      padding: 0.55rem 1.1rem; margin-top: 1.25rem;
+      border-radius: 100px;
+      border: 1px solid rgba(212, 168, 67, 0.3);
+      background: linear-gradient(135deg, rgba(212,168,67,0.10), rgba(212,168,67,0.02));
+      font-size: 0.8rem;
+    }
+    .founding-badge__label {
+      font-family: var(--font-display, 'Orbitron', sans-serif);
+      letter-spacing: 0.15em;
+      color: var(--gold, #D4A843);
+      font-weight: 700; font-size: 0.65rem;
+    }
+    .founding-badge__sep { color: rgba(212, 168, 67, 0.35); }
+    .founding-badge__price { color: var(--text-primary, #fff); font-weight: 600; }
+    .founding-badge__locked {
+      color: var(--text-muted, #999);
+      font-style: italic; font-size: 0.7rem; margin-left: 0.3rem;
+    }
+    .founding-badge__count {
+      font-family: var(--font-display, 'Orbitron', sans-serif);
+      color: var(--green, #4ade80);
+      font-weight: 600; font-size: 0.7rem; letter-spacing: 0.04em;
+    }
+  </style>
 </head>
 <body>
 
@@ -47,8 +121,17 @@
 
       <p class="hero__sub" style="margin-top:1.5rem;">7-DAY FREE TRIAL · TELEGRAM SIGNALS · CANCEL ANYTIME</p>
 
+      <!-- Founding-member badge — live counter via /api/founding-status -->
+      <div class="founding-badge" id="foundingBadge">
+        <span class="founding-badge__label">⚡ FOUNDING MEMBER</span>
+        <span class="founding-badge__sep">·</span>
+        <span class="founding-badge__price">$<span id="foundingPrice">7</span>/mo<span class="founding-badge__locked">locked for life</span></span>
+        <span class="founding-badge__sep">·</span>
+        <span class="founding-badge__count"><span id="foundingCount">194</span> of <span id="foundingLimit">200</span> spots remaining</span>
+      </div>
+
       <div class="hero__ctas">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Try Accumulator Free for 7 Days →</a>
+        <button type="button" onclick="openCheckoutModal()" class="btn btn--primary btn--lg" style="cursor:pointer;border:none;font:inherit;">Try Accumulator Free for 7 Days →</button>
         <a href="#showcase" class="btn btn--ghost btn--lg">See live performance ↓</a>
       </div>
 
@@ -185,7 +268,7 @@
       </div>
 
       <div class="scaler__cta">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Get these signals — 7 days free →</a>
+        <button type="button" onclick="openCheckoutModal()" class="btn btn--primary btn--lg" style="cursor:pointer;border:none;font:inherit;">Get these signals — 7 days free →</button>
       </div>
       <p class="scaler__disclaimer">
         Values scale linearly from the live $1,500/month model. Past performance doesn't guarantee future results — but these are real signals, real prices, and real timestamps since Feb 9, 2026.
@@ -406,7 +489,7 @@
       </div>
 
       <div class="text-center" style="margin-top:1.75rem;">
-        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--outline btn--lg">Start following these signals →</a>
+        <button type="button" onclick="openCheckoutModal()" class="btn btn--outline btn--lg" style="cursor:pointer;border:none;font:inherit;">Start following these signals →</button>
       </div>
     </div>
   </section>
@@ -448,7 +531,7 @@
       <p class="section-subtitle" style="margin:0 auto 2rem;max-width:560px;">
         Seven days free. Cancel any time. Your first signal usually fires within 24 hours.
       </p>
-      <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Start Free Trial →</a>
+      <button type="button" onclick="openCheckoutModal()" class="btn btn--primary btn--lg" style="cursor:pointer;border:none;font:inherit;">Start Free Trial →</button>
       <div style="margin-top:1rem;font-size:0.85rem;color:var(--text-muted);">$7/month after trial · cancel in one click</div>
     </div>
   </section>
@@ -733,6 +816,133 @@
     load();
     setInterval(load, 60000);
   })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- WHOP EMBEDDED CHECKOUT MODAL                            -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!--
+    The data-whop-checkout-plan-id attribute is set lazily on first open
+    (via openCheckoutModal below) so the Whop iframe doesn't load for every
+    page visitor — only for those who click Subscribe.
+  -->
+  <div id="checkoutModal" class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <div class="checkout-card">
+      <button class="checkout-close" onclick="closeCheckoutModal()" aria-label="Close">✕</button>
+      <div>
+        <div style="font-family:var(--font-display,'Orbitron',sans-serif);font-size:0.62rem;letter-spacing:0.18em;color:var(--gold,#D4A843);font-weight:700;margin-bottom:0.5rem;">⚡ FOUNDING MEMBER · $7/MO LOCKED FOR LIFE</div>
+        <div id="checkoutTitle" style="font-family:var(--font-heading,'Cinzel',serif);font-size:1.35rem;color:var(--text-primary,#fff);font-weight:600;">Soomario Accumulator</div>
+        <div id="checkoutSubtitle" style="font-size:0.9rem;color:var(--text-secondary,#bbb);margin-top:0.4rem;line-height:1.5;">
+          7-day free trial · then $7/mo · locked for life · cancel anytime
+        </div>
+      </div>
+      <div id="checkoutHost" class="checkout-host"></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:0.85rem;font-size:0.68rem;color:var(--text-muted,#888);letter-spacing:0.06em;margin-top:1rem;flex-wrap:wrap;">
+        <span>🔒 SECURE</span>
+        <span>·</span>
+        <span>POWERED BY WHOP</span>
+        <span>·</span>
+        <span>CANCEL ANYTIME</span>
+      </div>
+      <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:0.75rem;font-size:0.75rem;color:var(--gold,#D4A843);text-decoration:underline;">
+        Having trouble? Open checkout on whop.com →
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // ── Founding-member status — live counter ───────────────────
+    // Hits the dashboard API for the live taken/limit count and
+    // updates DOM in place. Fails silently — the page already has a
+    // sane hardcoded fallback (194/200) so first paint always looks right.
+    (function(){
+      var API = 'https://accumulator.soomariostrategies.com/api/founding-status';
+      function $(id){ return document.getElementById(id); }
+      async function load(){
+        try {
+          var res = await fetch(API);
+          if (!res.ok) return;
+          var d = await res.json();
+          if (d.full) {
+            // Post-cap — hide founding badge, swap modal subtitle to public price
+            if ($('foundingBadge')) $('foundingBadge').style.display = 'none';
+            if ($('checkoutSubtitle')) $('checkoutSubtitle').textContent =
+              '7-day free trial · then $' + d.public_price.toFixed(2) + '/mo · cancel anytime';
+            return;
+          }
+          if ($('foundingPrice')) $('foundingPrice').textContent = d.founding_price;
+          if ($('foundingCount')) {
+            $('foundingCount').textContent = d.spots_left;
+            // Color-shift as scarcity intensifies
+            var parent = $('foundingCount').parentElement;
+            if (d.spots_left < 20)      parent.style.color = '#f97316';   // orange
+            else if (d.spots_left < 50) parent.style.color = '#facc15';   // yellow
+          }
+          if ($('foundingLimit')) $('foundingLimit').textContent = d.limit;
+        } catch(e){ /* swallow — keep fallback values */ }
+      }
+      load();
+      setInterval(load, 60000);  // refresh every minute
+    })();
+
+    // ── Whop embedded checkout modal ────────────────────────────
+    (function(){
+      // ⚠️ Plan ID for the Accumulator $7/mo founding plan.
+      // When you flip to $19.99 after 200 subscribers, create the new plan
+      // in Whop and update this constant — that's the only frontend change
+      // needed (the API auto-detects full=true and flips the rest of the copy).
+      var WHOP_PLAN_ID = 'plan_WoyAdxmXyiNsE';
+
+      // Where Whop sends users after a successful checkout. The dashboard
+      // detects ?welcome=1 to (a) poll for membership propagation, and
+      // (b) jump straight into the activation step (Telegram + Discord).
+      var RETURN_URL = 'https://accumulator.soomariostrategies.com/auth/whop/login?welcome=1';
+
+      var modal = document.getElementById('checkoutModal');
+      var host = document.getElementById('checkoutHost');
+      var mounted = false;
+
+      window.openCheckoutModal = function(){
+        // Safety fallback — if someone clears WHOP_PLAN_ID, open hosted Whop instead
+        if (!WHOP_PLAN_ID || WHOP_PLAN_ID === 'WHOP_PLAN_ID_HERE') {
+          window.open('https://whop.com/soomario-strategies/soomario-accumulator/', '_blank', 'noopener');
+          return;
+        }
+        if (!mounted) {
+          host.setAttribute('data-whop-checkout-plan-id', WHOP_PLAN_ID);
+          host.setAttribute('data-whop-checkout-return-url', RETURN_URL);
+          host.setAttribute('data-whop-checkout-theme', 'dark');
+          mounted = true;
+          // Nudge the Whop loader if it's already on the page
+          var scan = function(){
+            if (window.wco && typeof window.wco.scan === 'function') {
+              window.wco.scan();
+            } else {
+              setTimeout(scan, 200);
+            }
+          };
+          scan();
+        }
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      };
+      window.closeCheckoutModal = function(){
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+      // Backdrop click closes (but clicking inside the card does not)
+      modal.addEventListener('click', function(e){
+        if (e.target === modal) closeCheckoutModal();
+      });
+      // Escape key closes
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeCheckoutModal();
+      });
+      // Deep-link support: soomariostrategies.com#subscribe auto-opens checkout
+      if (window.location.hash === '#subscribe') {
+        window.addEventListener('load', function(){ setTimeout(window.openCheckoutModal, 200); });
+      }
+    })();
   </script>
 
 </body>
