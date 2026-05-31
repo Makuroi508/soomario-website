@@ -4,165 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="The Soomario Strategies Platform Whitepaper — a unified account of how nine systematic trading strategies operate, the analytical toolkit they share, and the risk controls that bound them.">
-  <meta property="og:title" content="Platform Whitepaper — Soomario Strategies">
-  <meta property="og:description" content="Nine systematic strategies. One discipline. The complete platform credential.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://soomariostrategies.com/tools/whitepaper.html">
-  <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
+  <meta name="description" content="Soomario Strategies Whitepaper v2.1 — Complete technical documentation of all 6 algorithmic trading products.">
   <title>Whitepaper — Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="icon" href="../soomario-logo.png">
   <link rel="canonical" href="https://soomariostrategies.com/tools/whitepaper.html">
 </head>
 <body>
 
-  <!-- ═══ 1. HERO ═══ -->
-  <section class="section" style="padding-top:3rem;">
+  <section class="section" style="padding-top:2rem;">
     <div class="container container--narrow text-center">
-      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">VERSION 1.0 · APRIL 2026</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">9 STRATEGIES · 1 DOCUMENT</span>
-      </div>
-      <div class="section-label">PLATFORM CREDENTIAL</div>
-      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1.25rem;">
-        <span class="gradient-text">The Platform</span><br>
-        <span style="color:var(--text-primary);">Whitepaper</span>
+      <div class="section-label">DOCUMENTATION</div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem);">
+        <span class="gradient-text">Soomario Whitepaper</span>
       </h1>
-      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:660px;margin:0 auto 2.25rem;line-height:1.65;">
-        A unified account of how we trade. Nine systematic strategies, one discipline — what we analyse, why we analyse it, and what we deliberately leave on the table. The data is public. The systematic application is rare.
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">
+        Complete technical documentation covering all 6 products: strategy architecture, signal mechanics, risk management, backtested performance, and vault operations.
       </p>
 
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
-        <a href="../whitepapers/platform.html" class="btn btn--primary btn--lg">Read the Whitepaper →</a>
-        <a href="../index.html#strategies" class="btn btn--outline btn--lg">Browse Strategies</a>
-      </div>
-
-      <div style="font-size:0.82rem;color:var(--text-muted);max-width:560px;margin:0.5rem auto 0;line-height:1.6;">
-        Opens as a styled HTML document in your browser. The whitepaper page has a built-in <em>Print / Save PDF</em> button — the layout is print-optimised.
+      <div class="card" style="max-width:400px;margin:0 auto;text-align:center;">
+        <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.5rem;">VERSION 2.1 · MARCH 2026</div>
+        <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--text-gold);margin-bottom:1.5rem;">Soomario_Whitepaper_v2.1.docx</div>
+        <a href="../Soomario_Whitepaper_v2.1.docx" download class="btn btn--primary" style="width:100%;">Download Whitepaper (.docx) ↓</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 2. CONTENTS ═══ -->
   <section class="section section--alt">
     <div class="container container--narrow">
-      <div class="text-center" style="margin-bottom:2.25rem;">
-        <div class="section-label">CONTENTS</div>
-        <h2 class="section-title"><span class="gradient-text">What's inside</span></h2>
-        <p style="color:var(--text-secondary);max-width:560px;margin:1rem auto 0;line-height:1.65;">
-          Eight sections, organised so the whole platform reads as one credential — and any single chapter is enough to evaluate one strategy on its own terms.
-        </p>
+      <div class="section-label">CONTENTS</div>
+      <h2 class="section-title" style="font-size:1.4rem;"><span class="gradient-text">What's Inside</span></h2>
+
+      <div style="display:grid;gap:1rem;margin-top:1.5rem;">
+        <div class="card card--flat">
+          <div class="card__title">Product Architecture</div>
+          <p class="card__text">6-product lineup, pricing, platforms, strategy classification, and how each product fits into the ecosystem.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Signal Engine</div>
+          <p class="card__text">RSI, volume z-score, and moving average displacement — the quantitative foundation behind Accumulator signals.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Max Pain Strategies</div>
+          <p class="card__text">20 independently-tuned momentum/reversal strategies. Per-coin RSI crossover settings, Supertrend parameters, and signal reversal mechanics.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Elite Portfolio</div>
+          <p class="card__text">3-bot architecture (HYPE, AVAX, SOL), Soomario v3 strategy, full backtest data including Sharpe, Sortino, profit factor, and drawdown.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Contrarian Pipeline</div>
+          <p class="card__text">Fear & Greed scanner, 5-stage validator (RSI → Z-Score → Momentum → Confluence → Execution), risk controls.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Max Pain &amp; Farms</div>
+          <p class="card__text">Liquidation zone aggregation, DCA entry mechanics (Max Pain — formerly the Zones strategy), and conviction-DCA tranche engine with farmability scoring (Farms).</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Risk Disclosure</div>
+          <p class="card__text">Comprehensive risk warnings, leverage mechanics, drawdown expectations, and how Soomario manages risk across all products.</p>
+        </div>
       </div>
 
-      <div style="display:grid;gap:0.85rem;">
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">I.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">Executive Summary</div>
-            <p class="card__text" style="margin:0;">The strategy family at a glance. Eight vault products at 10% performance fee plus the Accumulator subscription. Venues, asset classes, status — all in one table.</p>
-          </div>
-        </div>
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">II.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">Investment Philosophy</div>
-            <p class="card__text" style="margin:0;">The thesis under every strategy: most edge in retail-accessible markets is already in public data. The structural inefficiency lies in how few participants apply that data systematically, with discipline, in the face of regimes that punish discretion.</p>
-          </div>
-        </div>
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">III.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">The Analytical Toolkit</div>
-            <p class="card__text" style="margin:0;">Fourteen analytical categories the platform draws on — momentum oscillators, volume anomaly, statistical Z-scores, trend direction, open interest and funding, liquidation density, regime indicators, multi-timeframe confluence, event-driven signals, and more. Categorical, not parametric.</p>
-          </div>
-        </div>
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">IV.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">The Strategies — 9 Chapters</div>
-            <p class="card__text" style="margin:0 0 0.65rem;">A uniformly-structured chapter for each strategy: thesis, analytical inputs from the toolkit, position lifecycle, risk controls, and honest limits.</p>
-            <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-muted);line-height:1.7;">
-              Alpha · Max Pain · Elite · Aphelion · Premia · Rotation · Zones · Farms · Accumulator
-            </div>
-          </div>
-        </div>
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">V.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">Risk Management Framework</div>
-            <p class="card__text" style="margin:0;">Capital protection layers: exchange-side stops, bot-side redundancy, reconcile guards, portfolio-level circuit breakers. Why diversification across decoupled strategies is structural, not cosmetic.</p>
-          </div>
-        </div>
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">VI.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">Infrastructure &amp; Transparency</div>
-            <p class="card__text" style="margin:0;">The technology stack, the data sources, the transparency commitments. Vault addresses are public; positions are visible on-chain in real time. The system is its own audit.</p>
-          </div>
-        </div>
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">VII.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">Honest Limits &amp; Disclosures</div>
-            <p class="card__text" style="margin:0;">What Soomario is not. Operational risks. Smart contract and protocol risk. Regulatory framing. The full disclaimer.</p>
-          </div>
-        </div>
-
-        <div class="card card--flat" style="display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:start;">
-          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-gold);min-width:2.4rem;">VIII.</div>
-          <div>
-            <div class="card__title" style="margin-bottom:0.35rem;">Appendix &amp; Glossary</div>
-            <p class="card__text" style="margin:0;">Glossary of analytical terms, execution venues table, strategy index by analytical input, references and further reading.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 3. THE SECRET-SAUCE RULE ═══ -->
-  <section class="section">
-    <div class="container container--narrow">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">A NOTE ON WHAT'S INSIDE</div>
-        <h2 class="section-title"><span class="gradient-text">Categorical, not parametric</span></h2>
-      </div>
-
-      <div class="card" style="border-color:var(--border-strong);">
-        <p class="card__text" style="font-size:1.05rem;line-height:1.7;margin:0;">
-          The whitepaper describes <strong style="color:var(--text-gold);">every category of analysis</strong> the platform applies and the rationale for applying it. It does <em>not</em> publish exact indicator periods, weights, threshold values, leverage tier assignments, DCA percentages, or scoring formulas. The categorical description is sufficient for a sophisticated reader to evaluate whether the platform's analytical stance fits their understanding of the markets it trades. The exact numerical implementation is the operational edge — and stays operational.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 4. FINAL CTA ═══ -->
-  <section class="section section--alt">
-    <div class="container container--narrow text-center">
-      <div class="section-label">READ NOW</div>
-      <h2 class="section-title"><span class="gradient-text">Open the whitepaper</span></h2>
-      <p class="section-subtitle" style="margin:1rem auto 2.25rem;max-width:540px;">
-        Roughly 25 pages, fully styled. Reads in the browser; prints clean to PDF.
-      </p>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
-        <a href="../whitepapers/platform.html" class="btn btn--primary btn--lg">Read the Whitepaper →</a>
-        <a href="../products/accumulator.html" class="btn btn--outline btn--lg">Try Accumulator — $7/mo</a>
-      </div>
-
-      <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;">
-        Soomario strategies trade leveraged perpetual futures and options, which carry substantial risk of loss including the possibility of liquidation. Past performance does not guarantee future results.
+      <div class="text-center" style="margin-top:2rem;">
+        <a href="../Soomario_Whitepaper_v2.1.docx" download class="btn btn--outline">Download Whitepaper ↓</a>
       </div>
     </div>
   </section>
