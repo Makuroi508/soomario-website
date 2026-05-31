@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0F0B14">
-  <meta name="description" content="AUREUS — a tokenized fund protocol on Arbitrum. Members deposit USDC, the Aerarium deploys across Soomario Strategies, profits distribute weekly. Continuous on-chain proof of reserves. Currently pre-launch, Sepolia trial complete.">
-  <meta property="og:title" content="AUREUS — Tokenized Fund Protocol">
-  <meta property="og:description" content="A tokenized fund protocol on Arbitrum, operated by Soomario Strategies. Aerarium · Forge · Recovery. Sepolia trial complete; mainnet pending pre-launch security testing.">
+  <meta name="theme-color" content="#1a1625">
+  <meta name="description" content="AUREUS — deposit USDC, earn bi-weekly distributions from algorithmic trading strategies, exit any time. Live on Arbitrum One. Verifiable on-chain. 80% of every profitable epoch to stakers.">
+  <meta property="og:title" content="AUREUS — Bi-weekly yield on Arbitrum One">
+  <meta property="og:description" content="Deposit USDC. Earn bi-weekly USDC distributions. Exit any time. Verifiable on-chain.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://soomariostrategies.com/aureus/">
   <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
-  <title>AUREUS — Tokenized Fund Protocol on Arbitrum | Soomario Strategies</title>
+  <title>AUREUS — Bi-weekly USDC yield on Arbitrum One | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,394 +18,484 @@
   <link rel="icon" href="../soomario-logo.png">
   <link rel="canonical" href="https://soomariostrategies.com/aureus/">
   <style>
-    /* AUREUS design tokens (Imperial Treasury palette — locked) */
-    .au-scope {
-      --au-bg: #0F0B14;
-      --au-surface: #17121F;
-      --au-elevated: #21192B;
-      --au-border: #30263C;
-      --au-border-strong: #4A3B5D;
-      --au-gold: #C9A44C;
-      --au-gold-bright: #E0C676;
-      --au-bronze: #8B6B3F;
-      --au-purple-imperial: #4B365F;
-      --au-plum-deep: #2B1F38;
-      --au-success: #5FA777;
-      --au-alert: #C96B5D;
-      --au-text: #F2EAD9;
-      --au-text-secondary: #B8AC99;
-      --au-text-muted: #756B5E;
-      --au-hairline: rgba(201, 164, 76, 0.15);
-
-      background: var(--au-bg);
-      color: var(--au-text);
-      font-family: Inter, system-ui, sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
+    /* Aureus product page - scoped overrides for the Imperial Treasury feel */
+    .au {
+      --au-bg: var(--bg-page);
+      --au-panel: var(--purple-card);
+      --au-border: rgba(201, 169, 97, 0.18);
+      --au-border-strong: rgba(201, 169, 97, 0.35);
     }
-    .au-scope * { box-sizing: border-box; }
-
-    /* Typography */
-    .au-display { font-family: Cinzel, serif; font-weight: 700; font-size: 64px; letter-spacing: 0.05em; line-height: 1; color: var(--au-text); margin: 0; }
-    .au-title-1 { font-family: Cinzel, serif; font-weight: 600; font-size: 32px; letter-spacing: 0.05em; line-height: 1.2; color: var(--au-text); margin: 0; }
-    .au-title-2 { font-family: Cinzel, serif; font-weight: 600; font-size: 22px; letter-spacing: 0.06em; line-height: 1.3; color: var(--au-text); margin: 0; }
-    .au-body-large { font-size: 16px; line-height: 1.65; color: var(--au-text); }
-    .au-body { font-size: 14px; line-height: 1.65; color: var(--au-text-secondary); }
-    .au-eyebrow { font-family: Inter, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--au-bronze); }
-    .au-italic { font-family: Cinzel, serif; font-style: italic; font-weight: 400; }
-    .au-data { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-variant-numeric: tabular-nums lining-nums; color: var(--au-text); }
-    .au-data-large { font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 500; font-variant-numeric: tabular-nums lining-nums; color: var(--au-text); }
-    .au-caption { font-size: 12px; color: var(--au-text-muted); }
-
-    /* Layout */
-    .au-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    .au-section { padding: 80px 0; }
-    .au-section-tight { padding: 48px 0; }
 
     /* Hero */
-    .au-hero { padding: 120px 0 80px; text-align: center; }
-    .au-hero__eyebrow-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px; }
-    .au-trace { height: 1px; background: linear-gradient(90deg, transparent, var(--au-gold) 50%, transparent); flex: 0 0 80px; max-width: 80px; }
-    .au-hero__subtitle { font-family: Cinzel, serif; font-style: italic; font-size: 18px; color: var(--au-bronze); margin-top: 14px; letter-spacing: 0.05em; }
-    .au-hero__lede { max-width: 580px; margin: 32px auto 40px; color: var(--au-text-secondary); font-size: 16px; line-height: 1.7; }
-    .au-cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .au-hero { padding: 5rem 0 4rem; text-align: center; }
+    .au-hero__eyebrow { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 1.5rem; }
+    .au-hero__title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(3rem, 8vw, 5.5rem); letter-spacing: 0.08em; color: var(--text-primary); line-height: 1; margin: 0 0 1rem; }
+    .au-hero__subtitle { font-family: var(--font-heading); font-style: italic; font-weight: 400; font-size: clamp(1rem, 1.8vw, 1.2rem); color: var(--gold-dim); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.55; letter-spacing: 0.02em; }
+    .au-hero__stats { display: flex; gap: 3rem; justify-content: center; margin: 2.5rem 0 2.5rem; flex-wrap: wrap; }
+    .au-stat-pill__value { font-family: var(--font-mono); font-size: 1.6rem; color: var(--gold); font-variant-numeric: tabular-nums lining-nums; font-weight: 500; }
+    .au-stat-pill__label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.4rem; }
+    .au-hero__cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; align-items: center; }
+    .au-hero__cta-row a.btn { font-family: var(--font-heading); letter-spacing: 0.08em; font-size: 0.85rem; }
+    .au-secondary-link { font-family: var(--font-sans); font-size: 0.95rem; color: var(--gold); text-decoration: none; padding: 0.5rem 1rem; }
+    .au-secondary-link:hover { color: var(--gold-light); }
 
-    /* Status pill */
-    .au-pill { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--au-bronze); color: var(--au-bronze); border-radius: 0; }
-    .au-pill--success { border-color: var(--au-success); color: var(--au-success); }
-    .au-pill--gold { border-color: var(--au-gold); color: var(--au-gold); }
-    .au-pill__dot { width: 4px; height: 4px; background: currentColor; }
+    /* Trust bar */
+    .au-trustbar { background: rgba(15, 10, 26, 0.65); border-top: 1px solid var(--au-border); border-bottom: 1px solid var(--au-border); padding: 1rem 0; }
+    .au-trustbar__inner { display: flex; justify-content: center; align-items: center; gap: 0.75rem 2rem; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--text-secondary); text-align: center; }
+    .au-trustbar__sep { color: var(--gold); }
 
-    /* Buttons */
-    .au-btn { font-family: Inter, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border: 1px solid var(--au-gold); color: var(--au-gold); background: transparent; cursor: pointer; text-decoration: none; display: inline-block; transition: color 120ms, border-color 120ms; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
-    .au-btn:hover { color: var(--au-gold-bright); border-color: var(--au-gold-bright); }
-    .au-btn--ghost { border-color: var(--au-border-strong); color: var(--au-text-secondary); }
-    .au-btn--ghost:hover { color: var(--au-text); border-color: var(--au-bronze); }
+    /* Section eyebrows + headings */
+    .au-eyebrow { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.75rem; }
+    .au-h2 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.75rem, 3.5vw, 2.4rem); letter-spacing: 0.04em; color: var(--text-primary); margin: 0 0 1rem; line-height: 1.15; }
+    .au-section { padding: 4.5rem 0; }
+    .au-section--tight { padding: 3rem 0; }
 
-    /* Section header */
-    .au-section-header { margin-bottom: 48px; text-align: center; }
-    .au-section-header .au-eyebrow { display: block; margin-bottom: 16px; color: var(--au-gold); }
+    /* Card-cut motif for panels */
+    .au-card { background: var(--au-panel); border: 1px solid var(--au-border); padding: 1.75rem; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px)); }
+    .au-card--gold-border { border-color: var(--au-border-strong); }
+    .au-card__num { font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+    .au-card__title { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; color: var(--text-primary); letter-spacing: 0.04em; margin-bottom: 0.6rem; }
+    .au-card__body { font-family: var(--font-sans); font-size: 0.96rem; line-height: 1.65; color: var(--text-secondary); }
+    .au-card__fee { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold); border: 1px solid var(--au-border-strong); padding: 0.2rem 0.6rem; margin-left: 0.5rem; vertical-align: middle; letter-spacing: 0.06em; }
 
-    /* Pillar cards (two-corner cut, top-right + bottom-left) */
-    .au-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .au-pillar { background: var(--au-surface); border: 1px solid var(--au-border); padding: 32px 28px 28px; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px)); }
-    .au-pillar__numeral { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: var(--au-gold); margin-bottom: 12px; }
-    .au-pillar__title { font-family: Cinzel, serif; font-weight: 600; font-size: 22px; letter-spacing: 0.06em; color: var(--au-text); margin: 0 0 6px; }
-    .au-pillar__sub { font-family: Cinzel, serif; font-style: italic; font-size: 13px; color: var(--au-bronze); margin-bottom: 24px; }
-    .au-pillar__body { font-size: 14px; line-height: 1.65; color: var(--au-text-secondary); margin-bottom: 20px; }
-    .au-data-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--au-hairline); font-family: 'JetBrains Mono', monospace; font-size: 13px; }
-    .au-data-row__label { color: var(--au-text-muted); }
-    .au-data-row__value { color: var(--au-gold); }
-
-    /* How it works steps */
-    .au-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .au-step { background: var(--au-surface); border: 1px solid var(--au-border); padding: 24px 20px; }
-    .au-step__num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--au-bronze); margin-bottom: 12px; }
-    .au-step__title { font-family: Cinzel, serif; font-weight: 600; font-size: 15px; letter-spacing: 0.05em; color: var(--au-text); margin-bottom: 8px; }
-    .au-step__body { font-size: 13px; line-height: 1.55; color: var(--au-text-secondary); }
-
-    /* Transparency cards */
-    .au-transparency { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .au-trans-card { background: var(--au-surface); border: 1px solid var(--au-border); padding: 28px; }
-    .au-trans-card__title { font-family: Cinzel, serif; font-weight: 600; font-size: 18px; letter-spacing: 0.05em; color: var(--au-text); margin-bottom: 6px; }
-    .au-trans-card__sub { font-family: Cinzel, serif; font-style: italic; font-size: 12px; color: var(--au-bronze); margin-bottom: 18px; }
-    .au-trans-card__body { font-size: 13px; line-height: 1.65; color: var(--au-text-secondary); margin-bottom: 18px; }
-
-    /* Recovery section */
-    .au-recovery { background: var(--au-surface); border: 1px solid var(--au-border); padding: 48px; clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
-    .au-recovery__grid { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
-    .au-recovery__stats { display: flex; flex-direction: column; gap: 16px; }
-    .au-stat { padding: 16px 18px; background: var(--au-elevated); border: 1px solid var(--au-border); }
-    .au-stat__label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--au-text-muted); margin-bottom: 6px; }
-    .au-stat__value { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 500; color: var(--au-gold); }
-
-    /* Roadmap */
-    .au-roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .au-phase { padding: 24px 20px; background: var(--au-surface); border: 1px solid var(--au-border); position: relative; }
-    .au-phase--active { border-color: var(--au-gold); }
-    .au-phase__step { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--au-bronze); margin-bottom: 10px; }
-    .au-phase--active .au-phase__step { color: var(--au-gold); }
-    .au-phase__name { font-family: Cinzel, serif; font-weight: 600; font-size: 14px; letter-spacing: 0.05em; color: var(--au-text); margin-bottom: 6px; }
-    .au-phase__when { font-size: 12px; color: var(--au-text-muted); }
-
-    /* Hairline divider */
-    .au-hr { height: 1px; background: var(--au-hairline); border: 0; margin: 0; }
-
-    /* Limits / honest notes */
-    .au-note { background: var(--au-plum-deep); border-left: 2px solid var(--au-bronze); padding: 20px 24px; margin: 32px 0; font-size: 13px; line-height: 1.7; color: var(--au-text-secondary); }
-    .au-note strong { color: var(--au-text); font-weight: 500; }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .au-display { font-size: 44px; }
-      .au-pillars, .au-transparency { grid-template-columns: 1fr; }
-      .au-steps, .au-roadmap { grid-template-columns: repeat(2, 1fr); }
-      .au-recovery__grid { grid-template-columns: 1fr; gap: 32px; }
-      .au-section { padding: 56px 0; }
-      .au-hero { padding: 80px 0 56px; }
+    /* Two-column layouts */
+    .au-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .au-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .au-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    @media (max-width: 860px) {
+      .au-grid-3, .au-grid-2 { grid-template-columns: 1fr; }
+      .au-grid-4 { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 600px) {
-      .au-steps, .au-roadmap { grid-template-columns: 1fr; }
-      .au-recovery { padding: 28px 20px; }
+
+    /* Split bar visual */
+    .au-split { display: flex; height: 56px; border: 1px solid var(--au-border-strong); margin: 1.5rem 0 1rem; overflow: hidden; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+    .au-split__seg { display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 500; font-size: 0.95rem; letter-spacing: 0.04em; padding: 0 0.5rem; text-align: center; }
+    .au-split__seg--gold { background: rgba(201, 169, 97, 0.85); color: #1a1625; }
+    .au-split__seg--mid { background: rgba(201, 169, 97, 0.25); color: var(--text-primary); }
+    .au-split__seg--dim { background: rgba(201, 169, 97, 0.12); color: var(--text-secondary); }
+    .au-split__seg--recover { background: rgba(139, 122, 74, 0.45); color: var(--text-primary); }
+    .au-split-table { width: 100%; margin: 1rem 0 0; font-family: var(--font-sans); font-size: 0.9rem; color: var(--text-secondary); }
+    .au-split-table th, .au-split-table td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--au-border); }
+    .au-split-table th { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+    .au-split-table td:first-child, .au-split-table th:first-child { font-family: var(--font-mono); color: var(--gold); }
+    .au-caption { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.6; }
+
+    /* Formula card */
+    .au-formula { background: var(--bg-page); border: 1px solid var(--au-border-strong); padding: 1.25rem 1.5rem; font-family: var(--font-mono); font-size: 0.88rem; color: var(--text-primary); line-height: 1.7; white-space: pre-wrap; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+
+    /* Pull-out figures */
+    .au-figures { display: flex; gap: 2rem; margin: 1.5rem 0 0; flex-wrap: wrap; }
+    .au-figure__value { font-family: var(--font-mono); font-size: 1.5rem; color: var(--gold); font-variant-numeric: tabular-nums lining-nums; font-weight: 500; line-height: 1; }
+    .au-figure__label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.4rem; }
+
+    /* Disclaimer block */
+    .au-disclaimer { background: rgba(248, 113, 113, 0.05); border-left: 2px solid rgba(248, 113, 113, 0.45); padding: 1rem 1.25rem; margin-top: 1.5rem; font-family: var(--font-sans); font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Addresses table */
+    .au-addr-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.82rem; }
+    .au-addr-table th, .au-addr-table td { padding: 0.75rem 0.5rem; text-align: left; border-bottom: 1px solid var(--au-border); }
+    .au-addr-table th { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .au-addr-table td:first-child { color: var(--text-primary); }
+    .au-addr-table .au-addr-monoval { color: var(--gold); word-break: break-all; }
+    .au-addr-table a { color: var(--text-muted); text-decoration: none; margin-left: 0.5rem; transition: color 120ms; }
+    .au-addr-table a:hover { color: var(--gold); }
+    .au-addr-table button { background: transparent; border: 1px solid var(--au-border); color: var(--text-muted); padding: 0.15rem 0.5rem; font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer; margin-left: 0.5rem; transition: all 120ms; }
+    .au-addr-table button:hover { color: var(--gold); border-color: var(--gold); }
+    .au-addr-table button.copied { color: var(--green); border-color: var(--green); }
+    @media (max-width: 700px) {
+      .au-addr-section { overflow-x: auto; }
+      .au-addr-table { min-width: 600px; }
     }
+
+    /* CAN / CANNOT lists */
+    .au-cancannot { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .au-cancannot__col { background: var(--au-panel); border: 1px solid var(--au-border); padding: 1.5rem 1.75rem; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px)); }
+    .au-cancannot__col--can { border-color: var(--au-border-strong); }
+    .au-cancannot__title { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .au-cancannot__col--can .au-cancannot__title { color: var(--gold); }
+    .au-cancannot__col--cannot .au-cancannot__title { color: var(--text-secondary); }
+    .au-cancannot__list { list-style: none; padding: 0; margin: 0; font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+    .au-cancannot__list li { padding: 0.35rem 0 0.35rem 1.5rem; position: relative; border-bottom: 1px solid var(--au-border); }
+    .au-cancannot__list li:last-child { border-bottom: none; }
+    .au-cancannot__list li::before { content: "·"; position: absolute; left: 0.5rem; color: var(--gold); font-weight: 700; }
+    @media (max-width: 700px) { .au-cancannot { grid-template-columns: 1fr; } }
+
+    /* Risk section */
+    .au-risk__title { color: #f87171; font-family: var(--font-heading); font-weight: 600; font-size: 1.8rem; letter-spacing: 0.04em; margin: 0 0 1.25rem; }
+    .au-risk__list { font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); padding-left: 1.25rem; }
+    .au-risk__list li { margin-bottom: 0.5rem; }
+    .au-risk__caption { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); margin-top: 1.25rem; }
+
+    /* CTA panel */
+    .au-cta-panel { max-width: 720px; margin: 0 auto; padding: 2.5rem 2rem; background: var(--au-panel); border: 1px solid var(--au-border-strong); text-align: center; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px)); }
+    .au-cta-steps { list-style: none; padding: 0; margin: 1.5rem 0 2rem; text-align: left; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .au-cta-steps li { padding: 0.6rem 0 0.6rem 2.5rem; position: relative; font-family: var(--font-sans); font-size: 0.95rem; color: var(--text-secondary); line-height: 1.55; border-top: 1px solid var(--au-border); }
+    .au-cta-steps li:first-child { border-top: none; }
+    .au-cta-steps li::before { content: counter(au-step, decimal-leading-zero); counter-increment: au-step; position: absolute; left: 0; font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold); letter-spacing: 0.05em; top: 0.65rem; }
+    .au-cta-steps { counter-reset: au-step; }
+
+    /* CTA disabled button (pre-launch) */
+    .btn--disabled { background: rgba(201, 169, 97, 0.15); color: var(--text-muted); cursor: not-allowed; border: 1px solid var(--au-border); }
+    .btn--disabled:hover { background: rgba(201, 169, 97, 0.15); color: var(--text-muted); }
+
+    /* Footer note */
+    .au-footnote { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 2rem 0 4rem; line-height: 1.7; }
+    .au-footnote a { color: var(--gold); text-decoration: none; margin: 0 0.5rem; }
+    .au-footnote a:hover { color: var(--gold-light); }
   </style>
 </head>
-<body>
+<body class="au">
 
-<div class="au-scope">
-
-  <!-- HERO -->
+  <!-- ═══ 1. HERO ═══ -->
   <section class="au-hero">
-    <div class="au-container">
-      <div class="au-hero__eyebrow-row">
-        <div class="au-trace"></div>
-        <div class="au-pill"><span class="au-pill__dot"></span>PRE-LAUNCH · MAINNET PENDING</div>
-        <div class="au-trace"></div>
+    <div class="container">
+      <div class="au-hero__eyebrow">LIVE ON ARBITRUM ONE</div>
+      <h1 class="au-hero__title">AUREUS</h1>
+      <p class="au-hero__subtitle">Deposit USDC. Earn bi-weekly distributions from algorithmic trading strategies. Exit any time, fully on-chain.</p>
+
+      <div class="au-hero__stats">
+        <div>
+          <div class="au-stat-pill__value">$1.00</div>
+          <div class="au-stat-pill__label">Launch NAV per AUR</div>
+        </div>
+        <div>
+          <div class="au-stat-pill__value">Every 14 days</div>
+          <div class="au-stat-pill__label">Distribution cadence</div>
+        </div>
+        <div>
+          <div class="au-stat-pill__value">80%</div>
+          <div class="au-stat-pill__label">Of each profit to stakers</div>
+        </div>
       </div>
 
-      <h1 class="au-display">AUREUS</h1>
-      <div class="au-hero__subtitle">A tokenized fund protocol for systematic strategy access</div>
-
-      <p class="au-hero__lede">
-        Members deposit USDC and receive AUR, representing proportional ownership of a treasury deployed across Soomario Strategies on Hyperliquid. Profits distribute weekly. The protocol's distinguishing feature is a continuous on-chain transparency layer that makes the operator's claims independently verifiable.
-      </p>
-
-      <div class="au-cta-row">
-        <a href="whitepaper.html" class="au-btn">Read the whitepaper</a>
-        <a href="mailto:aureus@soomariostrategies.com?subject=AUREUS%20launch%20notice" class="au-btn au-btn--ghost">Notify me at launch</a>
+      <div class="au-hero__cta-row">
+        <a href="#" class="btn btn--primary btn--lg btn--disabled" aria-disabled="true">Launching June 2026</a>
+        <a href="whitepaper.html" class="au-secondary-link">Read the whitepaper →</a>
       </div>
     </div>
   </section>
 
-  <!-- THREE PILLARS -->
+  <!-- ═══ 2. TRUST BAR ═══ -->
+  <section class="au-trustbar">
+    <div class="container">
+      <div class="au-trustbar__inner">
+        <span>Publicly verifiable on Arbiscan</span>
+        <span class="au-trustbar__sep">·</span>
+        <span>2-of-3 multisig governance</span>
+        <span class="au-trustbar__sep">·</span>
+        <span>Non-custodial — you hold your own AUR</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. HOW IT WORKS ═══ -->
   <section class="au-section">
-    <div class="au-container">
-      <header class="au-section-header">
-        <div class="au-eyebrow">The Protocol</div>
-        <h2 class="au-title-1">Three pillars</h2>
-      </header>
+    <div class="container">
+      <div class="au-eyebrow text-center">THREE STEPS</div>
+      <h2 class="au-h2 text-center" style="margin-bottom: 2.5rem;">How AUREUS works</h2>
 
-      <div class="au-pillars">
-        <article class="au-pillar">
-          <div class="au-pillar__numeral">·  I  ·</div>
-          <h3 class="au-pillar__title">Aerarium</h3>
-          <div class="au-pillar__sub">the treasury</div>
-          <p class="au-pillar__body">A fixed-proportion treasury, split between active trading capital and a permanent yield-bearing reserve in STRCx — a tokenization of Strategy Inc.'s perpetual preferred stock. The split is operationally enforced for v1 and will move into the smart contract in a future version after additional audit.</p>
-          <div class="au-data-row"><span class="au-data-row__label">Soomario Strategies</span><span class="au-data-row__value">80%</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">STRCx reserve</span><span class="au-data-row__value">20%</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Reserve dividend</span><span class="au-data-row__value">~11.5% APY</span></div>
+      <div class="au-grid-3">
+        <article class="au-card">
+          <div class="au-card__num">STEP · 01</div>
+          <div class="au-card__title">Deposit</div>
+          <p class="au-card__body">Send USDC to the Forge. You receive AUR at the current NAV, auto-staked by default. Your position starts earning at the next epoch close.</p>
         </article>
-
-        <article class="au-pillar">
-          <div class="au-pillar__numeral">·  II  ·</div>
-          <h3 class="au-pillar__title">Forge</h3>
-          <div class="au-pillar__sub">mint and burn</div>
-          <p class="au-pillar__body">The contract that issues AUR against USDC deposits and burns AUR against redemptions. Freshly deployed for AUREUS with no shared state with any prior protocol. Pending state for one epoch prevents pre-distribution capture. Per-epoch NAV movement is rate-capped at the contract level.</p>
-          <div class="au-data-row"><span class="au-data-row__label">NAV rate cap</span><span class="au-data-row__value">±15% / epoch</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Pending period</span><span class="au-data-row__value">1 epoch</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Deployment</span><span class="au-data-row__value">Fresh ERC-20 · UUPS</span></div>
+        <article class="au-card">
+          <div class="au-card__num">STEP · 02</div>
+          <div class="au-card__title">Earn</div>
+          <p class="au-card__body">Every two weeks, strategy profits are distributed. Stakers receive 80% of each profitable epoch, credited on-chain. Claim your USDC any time.</p>
         </article>
-
-        <article class="au-pillar">
-          <div class="au-pillar__numeral">·  III  ·</div>
-          <h3 class="au-pillar__title">Recovery</h3>
-          <div class="au-pillar__sub">for the prior community</div>
-          <p class="au-pillar__body">Ten percent of every profitable epoch routes to a labeled wallet (<code style="font-size:0.9em;">0x9eC5…2678</code>) until $350,000 is reached. At that point, a snapshot of NGET balances is taken and the Recovery Fund airdrops pro-rata. The mechanism is encoded; the threshold is automatic. The fund starts with a seeded balance of approximately $3,000 already at work.</p>
-          <div class="au-data-row"><span class="au-data-row__label">Per profitable epoch</span><span class="au-data-row__value">10%</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Target threshold</span><span class="au-data-row__value">$350,000</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Distribution</span><span class="au-data-row__value">Pro-rata airdrop</span></div>
+        <article class="au-card">
+          <div class="au-card__num">STEP · 03</div>
+          <div class="au-card__title">Exit</div>
+          <p class="au-card__body">Redeem AUR for USDC at end-of-epoch (2% fee) or immediately (5% fee), or sell peer-to-peer via OTC (0.5%). You're never locked in.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <hr class="au-hr">
+  <!-- ═══ 4. THE SPLIT — 80/5/5/10 ═══ -->
+  <section class="au-section" style="background: rgba(15, 10, 26, 0.45);">
+    <div class="container">
+      <div class="au-eyebrow text-center">EVERY PROFITABLE EPOCH IS SPLIT</div>
+      <h2 class="au-h2 text-center" style="margin-bottom: 1.5rem;">80 / 5 / 5 / 10</h2>
 
-  <!-- HOW IT WORKS -->
+      <div class="container container--narrow">
+        <div class="au-split">
+          <div class="au-split__seg au-split__seg--gold" style="flex: 80;">80% Stakers</div>
+          <div class="au-split__seg au-split__seg--mid" style="flex: 5;">5%</div>
+          <div class="au-split__seg au-split__seg--dim" style="flex: 5;">5%</div>
+          <div class="au-split__seg au-split__seg--recover" style="flex: 10;">10%</div>
+        </div>
+
+        <table class="au-split-table">
+          <thead><tr><th>Share</th><th>To</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>80%</td><td>Stakers</td><td>Credited via on-chain accumulator; claim anytime</td></tr>
+            <tr><td>5%</td><td>Team</td><td>Operator compensation</td></tr>
+            <tr><td>5%</td><td>Operations</td><td>Infrastructure, keeper, audit fund</td></tr>
+            <tr><td>10%</td><td>Recovery Fund</td><td>Until $350K, then redirects to Team</td></tr>
+          </tbody>
+        </table>
+
+        <p class="au-caption">Verified on-chain: <code style="color:var(--gold);">mloShare=500</code>, <code style="color:var(--gold);">operationsShare=500</code>, <code style="color:var(--gold);">recoveryShare=1000</code> bps. Stakers take the <code style="color:var(--gold);">8000</code>-bps residual. Reproduce the read against the Forge contract yourself.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5. EXIT PATHS ═══ -->
   <section class="au-section">
-    <div class="au-container">
-      <header class="au-section-header">
-        <div class="au-eyebrow">Mechanism</div>
-        <h2 class="au-title-1">How AUREUS works</h2>
-      </header>
+    <div class="container">
+      <div class="au-eyebrow text-center">THREE WAYS TO EXIT</div>
+      <h2 class="au-h2 text-center" style="margin-bottom: 2.5rem;">You're never locked in</h2>
 
-      <div class="au-steps">
-        <div class="au-step">
-          <div class="au-step__num">STEP · 01</div>
-          <div class="au-step__title">Deposit USDC</div>
-          <div class="au-step__body">Send USDC to the Forge. AUR mints against current NAV. Position enters pending state for one epoch.</div>
-        </div>
-        <div class="au-step">
-          <div class="au-step__num">STEP · 02</div>
-          <div class="au-step__title">Aerarium deploys</div>
-          <div class="au-step__body">80% of the treasury operates across Soomario Strategies on Hyperliquid. 20% holds in STRCx as permanent reserve.</div>
-        </div>
-        <div class="au-step">
-          <div class="au-step__num">STEP · 03</div>
-          <div class="au-step__title">Weekly distribution</div>
-          <div class="au-step__body">Profits split four ways at epoch close. Staked AUR holders receive 80%. Members can claim or compound.</div>
-        </div>
-        <div class="au-step">
-          <div class="au-step__num">STEP · 04</div>
-          <div class="au-step__title">Exit on Member's terms</div>
-          <div class="au-step__body">Three withdrawal paths — OTC marketplace, end-of-epoch redemption, or ASAP redemption — with different cost and timing.</div>
-        </div>
-      </div>
-
-      <div class="au-note">
-        <strong>On exit paths:</strong> OTC charges 0.5% and clears whenever a counterparty fills. End-of-epoch charges 2% and processes within 24 hours of the next close. ASAP charges 5% and processes within 48 hours, rate-limited to 1% per Member per 24 hours and 5% protocol-wide per 7 days. For most Members in most circumstances, end-of-epoch is the right path.
-      </div>
-    </div>
-  </section>
-
-  <hr class="au-hr">
-
-  <!-- TRANSPARENCY -->
-  <section class="au-section">
-    <div class="au-container">
-      <header class="au-section-header">
-        <div class="au-eyebrow">On-chain Infrastructure</div>
-        <h2 class="au-title-1">Transparency layer</h2>
-        <p class="au-body" style="max-width: 620px; margin: 16px auto 0;">Three contracts work together so the protocol's state is independently verifiable by Members at any time, without requiring trust in the operator's reporting.</p>
-      </header>
-
-      <div class="au-transparency">
-        <article class="au-trans-card">
-          <h3 class="au-trans-card__title">ReservesOracle</h3>
-          <div class="au-trans-card__sub">proof of reserves</div>
-          <p class="au-trans-card__body">Non-upgradable contract holding the verified reserve calculation. A hard layer reads USDC balances and the STRCx Chainlink feed directly. A soft layer carries keeper-reported Hyperliquid position state. Divergence between layers is publicly computable in real time.</p>
-          <div class="au-data-row"><span class="au-data-row__label">Hard-layer sources</span><span class="au-data-row__value">USDC · STRCx · HL bridge</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Config change delay</span><span class="au-data-row__value">24-hour timelock</span></div>
+      <div class="au-grid-3">
+        <article class="au-card">
+          <div class="au-card__title">End-of-Epoch <span class="au-card__fee">2% fee</span></div>
+          <p class="au-card__body">Request a redemption; it settles at the next epoch's NAV. The patient exit — best when you don't need the funds immediately.</p>
         </article>
-
-        <article class="au-trans-card">
-          <h3 class="au-trans-card__title">PositionLogger</h3>
-          <div class="au-trans-card__sub">append-only ledger</div>
-          <p class="au-trans-card__body">A complete public audit trail of every trade executed by the protocol. Each entry includes a reference hash linking back to the corresponding Hyperliquid trade ID. Past entries cannot be modified — only new ones added.</p>
-          <div class="au-data-row"><span class="au-data-row__label">Mutability</span><span class="au-data-row__value">Append-only</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Audit window</span><span class="au-data-row__value">Indefinite</span></div>
+        <article class="au-card">
+          <div class="au-card__title">ASAP <span class="au-card__fee">5% fee</span></div>
+          <p class="au-card__body">Redeem immediately at the current hard NAV. For when you can't wait for the next close. Settles within 48 hours.</p>
         </article>
-
-        <article class="au-trans-card">
-          <h3 class="au-trans-card__title">NAV Rate Limit</h3>
-          <div class="au-trans-card__sub">contract-enforced cap</div>
-          <p class="au-trans-card__body">The operator publishes NAV at each epoch close. The Forge enforces a maximum movement of 15% per epoch. Larger movements cannot be applied in a single transaction; they must be spaced across multiple epochs, each one visible.</p>
-          <div class="au-data-row"><span class="au-data-row__label">Max move</span><span class="au-data-row__value">±15% / epoch</span></div>
-          <div class="au-data-row"><span class="au-data-row__label">Epoch length</span><span class="au-data-row__value">1 week</span></div>
+        <article class="au-card">
+          <div class="au-card__title">OTC <span class="au-card__fee">0.5% fee</span></div>
+          <p class="au-card__body">List your AUR at your own price; another member buys it directly. Settles trustlessly, no operator involved.</p>
         </article>
       </div>
 
-      <div class="au-note">
-        <strong>What this proves and does not prove.</strong> The transparency layer proves what assets the protocol holds. It does not prove that those assets are being managed optimally — that remains the operator's responsibility. What it accomplishes is bounding the worst failure modes: drift from disclosed strategy becomes visible, and Members have the information they need to exit when they see something concerning.
+      <p class="au-caption text-center" style="max-width: 640px; margin: 1.5rem auto 0;">You may set a minimum-output floor on any redemption — if NAV moves against you, the request is rejected rather than filled at a worse price.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 6. RESERVE TRANSPARENCY ═══ -->
+  <section class="au-section" style="background: rgba(15, 10, 26, 0.45);">
+    <div class="container">
+      <div class="au-grid-2">
+        <div>
+          <div class="au-eyebrow">NAV YOU CAN VERIFY</div>
+          <h2 class="au-h2">A hard floor, computed on-chain</h2>
+          <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1rem;">AUREUS publishes a "hard floor" NAV computed entirely from on-chain reads — no operator trust required. It sums the USDC across four tracked addresses plus pending Hyperliquid bridge withdrawals, divided by AUR supply.</p>
+          <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1rem; margin-top: 1rem;">A separate soft layer reports live trading state, capped at 10× hard reserves to prevent misreports. Both views are surfaced in the dashboard.</p>
+        </div>
+        <div>
+          <div class="au-formula">hardReserves = Σ USDC across 4 tracked addresses
+             + pending HL bridge withdrawals
+
+hardNav = hardReserves / totalSupply(AUR)</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <hr class="au-hr">
-
-  <!-- RECOVERY FUND -->
+  <!-- ═══ 7. CONTROLLED GROWTH PHASE ═══ -->
   <section class="au-section">
-    <div class="au-container">
-      <header class="au-section-header">
-        <div class="au-eyebrow">Structural Commitment</div>
-        <h2 class="au-title-1">The Recovery Fund</h2>
-      </header>
+    <div class="container container--narrow">
+      <div class="au-eyebrow">FIRST 90 DAYS</div>
+      <h2 class="au-h2">Deposits are capped on purpose.</h2>
+      <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1rem; margin-bottom: 1.5rem;">To protect early members during the audit-pending window, aggregate deposits are capped at <strong style="color: var(--text-primary);">$250,000</strong> and per-member positions at <strong style="color: var(--text-primary);">$50,000</strong> for the first 90 days. The caps are reviewed after launch against operational performance and audit progress — the intent is to scale with demonstrated reliability, not to cap forever.</p>
 
-      <div class="au-recovery">
-        <div class="au-recovery__grid">
-          <div>
-            <p class="au-body-large" style="margin-bottom: 16px;">NGET is the token of a prior protocol operated by the AUREUS team. The Recovery Fund honors that community as AUREUS grows.</p>
-            <p class="au-body" style="margin-bottom: 16px;">Ten percent of every profitable epoch routes to a labeled wallet at <code style="color:var(--au-gold);font-size:0.85em;">0x9eC5279bf6148a0f027B7329f694B0bd00302678</code>. The fund participates in AUREUS strategies alongside other Member capital — it is not parked as idle USDC — which accelerates the recovery and reflects the operator's confidence in the new design.</p>
-            <p class="au-body" style="margin-bottom: 16px;">The Recovery Fund does not start at zero. It carries a seeded starting balance of approximately $3,000 — residual capital from the prior Nugget Fund's October 2025 liquidation — currently active in Soomario Elite and Aphelion strategies. The exact starting balance at AUREUS launch will reflect those strategies' performance up to that point. The wallet address above can be queried at any time to verify current balance.</p>
-            <p class="au-body" style="margin-bottom: 16px;">The labeled wallet is currently a single-key EOA, not a multi-signature wallet. The team may migrate the Recovery Fund to a multi-signature wallet once balance crosses a meaningful threshold; if so, the migration will be publicly announced and the new address communicated before the change takes effect.</p>
-            <p class="au-body" style="margin-bottom: 16px;">When the fund reaches $350,000 in value, a snapshot of NGET token balances is taken at a specified Arbitrum block, and the Recovery Fund airdrops pro-rata to those addresses. After the airdrop completes, the 10% allocation redirects to the Team.</p>
-            <p class="au-body">NGET and AUREUS are otherwise entirely separate protocols. AUR is a freshly deployed ERC-20 token with a new contract address, with no shared state or storage with the existing NGET token. There is no migration. Holders of NGET retain their NGET balances unchanged, and new AUREUS Members do not need to understand or interact with NGET in any way — the Recovery Fund operates entirely in the background from a new Member's perspective.</p>
-          </div>
-          <aside class="au-recovery__stats">
-            <div class="au-stat">
-              <div class="au-stat__label">Allocation per profitable epoch</div>
-              <div class="au-stat__value">10%</div>
-            </div>
-            <div class="au-stat">
-              <div class="au-stat__label">Target threshold</div>
-              <div class="au-stat__value">$350,000</div>
-            </div>
-            <div class="au-stat">
-              <div class="au-stat__label">Seeded balance</div>
-              <div class="au-stat__value">~$3,000</div>
-            </div>
-            <div class="au-stat">
-              <div class="au-stat__label">Distribution model</div>
-              <div class="au-stat__value">Pro-rata</div>
-            </div>
-            <div class="au-stat">
-              <div class="au-stat__label">Wallet type</div>
-              <div class="au-stat__value" style="font-size:18px;">Single-key EOA</div>
-            </div>
-            <div class="au-stat">
-              <div class="au-stat__label">Post-threshold flow</div>
-              <div class="au-stat__value" style="font-size:18px;">Redirects to Team</div>
-            </div>
-          </aside>
+      <div class="au-figures">
+        <div>
+          <div class="au-figure__value">$250,000</div>
+          <div class="au-figure__label">Aggregate cap</div>
+        </div>
+        <div>
+          <div class="au-figure__value">$50,000</div>
+          <div class="au-figure__label">Per member</div>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="au-hr">
+  <!-- ═══ 8. STRATEGY TRACK RECORD ═══ -->
+  <section class="au-section" style="background: rgba(15, 10, 26, 0.45);">
+    <div class="container container--narrow">
+      <div class="au-eyebrow">STRATEGY REFERENCE</div>
+      <h2 class="au-h2">Not a new strategy — a productionised one.</h2>
+      <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1rem;">The strategies AUREUS deploys are not new — a ~5-asset Hyperliquid alt-perp portfolio with a published backtest from 2020 through early 2026, and live operator capital behind it for months before launch.</p>
 
-  <!-- ROADMAP / STATUS -->
+      <div class="au-figures">
+        <div>
+          <div class="au-figure__value">~66×</div>
+          <div class="au-figure__label">Cumulative (backtest, $1K seed)</div>
+        </div>
+        <div>
+          <div class="au-figure__value">−3.9%</div>
+          <div class="au-figure__label">Max drawdown (backtest window)</div>
+        </div>
+      </div>
+
+      <div class="au-disclaimer">
+        <strong>These are backtested results.</strong> Past performance does not guarantee future results. Epochs can close flat or negative. The detailed methodology (<code style="color:var(--gold);">AUREUS_BACKTEST.md</code>) is published in the protocol repo and will be linked from the dashboard.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 9. ON-CHAIN VERIFICATION ═══ -->
   <section class="au-section">
-    <div class="au-container">
-      <header class="au-section-header">
-        <div class="au-eyebrow">Launch Path</div>
-        <h2 class="au-title-1">Roadmap</h2>
-        <p class="au-body" style="max-width: 580px; margin: 16px auto 0;">Mainnet launch is gated on completion of structured pre-launch security testing. The estimated path to first epoch:</p>
-      </header>
+    <div class="container">
+      <div class="au-eyebrow text-center">DON'T TRUST — VERIFY</div>
+      <h2 class="au-h2 text-center" style="margin-bottom: 2rem;">Contract addresses, all public</h2>
 
-      <div class="au-roadmap">
-        <div class="au-phase">
-          <div class="au-phase__step">PHASE · I</div>
-          <div class="au-phase__name">Sepolia trial</div>
-          <div class="au-phase__when">Complete · full lifecycle validated</div>
+      <div class="au-addr-section">
+        <table class="au-addr-table">
+          <thead><tr><th>Contract</th><th>Address</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td>AUR token</td>
+              <td class="au-addr-monoval">0x927B6985A1E8C9151eA521AfA3431a21BCDfe7E0</td>
+              <td><button class="copy-btn" data-addr="0x927B6985A1E8C9151eA521AfA3431a21BCDfe7E0">Copy</button><a href="https://arbiscan.io/address/0x927B6985A1E8C9151eA521AfA3431a21BCDfe7E0" target="_blank" rel="noopener">Arbiscan ↗</a></td>
+            </tr>
+            <tr>
+              <td>Forge proxy</td>
+              <td class="au-addr-monoval">0xab5dC12DA3615F3355D1D56a30b71BdF459b1466</td>
+              <td><button class="copy-btn" data-addr="0xab5dC12DA3615F3355D1D56a30b71BdF459b1466">Copy</button><a href="https://arbiscan.io/address/0xab5dC12DA3615F3355D1D56a30b71BdF459b1466" target="_blank" rel="noopener">Arbiscan ↗</a></td>
+            </tr>
+            <tr>
+              <td>ReservesOracle</td>
+              <td class="au-addr-monoval">0x7342D88574597495c5247DE3502928071e6e53b2</td>
+              <td><button class="copy-btn" data-addr="0x7342D88574597495c5247DE3502928071e6e53b2">Copy</button><a href="https://arbiscan.io/address/0x7342D88574597495c5247DE3502928071e6e53b2" target="_blank" rel="noopener">Arbiscan ↗</a></td>
+            </tr>
+            <tr>
+              <td>AureusRedemption</td>
+              <td class="au-addr-monoval">0x20a1f8b1F6bDEba14553168099faf047a18031e7</td>
+              <td><button class="copy-btn" data-addr="0x20a1f8b1F6bDEba14553168099faf047a18031e7">Copy</button><a href="https://arbiscan.io/address/0x20a1f8b1F6bDEba14553168099faf047a18031e7" target="_blank" rel="noopener">Arbiscan ↗</a></td>
+            </tr>
+            <tr>
+              <td>OTCv2 proxy</td>
+              <td class="au-addr-monoval">0xD5602bE96e3794Ee6A09520075714AfD2D0ba124</td>
+              <td><button class="copy-btn" data-addr="0xD5602bE96e3794Ee6A09520075714AfD2D0ba124">Copy</button><a href="https://arbiscan.io/address/0xD5602bE96e3794Ee6A09520075714AfD2D0ba124" target="_blank" rel="noopener">Arbiscan ↗</a></td>
+            </tr>
+            <tr>
+              <td>Protocol Multisig</td>
+              <td class="au-addr-monoval">0xb04E452E853635a9e7A2c6a372cd85be1B7544c4</td>
+              <td><button class="copy-btn" data-addr="0xb04E452E853635a9e7A2c6a372cd85be1B7544c4">Copy</button><a href="https://arbiscan.io/address/0xb04E452E853635a9e7A2c6a372cd85be1B7544c4" target="_blank" rel="noopener">Arbiscan ↗</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details style="margin-top: 2rem; padding: 1.25rem 1.5rem; background: var(--au-panel); border: 1px solid var(--au-border);">
+        <summary style="font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); cursor: pointer; padding: 0.25rem 0;">Verified parameters (on-chain, June 2026)</summary>
+        <table class="au-split-table" style="margin-top: 1rem;">
+          <thead><tr><th>Parameter</th><th>On-chain value</th></tr></thead>
+          <tbody>
+            <tr><td>Reward split</td><td>80 / 5 / 5 / 10 &nbsp;<span style="color:var(--text-muted);">(500/500/1000 bps)</span></td></tr>
+            <tr><td>Redemption fees</td><td>2% EOE / 5% ASAP &nbsp;<span style="color:var(--text-muted);">(immutable)</span></td></tr>
+            <tr><td>NAV rate limit</td><td>15% max change per close</td></tr>
+            <tr><td>Recovery target</td><td>$350,000</td></tr>
+            <tr><td>Launch NAV</td><td>$1.00</td></tr>
+            <tr><td>Forge &amp; Redemption owner</td><td>Protocol Multisig</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </div>
+  </section>
+
+  <!-- ═══ 10. OPERATIONS & THE MULTISIG ═══ -->
+  <section class="au-section" style="background: rgba(15, 10, 26, 0.45);">
+    <div class="container">
+      <div class="au-eyebrow text-center">OPERATOR AUTHORITY</div>
+      <h2 class="au-h2 text-center" style="margin-bottom: 2rem;">What the multisig can and cannot do</h2>
+
+      <div class="au-cancannot">
+        <div class="au-cancannot__col au-cancannot__col--can">
+          <div class="au-cancannot__title">The multisig CAN</div>
+          <ul class="au-cancannot__list">
+            <li>Unpause / pause</li>
+            <li>Close epochs (within 15% rate limit)</li>
+            <li>Process redemptions</li>
+            <li>Sweep capital to trading</li>
+            <li>Configure tracked addresses (24h timelock)</li>
+          </ul>
         </div>
-        <div class="au-phase au-phase--active">
-          <div class="au-phase__step">PHASE · II</div>
-          <div class="au-phase__name">Pre-launch security</div>
-          <div class="au-phase__when">Now · structured testing</div>
-        </div>
-        <div class="au-phase">
-          <div class="au-phase__step">PHASE · III</div>
-          <div class="au-phase__name">Mainnet deploy</div>
-          <div class="au-phase__when">Initial deposit caps</div>
-        </div>
-        <div class="au-phase">
-          <div class="au-phase__step">PHASE · IV</div>
-          <div class="au-phase__name">Live operation</div>
-          <div class="au-phase__when">Epoch 1 · formal audit follows</div>
+        <div class="au-cancannot__col au-cancannot__col--cannot">
+          <div class="au-cancannot__title">The multisig CANNOT</div>
+          <ul class="au-cancannot__list">
+            <li>Touch your AUR balance</li>
+            <li>Change the 80/5/5/10 split</li>
+            <li>Move NAV more than 15% per close</li>
+            <li>Take more than its 5% (or 15% post-Recovery)</li>
+            <li>Mint AUR without depositing matching USDC</li>
+          </ul>
         </div>
       </div>
 
-      <div class="au-note" style="margin-top: 32px;">
-        <strong>Estimated 30 to 60 days to mainnet</strong> from publication. The estimate is contingent on completion of the structured pre-launch security testing protocol — static analysis with Slither, Mythril, and Echidna invariant fuzzing; AI-driven adversarial code review; working proof-of-concept exploit attempts on each identified attack surface — and the time required to address any critical or high-severity findings. A formal external audit by Sherlock or a peer firm is planned for after mainnet launch, once initial operating history is established. The dashboard, mint flow, and redemption interface will be published alongside mainnet launch — at this stage AUREUS is documentation, audited Sepolia trial code, and the in-progress pre-launch testing process.
+      <p class="au-caption" style="text-align: center; max-width: 720px; margin: 1.5rem auto 0;">Every operator action runs through an audited admin dashboard that submits to the multisig queue for 2-of-3 signing — the encoded transaction is reviewable before any signature is collected. All actions are public on Arbiscan in real time.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 11. RISK DISCLOSURE ═══ -->
+  <section class="au-section">
+    <div class="container container--narrow">
+      <h2 class="au-risk__title">Risks</h2>
+      <ul class="au-risk__list">
+        <li><strong style="color: var(--text-primary);">Smart-contract risk.</strong> Internal red-team passed three times. External audit deferred to Months 2–6. The 90-day caps mitigate aggregate exposure.</li>
+        <li><strong style="color: var(--text-primary);">Operator key risk.</strong> 2-of-3 Safe at launch; moving to 2-of-4 in the first 30 days.</li>
+        <li><strong style="color: var(--text-primary);">Trading-strategy risk.</strong> Profits are not guaranteed; epochs can close flat or negative.</li>
+        <li><strong style="color: var(--text-primary);">Hyperliquid platform risk.</strong> Trading executes on Hyperliquid; HL outages, bugs, or insolvency would affect reserves.</li>
+        <li><strong style="color: var(--text-primary);">Bridge risk.</strong> Capital in transit between Arbitrum and Hyperliquid is exposed to bridge-contract risk.</li>
+        <li><strong style="color: var(--text-primary);">Concentration risk.</strong> 5-asset alt-perp portfolio is concentrated by design.</li>
+      </ul>
+      <p class="au-risk__caption">This is not financial advice. Deposit only what you can afford to lose.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 12. CTA — PARTICIPATE ═══ -->
+  <section class="au-section">
+    <div class="container">
+      <div class="au-cta-panel">
+        <div class="au-eyebrow" style="text-align: center;">FOUR STEPS</div>
+        <h2 class="au-h2" style="text-align: center; margin-bottom: 1rem;">Participate</h2>
+        <ol class="au-cta-steps">
+          <li>Deposit USDC and receive auto-staked AUR.</li>
+          <li>Hold — your stake earns the 80% staker share each epoch.</li>
+          <li>Claim your USDC after each Friday 09:00 KST close.</li>
+          <li>Exit via EOE, ASAP, or OTC whenever you choose.</li>
+        </ol>
+        <a href="#" class="btn btn--primary btn--lg btn--disabled" aria-disabled="true" style="font-family: var(--font-heading); letter-spacing: 0.08em;">Launching June 2026</a>
+        <div style="margin-top: 1rem;"><a href="whitepaper.html" class="au-secondary-link">Read the whitepaper →</a></div>
       </div>
     </div>
   </section>
 
-  <!-- FINAL CTA -->
-  <section class="au-section" style="text-align: center; padding-bottom: 120px;">
-    <div class="au-container" style="max-width: 640px;">
-      <h2 class="au-title-1" style="margin-bottom: 16px;">For the deeper read</h2>
-      <p class="au-body" style="margin-bottom: 32px;">The whitepaper covers all of the above plus the technical architecture, governance limits, full risk disclosures, and the strategy track record. It is the canonical reference.</p>
-      <div class="au-cta-row">
-        <a href="whitepaper.html" class="au-btn">Read the whitepaper</a>
-        <a href="mailto:aureus@soomariostrategies.com?subject=AUREUS%20launch%20notice" class="au-btn au-btn--ghost">Notify me at launch</a>
+  <!-- ═══ 13. FOOTER NOTE ═══ -->
+  <div class="au-footnote">
+    <div class="container">
+      <a href="whitepaper.html">Whitepaper v1.5</a>
+      <span style="color: var(--gold);">·</span>
+      <a href="https://arbiscan.io/address/0xb04E452E853635a9e7A2c6a372cd85be1B7544c4" target="_blank" rel="noopener">Multisig on Arbiscan</a>
+      <span style="color: var(--gold);">·</span>
+      <a href="whitepaper.html#section-strategy">Backtest methodology</a>
+      <div style="margin-top: 1rem; max-width: 700px; margin-left: auto; margin-right: auto; font-style: italic;">
+        This page is descriptive. It is not a solicitation, offer, prospectus, or financial advice. AUREUS is a public smart-contract protocol on a permissionless blockchain; participation is voluntary and at your own risk.
       </div>
     </div>
-  </section>
+  </div>
 
-</div>
-
-<script src="../components.js"></script>
+  <script src="../components.js"></script>
+  <script>
+    // Copy-to-clipboard for addresses
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const addr = btn.dataset.addr;
+        try {
+          await navigator.clipboard.writeText(addr);
+          const orig = btn.textContent;
+          btn.textContent = 'Copied';
+          btn.classList.add('copied');
+          setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1400);
+        } catch (e) {
+          // Fallback: select text
+          const range = document.createRange();
+          range.selectNodeContents(btn.previousElementSibling || btn.parentElement.querySelector('.au-addr-monoval'));
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
