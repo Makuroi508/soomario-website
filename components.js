@@ -25,7 +25,6 @@
       accumulatorLogin: 'https://accumulator.soomariostrategies.com/dashboard',
       elite: getPagePath('dashboards/elite.html'),
       vault: getPagePath('dashboards/vault.html'),
-      zones: 'https://zones.soomariostrategies.com/',
       farms: 'https://farms.soomariostrategies.com/',
     },
     ga4: '' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
@@ -36,7 +35,7 @@
     const path = window.location.pathname;
     const segments = path.split('/').filter(s => s && !s.includes('.'));
     // Detect if we're in a subdirectory (products/, learn/, etc.)
-    const knownDirs = ['products', 'learn', 'tools', 'dashboards'];
+    const knownDirs = ['products', 'learn', 'tools', 'dashboards', 'aureus'];
     for (const dir of knownDirs) {
       if (path.includes('/' + dir + '/')) return '../';
     }
