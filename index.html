@@ -21,80 +21,6 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="canonical" href="https://soomariostrategies.com/">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-
-  <!-- Whop embedded checkout — async, mounts iframes on demand -->
-  <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
-
-  <style>
-    /* ── Embedded checkout modal ─────────────────────────────── */
-    .checkout-modal {
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(13, 10, 18, 0.88);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      display: none; align-items: center; justify-content: center;
-      padding: 1rem;
-    }
-    .checkout-modal.is-open { display: flex; }
-    .checkout-card {
-      position: relative;
-      width: 100%; max-width: 480px;
-      max-height: 92vh; overflow-y: auto;
-      background: var(--bg-card, #1a1625);
-      border: 1px solid rgba(212, 168, 67, 0.25);
-      border-radius: 16px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 80px rgba(212,168,67,0.08);
-      padding: 1.5rem;
-    }
-    .checkout-close {
-      position: absolute; top: 0.85rem; right: 0.85rem;
-      width: 32px; height: 32px; border-radius: 8px;
-      background: rgba(255,255,255,0.04); border: none;
-      color: var(--text-muted, #888); font-size: 18px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, color 0.2s;
-    }
-    .checkout-close:hover { background: rgba(255,255,255,0.10); color: #fff; }
-    .checkout-host {
-      min-height: 540px;
-      background: #0d0a12;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 1rem;
-    }
-    .checkout-host iframe {
-      width: 100% !important; border: none !important;
-      min-height: 540px; display: block;
-    }
-
-    /* ── Founding-member badge ───────────────────────────────── */
-    .founding-badge {
-      display: inline-flex; align-items: center;
-      gap: 0.6rem; flex-wrap: wrap; justify-content: center;
-      padding: 0.55rem 1.1rem; margin-top: 1.25rem;
-      border-radius: 100px;
-      border: 1px solid rgba(212, 168, 67, 0.3);
-      background: linear-gradient(135deg, rgba(212,168,67,0.10), rgba(212,168,67,0.02));
-      font-size: 0.8rem;
-    }
-    .founding-badge__label {
-      font-family: var(--font-display, 'Orbitron', sans-serif);
-      letter-spacing: 0.15em;
-      color: var(--gold, #D4A843);
-      font-weight: 700; font-size: 0.65rem;
-    }
-    .founding-badge__sep { color: rgba(212, 168, 67, 0.35); }
-    .founding-badge__price { color: var(--text-primary, #fff); font-weight: 600; }
-    .founding-badge__locked {
-      color: var(--text-muted, #999);
-      font-style: italic; font-size: 0.7rem; margin-left: 0.3rem;
-    }
-    .founding-badge__count {
-      font-family: var(--font-display, 'Orbitron', sans-serif);
-      color: var(--green, #4ade80);
-      font-weight: 600; font-size: 0.7rem; letter-spacing: 0.04em;
-    }
-  </style>
 </head>
 <body>
 
@@ -121,17 +47,8 @@
 
       <p class="hero__sub" style="margin-top:1.5rem;">7-DAY FREE TRIAL · TELEGRAM SIGNALS · CANCEL ANYTIME</p>
 
-      <!-- Founding-member badge — live counter via /api/founding-status -->
-      <div class="founding-badge" id="foundingBadge">
-        <span class="founding-badge__label">⚡ FOUNDING MEMBER</span>
-        <span class="founding-badge__sep">·</span>
-        <span class="founding-badge__price">$<span id="foundingPrice">7</span>/mo<span class="founding-badge__locked">locked for life</span></span>
-        <span class="founding-badge__sep">·</span>
-        <span class="founding-badge__count"><span id="foundingCount">194</span> of <span id="foundingLimit">200</span> spots remaining</span>
-      </div>
-
       <div class="hero__ctas">
-        <button type="button" onclick="openCheckoutModal()" class="btn btn--primary btn--lg" style="cursor:pointer;border:none;font:inherit;">Try Accumulator Free for 7 Days →</button>
+        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Try Accumulator Free for 7 Days →</a>
         <a href="#showcase" class="btn btn--ghost btn--lg">See live performance ↓</a>
       </div>
 
@@ -268,7 +185,7 @@
       </div>
 
       <div class="scaler__cta">
-        <button type="button" onclick="openCheckoutModal()" class="btn btn--primary btn--lg" style="cursor:pointer;border:none;font:inherit;">Get these signals — 7 days free →</button>
+        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Get these signals — 7 days free →</a>
       </div>
       <p class="scaler__disclaimer">
         Values scale linearly from the live $1,500/month model. Past performance doesn't guarantee future results — but these are real signals, real prices, and real timestamps since Feb 9, 2026.
@@ -289,6 +206,19 @@
 
       <div class="strategies-grid">
 
+        <a href="aureus/" class="strat-card" style="text-decoration:none;border-color:rgba(201,169,97,0.35);">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Aureus</div>
+            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
+          </div>
+          <div class="strat-card__tagline">Tokenized strategy fund on Arbitrum</div>
+          <p class="strat-card__pitch">Deposit USDC, receive AUR, earn bi-weekly distributions from algorithmic trading. 80% of every profitable epoch to stakers. Verifiable on-chain.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">80% to stakers</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
         <a href="products/elite.html" class="strat-card" style="text-decoration:none;">
           <div class="strat-card__head">
             <div class="strat-card__name">Elite</div>
@@ -307,21 +237,8 @@
             <div class="strat-card__name">Max Pain</div>
             <span class="strat-card__badge strat-card__badge--live">LIVE</span>
           </div>
-          <div class="strat-card__tagline">18-coin per-coin tuning</div>
-          <p class="strat-card__pitch">Hybrid TradingView + Python bot trading 18 coins on Hyperliquid. Per-coin parameter sets, 45-second exchange-side safety loop.</p>
-          <div class="strat-card__footer">
-            <span class="strat-card__fee">10% profit share</span>
-            <span class="strat-card__link">Learn more →</span>
-          </div>
-        </a>
-
-        <a href="products/zones.html" class="strat-card" style="text-decoration:none;">
-          <div class="strat-card__head">
-            <div class="strat-card__name">Zones</div>
-            <span class="strat-card__badge strat-card__badge--live">LIVE</span>
-          </div>
-          <div class="strat-card__tagline">Bi-directional liquidation DCA</div>
-          <p class="strat-card__pitch">Mean-reverts both directions: longs the long-liquidation overshoots, shorts the short-squeeze peaks. 21 coins on Hyperliquid.</p>
+          <div class="strat-card__tagline">Liquidation-anchored DCA</div>
+          <p class="strat-card__pitch">Enters at the price levels where forced liquidations cluster. Two-level entry stack at the long max-pain anchor, midpoint take-profit, retrace trail. 21-coin curated universe, 297 closed positions, 83.2% live win rate.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">10% profit share</span>
             <span class="strat-card__link">Learn more →</span>
@@ -333,8 +250,8 @@
             <div class="strat-card__name">Farms</div>
             <span class="strat-card__badge strat-card__badge--live">LIVE</span>
           </div>
-          <div class="strat-card__tagline">Bidirectional zone farming</div>
-          <p class="strat-card__pitch">Non-directional grid strategy on ~50 perpetuals. Up to 5 concurrent grids around exchange-aggregated liquidation zones. Patience, not prediction.</p>
+          <div class="strat-card__tagline">Conviction-DCA tranche engine</div>
+          <p class="strat-card__pitch">Farms oscillation around the long max-pain anchor with two-tranche positions: a seed plus a buy grid, with a second tranche that escalates only on confirmation. Up to 5 concurrent farms across ~50 perpetuals. Non-directional.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">10% profit share</span>
             <span class="strat-card__link">Learn more →</span>
@@ -359,8 +276,8 @@
             <div class="strat-card__name">Rotation</div>
             <span class="strat-card__badge strat-card__badge--paper">PAPER</span>
           </div>
-          <div class="strat-card__tagline">Long-only multi-asset</div>
-          <p class="strat-card__pitch">Fastest Horse equity rotation (TSLA core + MAG-11) plus permanent crypto core in BTC, SOL, HYPE with liquidation-aware DCA. In paper validation.</p>
+          <div class="strat-card__tagline">Multi-asset long-only</div>
+          <p class="strat-card__pitch">Fastest Horse equity rotation paired with a crypto core on liquidation-aware DCA. Weekly rebalance, ATR-based stops. In paper validation.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">10% at launch</span>
             <span class="strat-card__link">Learn more →</span>
@@ -380,54 +297,6 @@
           </div>
         </a>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 4b. PLATFORM WHITEPAPER CALLOUT                         -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section section--alt" style="padding-top:3.5rem;padding-bottom:3.5rem;">
-    <div class="container container--narrow">
-      <div class="card" style="border-color:var(--border-strong);padding:clamp(1.75rem,4vw,2.5rem);">
-        <div style="display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center;">
-          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;">
-            <span class="badge badge--live" style="font-size:0.65rem;padding:0.25rem 0.6rem;">VERSION 1.0</span>
-            <span style="font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.18em;color:var(--text-muted);">PLATFORM CREDENTIAL</span>
-          </div>
-          <div>
-            <h2 style="font-family:var(--font-heading);font-size:clamp(1.5rem,3.2vw,2rem);color:var(--text-primary);margin:0 0 0.75rem;line-height:1.25;">
-              <span class="gradient-text">The Platform Whitepaper</span>
-            </h2>
-            <p style="color:var(--text-secondary);font-size:1.02rem;line-height:1.65;margin:0 0 1.5rem;max-width:620px;">
-              A unified account of how Soomario strategies operate — the analytical toolkit they share, the structural inefficiencies each one targets, the risk controls that bound them, and the limits we acknowledge openly. The data is public; the systematic application is rare.
-            </p>
-            <div style="display:flex;flex-wrap:wrap;gap:0.6rem;">
-              <a href="tools/whitepaper.html" class="btn btn--primary">Read the Whitepaper →</a>
-              <a href="whitepapers/platform.html" class="btn btn--ghost">Open directly</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 4c. AUREUS PRE-LAUNCH CALLOUT                           -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="section" style="padding-top:3.5rem;padding-bottom:3.5rem;background:#0F0B14;border-top:1px solid rgba(201,164,76,0.18);border-bottom:1px solid rgba(201,164,76,0.18);">
-    <div class="container container--narrow">
-      <div style="text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.22em;color:#8B6B3F;text-transform:uppercase;margin-bottom:1rem;">— Coming · Pre-Audit —</div>
-        <h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:clamp(2rem,4.5vw,3rem);letter-spacing:0.06em;color:#F2EAD9;margin:0 0 0.6rem;line-height:1;">AUREUS</h2>
-        <div style="font-family:'Cinzel',serif;font-style:italic;font-size:1rem;color:#8B6B3F;margin-bottom:1.5rem;letter-spacing:0.04em;">A tokenized fund protocol for systematic strategy access</div>
-        <p style="color:#B8AC99;font-size:1rem;line-height:1.7;max-width:560px;margin:0 auto 2rem;">
-          Members deposit USDC, receive AUR, and earn through weekly profit distributions from the Aerarium — a treasury deployed 80% across Soomario Strategies on Hyperliquid and 20% in a permanent yield-bearing reserve. Continuous on-chain proof of reserves. Currently in pre-launch security testing on Arbitrum.
-        </p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
-          <a href="aureus/index.html" class="btn btn--primary">Explore Aureus →</a>
-          <a href="aureus/whitepaper.html" class="btn btn--outline">Read the Whitepaper</a>
-        </div>
       </div>
     </div>
   </section>
@@ -489,7 +358,7 @@
       </div>
 
       <div class="text-center" style="margin-top:1.75rem;">
-        <button type="button" onclick="openCheckoutModal()" class="btn btn--outline btn--lg" style="cursor:pointer;border:none;font:inherit;">Start following these signals →</button>
+        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--outline btn--lg">Start following these signals →</a>
       </div>
     </div>
   </section>
@@ -531,7 +400,7 @@
       <p class="section-subtitle" style="margin:0 auto 2rem;max-width:560px;">
         Seven days free. Cancel any time. Your first signal usually fires within 24 hours.
       </p>
-      <button type="button" onclick="openCheckoutModal()" class="btn btn--primary btn--lg" style="cursor:pointer;border:none;font:inherit;">Start Free Trial →</button>
+      <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Start Free Trial →</a>
       <div style="margin-top:1rem;font-size:0.85rem;color:var(--text-muted);">$7/month after trial · cancel in one click</div>
     </div>
   </section>
@@ -816,133 +685,6 @@
     load();
     setInterval(load, 60000);
   })();
-  </script>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- WHOP EMBEDDED CHECKOUT MODAL                            -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!--
-    The data-whop-checkout-plan-id attribute is set lazily on first open
-    (via openCheckoutModal below) so the Whop iframe doesn't load for every
-    page visitor — only for those who click Subscribe.
-  -->
-  <div id="checkoutModal" class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-    <div class="checkout-card">
-      <button class="checkout-close" onclick="closeCheckoutModal()" aria-label="Close">✕</button>
-      <div>
-        <div style="font-family:var(--font-display,'Orbitron',sans-serif);font-size:0.62rem;letter-spacing:0.18em;color:var(--gold,#D4A843);font-weight:700;margin-bottom:0.5rem;">⚡ FOUNDING MEMBER · $7/MO LOCKED FOR LIFE</div>
-        <div id="checkoutTitle" style="font-family:var(--font-heading,'Cinzel',serif);font-size:1.35rem;color:var(--text-primary,#fff);font-weight:600;">Soomario Accumulator</div>
-        <div id="checkoutSubtitle" style="font-size:0.9rem;color:var(--text-secondary,#bbb);margin-top:0.4rem;line-height:1.5;">
-          7-day free trial · then $7/mo · locked for life · cancel anytime
-        </div>
-      </div>
-      <div id="checkoutHost" class="checkout-host"></div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:0.85rem;font-size:0.68rem;color:var(--text-muted,#888);letter-spacing:0.06em;margin-top:1rem;flex-wrap:wrap;">
-        <span>🔒 SECURE</span>
-        <span>·</span>
-        <span>POWERED BY WHOP</span>
-        <span>·</span>
-        <span>CANCEL ANYTIME</span>
-      </div>
-      <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:0.75rem;font-size:0.75rem;color:var(--gold,#D4A843);text-decoration:underline;">
-        Having trouble? Open checkout on whop.com →
-      </a>
-    </div>
-  </div>
-
-  <script>
-    // ── Founding-member status — live counter ───────────────────
-    // Hits the dashboard API for the live taken/limit count and
-    // updates DOM in place. Fails silently — the page already has a
-    // sane hardcoded fallback (194/200) so first paint always looks right.
-    (function(){
-      var API = 'https://accumulator.soomariostrategies.com/api/founding-status';
-      function $(id){ return document.getElementById(id); }
-      async function load(){
-        try {
-          var res = await fetch(API);
-          if (!res.ok) return;
-          var d = await res.json();
-          if (d.full) {
-            // Post-cap — hide founding badge, swap modal subtitle to public price
-            if ($('foundingBadge')) $('foundingBadge').style.display = 'none';
-            if ($('checkoutSubtitle')) $('checkoutSubtitle').textContent =
-              '7-day free trial · then $' + d.public_price.toFixed(2) + '/mo · cancel anytime';
-            return;
-          }
-          if ($('foundingPrice')) $('foundingPrice').textContent = d.founding_price;
-          if ($('foundingCount')) {
-            $('foundingCount').textContent = d.spots_left;
-            // Color-shift as scarcity intensifies
-            var parent = $('foundingCount').parentElement;
-            if (d.spots_left < 20)      parent.style.color = '#f97316';   // orange
-            else if (d.spots_left < 50) parent.style.color = '#facc15';   // yellow
-          }
-          if ($('foundingLimit')) $('foundingLimit').textContent = d.limit;
-        } catch(e){ /* swallow — keep fallback values */ }
-      }
-      load();
-      setInterval(load, 60000);  // refresh every minute
-    })();
-
-    // ── Whop embedded checkout modal ────────────────────────────
-    (function(){
-      // ⚠️ Plan ID for the Accumulator $7/mo founding plan.
-      // When you flip to $19.99 after 200 subscribers, create the new plan
-      // in Whop and update this constant — that's the only frontend change
-      // needed (the API auto-detects full=true and flips the rest of the copy).
-      var WHOP_PLAN_ID = 'plan_WoyAdxmXyiNsE';
-
-      // Where Whop sends users after a successful checkout. The dashboard
-      // detects ?welcome=1 to (a) poll for membership propagation, and
-      // (b) jump straight into the activation step (Telegram + Discord).
-      var RETURN_URL = 'https://accumulator.soomariostrategies.com/auth/whop/login?welcome=1';
-
-      var modal = document.getElementById('checkoutModal');
-      var host = document.getElementById('checkoutHost');
-      var mounted = false;
-
-      window.openCheckoutModal = function(){
-        // Safety fallback — if someone clears WHOP_PLAN_ID, open hosted Whop instead
-        if (!WHOP_PLAN_ID || WHOP_PLAN_ID === 'WHOP_PLAN_ID_HERE') {
-          window.open('https://whop.com/soomario-strategies/soomario-accumulator/', '_blank', 'noopener');
-          return;
-        }
-        if (!mounted) {
-          host.setAttribute('data-whop-checkout-plan-id', WHOP_PLAN_ID);
-          host.setAttribute('data-whop-checkout-return-url', RETURN_URL);
-          host.setAttribute('data-whop-checkout-theme', 'dark');
-          mounted = true;
-          // Nudge the Whop loader if it's already on the page
-          var scan = function(){
-            if (window.wco && typeof window.wco.scan === 'function') {
-              window.wco.scan();
-            } else {
-              setTimeout(scan, 200);
-            }
-          };
-          scan();
-        }
-        modal.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-      };
-      window.closeCheckoutModal = function(){
-        modal.classList.remove('is-open');
-        document.body.style.overflow = '';
-      };
-      // Backdrop click closes (but clicking inside the card does not)
-      modal.addEventListener('click', function(e){
-        if (e.target === modal) closeCheckoutModal();
-      });
-      // Escape key closes
-      document.addEventListener('keydown', function(e){
-        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeCheckoutModal();
-      });
-      // Deep-link support: soomariostrategies.com#subscribe auto-opens checkout
-      if (window.location.hash === '#subscribe') {
-        window.addEventListener('load', function(){ setTimeout(window.openCheckoutModal, 200); });
-      }
-    })();
   </script>
 
 </body>
