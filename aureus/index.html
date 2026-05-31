@@ -308,26 +308,35 @@ hardNav = hardReserves / totalSupply(AUR)</div>
     </div>
   </section>
 
-  <!-- ═══ 8. STRATEGY TRACK RECORD ═══ -->
+  <!-- ═══ 8. STRATEGIES BEHIND AUREUS ═══ -->
   <section class="au-section" style="background: rgba(15, 10, 26, 0.45);">
-    <div class="container container--narrow">
-      <div class="au-eyebrow">STRATEGY REFERENCE</div>
-      <h2 class="au-h2">Not a new strategy — a productionised one.</h2>
-      <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1rem;">The strategies AUREUS deploys are not new — a ~5-asset Hyperliquid alt-perp portfolio with a published backtest from 2020 through early 2026, and live operator capital behind it for months before launch.</p>
+    <div class="container">
+      <div class="au-eyebrow text-center">WHAT'S UNDER THE HOOD</div>
+      <h2 class="au-h2 text-center" style="margin-bottom: 1rem;">Strategies behind AUREUS</h2>
+      <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1rem; max-width: 640px; margin: 0 auto 2.5rem; text-align: center;">
+        AUREUS is a fund — it deploys capital across Soomario Strategies that have been running on operator capital before launch. The allocation between strategies is operationally adjusted as conditions change; each underlying strategy has its own product page, live dashboard, and individual track record.
+      </p>
 
-      <div class="au-figures">
-        <div>
-          <div class="au-figure__value">~66×</div>
-          <div class="au-figure__label">Cumulative (backtest, $1K seed)</div>
-        </div>
-        <div>
-          <div class="au-figure__value">−3.9%</div>
-          <div class="au-figure__label">Max drawdown (backtest window)</div>
-        </div>
+      <div class="au-grid-3">
+        <a href="../products/elite.html" class="au-card" style="text-decoration: none; display: block;">
+          <div class="au-card__num">STRATEGY · 01</div>
+          <div class="au-card__title">Elite</div>
+          <p class="au-card__body">HYPE &amp; AVAX directional. Concentrated long-bias bot running the strategy that built Soomario's track record.</p>
+        </a>
+        <a href="../products/aphelion.html" class="au-card" style="text-decoration: none; display: block;">
+          <div class="au-card__num">STRATEGY · 02</div>
+          <div class="au-card__title">Aphelion</div>
+          <p class="au-card__body">Multi-signal long-bias accumulator. Buys oversold assets in scaled increments with layered defense. 15-asset universe on Hyperliquid.</p>
+        </a>
+        <a href="../products/rotation.html" class="au-card" style="text-decoration: none; display: block;">
+          <div class="au-card__num">STRATEGY · 03</div>
+          <div class="au-card__title">Rotation <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.08em;">· PROVISIONAL</span></div>
+          <p class="au-card__body">Multi-asset long-only allocator. Currently in paper validation; may be added to the AUREUS allocation once live trading confirms positive expectancy.</p>
+        </a>
       </div>
 
-      <div class="au-disclaimer">
-        <strong>These are backtested results.</strong> Past performance does not guarantee future results. Epochs can close flat or negative. The detailed methodology (<code style="color:var(--gold);">AUREUS_BACKTEST.md</code>) is published in the protocol repo and will be linked from the dashboard.
+      <div class="au-disclaimer" style="margin-top: 2rem;">
+        <strong>Live performance varies by strategy.</strong> Each strategy's individual track record is published on its product page and dashboard. AUREUS reports its aggregate NAV at each epoch close (every 14 days). Past performance does not guarantee future results. Epochs can close flat or negative.
       </div>
     </div>
   </section>
@@ -436,7 +445,7 @@ hardNav = hardReserves / totalSupply(AUR)</div>
         <li><strong style="color: var(--text-primary);">Trading-strategy risk.</strong> Profits are not guaranteed; epochs can close flat or negative.</li>
         <li><strong style="color: var(--text-primary);">Hyperliquid platform risk.</strong> Trading executes on Hyperliquid; HL outages, bugs, or insolvency would affect reserves.</li>
         <li><strong style="color: var(--text-primary);">Bridge risk.</strong> Capital in transit between Arbitrum and Hyperliquid is exposed to bridge-contract risk.</li>
-        <li><strong style="color: var(--text-primary);">Concentration risk.</strong> 5-asset alt-perp portfolio is concentrated by design.</li>
+        <li><strong style="color: var(--text-primary);">Strategy concentration risk.</strong> The underlying strategies share venue (Hyperliquid) and broadly correlated asset universes. Diversification across strategies reduces single-strategy risk but does not eliminate correlated drawdowns in adverse market regimes.</li>
       </ul>
       <p class="au-risk__caption">This is not financial advice. Deposit only what you can afford to lose.</p>
     </div>
@@ -467,7 +476,7 @@ hardNav = hardReserves / totalSupply(AUR)</div>
       <span style="color: var(--gold);">·</span>
       <a href="https://arbiscan.io/address/0xb04E452E853635a9e7A2c6a372cd85be1B7544c4" target="_blank" rel="noopener">Multisig on Arbiscan</a>
       <span style="color: var(--gold);">·</span>
-      <a href="whitepaper.html#section-strategy">Backtest methodology</a>
+      <a href="../products/">Underlying strategies</a>
       <div style="margin-top: 1rem; max-width: 700px; margin-left: auto; margin-right: auto; font-style: italic;">
         This page is descriptive. It is not a solicitation, offer, prospectus, or financial advice. AUREUS is a public smart-contract protocol on a permissionless blockchain; participation is voluntary and at your own risk.
       </div>
