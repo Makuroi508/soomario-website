@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Trading glossary: RSI, DCA, Sharpe ratio, drawdown, vault, funding rate, theta, perpetual futures, max pain zone, and every term used in Soomario's products.">
+  <meta name="description" content="Trading glossary: RSI, DCA, Sharpe ratio, drawdown, vault, profit factor, leverage, liquidation, and every term used in Soomario's products.">
   <title>Trading Glossary — A-Z Definitions | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,73 +30,51 @@
       <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">Every term used across Soomario products, explained in plain English.</p>
 
       <dl>
-        <div class="glossary-term"><dt>ATR (Average True Range)</dt><dd>A volatility indicator measuring the average size of recent price ranges. Used to set adaptive stop distances and grid spacings that scale with how much an asset is currently moving — wider stops in volatile regimes, tighter in calm ones. Used in Farms grid construction and Supertrend.</dd></div>
-
-        <div class="glossary-term"><dt>Backtest</dt><dd>A simulation of how a strategy would have performed on historical market data. Useful as evidence about a strategy's behaviour in past regimes — but not a guarantee of future results. See: <a href="how-to-read-a-backtest.html" style="color:var(--gold);">How to Read a Backtest</a>.</dd></div>
-
         <div class="glossary-term"><dt>CAGR (Compound Annual Growth Rate)</dt><dd>The annualized rate of return that smooths out year-to-year variation. A strategy returning 200% over 3 years has a CAGR of roughly 44%. Useful for comparing strategies with different time horizons.</dd></div>
-
-        <div class="glossary-term"><dt>Covered Call</dt><dd>An options strategy where you sell a call option against an asset you already hold. The buyer pays you a premium; in exchange, they get the right to buy your asset at the strike price if it rises that high. If the asset stays below the strike, you keep the premium and the asset. The cost is giving up upside above the strike. Used by Soomario Premia.</dd></div>
 
         <div class="glossary-term"><dt>DCA (Dollar-Cost Averaging)</dt><dd>An investment strategy where you buy a fixed dollar amount of an asset at regular intervals, regardless of price. Over time, you accumulate more shares when prices are low and fewer when high. See: <a href="what-is-dca.html" style="color:var(--gold);">What is Smart DCA?</a></dd></div>
 
         <div class="glossary-term"><dt>Drawdown (Max DD)</dt><dd>The largest peak-to-trough decline in an account's value before a new high is reached. A max drawdown of 25% means the account dropped 25% from its highest point at some point during the strategy's history. Critical for understanding worst-case scenarios.</dd></div>
 
-        <div class="glossary-term"><dt>Fear &amp; Greed Index</dt><dd>A composite score (0–100) measuring market sentiment. 0–25 = Extreme Fear, 75–100 = Extreme Greed. Used by Soomario as a regime indicator — extreme fear historically corresponds to better entries for accumulator-style strategies.</dd></div>
-
-        <div class="glossary-term"><dt>Funding Rate</dt><dd>A periodic payment between long and short holders of a perpetual future, calculated by the exchange to keep the perp price anchored to spot. Positive funding means longs pay shorts; negative means shorts pay longs. Funding also serves as a positioning indicator: extreme funding signals a crowded side. See: <a href="funding-rates.html" style="color:var(--gold);">Funding Rates Explained</a>.</dd></div>
+        <div class="glossary-term"><dt>Fear &amp; Greed Index</dt><dd>A composite score (0–100) measuring market sentiment. 0–25 = Extreme Fear, 75–100 = Extreme Greed. Used by several Soomario strategies as a macro-level filter — extreme fear and greed regimes shift conviction thresholds and position sizing.</dd></div>
 
         <div class="glossary-term"><dt>Grid Trading</dt><dd>A strategy that places buy and sell orders at regular intervals across a price range. As price oscillates, the grid captures small profits on each round trip. Direction-agnostic — works in sideways markets. Used by Soomario Farms.</dd></div>
 
-        <div class="glossary-term"><dt>HIP-3 Perpetuals</dt><dd>Hyperliquid's framework for listing derivatives that track non-crypto underlyings — most notably US equities like NVDA, TSLA, AVGO, and MSFT. HIP-3 perps trade 24/7 on Hyperliquid against USDC margin and are the venue for Aphelion's stock sleeve and Rotation's equity rotation sleeve.</dd></div>
+        <div class="glossary-term"><dt>Leverage</dt><dd>Borrowing capital to increase position size. 5x leverage means a $1,000 deposit controls a $5,000 position. Amplifies both gains and losses proportionally. A 10% price move at 5x = 50% gain or loss on your capital.</dd></div>
 
-        <div class="glossary-term"><dt>Hyperliquid</dt><dd>A perpetual futures exchange that runs on its own purpose-built blockchain. Notable for first-class on-chain vaults (anyone can deposit into a public vault directly), high throughput, and support for HIP-3 equity perpetuals. The execution venue for most Soomario vault strategies.</dd></div>
+        <div class="glossary-term"><dt>Liquidation</dt><dd>When an exchange forcibly closes a leveraged position because losses have consumed the trader's margin. Triggers a market sell (or buy) at whatever price is available, often cascading into further liquidations. See: <a href="liquidation-zones.html" style="color:var(--gold);">Liquidation Zones Explained</a></dd></div>
 
-        <div class="glossary-term"><dt>Leverage</dt><dd>Borrowing capital to increase position size. 5x leverage means a $1,000 deposit controls a $5,000 position. Amplifies both gains and losses proportionally. A 10% price move at 5x = 50% gain or loss on your capital. See: <a href="perpetual-futures.html" style="color:var(--gold);">Perpetual Futures Explained</a>.</dd></div>
-
-        <div class="glossary-term"><dt>Liquidation</dt><dd>When an exchange forcibly closes a leveraged position because losses have consumed the trader's margin. Triggers a market sell (or buy) at whatever price is available, often cascading into further liquidations. See: <a href="liquidation-zones.html" style="color:var(--gold);">Liquidation Zones Explained</a>.</dd></div>
-
-        <div class="glossary-term"><dt>Market Neutral</dt><dd>A strategy designed to be insensitive to overall market direction — typically by pairing a long position in one asset with a short position in another. Profits come from <em>relative</em> performance (the long outperforming the short), not from the market going up or down. Soomario Alpha is the platform's market-neutral strategy.</dd></div>
-
-        <div class="glossary-term"><dt>Max Pain Zone</dt><dd>The price range where the highest concentration of leveraged positions would be liquidated. Named because it represents maximum pain for leveraged traders — and maximum opportunity for strategies designed to enter at the exhaustion of cascading liquidations. See: <a href="liquidation-zones.html" style="color:var(--gold);">Liquidation Zones Explained</a>.</dd></div>
-
-        <div class="glossary-term"><dt>Mean Reversion</dt><dd>The tendency of price to return toward an average level after large deviations. Mean-reversion strategies enter when price has moved unusually far from a baseline (deeply oversold or overbought) and profit when it returns. Soomario Max Pain and Zones are mean-reversion strategies; their high win rates reflect that small bounces from exhaustion are common.</dd></div>
-
-        <div class="glossary-term"><dt>Momentum</dt><dd>The opposite of mean reversion — the tendency of trending price to continue trending. Momentum strategies enter on confirmation that a trend is establishing and ride it until weakness emerges. Soomario Elite is the platform's momentum strategy. Momentum strategies typically have lower win rates than mean-reversion strategies but larger average wins.</dd></div>
+        <div class="glossary-term"><dt>Farms Zone</dt><dd>The price range where the highest concentration of leveraged positions would be liquidated. Named because it represents maximum pain for leveraged traders — and maximum opportunity for strategies designed to exploit the resulting price dislocations.</dd></div>
 
         <div class="glossary-term"><dt>Moving Average (MA / SMA)</dt><dd>The average price of an asset over a specific number of periods. A 50-day MA is the average closing price over the last 50 days. Used to identify trends and measure how far price has deviated from its norm.</dd></div>
 
         <div class="glossary-term"><dt>Open Interest (OI)</dt><dd>The total number of outstanding leveraged positions (both longs and shorts) on a perpetual futures market. Higher OI = more leveraged positions = larger potential liquidation cascades.</dd></div>
 
-        <div class="glossary-term"><dt>Perpetual Futures (Perps)</dt><dd>Derivative contracts that track an asset's price without ever expiring. Perps use a funding mechanism to keep the contract price anchored to spot. The primary trading instrument across most Soomario vault strategies. See: <a href="perpetual-futures.html" style="color:var(--gold);">Perpetual Futures Explained</a>.</dd></div>
+        <div class="glossary-term"><dt>Perpetual Futures (Perps)</dt><dd>Crypto futures contracts with no expiration date. Unlike traditional futures, perps use a funding rate mechanism to keep the contract price close to the spot price. The primary trading instrument on Hyperliquid and OKX.</dd></div>
 
-        <div class="glossary-term"><dt>Profit Factor (PF)</dt><dd>Gross profits divided by gross losses. A PF of 2.0 means the strategy makes $2 for every $1 it loses. Above 1.5 is generally considered good. Below 1.0 means the strategy is unprofitable. The most useful single number for evaluating a backtest.</dd></div>
+        <div class="glossary-term"><dt>Profit Factor (PF)</dt><dd>Gross profits divided by gross losses. A PF of 2.0 means the strategy makes $2 for every $1 it loses. Above 1.5 is generally considered good. Below 1.0 means the strategy is unprofitable.</dd></div>
 
-        <div class="glossary-term"><dt>RSI (Relative Strength Index)</dt><dd>A momentum oscillator measuring the speed and magnitude of recent price changes on a 0–100 scale. Below 30 is conventionally oversold; above 70, overbought. Soomario uses RSI in different forms across strategies — short periods for mean-reversion entries, longer periods for trend confirmation. Specific period lengths and thresholds are calibrated per strategy.</dd></div>
+        <div class="glossary-term"><dt>RSI (Relative Strength Index)</dt><dd>A momentum indicator measuring the speed and magnitude of price changes on a 0–100 scale. Below 30 = oversold (selling may be exhausted). Above 70 = overbought. Soomario uses RSI-2 (ultra-short) for signal precision and RSI-14 for dashboard display.</dd></div>
 
-        <div class="glossary-term"><dt>Self-Custody</dt><dd>A model where you retain control of your own funds. In Soomario's vault model, your USDC remains on Hyperliquid under the vault smart contract — the vault leader can trade with it but cannot withdraw it to a private address. You can exit at any time.</dd></div>
+        <div class="glossary-term"><dt>Self-Custody</dt><dd>A model where you retain control of your own funds. In Soomario's vault model, your USDC remains on Hyperliquid under your wallet — the vault leader can trade with it but cannot withdraw it. You can exit at any time.</dd></div>
 
-        <div class="glossary-term"><dt>Sharpe Ratio</dt><dd>A measure of risk-adjusted return: (strategy return - risk-free rate) / standard deviation of returns. Higher is better. Above 1.0 is acceptable, above 2.0 is excellent. Compares how much return you get per unit of volatility taken.</dd></div>
+        <div class="glossary-term"><dt>Sharpe Ratio</dt><dd>A measure of risk-adjusted return: (strategy return - risk-free rate) / standard deviation of returns. Higher is better. Above 1.0 is acceptable, above 2.0 is excellent. Compares how much return you get per unit of risk taken.</dd></div>
 
-        <div class="glossary-term"><dt>Signal Strength</dt><dd>In the Accumulator, a 0–100% score combining momentum, volatility, and trend-extension indicators. Higher strength = the asset is more oversold across multiple dimensions. Determines the buy multiplier (1×–5×) applied to the user's daily DCA budget.</dd></div>
+        <div class="glossary-term"><dt>Signal Strength</dt><dd>In the Accumulator, a 0–100% score combining RSI, volume z-score, and price-vs-MA indicators. Higher strength = the asset is more oversold across multiple dimensions. Determines the buy multiplier (1x–5x).</dd></div>
 
-        <div class="glossary-term"><dt>Sortino Ratio</dt><dd>Like the Sharpe ratio, but only penalizes downside volatility (losses), not upside volatility (gains). A better measure for strategies where large upside moves are desirable. Higher is better. The gap between Sharpe and Sortino indicates how much of a strategy's volatility is upside.</dd></div>
+        <div class="glossary-term"><dt>Sortino Ratio</dt><dd>Like the Sharpe ratio, but only penalizes downside volatility (losses), not upside volatility (gains). A better measure for strategies where large upside moves are desirable. Higher is better.</dd></div>
 
-        <div class="glossary-term"><dt>Stop-Loss (SL)</dt><dd>A predetermined price level at which a losing position is automatically closed to limit further loss. Every Soomario leveraged strategy uses stop-losses placed directly on the exchange — so they fire whether the strategy bot is online or not.</dd></div>
+        <div class="glossary-term"><dt>Stop-Loss (SL)</dt><dd>A predetermined price level at which a losing position is automatically closed to limit further loss. Every Soomario leveraged strategy uses stop-losses on every position.</dd></div>
 
-        <div class="glossary-term"><dt>Supertrend</dt><dd>A trend-following indicator that calculates a dynamic support/resistance level based on ATR. When price closes above the Supertrend line, the trend is bullish; below, bearish. Used across Soomario strategies as a trend-direction filter — confirming the larger trend before acting on shorter-term signals.</dd></div>
+        <div class="glossary-term"><dt>Supertrend</dt><dd>A trend-following indicator that calculates a dynamic support/resistance level based on ATR (Average True Range). Used by Farms strategies as a macro directional filter — confirming the larger trend before entering trades.</dd></div>
 
-        <div class="glossary-term"><dt>Theta (Time Decay)</dt><dd>The rate at which an option loses value as time passes, all else equal. Theta is negative for option buyers (they lose value daily) and positive for option sellers (they gain value daily). Soomario Premia harvests theta by selling covered calls, choosing expirations that capture the steepest section of the time-decay curve.</dd></div>
+        <div class="glossary-term"><dt>Trailing Stop</dt><dd>A stop-loss that moves in the direction of profit. As price moves in your favor, the stop follows at a fixed distance. Locks in profits while allowing the trade to continue running. Used by Max Pain (50% retrace from peak after the midpoint TP fires) and Farms (runner trail after the first take-profit).</dd></div>
 
-        <div class="glossary-term"><dt>Token Unlock</dt><dd>A scheduled event where previously locked tokens — held by a project's team, early investors, or ecosystem fund — become tradable. Unlocks are publicly disclosed in tokenomics schedules. They create predictable supply increases that can pressure price downward, especially when recipients are likely to sell. Soomario Alpha uses upcoming unlocks as its dominant signal for short candidates.</dd></div>
+        <div class="glossary-term"><dt>Vault (Hyperliquid)</dt><dd>A smart contract on Hyperliquid where multiple depositors pool USDC and a vault leader executes trades. Depositors share gains/losses proportionally. The leader takes a profit share on gains only. See: <a href="how-vaults-work.html" style="color:var(--gold);">How Vaults Work</a></dd></div>
 
-        <div class="glossary-term"><dt>Trailing Stop</dt><dd>A stop-loss that moves in the direction of profit. As price moves in your favour, the stop follows at a fixed distance, locking in unrealised gains. If price reverses, the trail acts as the exit trigger. Trailing stops let profitable trades continue running while protecting accumulated profit.</dd></div>
+        <div class="glossary-term"><dt>Win Rate</dt><dd>The percentage of trades that are profitable. A 75% win rate means 3 out of 4 trades make money. Win rate alone doesn't determine profitability — you also need to consider the average win size vs average loss size (see: Profit Factor).</dd></div>
 
-        <div class="glossary-term"><dt>Vault (Hyperliquid)</dt><dd>A smart contract on Hyperliquid where multiple depositors pool USDC and a vault leader executes trades on the pooled equity. Depositors share gains/losses proportionally. The leader takes a profit share on net gains only. See: <a href="how-vaults-work.html" style="color:var(--gold);">How Vaults Work</a>.</dd></div>
-
-        <div class="glossary-term"><dt>Win Rate</dt><dd>The percentage of trades that close profitably. A 75% win rate means 3 out of 4 trades make money. Win rate alone doesn't determine profitability — you also need to consider the average win size vs average loss size (see: Profit Factor). High-win-rate strategies and low-win-rate strategies can both be profitable; they just have different shapes.</dd></div>
-
-        <div class="glossary-term"><dt>Z-Score</dt><dd>A statistical measure of how many standard deviations a value is from its mean. A volume z-score of 3.0 means current volume is 3 standard deviations above the historical average — an extreme reading suggesting unusual market activity. Used across Soomario strategies as an anomaly detector for volume, price excursion, or other distributional signals.</dd></div>
+        <div class="glossary-term"><dt>Z-Score</dt><dd>A statistical measure of how many standard deviations a value is from its mean. A volume z-score of 3.0 means current volume is 3 standard deviations above the historical average — an extreme reading suggesting unusual market activity (like capitulation selling).</dd></div>
       </dl>
 
       <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">

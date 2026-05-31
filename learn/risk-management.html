@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1625">
-  <meta name="description" content="Risk management for algorithmic trading: drawdowns, leverage, position sizing, exchange-side stops, and how Soomario protects capital across the strategy suite.">
+  <meta name="description" content="Risk management for algorithmic trading: drawdowns, leverage, position sizing, and how Soomario protects capital across its 6 strategies.">
   <title>Risk Management for Algo Trading | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,9 +27,9 @@
   <section class="section" style="padding-top:2rem;">
     <div class="container article">
       <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
-      <div class="section-label">RISK · 6 MIN READ</div>
+      <div class="section-label">RISK · 5 MIN READ</div>
       <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Risk Management for Algo Trading</span></h1>
-      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">What can go wrong, how Soomario manages risk across the strategy suite, and how to size your own exposure responsibly.</p>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">What can go wrong, how Soomario manages risk, and how to think about your own exposure.</p>
 
       <h2 class="gradient-text">The Honest Truth About Risk</h2>
       <p>No algorithmic trading system wins every trade. No backtest perfectly predicts the future. No amount of sophistication eliminates the possibility of loss. If anyone tells you otherwise, they're lying to you.</p>
@@ -38,54 +38,49 @@
       <h2 class="gradient-text">What Can Go Wrong</h2>
 
       <h3>Drawdowns</h3>
-      <p>A drawdown is the peak-to-trough decline in your account before a new high is reached. Every strategy experiences drawdowns — the question is how large and how long. Max Pain's six-year backtest showed an 11.8% maximum drawdown across 1,184 days of trading; Farms operates under a portfolio-level drawdown halt at 12% with auto-resume; Zones uses graduated DCA with a catastrophic stop outside the deepest level. A 15% drawdown means a $10,000 account temporarily drops to $8,500 before recovering. Live drawdowns can run 1.5×–2× backtested drawdowns once slippage, regime shifts, and out-of-sample volatility are accounted for. See <a href="how-to-read-a-backtest.html" style="color:var(--gold);">How to Read a Backtest</a> for how to weight backtested drawdown numbers honestly.</p>
+      <p>A drawdown is the peak-to-trough decline in your account before a new high is reached. Every strategy experiences drawdowns — the question is how large and how long. Soomario's strategies have observed max drawdowns ranging from ~1.7% (Max Pain, live) to 28.1% (AVAX v3 backtest over 3 years). A 25% drawdown means a $10,000 account temporarily drops to $7,500 before recovering.</p>
 
       <h3>Leverage Amplification</h3>
-      <p>Most Soomario vault strategies use modest leverage. Aphelion and Elite cap at 2× isolated; Max Pain runs 2×–3× tiered per coin. Farms uses modest grid leverage with hard stops 1.5% beyond the lowest grid level. Leverage multiplies both gains and losses identically. A 5% adverse move at 5× leverage is a 25% loss on the position's margin. The leverage caps are deliberately tuned so that normal volatility clusters do not trigger liquidation. Higher leverage would mean tighter stop bands, which would mean more false stops in normal market noise — and false stops are more expensive than wider drawdowns. The Accumulator subscription product uses no leverage at all, executed by the user on their own broker.</p>
+      <p>Most Soomario vault strategies use leverage (2x–8x). Leverage multiplies both gains and losses. A 5% move against you at 5x leverage is a 25% loss on your capital. This is why stop-losses and position sizing are critical — and why the Accumulator ($7/mo, no leverage) is the lowest-risk entry point.</p>
 
       <h3>Market Regime Changes</h3>
-      <p>Strategies that work in one market environment may underperform in another. A momentum strategy thrives in trending markets but suffers in choppy, range-bound conditions. A mean-reversion strategy thrives in choppy conditions but underperforms in strong trends. A range-farming strategy earns from oscillation around an anchor — when assets enter persistent one-direction trends, the anchor stops being meaningful and the strategy rotates out. Soomario mitigates regime risk by running strategies with different shapes — momentum (Elite), mean reversion (Max Pain, Zones), accumulator (Aphelion, Accumulator), range farming (Farms), volatility harvesting (Premia) — but no single product is immune to its own regime risk. See <a href="mean-reversion-vs-momentum.html" style="color:var(--gold);">Mean Reversion vs Momentum</a>.</p>
+      <p>Strategies that work in one market environment may underperform in another. A momentum strategy thrives in trending markets but suffers in choppy, range-bound conditions. Soomario mitigates this by running multiple strategy types (momentum, reversal, DCA, grid farming) — but no single product is immune to regime changes.</p>
 
       <h3>Backtesting vs Reality</h3>
-      <p>Backtested results are calculated on historical data. Live trading faces challenges that backtests don't fully capture: slippage, liquidity gaps in extreme volatility, exchange downtime, network latency, funding costs that drift over time. Soomario publishes both backtested and live vault metrics so you can compare. Live performance underperforming backtest by 20–40% is normal; underperforming by more than that is a signal to dig deeper.</p>
+      <p>Backtested results are calculated on historical data. Live trading faces challenges that backtests don't: slippage (your execution price differs from the signal price), liquidity gaps (especially in crypto during extreme volatility), exchange downtime, and network latency. Soomario publishes both backtested and live results so you can compare.</p>
 
       <h2 class="gradient-text">How Soomario Manages Risk</h2>
 
-      <h3>Exchange-Side Stop Losses</h3>
-      <p>This is the most consequential design choice in the platform. Every leveraged vault strategy places its stop-loss orders <strong>directly on the exchange order book at the moment of entry</strong> — not as an alert that triggers a bot to close the position, but as an actual reduce-only order resting on the matching engine. If a stop has to fire, it fires whether the bot is alive, reachable, rate-limited, or restarting. It fires at a price the strategy chose, against the exchange's full liquidity, with no dependence on bot uptime. Bot-side monitoring runs as a redundancy on top, not as the primary defence.</p>
-      <p>Max Pain runs an independent 45-second stop-loss safety loop in addition to the TradingView signal layer. Farms places hard stops 1.5% beyond the lowest grid level on every active grid, with ATR trailing on the seed position. Zones uses a portfolio-level circuit breaker plus a catastrophic stop outside the deepest DCA level. The pattern is consistent: stops live where they don't depend on the strategy bot being awake.</p>
+      <h3>Stop-Losses on Every Position</h3>
+      <p>Every leveraged position has a hard stop-loss. For Max Pain, this is a catastrophic stop placed 10% beyond the deepest zone level. For Farms, a per-tranche floor sits 5% below the lowest T2 level (armed after the second tranche deploys). For Elite, per-asset calibrated stops apply. No position is ever left unprotected.</p>
 
       <h3>Position Sizing</h3>
-      <p>No single trade risks the entire account. Strategies allocate small fractions of equity per trade — Accumulator's signal-multiplier system caps at 5× the user's daily DCA budget, Zones' DCA layers are graduated so deeper entries get bigger allocations but the total exposure is bounded, Farms runs at most five concurrent grids each sized to a fraction of vault equity. A string of losing trades cannot eliminate the account.</p>
+      <p>No single trade risks the entire account. Strategies allocate a fixed percentage of capital per trade (typically 2–5%), so even a string of losses doesn't destroy the account. Farms additionally isolates capital per grid — one grid failing can't consume more than 20% of total capital.</p>
 
-      <h3>Diversification by Strategy Shape</h3>
-      <p>The platform's vault products are <strong>decoupled by design</strong> — they use different signal categories, target different inefficiencies, and reach their drawdowns at different times. A range-farming strategy (Farms) earning steadily in choppy markets can be flat in trending regimes that punish it; a mean-reversion strategy (Max Pain, Zones) can prosper in chop while a momentum strategy (Elite) waits. This is structural diversification, not just asset diversification: spreading capital across decoupled strategy <em>shapes</em> reduces synchronised drawdown risk.</p>
-
-      <h3>Reconcile Guards</h3>
-      <p>A subtle but important risk in automated trading is state drift between the strategy's internal record and the exchange's actual state. An API failure could be misinterpreted as "no positions exist" and trigger a cascade of erroneous closes. Soomario's strategies require <strong>two-stage confirmation</strong> for any state-changing close action: a fresh, force-refreshed read from the exchange has to confirm the close decision before the action is taken. If the exchange contradicts the close decision, the close is aborted entirely. This guard is invisible during normal operation. It exists for the day when something unexpected happens.</p>
+      <h3>Diversification</h3>
+      <p>Elite runs 2 bots on 2 different assets. Max Pain monitors 21 coins. Farms scans ~50 and runs up to 5 concurrent farms. This diversification means a bad trade on one coin is balanced by performance across others — the strategies behave independently.</p>
 
       <h3>Transparent Metrics</h3>
-      <p>Every product page publishes risk metrics: max drawdown, Sharpe ratio, Sortino ratio, profit factor, and win rate. Vault addresses are public, so anyone can verify positions and trade history on Hyperliquid in real time. There is no back-office, no LP statement, no quarterly attestation — the system is its own audit.</p>
+      <p>Every product page publishes detailed risk metrics: max drawdown, Sharpe ratio (risk-adjusted return), Sortino ratio (downside risk), profit factor (gross gains / gross losses), and win rate. These aren't hidden — they're front and center so you can make an informed decision.</p>
 
       <h2 class="gradient-text">How to Think About Your Own Risk</h2>
 
       <div class="callout">
-        <p><strong>Rule 1:</strong> Never invest more than you can afford to lose entirely. Algo trading is not a savings account. Even with mechanical stops, the worst-case loss is the entire allocated capital.</p>
+        <p><strong>Rule 1:</strong> Never invest more than you can afford to lose entirely. Algo trading is not a savings account.</p>
       </div>
 
-      <p><strong>Start small.</strong> The Accumulator at $7/month with no leverage is the lowest-risk way to experience signal-driven trading. If you move to vault products, start with a small deposit and increase only after you have watched the strategy through at least one full drawdown-and-recovery cycle.</p>
+      <p><strong>Start small.</strong> The Accumulator at $7/mo with no leverage is the lowest-risk way to experience signal-driven trading. If you move to vault strategies, start with a small deposit and increase only after you've seen how the strategy performs over weeks or months.</p>
 
-      <p><strong>Match the product to your risk tolerance.</strong> Accumulator (no leverage, executed by you) is fundamentally different from a leveraged perpetuals vault. Read each product's honest-limits section before depositing.</p>
+      <p><strong>Understand your product's risk level.</strong> Accumulator (low risk, no leverage) is fundamentally different from Elite (medium-high risk, leveraged perps). Make sure the product matches your risk tolerance.</p>
 
-      <p><strong>Size for max drawdown, not for return.</strong> If a strategy has a backtested max drawdown of 15%, assume live drawdowns can be 22–30% in the worst case. Could you tolerate that without panic-withdrawing? If not, size the deposit smaller, or pick a strategy with a tighter drawdown profile.</p>
+      <p><strong>Check the drawdown numbers.</strong> If a strategy has a backtested max drawdown of 25%, assume live drawdowns could be 30–40% in the worst case. Can you emotionally and financially handle watching your account drop by that much before recovering? If not, choose a lower-risk product.</p>
 
-      <p><strong>Diversify across strategy shapes, not just dollar-amounts.</strong> Splitting capital evenly between two long-bias strategies that share the same drawdown drivers is barely diversification. Splitting between a long-bias accumulator (Aphelion), a non-directional range farmer (Farms), and a mean-reversion vault (Zones or Max Pain) is structural diversification.</p>
+      <p><strong>Diversify across strategies.</strong> Don't put 100% into one vault. Spreading capital across different strategy types (DCA, momentum, zone farming) reduces your exposure to any single approach underperforming.</p>
 
       <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="../products/accumulator.html" class="btn btn--primary btn--sm">Start Low-Risk with Accumulator →</a>
           <a href="../tools/compare.html" class="btn btn--outline btn--sm">Compare All Products</a>
-          <a href="how-to-read-a-backtest.html" class="btn btn--outline btn--sm">How to Read a Backtest</a>
         </div>
       </div>
     </div>
