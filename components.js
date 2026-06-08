@@ -1,332 +1,176 @@
-/* ═══════════════════════════════════════════════════════════════
-   SOOMARIO STRATEGIES — Shared Components
-   Injects nav, footer, mobile menu on every page
-   ═══════════════════════════════════════════════════════════════ */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="Compare Soomario's 6 algorithmic trading products side by side. Strategy, risk level, price, platform, and performance metrics.">
+  <title>Compare Products — Side-by-Side | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  
+  <link rel="canonical" href="https://soomariostrategies.com/tools/compare.html">
+  <style>
+    .compare-card { min-width: 200px; flex: 1; }
+    .compare-card.selected { border-color: var(--gold); background: rgba(201,169,97,0.06); }
+    .compare-row { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; }
+    .compare-detail { display: grid; gap: 1px; background: var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; margin-top: 2rem; }
+    .compare-detail-row { display: grid; background: var(--bg-surface); }
+    .compare-detail-cell { padding: 0.85rem 1rem; font-size: 0.88rem; }
+    .compare-detail-label { background: var(--bg-card); color: var(--text-muted); font-family: var(--font-display); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; }
+    .risk-low { color: var(--green); }
+    .risk-med { color: #facc15; }
+    .risk-high { color: #fb923c; }
+  </style>
+</head>
+<body>
 
-(function() {
-  'use strict';
+  <section class="section" style="padding-top:2rem;">
+    <div class="container">
+      <div class="section-label">COMPARE</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);margin-bottom:0.5rem;">
+        <span class="gradient-text">Which Product is Right for You?</span>
+      </h1>
+      <p style="font-size:1rem;color:var(--text-secondary);max-width:550px;margin-bottom:2rem;">
+        Select 2–3 products to compare side by side. Every metric, every detail, one view.
+      </p>
 
-  /* ── Config ── */
-  const SITE = {
-    name: 'SOOMARIO',
-    sub: 'STRATEGIES',
-    domain: 'https://soomariostrategies.com',
-    logo: getAssetPath('soomario-logo.png'),
-    whop: {
-      accumulator: 'https://whop.com/soomario-strategies/soomario-accumulator/',
-      maxpain: 'https://whop.com/soomario-strategies/',
-      elite: 'https://whop.com/soomario-strategies/',
-    },
-    discord: 'https://discord.com/invite/gzpyCd3v7g',
-    twitter: 'https://twitter.com/SoomarioStrat',
-    hyperliquid: 'https://app.hyperliquid.xyz/join/SMR',
-    dashboards: {
-      accumulator: 'https://accumulator.soomariostrategies.com/dashboard',
-      accumulatorLogin: 'https://accumulator.soomariostrategies.com/dashboard',
-      elite: getPagePath('dashboards/elite.html'),
-      vault: getPagePath('dashboards/vault.html'),
-      farms: 'https://farms.soomariostrategies.com/',
-    },
-    ga4: '' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
-  };
+      <!-- Product Selector -->
+      <p style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);margin-bottom:0.75rem;">TAP TO SELECT (2–3 PRODUCTS)</p>
+      <div class="compare-row" id="productSelector"></div>
 
-  /* ── Path Helpers ── */
-  function getDepth() {
-    const path = window.location.pathname;
-    const segments = path.split('/').filter(s => s && !s.includes('.'));
-    // Detect if we're in a subdirectory (products/, learn/, etc.)
-    const knownDirs = ['products', 'learn', 'tools', 'dashboards', 'aureus'];
-    for (const dir of knownDirs) {
-      if (path.includes('/' + dir + '/')) return '../';
-    }
-    return '';
-  }
+      <!-- Comparison Table -->
+      <div id="comparisonOutput"></div>
+    </div>
+  </section>
 
-  function getAssetPath(file) {
-    return getDepth() + file;
-  }
+  <!-- Quick Recommendation -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">NOT SURE?</div>
+      <h2 class="section-title" style="font-size:1.4rem;"><span class="gradient-text">Quick Recommendation</span></h2>
 
-  function getPagePath(page) {
-    return getDepth() + page;
-  }
-
-  /* Recalculate paths after DOM is ready */
-  function resolvePaths() {
-    const depth = getDepth();
-    SITE.logo = depth + 'soomario-logo.png';
-    SITE.dashboards.elite = depth + 'dashboards/elite.html';
-    SITE.dashboards.vault = depth + 'dashboards/vault.html';
-  }
-
-  /* ── Detect Active Page ── */
-  function isActivePath(href) {
-    if (href.startsWith('http')) return false;
-    const current = window.location.pathname;
-    const target = href.replace(/^\.\.\//, '').replace(/^\.\//, '');
-    return current.endsWith(target) || current.endsWith('/' + target);
-  }
-
-  function isActiveSection(section) {
-    const path = window.location.pathname;
-    return path.includes('/' + section + '/');
-  }
-
-  /* ── Navigation ── */
-  function buildNav() {
-    const depth = getDepth();
-    const nav = document.createElement('nav');
-    nav.className = 'site-nav';
-    nav.setAttribute('role', 'navigation');
-    nav.setAttribute('aria-label', 'Main navigation');
-
-    nav.innerHTML = `
-      <div class="site-nav__inner">
-        <a href="${depth}index.html" class="site-nav__brand" aria-label="Soomario home">
-          <img src="${depth}soomario-logo.png" alt="Soomario Logo" width="56" height="56">
-          <div class="site-nav__brand-text">
-            <div class="site-nav__brand-name">SOOMARIO</div>
-            <div class="site-nav__brand-sub">STRATEGIES</div>
-          </div>
-        </a>
-
-        <div class="site-nav__links">
-          <div class="nav-dropdown">
-            <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('products') ? 'active' : ''}">Products</span>
-            <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--beta">BETA</span></a>
-              <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/max-pain.html" class="nav-dropdown__item">Max Pain <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/farms.html" class="nav-dropdown__item">Farms <span class="badge badge--live">LIVE</span></a>
-              <div class="nav-dropdown__divider"></div>
-              <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--soon">PAPER</span></a>
-              <a href="${depth}products/premia.html" class="nav-dropdown__item">Premia <span class="badge badge--soon">PAPER</span></a>
-            </div></div>
-          </div>
-
-          <a href="${depth}aureus/" class="site-nav__link ${isActiveSection('aureus') ? 'active' : ''}">Aureus <span class="badge badge--live" style="margin-left:0.35rem;font-size:0.55rem;padding:0.12rem 0.4rem;">LIVE</span></a>
-
-          <a href="${depth}learn/index.html" class="site-nav__link ${isActiveSection('learn') ? 'active' : ''}">Learn</a>
-
-          <div class="nav-dropdown">
-            <span class="site-nav__link nav-dropdown__trigger">Dashboards</span>
-            <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator <span class="badge badge--live">LIVE</span></a>
-              <a href="https://www.okx.com/copy-trading" class="nav-dropdown__item" target="_blank">Aphelion (OKX) <span class="badge badge--beta">BETA</span></a>
-              <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}dashboards/vault.html" class="nav-dropdown__item">Max Pain Vault <span class="badge badge--live">LIVE</span></a>
-              <a href="${SITE.dashboards.farms}" class="nav-dropdown__item" target="_blank">Farms <span class="badge badge--live">LIVE</span></a>
-              <div class="nav-dropdown__divider"></div>
-              <a href="https://soomario-covered-calls-production.up.railway.app/" class="nav-dropdown__item" target="_blank">Premia <span class="badge badge--soon">PAPER</span></a>
-            </div></div>
-          </div>
-
-          <div class="nav-dropdown">
-            <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('tools') ? 'active' : ''}">Tools</span>
-            <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${depth}tools/calculator.html" class="nav-dropdown__item">DCA Calculator</a>
-              <a href="${depth}tools/compare.html" class="nav-dropdown__item">Compare Products</a>
-              <a href="${depth}tools/whitepaper.html" class="nav-dropdown__item">Whitepaper</a>
-            </div></div>
-          </div>
+      <div style="display:grid;gap:1rem;margin-top:1.5rem;">
+        <div class="card card--flat">
+          <div class="card__title">New to algo trading?</div>
+          <p class="card__text">Start with the <strong style="color:var(--gold);">Accumulator ($7/mo, 7-day free trial)</strong>. Zero leverage, familiar assets (stocks + crypto), full dashboard. Learn the system before committing more.</p>
         </div>
-
-        <div class="site-nav__actions">
-          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--ghost btn--sm site-nav__login-desktop" target="_blank">Member Login</a>
-          <a href="${SITE.whop.accumulator}" class="btn btn--primary btn--sm" target="_blank">Get Started</a>
-          <a href="${SITE.dashboards.accumulatorLogin}" class="site-nav__login-mobile" target="_blank" aria-label="Member Login">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </a>
-          <div class="hamburger" onclick="window.SoomarioToggleMobile()" aria-label="Menu" role="button" tabindex="0">
-            <span></span><span></span><span></span>
-          </div>
+        <div class="card card--flat">
+          <div class="card__title">Want automated, hands-off trading?</div>
+          <p class="card__text">Go with <strong style="color:var(--gold);">Elite</strong>, <strong style="color:var(--gold);">Max Pain</strong>, or <strong style="color:var(--gold);">Farms</strong> vaults. Or for a tokenized fund that diversifies across multiple strategies, deposit USDC into <strong style="color:var(--gold);">Aureus</strong>. All self-custody — your funds, your keys.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Want to diversify across strategies?</div>
+          <p class="card__text">Combine <strong style="color:var(--gold);">Accumulator</strong> (DCA signals) + a vault product (automated perps). Two different strategy types, two different risk profiles. Total: $46.99/mo.</p>
         </div>
       </div>
-    `;
+    </div>
+  </section>
 
-    document.body.prepend(nav);
-  }
+  <script src="../components.js"></script>
+  <script>
+  (function() {
+    var products = [
+      { id:'accumulator', name:'Accumulator', status:'LIVE', price:'$7/mo (7-day free trial)', priceModel:'Subscription only', platform:'Telegram + Dashboard', strategy:'Smart DCA signals (RSI + MA + Z-score)', assets:'14 (12 stocks + BTC, SOL)', leverage:'None (spot only)', risk:'Low', riskClass:'risk-low', winRate:'Model portfolio', maxDD:'N/A (spot)', sharpe:'—', profitFactor:'—', trades:'70+ buys since Jan 2026', delivery:'Telegram signals + member dashboard', selfCustody:'Yes — execute in your own brokerage', link:'../products/accumulator.html' },
+      { id:'aureus', name:'Aureus', status:'LIVE', price:'Tokenized fund · 80% to stakers', priceModel:'Mint AUR with USDC, bi-weekly distributions', platform:'Arbitrum One + Hyperliquid', strategy:'Multi-strategy fund — deploys capital across Elite, Aphelion, and provisionally Rotation', assets:'Variable (per underlying strategy)', leverage:'Per underlying strategy', risk:'Medium', riskClass:'risk-med', winRate:'Reports per epoch', maxDD:'Reports per epoch', sharpe:'Reports per epoch', profitFactor:'Reports per epoch', trades:'First epoch close Jun 5, 2026', delivery:'On-chain AUR token, USDC distributions', selfCustody:'Yes — hold your own AUR on Arbitrum', link:'../aureus/' },
+      { id:'maxpain', name:'Max Pain', status:'LIVE', price:'Vault · 10% profit share', priceModel:'Vault only · high-water mark', platform:'Hyperliquid', strategy:'Liquidation-anchored DCA — L1 market + L4 limit at deepest zone, midpoint TP + retrace trail', assets:'21 crypto coins', leverage:'Per-position', risk:'Medium', riskClass:'risk-med', winRate:'83.2% live (297 trades)', maxDD:'1.7% live', sharpe:'2.82 live', profitFactor:'1.89 live', trades:'297 closed positions', delivery:'Vault auto-trading', selfCustody:'Yes — Hyperliquid vault, withdraw anytime', link:'../products/max-pain.html' },
+      { id:'elite', name:'Elite', status:'LIVE', price:'Vault · 10% profit share', priceModel:'Vault only', platform:'Hyperliquid', strategy:'Soomario v3 — HYPE-dominant portfolio with AVAX diversification', assets:'HYPE V3, AVAX V3', leverage:'2x (HYPE)', risk:'Medium-High', riskClass:'risk-high', winRate:'78.6% avg', maxDD:'19.7–28.1%', sharpe:'0.55–0.84', profitFactor:'1.91–2.21', trades:'1,483 backtested', delivery:'Vault auto-trading', selfCustody:'Yes — Hyperliquid vault, withdraw anytime', link:'../products/elite.html' },
+      { id:'farms', name:'Farms', status:'LIVE', price:'Vault · 10% profit share', priceModel:'Vault only · high-water mark', platform:'Hyperliquid', strategy:'Conviction-DCA tranche engine — 2-tranche position with buy grid, runner TP + trail', assets:'~50 scanned, up to 5 concurrent', leverage:'2x default', risk:'Medium', riskClass:'risk-med', winRate:'Live trading', maxDD:'Vault-reconciled', sharpe:'Live trading', profitFactor:'Live trading', trades:'Live (round-trips ongoing)', delivery:'Vault auto-trading', selfCustody:'Yes — Hyperliquid vault, withdraw anytime', link:'../products/farms.html' },
+      { id:'aphelion', name:'Aphelion', status:'BETA', price:'OKX copy trade / vault', priceModel:'Copy-trade or vault', platform:'Hyperliquid + OKX', strategy:'Multi-signal long-bias accumulator with layered defense', assets:'15 (stocks + crypto)', leverage:'Per-asset', risk:'Medium', riskClass:'risk-med', winRate:'Live trading', maxDD:'Live trading', sharpe:'Live trading', profitFactor:'Live trading', trades:'Live since April 2026', delivery:'Vault + OKX copy-trade', selfCustody:'Yes — Hyperliquid vault or OKX account', link:'../products/aphelion.html' },
+      { id:'rotation', name:'Rotation', status:'PAPER TRADING', price:'Vault · 10% profit share', priceModel:'Vault only (launching soon)', platform:'Hyperliquid', strategy:'Multi-asset long-only allocator — equity rotation + crypto core', assets:'TBD', leverage:'Modest', risk:'Medium', riskClass:'risk-med', winRate:'Paper validation', maxDD:'TBD', sharpe:'TBD', profitFactor:'TBD', trades:'Paper trading', delivery:'Vault auto-trading', selfCustody:'Yes — Hyperliquid vault', link:'../products/rotation.html' },
+      { id:'premia', name:'Premia', status:'PAPER TRADING', price:'Vault · 10% profit share', priceModel:'Vault only (launching soon)', platform:'Deribit', strategy:'Covered-call writing against crypto holdings — wide strikes, mechanical rolls', assets:'7 crypto coins', leverage:'None (covered)', risk:'Medium-Low', riskClass:'risk-low', winRate:'Paper validation', maxDD:'TBD', sharpe:'TBD', profitFactor:'TBD', trades:'Paper trading', delivery:'Deribit vault', selfCustody:'Yes — Deribit account', link:'../products/premia.html' }
+    ];
 
-  /* ── Mobile Menu ── */
-  function buildMobileMenu() {
-    const depth = getDepth();
-    const menu = document.createElement('div');
-    menu.className = 'mobile-menu';
-    menu.id = 'mobileMenu';
+    var selected = ['accumulator','elite'];
+    var fields = [
+      {key:'status',label:'Status'},
+      {key:'price',label:'Price'},
+      {key:'priceModel',label:'Price Model'},
+      {key:'platform',label:'Platform'},
+      {key:'strategy',label:'Strategy'},
+      {key:'assets',label:'Assets'},
+      {key:'leverage',label:'Leverage'},
+      {key:'risk',label:'Risk Level',render:function(p){return '<span class="'+p.riskClass+'">'+p.risk+'</span>';}},
+      {key:'winRate',label:'Win Rate'},
+      {key:'maxDD',label:'Max Drawdown'},
+      {key:'sharpe',label:'Sharpe Ratio'},
+      {key:'profitFactor',label:'Profit Factor'},
+      {key:'trades',label:'Trades'},
+      {key:'delivery',label:'Delivery'},
+      {key:'selfCustody',label:'Self-Custody'}
+    ];
 
-    menu.innerHTML = `
-      <div class="mobile-menu__group">
-        <div class="mobile-menu__group-title">Products</div>
-        <div class="mobile-menu__links">
-          <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--beta">BETA</span></a>
-          <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/max-pain.html" class="mobile-menu__link">Max Pain <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/farms.html" class="mobile-menu__link">Farms <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--soon">PAPER</span></a>
-          <a href="${depth}products/premia.html" class="mobile-menu__link">Premia <span class="badge badge--soon">PAPER</span></a>
-        </div>
-      </div>
+    function render() {
+      // Selector cards
+      var sel = document.getElementById('productSelector');
+      sel.innerHTML = products.map(function(p) {
+        var isSel = selected.indexOf(p.id) !== -1;
+        var badge = p.status === 'LIVE' ? '<span class="badge badge--live">LIVE</span>' : '<span class="badge badge--soon">SOON</span>';
+        return '<div class="card compare-card'+(isSel?' selected':'')+'" data-id="'+p.id+'" style="cursor:pointer;text-align:center;padding:1.25rem 1rem;" onclick="window._toggleProduct(\''+p.id+'\')">' +
+          badge + '<div class="card__title" style="margin-top:0.5rem;">'+p.name+'</div>' +
+          '<div style="font-family:var(--font-display);font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">'+p.price+'</div></div>';
+      }).join('');
 
-      <div class="mobile-menu__group">
-        <div class="mobile-menu__group-title">Aureus</div>
-        <div class="mobile-menu__links">
-          <a href="${depth}aureus/" class="mobile-menu__link">Overview <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}aureus/whitepaper.html" class="mobile-menu__link">Whitepaper v1.5</a>
-        </div>
-      </div>
+      // Comparison table
+      var out = document.getElementById('comparisonOutput');
+      var selProducts = products.filter(function(p){return selected.indexOf(p.id) !== -1;});
+      if (selProducts.length < 2) { out.innerHTML = '<p style="color:var(--text-muted);margin-top:2rem;text-align:center;">Select at least 2 products to compare.</p>'; return; }
 
-      <div class="mobile-menu__group">
-        <div class="mobile-menu__group-title">Dashboards</div>
-        <div class="mobile-menu__links">
-          <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
-          <a href="https://www.okx.com/copy-trading" class="mobile-menu__link" target="_blank">Aphelion (OKX)</a>
-          <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
-          <a href="${depth}dashboards/vault.html" class="mobile-menu__link">Max Pain Vault</a>
-          <a href="${SITE.dashboards.farms}" class="mobile-menu__link" target="_blank">Farms</a>
-          <a href="https://soomario-covered-calls-production.up.railway.app/" class="mobile-menu__link" target="_blank">Premia</a>
-        </div>
-      </div>
+      var cols = selProducts.length + 1;
+      var html = '<div class="compare-detail">';
 
-      <div class="mobile-menu__group">
-        <div class="mobile-menu__group-title">Learn & Tools</div>
-        <div class="mobile-menu__links">
-          <a href="${depth}learn/index.html" class="mobile-menu__link">Education</a>
-          <a href="${depth}tools/calculator.html" class="mobile-menu__link">DCA Calculator</a>
-          <a href="${depth}tools/compare.html" class="mobile-menu__link">Compare Products</a>
-          <a href="${depth}tools/whitepaper.html" class="mobile-menu__link">Whitepaper</a>
-          <a href="${depth}learn/glossary.html" class="mobile-menu__link">Glossary</a>
-        </div>
-      </div>
-
-      <div class="mobile-menu__ctas">
-        <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Start Free Trial</a>
-        <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--outline" target="_blank">Member Login</a>
-        <a href="${SITE.discord}" class="btn btn--ghost btn--sm" target="_blank">Join Discord</a>
-      </div>
-    `;
-
-    document.body.appendChild(menu);
-  }
-
-  window.SoomarioToggleMobile = function() {
-    const hamburger = document.querySelector('.hamburger');
-    const menu = document.getElementById('mobileMenu');
-    if (!hamburger || !menu) return;
-    hamburger.classList.toggle('active');
-    menu.classList.toggle('active');
-    document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
-  };
-
-  /* ── Footer ── */
-  function buildFooter() {
-    const depth = getDepth();
-    const footer = document.createElement('footer');
-    footer.className = 'site-footer';
-
-    footer.innerHTML = `
-      <div class="container">
-        <div class="site-footer__grid">
-          <div class="site-footer__brand-col">
-            <div class="site-nav__brand-name" style="font-family:var(--font-heading);font-size:1rem;letter-spacing:0.12em;">SOOMARIO</div>
-            <div style="font-family:var(--font-display);font-size:8px;color:var(--gold);letter-spacing:0.25em;margin-bottom:0.75rem;">STRATEGIES</div>
-            <p class="site-footer__desc">Algorithmic trading strategies built for transparency. Every trade verifiable on-chain. Self-custody always.</p>
-          </div>
-
-          <div>
-            <div class="site-footer__col-title">Products</div>
-            <ul class="site-footer__links">
-              <li><a href="${depth}products/accumulator.html">Accumulator — $7/mo</a></li>
-              <li><a href="${depth}products/aphelion.html">Aphelion</a></li>
-              <li><a href="${depth}products/elite.html">Elite</a></li>
-              <li><a href="${depth}products/max-pain.html">Max Pain</a></li>
-              <li><a href="${depth}products/farms.html">Farms</a></li>
-              <li><a href="${depth}aureus/">Aureus</a></li>
-              <li><a href="${depth}products/rotation.html">Rotation</a></li>
-              <li><a href="${depth}products/premia.html">Premia</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <div class="site-footer__col-title">Learn</div>
-            <ul class="site-footer__links">
-              <li><a href="${depth}learn/what-is-dca.html">What is DCA?</a></li>
-              <li><a href="${depth}learn/liquidation-zones.html">Liquidation Zones</a></li>
-              <li><a href="${depth}learn/how-vaults-work.html">How Vaults Work</a></li>
-              <li><a href="${depth}learn/risk-management.html">Risk Management</a></li>
-              <li><a href="${depth}learn/glossary.html">Glossary</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <div class="site-footer__col-title">Community</div>
-            <ul class="site-footer__links">
-              <li><a href="${SITE.discord}" target="_blank">Discord</a></li>
-              <li><a href="${SITE.twitter}" target="_blank">Twitter / X</a></li>
-              <li><a href="${SITE.hyperliquid}" target="_blank">Hyperliquid</a></li>
-              <li><a href="${depth}tools/whitepaper.html">Whitepaper</a></li>
-              <li><a href="${depth}tools/calculator.html">DCA Calculator</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="site-footer__bottom">
-          <span>&copy; 2024–2026 Soomario Strategies. All rights reserved.</span>
-          <p class="site-footer__risk">Trading involves substantial risk of loss. Past performance — including backtested results — does not guarantee future results. Never invest more than you can afford to lose.</p>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(footer);
-  }
-
-  /* ── FAQ Toggle ── */
-  function initFAQ() {
-    document.querySelectorAll('.faq-question').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        const item = this.closest('.faq-item');
-        const wasActive = item.classList.contains('active');
-        // Close all
-        document.querySelectorAll('.faq-item.active').forEach(function(el) {
-          el.classList.remove('active');
-        });
-        // Toggle clicked
-        if (!wasActive) item.classList.add('active');
+      // Header
+      html += '<div class="compare-detail-row" style="grid-template-columns:180px repeat('+(cols-1)+',1fr);">';
+      html += '<div class="compare-detail-cell compare-detail-label">Feature</div>';
+      selProducts.forEach(function(p) {
+        html += '<div class="compare-detail-cell" style="text-align:center;font-family:var(--font-heading);color:var(--text-gold);font-size:0.95rem;background:var(--bg-card);">'+p.name+'</div>';
       });
-    });
-  }
+      html += '</div>';
 
-  /* ── Google Analytics ── */
-  function initGA() {
-    if (!SITE.ga4) return;
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + SITE.ga4;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', SITE.ga4);
-    window.gtag = gtag;
-  }
+      // Rows
+      fields.forEach(function(f) {
+        html += '<div class="compare-detail-row" style="grid-template-columns:180px repeat('+(cols-1)+',1fr);">';
+        html += '<div class="compare-detail-cell compare-detail-label">'+f.label+'</div>';
+        selProducts.forEach(function(p) {
+          var val = f.render ? f.render(p) : p[f.key];
+          html += '<div class="compare-detail-cell" style="color:var(--text-secondary);">'+val+'</div>';
+        });
+        html += '</div>';
+      });
 
-  /* ── Init ── */
-  function init() {
-    resolvePaths();
-    buildNav();
-    buildMobileMenu();
-    buildFooter();
-    initFAQ();
-    initGA();
-  }
+      // CTA row
+      html += '<div class="compare-detail-row" style="grid-template-columns:180px repeat('+(cols-1)+',1fr);">';
+      html += '<div class="compare-detail-cell compare-detail-label"></div>';
+      selProducts.forEach(function(p) {
+        html += '<div class="compare-detail-cell" style="text-align:center;"><a href="'+p.link+'" class="btn btn--primary btn--sm" style="font-size:0.65rem;">Learn More →</a></div>';
+      });
+      html += '</div>';
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+      html += '</div>';
+      out.innerHTML = html;
+    }
 
-})();
+    window._toggleProduct = function(id) {
+      var idx = selected.indexOf(id);
+      if (idx !== -1) {
+        if (selected.length > 1) selected.splice(idx, 1);
+      } else {
+        if (selected.length >= 3) selected.shift();
+        selected.push(id);
+      }
+      render();
+    };
+
+    render();
+  })();
+  </script>
+</body>
+</html>

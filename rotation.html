@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="How Hyperliquid vaults work: self-custody deposits, vault leader trading, profit sharing, on-chain verification, and Soomario's full vault lineup.">
+  <title>How Hyperliquid Vaults Work — Self-Custody Trading | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  
+  <link rel="canonical" href="https://soomariostrategies.com/learn/how-vaults-work.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+    .vault-row { display: grid; grid-template-columns: auto 1fr auto; gap: 0.85rem; align-items: baseline; padding: 0.65rem 0; border-bottom: 1px solid var(--border-subtle); }
+    .vault-row:last-child { border-bottom: none; }
+    .vault-row .name { font-family: var(--font-heading); color: var(--text-gold); font-size: 0.98rem; }
+    .vault-row .desc { color: var(--text-secondary); font-size: 0.88rem; }
+    .vault-row .status { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--text-muted); white-space: nowrap; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">PLATFORM · 5 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">How Hyperliquid Vaults Work</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">The self-custody vault model: deposit USDC, let the strategy trade, verify everything on-chain, withdraw anytime.</p>
+
+      <h2 class="gradient-text">What is Hyperliquid?</h2>
+      <p>Hyperliquid is a perpetual futures exchange that runs on its own purpose-built blockchain. Every order, trade, and settlement is recorded on-chain — which means anyone can independently verify any trade that has ever happened on the platform. For a transparency-first strategy operator, this matters. When Soomario says "every trade is verifiable on-chain," it means it literally: anyone can look up a vault address and see every position, every entry, every exit, in real time. See <a href="perpetual-futures.html" style="color:var(--gold);">Perpetual Futures Explained</a> for the underlying mechanics of perps.</p>
+
+      <h2 class="gradient-text">How the Vault Model Works</h2>
+
+      <h3>Step 1: You Deposit USDC</h3>
+      <p>You connect your wallet to Hyperliquid, navigate to the vault page, and deposit USDC. Your funds go into the vault's smart contract — not into anyone's personal wallet. Deposits are public. Withdrawals are public. The strategy operator never has the key to your funds.</p>
+      <p style="font-size:0.92rem;color:var(--text-muted);">If you're new to Hyperliquid, you can <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" rel="noopener" style="color:var(--gold);">sign up via our referral here</a>.</p>
+
+      <h3>Step 2: The Vault Leader Trades</h3>
+      <p>The vault leader (Soomario's automated strategy) has permission to open and close trading positions using the pooled vault capital. The vault leader can <strong>trade</strong> the funds but <strong>cannot withdraw</strong> them to a private address. This is enforced at the smart contract level — not by a promise, not by a regulator, by the protocol itself.</p>
+
+      <h3>Step 3: Profits and Losses Are Shared</h3>
+      <p>Your share of gains and losses is proportional to your deposit. If the vault is up 10% and you deposited $1,000, your share is worth $1,100. Soomario takes a 10% performance fee on net profit only — if the vault loses money, the operator earns nothing. There is no management fee, no monthly subscription, no admin charge. The fee model is aligned: the operator only earns when depositors do.</p>
+
+      <h3>Step 4: Withdraw Anytime</h3>
+      <p>Soomario vaults have no contractual lockup beyond Hyperliquid's standard vault settlement window (which ensures clean accounting at the moment of withdrawal). You can withdraw your deposit plus any accumulated gains essentially on demand. Withdrawals are processed on-chain.</p>
+
+      <div class="callout">
+        <p><strong>Key difference from traditional fund management:</strong> in a hedge fund, you send money to a manager's account and trust them not to steal it, mismanage it, or freeze your access. In a Hyperliquid vault, the smart contract enforces that the strategy operator can <em>only</em> trade — never withdraw, never freeze, never modify the rules of the contract. Self-custody means you are always in control.</p>
+      </div>
+
+      <h2 class="gradient-text">How to Verify Trades</h2>
+      <p>Every vault has a public address. You can query the Hyperliquid API with the vault address to see current positions (what is open right now), trade history (every entry and exit, with timestamps and prices), total equity and P&amp;L, and the number of depositors and their relative shares.</p>
+      <p>Soomario's product dashboards do exactly this — they pull live data from the Hyperliquid API and display it in a readable format. But you do not have to trust the dashboards. You can query the API directly or use any third-party explorer. The vault is its own audit trail.</p>
+
+      <h2 class="gradient-text">Soomario's Vaults</h2>
+      <p>Soomario currently operates four live vaults on Hyperliquid plus two more in paper-trading validation, all on the same vault model — 10% performance fee, no management fee, no lockup beyond Hyperliquid's standard settlement.</p>
+
+      <div style="margin: 1.5rem 0;">
+        <div class="vault-row">
+          <span class="name"><a href="../products/elite.html" style="color:var(--text-gold);">Elite</a></span>
+          <span class="desc">Concentrated momentum capture on HYPE and AVAX perpetuals.</span>
+          <span class="status" style="color:var(--green);">● LIVE</span>
+        </div>
+        <div class="vault-row">
+          <span class="name"><a href="../products/max-pain.html" style="color:var(--text-gold);">Max Pain</a></span>
+          <span class="desc">Mean-reversion at exhausted liquidation cascades, 18 coins, per-coin tuning.</span>
+          <span class="status" style="color:var(--green);">● LIVE</span>
+        </div>
+        <div class="vault-row">
+          <span class="name"><a href="../products/zones.html" style="color:var(--text-gold);">Zones</a></span>
+          <span class="desc">Bi-directional DCA across liquidation max-pain zones, 21 coins.</span>
+          <span class="status" style="color:var(--green);">● LIVE</span>
+        </div>
+        <div class="vault-row">
+          <span class="name"><a href="../products/farms.html" style="color:var(--text-gold);">Farms</a></span>
+          <span class="desc">Bidirectional liquidation-zone range farming, ~50 perps scanned, up to 5 concurrent grids.</span>
+          <span class="status" style="color:var(--green);">● LIVE</span>
+        </div>
+        <div class="vault-row">
+          <span class="name"><a href="../products/rotation.html" style="color:var(--text-gold);">Rotation</a></span>
+          <span class="desc">Long-only multi-asset: equity rotation + crypto core with liquidation-aware DCA.</span>
+          <span class="status" style="color:var(--violet);">◐ PAPER</span>
+        </div>
+        <div class="vault-row">
+          <span class="name"><a href="../products/premia.html" style="color:var(--text-gold);">Premia</a></span>
+          <span class="desc">Volatility-harvesting covered calls on Deribit (separate from Hyperliquid).</span>
+          <span class="status" style="color:var(--violet);">◐ PAPER</span>
+        </div>
+      </div>
+
+      <p>The non-vault product, the <a href="../products/accumulator.html" style="color:var(--gold);">Accumulator</a>, is a $7/month signal subscription. You execute the trades yourself on whatever broker or exchange you prefer, with no leverage and no custody handoff.</p>
+
+      <h2 class="gradient-text">Risks to Understand</h2>
+      <p>Self-custody does not mean risk-free. Three risks remain even when funds are in a smart-contract vault.</p>
+      <p><strong>Trading risk.</strong> The vault leader's strategy can lose money — your deposited capital is at risk. Leverage amplifies both gains and losses. The vault leader cannot steal funds, but a poorly-performing strategy can erode them. Always read the strategy's honest-limits section and check max drawdown before depositing. See <a href="how-to-read-a-backtest.html" style="color:var(--gold);">How to Read a Backtest</a>.</p>
+      <p><strong>Smart contract risk.</strong> The vault is enforced by Hyperliquid's vault contract code. While the protocol has been live and audited, smart contracts are software, and software has bugs. This risk is materially smaller on a mature, battle-tested protocol than on a new one — but it is not zero.</p>
+      <p><strong>Protocol and venue risk.</strong> Hyperliquid is one venue. If the protocol experienced a serious outage, hack, or governance failure, vault depositors would be exposed regardless of strategy performance. Soomario operates on Hyperliquid because its design and track record are best-in-class — but venue concentration is a real risk that depositors should size around.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="../products/elite.html" class="btn btn--primary btn--sm">Explore Elite Vault →</a>
+          <a href="../products/max-pain.html" class="btn btn--outline btn--sm">Explore Max Pain</a>
+          <a href="../tools/compare.html" class="btn btn--outline btn--sm">Compare All Products</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

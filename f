@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="What are liquidation zones in crypto? How concentrated leverage creates predictable price dislocations, and how trading strategies exploit them.">
+  <title>Liquidation Zones Explained — How Leverage Creates Opportunity | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  
+  <link rel="canonical" href="https://soomariostrategies.com/learn/liquidation-zones.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article h3 { font-size: 1.1rem; margin: 2rem 0 0.5rem; color: var(--text-gold); }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .callout { background: var(--bg-card); border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .article .callout p { margin-bottom: 0; font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <a href="index.html" style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);display:inline-block;margin-bottom:1.5rem;">← BACK TO LEARN</a>
+      <div class="section-label">CONCEPT · 6 MIN READ</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Liquidation Zones Explained</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">Why concentrated leverage creates predictable price dislocations — and how to trade them.</p>
+
+      <h2 class="gradient-text">What is a Liquidation?</h2>
+      <p>In leveraged crypto trading, a <strong>liquidation</strong> happens when a trader's position loses enough value that the exchange forcibly closes it to prevent further losses. If you open a 10x long position on ETH at $3,000, a 10% drop to $2,700 wipes out your entire margin — the exchange liquidates your position by market-selling it.</p>
+      <p>This forced selling creates a cascading effect. As one group of positions gets liquidated, the forced sells push the price lower, which triggers the next group of liquidations, which pushes price lower again. This cascade is what creates the sharp, violent wicks you see on crypto charts.</p>
+
+      <h2 class="gradient-text">What are Liquidation Zones?</h2>
+      <p>A <strong>liquidation zone</strong> (or "max pain zone") is the price range where the highest concentration of leveraged positions would get liquidated. Think of it as a cluster: thousands of traders opened positions with similar leverage at similar prices, creating a dense band of liquidation levels.</p>
+      <p>These zones are identifiable by analyzing open interest data from major exchanges (Binance, Bybit, OKX). The data reveals where positions are concentrated and at what leverage levels, allowing you to map out where the next cascade is likely to hit.</p>
+
+      <div class="callout">
+        <p><strong>Key insight:</strong> Liquidation zones act as price magnets. When price approaches a zone, the cascade dynamics pull it through — often overshooting fair value before snapping back. This overshoot is the trading opportunity.</p>
+      </div>
+
+      <h2 class="gradient-text">Two Types of Zones</h2>
+      <h3>Long Liquidation Zone (Below Price)</h3>
+      <p>Where concentrated long positions would be liquidated if price drops. When price enters this zone from above, long liquidations fire → forced sells → price drops further → more liquidations. This creates the sharp downward wicks.</p>
+
+      <h3>Short Liquidation Zone (Above Price)</h3>
+      <p>Where concentrated short positions would be liquidated if price rises. The reverse cascade: short liquidations → forced buys → price spikes higher → more liquidations. This creates sharp upward wicks (short squeezes).</p>
+
+      <h2 class="gradient-text">Why This Creates Opportunity</h2>
+      <p>The key pattern is <strong>overshoot and snap-back</strong>. Liquidation cascades push price beyond where it would naturally settle. After the cascade exhausts itself (all the leveraged positions in the zone are liquidated), there's no more forced selling/buying pressure. Price reverts to a more reasonable level.</p>
+      <p>This is not random — it's a mechanical process driven by the mathematics of leverage and margin requirements. The larger the concentration of leveraged positions, the more violent the cascade, and the sharper the snap-back.</p>
+
+      <h2 class="gradient-text">How Soomario Uses Liquidation Zones</h2>
+      <p>Two Soomario products are built around this concept:</p>
+
+      <p><strong><a href="../products/max-pain.html" style="color:var(--gold);">Max Pain</a></strong> takes a DCA approach to the deepest dislocation — placing a market entry at the zone edge (30% of notional) and a resting limit at the deepest zone level (70%), then closing half the position at the geometric midpoint between long and short max-pain and trailing the remainder. It commits to the strongest setups and harvests the cleanest segment of the mean-reversion move.</p>
+
+      <p><strong><a href="../products/farms.html" style="color:var(--gold);">Farms</a></strong> takes a conviction-DCA tranche approach — opening a measured seed at the entry shelf with an averaging-down buy grid beneath it, then escalating with a second tranche only if price moves decisively into the zone and stays there. Up to five concurrent farms across ~50 perpetuals. Where Max Pain concentrates on the deepest dislocation, Farms harvests oscillation across a wider universe.</p>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="../products/max-pain.html" class="btn btn--primary btn--sm">Explore Max Pain →</a>
+          <a href="../products/farms.html" class="btn btn--outline btn--sm">Explore Farms →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

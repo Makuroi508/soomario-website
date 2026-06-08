@@ -14,7 +14,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Soomario — Max Pain Vault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-chrome.css">
 <style>
 :root {
   --bg:#0b0917;--s1:#13102a;--s2:#1b183a;--s3:#222045;
@@ -228,18 +229,7 @@ body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--tex
 </head>
 <body>
 
-<nav class="nav">
-  <a class="nav-brand" href="#">
-    <div class="nav-brand-text">
-      <span class="t1">SOOMARIO</span>
-      <span class="t2">MAX PAIN VAULT</span>
-    </div>
-  </a>
-  <div class="nav-right">
-    <a class="nav-link hide-mobile" href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank">View on Hyperliquid ↗</a>
-    <div class="live-pill"><div class="dot" id="dot"></div><span id="live-ts">CONNECTING</span></div>
-  </div>
-</nav>
+
 
 <div class="main">
   <div class="error-banner" id="err-banner">⚠ Could not reach Hyperliquid API — check connection and refresh.</div>
@@ -884,5 +874,6 @@ async function refresh() {
 refresh();
 setInterval(refresh, 30000);
 </script>
+<script src="components.js"></script>
 </body>
 </html>

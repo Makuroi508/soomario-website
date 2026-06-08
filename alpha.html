@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="Soomario Farms — a conviction-DCA liquidation-zone farming strategy on Hyperliquid. Two-tranche position structure, rank engine with anti-flap hysteresis, runner harvest with trailing stop. Up to 5 concurrent farms across ~50 perpetuals.">
+  <meta property="og:title" content="Soomario Farms — Conviction-DCA Liquidation Farming">
+  <meta property="og:description" content="Farms oscillation around the long max-pain anchor with conviction-weighted tranches. Live on Hyperliquid, 10% profit share, self-custody.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://soomariostrategies.com/products/farms.html">
+  <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
+  <title>Soomario Farms — Conviction-DCA Liquidation Farming | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  
+  <link rel="canonical" href="https://soomariostrategies.com/products/farms.html">
+</head>
+<body>
+
+  <!-- ═══ 1. HERO ═══ -->
+  <section class="section" style="padding-top:3rem;">
+    <div class="container">
+      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE · v2.0</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID VAULT</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">NON-DIRECTIONAL</span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
+        <span class="gradient-text">Farm the oscillation,</span><br>
+        <span style="color:var(--text-primary);">not the direction.</span>
+      </h1>
+      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
+        A conviction-DCA strategy that monetizes price oscillation around the long max-pain anchor. Two-tranche positions — a seed plus an averaging buy grid, with a second tranche that escalates only when price moves decisively against the entry. Up to five concurrent farms across the most liquid Hyperliquid perpetuals.
+      </p>
+
+      <div class="metrics" style="margin:2rem 0;max-width:820px;">
+        <div class="metric"><div class="metric__value gradient-text">~50</div><div class="metric__label">Perpetuals scanned</div></div>
+        <div class="metric"><div class="metric__value gradient-text">5</div><div class="metric__label">Concurrent farms (max)</div></div>
+        <div class="metric"><div class="metric__value gradient-text">30 min</div><div class="metric__label">Scan cycle</div></div>
+        <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Profit share</div></div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
+        <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;margin-bottom:0.5rem;">
+        New to Hyperliquid? <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" rel="noopener" style="color:var(--gold);">Sign up via our referral ↗</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;font-family:var(--font-mono);">
+        Vault: <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" style="color:var(--gold);">0x6fac…524e</a> · self-custody, on-chain
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2. STRATEGY THESIS ═══ -->
+  <section class="section section--alt">
+    <div class="container container--narrow text-center">
+      <div class="section-label">STRATEGY THESIS</div>
+      <h2 class="section-title"><span class="gradient-text">A structural-flow strategy,</span><br>not a directional bet</h2>
+      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:680px;">
+        Cryptocurrency perpetual futures markets exhibit a feature largely absent from spot markets: a continuously updating ledger of leveraged positions whose liquidation prices are publicly inferable from open-interest data. When price approaches a sufficiently dense cluster of liquidation levels, forced-flow events compress price toward that cluster, creating a brief window of mean-reverting behavior. Most retail trading systems are directional momentum strategies that attempt to predict the next leg of price action. Farms is not. It monetizes oscillation around well-defined liquidation anchors without taking a view on direction.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 3. CONVICTION WEIGHTING ═══ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">THE DISTINGUISHING FEATURE</div>
+        <h2 class="section-title"><span class="gradient-text">Conviction weighting,</span><br>not uniform allocation</h2>
+        <p style="color:var(--text-secondary);max-width:640px;margin:1.25rem auto 0;line-height:1.7;">
+          Rather than spreading capital uniformly across a static grid, Farms commits a measured opening position at the anchor, layers a patient buy grid beneath it, and escalates with a second tranche only when price moves decisively into the zone — adding size where the mean-reversion thesis is strongest and the entry is cheapest. The result is a position that is light when uncertain and heavy when conviction is earned by price.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card__title">Light when uncertain</div>
+          <p class="card__text">The first tranche commits only ~40% of the farm's allocated margin. If price recovers from the entry shelf without triggering conviction escalation, exposure stays contained. Capital sits idle rather than chasing weak setups.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Heavy when earned</div>
+          <p class="card__text">A second tranche deploys additional conviction size only when price moves decisively against the entry — and stays there. Size enters where the mean-reversion edge is statistically strongest, not where the original signal was weakest.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Patient by design</div>
+          <p class="card__text">An empty deployment slate is acceptable. The selector ranks ~50 perpetuals every cycle and only opens new farms on assets ranked in the top 10 whose price has reached the entry shelf. Most cycles open zero farms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. THE TRANCHE LIFECYCLE ═══ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">THE TRANCHE LIFECYCLE</div>
+        <h2 class="section-title"><span class="gradient-text">A deterministic state machine.</span><br>Capital committed only on confirmation.</h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1rem;">
+        <div class="card card--flat">
+          <div class="card__title">1 · Entry shelf &amp; seed</div>
+          <p class="card__text">When a top-ranked candidate's price reaches its entry shelf at the long max-pain anchor, the farm opens its first tranche. The seed is a conviction-weighted market position — sized at 1.5× the farm's base unit — establishing immediate exposure at the anchor rather than waiting for a passive fill that may never come. The first tranche commits roughly 40% of the farm's allocated margin.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">2 · The buy grid</div>
+          <p class="card__text">Beneath the seed, the farm rests a grid of 8 limit buys spaced 0.5% apart. As price oscillates within the zone, fills lower the position's blended cost basis. Each filled level books a paired round-trip when price recovers — round-trips are the bulk of the trade count and the principal source of harvested profit.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">3 · Tranche 2 escalation</div>
+          <p class="card__text">The second tranche arms when the asset's new long max-pain prints at least 1% below the T1 entry's max-pain — and holds that level for at least 30 minutes. The sustain requirement filters transient wicks from genuine repricing. When T2 arms, additional conviction size deploys lower in the zone and the floor is armed (see below).</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">4 · Runner harvest</div>
+          <p class="card__text">As price recovers from the average entry, the runner harvests progressively. The first take-profit closes 50% of the runner when price reaches halfway between the blended entry and the short max-pain level. The remaining half rides on a trailing stop that gives back 50% of the move from peak before exiting. Both legs use vault-truth position sizes so the farm exits truly flat.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">5 · The floor (last resort)</div>
+          <p class="card__text">A hard floor sits 5% below the lowest T2 level. <strong>The floor is armed only after T2 deploys</strong> — a T1-only farm has no floor. If price breaks the floor, the entire farm closes immediately. This protects against the failure mode where a position accumulates into a clean breakdown rather than a recoverable dislocation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5. RANK ENGINE & ROTATION ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">RANK ENGINE</div>
+        <h2 class="section-title"><span class="gradient-text">Hysteresis prevents</span> rank-wobble churn</h2>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card__title">Asymmetric band — open ≤10, hold ≤15</div>
+          <p class="card__text">A new farm may only open on an asset ranked within the top 10. An existing farm is held until its asset falls below rank 15. The gap means an asset wobbling between ranks 11 and 14 is neither opened nor closed — it stays farmed if already farmed, or is passed over if not.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Time hysteresis — 45 min sustained</div>
+          <p class="card__text">The first scan that finds a farm's rank past 15 does not close it — it marks the farm and starts a timer. Rotation fires only after the rank stays out-of-band for at least 45 minutes. With 30-min scans, that means two consecutive bad scans are required. A single transient dip costs nothing.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Force-include core</div>
+          <p class="card__text">BTC, ETH, HYPE, SUI, XRP, SOL, ZEC are force-included — held regardless of rank, never marked for rotation. These are the platform's highest-conviction long-term anchors; they always have a slot when the strategy finds entry shelves on them.</p>
+        </div>
+      </div>
+
+      <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.75;margin:2rem auto 0;max-width:640px;text-align:center;">
+        The 7-component farmability score — price position (25%), zone width (20%), reversal setup (15%), volume (15%), open-interest depth (10%), range alignment (8%), L/S skew (7%) — feeds the rank. Assets failing a $100M open-interest filter are excluded from deployment regardless of score.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 6. RISK FRAMEWORK ═══ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">RISK FRAMEWORK</div>
+        <h2 class="section-title"><span class="gradient-text">The vault is the source of truth</span></h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card card--flat">
+          <div class="card__title">Continuous reconciliation</div>
+          <p class="card__text">Every cycle, the strategy's internal position model is compared against the vault's actual holdings. If the vault shows less inventory than the model expects (phantom long), the model un-fills the most recent levels until it matches. If the vault shows more (oversized fill), the divergence is logged but the model doesn't act — it can't safely invent inventory. The vault is the single source of truth.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">2× default leverage</div>
+          <p class="card__text">Conservative by design. The conviction-weighting structure already concentrates capital where the entry is cheapest; layering high leverage on top would compound risk in the wrong direction. Hyperliquid's per-coin maximum leverage is respected; the bot does not exceed 2× regardless of what the venue allows.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Portfolio drawdown halts</div>
+          <p class="card__text">Portfolio-level drawdown and daily-loss circuit breakers pause new farm deployment under stress. Existing farms continue to manage to their natural close — the halt blocks new exposure rather than forcing exits at unfavorable prices.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Vault-truth flatten</div>
+          <p class="card__text">When any farm closes — runner trail, floor breach, rotation, or manual close — the bot sells <code>broker.position_size(sym)</code> rather than the model's recorded seed size. This ensures the farm exits truly flat even if the original market buy filled larger than modeled. A &gt;5% divergence between vault size and model size emits a "flat-by-vault" warning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. THE INVESTOR PROFILE ═══ -->
+  <section class="section">
+    <div class="container container--narrow text-center">
+      <div class="section-label">WHO THIS IS FOR</div>
+      <h2 class="section-title"><span class="gradient-text">Exposure to activity,</span><br>not exposure to direction</h2>
+      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:660px;">
+        Farms is designed for capital that wants exposure to crypto market activity without exposure to crypto market direction — capital that prefers oscillation-derived returns over directional bets, and that is willing to accept periods of inactivity in exchange for tighter drawdown control. Pair it with a long-bias strategy like Elite or Aphelion if you also want directional upside; pair it with Max Pain if you want concentrated mean-reversion alongside diversified zone farming.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 8. HONEST LIMITS ═══ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">HONEST LIMITS</div>
+        <h2 class="section-title"><span class="gradient-text">What Farms isn't</span></h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not a trend-follower</div>
+          <p class="card__text">Farms is mean-reversion at the structural level. In strongly trending markets without zone touches, farms don't deploy. The selector ranks high, the entry shelves remain untouched, and capital waits. A bull market that runs in a straight line is not a market Farms harvests.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not directional alpha</div>
+          <p class="card__text">The strategy does not bet on price direction. It will not outperform a long-bias bot during a sustained directional move; it is built to outperform during the chop that typically follows or precedes those moves. The investor profile is "willing to be flat when the market is one-way."</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Not unlimited capacity</div>
+          <p class="card__text">Five concurrent farms across ~50 candidates is a deliberate cap. Increasing concurrency dilutes the per-farm allocation below the threshold where the tranche structure produces meaningful round-trip profit. Capacity scales with vault size up to the point where per-farm position sizes start to slip on Hyperliquid's order book.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Leveraged perpetuals carry liquidation risk</div>
+          <p class="card__text">Farms uses 2× default leverage with vault-truth reconciliation and per-tranche floors. The position-management logic significantly reduces tail risk, but Hyperliquid's standard liquidation mechanics still apply at the position level in extreme moves. The full deposit is at risk of loss.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 9. FINAL CTA ═══ -->
+  <section class="section">
+    <div class="container container--narrow text-center">
+      <div class="section-label">DEPOSIT INTO THE VAULT</div>
+      <h2 class="section-title"><span class="gradient-text">10% profit share.</span><br>Self-custody, on-chain.</h2>
+      <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
+        Deposit USDC into the Hyperliquid vault. The strategy farms for you. Withdraw any time — fees only on net new profits above your previous peak.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
+        <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:520px;margin:0.75rem auto 0;line-height:1.6;text-align:center;">
+        New to Hyperliquid? <a href="https://app.hyperliquid.xyz/join/SMR" target="_blank" rel="noopener" style="color:var(--gold);">Sign up via our referral ↗</a>
+      </div>
+
+      <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);max-width:520px;margin:0.75rem auto 0;line-height:1.6;">
+        <a href="https://app.hyperliquid.xyz/vaults/0x6fac24317a95cd3ae38d7e5113142bad4e8a524e" target="_blank" rel="noopener" style="color:var(--gold);">0x6fac24317a95cd3ae38d7e5113142bad4e8a524e</a>
+      </div>
+
+      <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
+        Farms trades leveraged perpetual futures, which carries substantial risk of loss including the possibility of liquidation. Past performance does not guarantee future results.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 10. RELATED ═══ -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
+      <div class="grid-3">
+        <a href="max-pain.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Max Pain →</div>
+          <p class="card__text">Same liquidation-anchor thesis, but concentrated on the deepest dislocation rather than harvesting oscillation. Two-level DCA, midpoint TP, retrace trail. 21-coin curated universe.</p>
+        </a>
+        <a href="../aureus/" class="card" style="text-decoration:none;">
+          <div class="card__title">Aureus →</div>
+          <p class="card__text">Tokenized strategy fund on Arbitrum. Deposit USDC, earn bi-weekly distributions from algorithmic trading. 80% of every profitable epoch to stakers.</p>
+        </a>
+        <a href="elite.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Elite →</div>
+          <p class="card__text">Concentrated long-bias momentum on HYPE and AVAX. The directional complement to Farms — pair them for exposure to both trend and chop.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>

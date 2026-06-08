@@ -1,45 +1,86 @@
-# Soomario Website — Logo & Favicon Update
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="Soomario Strategies Whitepaper v2.1 — Complete technical documentation of all 6 algorithmic trading products.">
+  <title>Whitepaper — Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  
+  <link rel="canonical" href="https://soomariostrategies.com/tools/whitepaper.html">
+</head>
+<body>
 
-This repo is ready to commit and push to GitHub Pages. Everything below is already done.
+  <section class="section" style="padding-top:2rem;">
+    <div class="container container--narrow text-center">
+      <div class="section-label">DOCUMENTATION</div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem);">
+        <span class="gradient-text">Soomario Whitepaper</span>
+      </h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2.5rem;">
+        Complete technical documentation covering all 6 products: strategy architecture, signal mechanics, risk management, backtested performance, and vault operations.
+      </p>
 
-## What changed
-1. **New brand assets** dropped into the repo root:
-   - `soomario-logo.png` — REPLACED with the new wordmark-free rich emblem (transparent).
-     Because the filename is unchanged, the nav, hero, dashboards, and login logos all
-     update automatically — no code edits needed for those.
-   - `favicon.ico` (16/32/48 multi-res) — the clean medallion mark.
-   - `favicon-16.png`, `favicon-32.png`, `favicon-96.png` — PNG favicons for modern browsers.
-   - `apple-touch-icon.png` (180) — home-screen icon (medallion).
-   - `icon-192-maskable.png`, `icon-512-maskable.png` — Android / PWA icons.
-   - `site.webmanifest` — PWA manifest.
+      <div class="card" style="max-width:400px;margin:0 auto;text-align:center;">
+        <div style="font-family:var(--font-display);font-size:0.65rem;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:0.5rem;">VERSION 2.1 · MARCH 2026</div>
+        <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--text-gold);margin-bottom:1.5rem;">Soomario_Whitepaper_v2.1.docx</div>
+        <a href="../Soomario_Whitepaper_v2.1.docx" download class="btn btn--primary" style="width:100%;">Download Whitepaper (.docx) ↓</a>
+      </div>
+    </div>
+  </section>
 
-2. **Favicon `<head>` block** standardized on ALL 37 HTML pages. Previously most pages
-   pointed their favicon at `soomario-logo.png` (the big detailed logo), which is why the
-   tab icon looked muddy. Each page now uses absolute paths:
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-label">CONTENTS</div>
+      <h2 class="section-title" style="font-size:1.4rem;"><span class="gradient-text">What's Inside</span></h2>
 
-   ```html
-   <link rel="icon" href="/favicon.ico" sizes="any">
-   <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
-   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-   <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
-   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-   <link rel="manifest" href="/site.webmanifest">
-   ```
+      <div style="display:grid;gap:1rem;margin-top:1.5rem;">
+        <div class="card card--flat">
+          <div class="card__title">Product Architecture</div>
+          <p class="card__text">6-product lineup, pricing, platforms, strategy classification, and how each product fits into the ecosystem.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Signal Engine</div>
+          <p class="card__text">RSI, volume z-score, and moving average displacement — the quantitative foundation behind Accumulator signals.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Max Pain Strategies</div>
+          <p class="card__text">20 independently-tuned momentum/reversal strategies. Per-coin RSI crossover settings, Supertrend parameters, and signal reversal mechanics.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Elite Portfolio</div>
+          <p class="card__text">3-bot architecture (HYPE, AVAX, SOL), Soomario v3 strategy, full backtest data including Sharpe, Sortino, profit factor, and drawdown.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Contrarian Pipeline</div>
+          <p class="card__text">Fear & Greed scanner, 5-stage validator (RSI → Z-Score → Momentum → Confluence → Execution), risk controls.</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Max Pain &amp; Farms</div>
+          <p class="card__text">Liquidation zone aggregation, DCA entry mechanics (Max Pain — formerly the Zones strategy), and conviction-DCA tranche engine with farmability scoring (Farms).</p>
+        </div>
+        <div class="card card--flat">
+          <div class="card__title">Risk Disclosure</div>
+          <p class="card__text">Comprehensive risk warnings, leverage mechanics, drawdown expectations, and how Soomario manages risk across all products.</p>
+        </div>
+      </div>
 
-3. `theme-color` harmonized to `#0f0a1a` where present.
+      <div class="text-center" style="margin-top:2rem;">
+        <a href="../Soomario_Whitepaper_v2.1.docx" download class="btn btn--outline">Download Whitepaper ↓</a>
+      </div>
+    </div>
+  </section>
 
-## What did NOT change
-- `components.js`, `styles.css` — untouched (logo filename reused).
-- All `<img>` logo references — untouched (they pick up the new file automatically).
-- Page content, nav structure, product lineup — untouched.
-
-## Deploy
-1. Commit and push to the `Makuroi508/soomario-website` repo (GitHub Pages auto-builds).
-2. GitHub Pages caches favicons hard. To verify immediately, load any page with
-   `?v=2` appended (e.g. `soomariostrategies.com/?v=2`). The old favicon may linger in
-   your browser for up to a day — that is cache, not a deploy problem.
-
-## Note on the two medallions
-- WEBSITE LOGO (`soomario-logo.png`): the full rich emblem — shown large, detail is the point.
-- ICON MARK (favicon + app icons): the cleaned medallion (gears removed) — reads at small sizes.
-This split is intentional and standard practice (detailed logo, simplified icon).
+  <script src="../components.js"></script>
+</body>
+</html>

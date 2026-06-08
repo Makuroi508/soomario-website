@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="AUREUS Whitepaper v1.5 — live on Arbitrum One. Bi-weekly USDC distributions to AUR stakers. 80/5/5/10 reward split, verified on-chain. First epoch close Friday June 5, 2026.">
+  <meta property="og:title" content="AUREUS Whitepaper v1.5 | Soomario Strategies">
+  <meta property="og:description" content="Live on Arbitrum One. Bi-weekly USDC distributions. Verified on-chain.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://soomariostrategies.com/aureus/whitepaper.html">
+  <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
+  <title>AUREUS Whitepaper v1.5 | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  
+  <link rel="canonical" href="https://soomariostrategies.com/aureus/whitepaper.html">
+  <style>
+    /* Whitepaper-specific styles, scoped to .wp */
+    .wp { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .wp__topbar { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0 1.5rem; border-bottom: 1px solid rgba(201,169,97,0.25); margin-bottom: 2.5rem; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+    .wp__topbar a { color: var(--gold); text-decoration: none; }
+    .wp__topbar a:hover { color: var(--gold-light); }
+    .wp__version-pill { display: inline-block; padding: 0.2rem 0.7rem; border: 1px solid var(--gold); color: var(--gold); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; }
+
+    /* Header */
+    .wp__eyebrow { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); text-align: center; margin-bottom: 1rem; }
+    .wp__title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 0.08em; color: var(--text-primary); text-align: center; margin: 0 0 0.75rem; line-height: 1; }
+    .wp__subtitle { font-family: var(--font-heading); font-style: italic; font-weight: 400; font-size: clamp(1rem, 1.6vw, 1.15rem); color: var(--gold-dim); text-align: center; margin: 0 auto 0.75rem; max-width: 580px; line-height: 1.5; letter-spacing: 0.02em; }
+    .wp__meta { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); text-align: center; }
+
+    .wp__status-card { background: rgba(74, 222, 128, 0.06); border-left: 2px solid var(--green); padding: 1rem 1.25rem; margin: 2rem 0 3rem; font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.65; color: var(--text-secondary); }
+    .wp__status-card strong { color: var(--text-primary); }
+
+    /* Body content */
+    .wp h2 { font-family: var(--font-heading); font-weight: 600; font-size: 1.7rem; letter-spacing: 0.04em; color: var(--text-primary); margin: 3rem 0 1rem; line-height: 1.2; padding-top: 1.25rem; border-top: 1px solid rgba(201,169,97,0.18); }
+    .wp h2:first-of-type { border-top: none; padding-top: 0; }
+    .wp h2 .wp__h2-num { font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold); letter-spacing: 0.1em; margin-right: 0.6rem; font-weight: 400; vertical-align: middle; }
+    .wp h3 { font-family: var(--font-heading); font-weight: 500; font-size: 1.15rem; color: var(--text-primary); letter-spacing: 0.03em; margin: 1.75rem 0 0.6rem; }
+    .wp p { font-family: var(--font-sans); font-size: 0.98rem; line-height: 1.75; color: var(--text-secondary); margin: 0 0 1rem; }
+    .wp ul, .wp ol { font-family: var(--font-sans); font-size: 0.98rem; line-height: 1.75; color: var(--text-secondary); padding-left: 1.5rem; margin: 0 0 1.25rem; }
+    .wp ul li, .wp ol li { margin-bottom: 0.4rem; }
+    .wp strong { color: var(--text-primary); font-weight: 600; }
+    .wp code { font-family: var(--font-mono); font-size: 0.88em; color: var(--gold); background: rgba(201,169,97,0.08); padding: 0.1em 0.4em; border-radius: 2px; }
+    .wp pre { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-primary); background: var(--bg-page); border: 1px solid rgba(201,169,97,0.2); padding: 1rem 1.25rem; margin: 1rem 0 1.5rem; white-space: pre-wrap; line-height: 1.6; overflow-x: auto; }
+    .wp pre code { background: transparent; padding: 0; color: var(--text-primary); }
+    .wp blockquote { border-left: 2px solid var(--gold); padding: 0.5rem 1.25rem; margin: 1.25rem 0; font-style: italic; color: var(--text-secondary); }
+
+    /* Tables */
+    .wp table { width: 100%; border-collapse: collapse; margin: 1.25rem 0 1.75rem; font-family: var(--font-sans); font-size: 0.88rem; }
+    .wp th, .wp td { padding: 0.65rem 0.75rem; text-align: left; border-bottom: 1px solid rgba(201,169,97,0.15); vertical-align: top; }
+    .wp th { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; border-bottom: 1px solid rgba(201,169,97,0.4); }
+    .wp td:first-child { color: var(--text-primary); }
+    .wp td code { font-size: 0.82rem; }
+    .wp__addr-table td { font-family: var(--font-mono); font-size: 0.8rem; word-break: break-all; }
+    .wp__addr-table td:first-child { font-family: var(--font-sans); font-size: 0.88rem; }
+
+    @media (max-width: 700px) {
+      .wp__table-wrap { overflow-x: auto; }
+      .wp table { min-width: 540px; }
+    }
+
+    /* TOC */
+    .wp__toc { background: var(--purple-card); border: 1px solid rgba(201,169,97,0.18); padding: 1.25rem 1.5rem; margin: 2rem 0 3rem; }
+    .wp__toc-title { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.75rem; }
+    .wp__toc ol { padding-left: 1.25rem; margin: 0; font-family: var(--font-sans); font-size: 0.92rem; line-height: 1.85; color: var(--text-secondary); }
+    .wp__toc a { color: var(--text-secondary); text-decoration: none; transition: color 120ms; }
+    .wp__toc a:hover { color: var(--gold); }
+
+    /* Disclaimer footer */
+    .wp__final-note { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(201,169,97,0.18); line-height: 1.7; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <article class="wp">
+
+    <!-- Topbar -->
+    <nav class="wp__topbar">
+      <a href="index.html">← Aureus overview</a>
+      <span class="wp__version-pill">V1.5</span>
+    </nav>
+
+    <!-- Header -->
+    <header>
+      <div class="wp__eyebrow">WHITEPAPER · VERSION 1.5 · JUNE 2026</div>
+      <h1 class="wp__title">AUREUS</h1>
+      <p class="wp__subtitle">A tokenized fund protocol on Arbitrum One. Bi-weekly USDC distributions to AUR stakers, verifiable on-chain.</p>
+      <div class="wp__meta">Soomario Strategies</div>
+    </header>
+
+    <!-- Live status card -->
+    <div class="wp__status-card">
+      <strong>Status as of June 2026.</strong> AUREUS is deployed on Arbitrum One mainnet. Contracts are paused pending the public unpause, with a controlled-growth phase of capped deposits over the first 90 days. The first epoch close is scheduled for <strong>Friday, June 5, 2026 at 00:00 UTC</strong> (09:00 KST), with bi-weekly closes thereafter. This is a publicly observable, on-chain protocol — all addresses below are verifiable on Arbiscan.
+    </div>
+
+    <!-- TOC -->
+    <div class="wp__toc">
+      <div class="wp__toc-title">Contents</div>
+      <ol>
+        <li><a href="#s1">Live contract addresses</a></li>
+        <li><a href="#s2">Live wallet addresses</a></li>
+        <li><a href="#s3">How AUREUS works</a></li>
+        <li><a href="#s4">Controlled growth phase</a></li>
+        <li><a href="#s5">Epoch schedule</a></li>
+        <li><a href="#s6">Operator authority — what the multisig can and cannot do</a></li>
+        <li><a href="#s7">Reserves architecture</a></li>
+        <li><a href="#s8">Strategy performance (pre-launch reference)</a></li>
+        <li><a href="#s9">Audit posture</a></li>
+        <li><a href="#s10">Risks and caveats</a></li>
+        <li><a href="#s11">How to participate</a></li>
+        <li><a href="#s12">Operations &amp; the admin dashboard</a></li>
+        <li><a href="#s13">On-chain verification</a></li>
+        <li><a href="#s14">Changelog</a></li>
+      </ol>
+    </div>
+
+    <p><strong>New in v1.5.</strong> All operator actions are now performed through a dedicated, audited admin dashboard that runs as a Safe App inside the protocol multisig. Operations that previously required hand-encoding raw contract calldata — closing an epoch, depositing rewards, processing redemptions, pausing — are now gated, previewed against live chain state, and dispatched through the Safe transaction queue for 2-of-3 signing. The reward split, NAV rate limit, and redemption fees described below were all re-verified directly against the deployed mainnet contracts during this work (see §13).</p>
+
+    <!-- ═══ 1. CONTRACT ADDRESSES ═══ -->
+    <h2 id="s1"><span class="wp__h2-num">§1</span>Live contract addresses (Arbitrum One)</h2>
+
+    <div class="wp__table-wrap">
+      <table class="wp__addr-table">
+        <thead><tr><th>Contract</th><th>Address</th></tr></thead>
+        <tbody>
+          <tr><td>AUR token (ERC-20)</td><td><code>0x927B6985A1E8C9151eA521AfA3431a21BCDfe7E0</code></td></tr>
+          <tr><td>Forge proxy <span style="color:var(--text-muted);">(mint + epoch close)</span></td><td><code>0xab5dC12DA3615F3355D1D56a30b71BdF459b1466</code></td></tr>
+          <tr><td>ReservesOracle <span style="color:var(--text-muted);">(NAV transparency)</span></td><td><code>0x7342D88574597495c5247DE3502928071e6e53b2</code></td></tr>
+          <tr><td>PositionLogger <span style="color:var(--text-muted);">(trade history)</span></td><td><code>0xA76460338122AF77051079d52fc9189a03b655E8</code></td></tr>
+          <tr><td>OTCv2 proxy <span style="color:var(--text-muted);">(peer-to-peer exits)</span></td><td><code>0xD5602bE96e3794Ee6A09520075714AfD2D0ba124</code></td></tr>
+          <tr><td>AureusRedemption <span style="color:var(--text-muted);">(EOE + ASAP)</span></td><td><code>0x20a1f8b1F6bDEba14553168099faf047a18031e7</code></td></tr>
+          <tr><td>USDC <span style="color:var(--text-muted);">(Arbitrum One canonical)</span></td><td><code>0xaf88d065e77c8cC2239327C5EDb3A432268e5831</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Implementation contracts (behind UUPS proxies above)</h3>
+    <div class="wp__table-wrap">
+      <table class="wp__addr-table">
+        <thead><tr><th>Contract</th><th>Address</th></tr></thead>
+        <tbody>
+          <tr><td>OTCv2 implementation</td><td><code>0xEA29f524a1BF196c9b0Fe61218FC02c4143Be5Ad</code></td></tr>
+          <tr><td>ForgeBase implementation</td><td><code>0x1AE71186Eb15f8aa1B7b49aa7078D4b73231A274</code></td></tr>
+          <tr><td>ForgeV2 implementation</td><td><code>0x83E38877B99fB9a09D816deAAB35804978dA4132</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ 2. WALLET ADDRESSES ═══ -->
+    <h2 id="s2"><span class="wp__h2-num">§2</span>Live wallet addresses (Arbitrum One)</h2>
+
+    <p>All wallets below are publicly trackable on Arbiscan. Their roles and authorities are defined contractually and operationally.</p>
+
+    <h3>Governance</h3>
+    <div class="wp__table-wrap">
+      <table class="wp__addr-table">
+        <thead><tr><th>Role</th><th>Address</th></tr></thead>
+        <tbody>
+          <tr><td>Protocol Multisig <span style="color:var(--text-muted);">(2-of-3 Safe)</span></td><td><code>0xb04E452E853635a9e7A2c6a372cd85be1B7544c4</code></td></tr>
+          <tr><td>Hot Multisig Signer</td><td><code>0x5141a294013Ca72c6dF611410B22063796bE3424</code></td></tr>
+          <tr><td>Cold Ledger Signer</td><td><code>0x70e8dfDa4ED37A1E7a39DdAbD2Cd9EAe9982D016</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The third signer is an external trusted community member; their address is held off-chain to preserve their privacy. <strong>A fourth cold-storage signer will be added in the first 30 days</strong>, taking the configuration to 2-of-4.</p>
+
+    <p>The protocol multisig has been verified on-chain as the <code>owner()</code> of both the <strong>Forge</strong> and the <strong>AureusRedemption</strong> contract, so every owner-gated operation routes through the 2-of-3 Safe.</p>
+
+    <h3>Capital flow wallets (ReservesOracle tracked addresses)</h3>
+    <div class="wp__table-wrap">
+      <table class="wp__addr-table">
+        <thead><tr><th>Role</th><th>Address &amp; purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Forge proxy</td><td><code>0xab5dC12...1466</code> · reward accumulator; holds claimable staker USDC and redemption fees</td></tr>
+          <tr><td>AureusRedemption</td><td><code>0x20a1f8b1...1e7</code> · redemption float for in-flight EOE/ASAP requests</td></tr>
+          <tr><td>Multisig</td><td><code>0xb04E452E...4c4</code> · forge mint revenue + OTC spread; cold-storage staging before sweep to trading</td></tr>
+          <tr><td>HL Strategies wallet</td><td><code>0x4C2362e4FBD78F3519E29210756e1F0Fa9bc3629</code> · capital staged between multisig sweep and Hyperliquid bridging</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>These four addresses feed <code>ReservesOracle.getHardReservesUsd()</code>. Members can query that view at any time to see the protocol's verified on-chain reserves.</p>
+
+    <h3>Reward destination wallets (V2 epoch split)</h3>
+    <div class="wp__table-wrap">
+      <table class="wp__addr-table">
+        <thead><tr><th>Role</th><th>Address</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>Stakers</td><td><span style="color:var(--text-muted);">(held inside Forge)</span></td><td>80% per profitable epoch</td></tr>
+          <tr><td>MLO Payments <span style="color:var(--text-muted);">(Team)</span></td><td><code>0xE66964...DFdA6a7</code></td><td>5% pre-Recovery; 15% post</td></tr>
+          <tr><td>Operations</td><td><code>0xB051D7...c7cCe6</code></td><td>5% per epoch</td></tr>
+          <tr><td>Recovery Fund</td><td><code>0x9eC527...0302678</code></td><td>10% until $350K, then 0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>All three reward destination wallets are confirmed set on-chain. The split is enforced in contract storage as <code>mloShare = 500</code>, <code>operationsShare = 500</code>, <code>recoveryShare = 1000</code> basis points, with stakers receiving the <code>10000 − 500 − 500 − 1000 = 8000</code> bps residual — i.e. exactly <strong>80 / 5 / 5 / 10</strong>.</p>
+
+    <h3>Infrastructure wallets</h3>
+    <div class="wp__table-wrap">
+      <table class="wp__addr-table">
+        <thead><tr><th>Role</th><th>Address &amp; authority</th></tr></thead>
+        <tbody>
+          <tr><td>Keeper EOA</td><td><code>0x4E1191...F36A23f55</code> · posts soft-layer reserves &amp; PositionLogger entries; read/post only — cannot move funds</td></tr>
+          <tr><td>Hyperliquid bridge</td><td><code>0x2df1c51e09aecf9cacb7bc98cb1742757f163df7</code> · official HL bridge; ReservesOracle queries this for pending withdrawals</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ 3. HOW IT WORKS ═══ -->
+    <h2 id="s3"><span class="wp__h2-num">§3</span>How AUREUS works</h2>
+
+    <h3>The basics</h3>
+    <ul>
+      <li><strong>AUR</strong> is an ERC-20 token on Arbitrum One. Buy it by depositing USDC into the Forge contract.</li>
+      <li><strong>Initial NAV: $1.00 USDC per AUR.</strong> NAV is recalculated and published every two weeks at epoch close.</li>
+      <li><strong>Staked AUR earns USDC distributions</strong> at each epoch close, paid out of strategy profits.</li>
+      <li><strong>Three exit paths:</strong> end-of-epoch (2% fee), ASAP (5% premium fee), peer-to-peer OTC sale (0.5% fee).</li>
+    </ul>
+
+    <h3>Minting AUR</h3>
+    <p>A member sends USDC to the Forge. The Forge calculates AUR to mint at the current NAV:</p>
+    <pre><code>AUR minted = USDC deposited / current NAV</code></pre>
+
+    <p>Newly minted AUR is auto-staked into the Forge contract by default (recommended path; the dashboard handles this). It enters a pending state for one epoch — this prevents members from depositing immediately before a profit distribution to capture rewards they didn't fund. At the next epoch close, the pending AUR becomes fully active and starts earning.</p>
+
+    <p>Power users can opt out of auto-stake at the contract level and receive AUR directly to their wallet (transferable immediately, but not earning epoch rewards until manually staked).</p>
+
+    <h3>Earning yield</h3>
+    <p>Strategy returns are deposited into the Forge via <code>depositRewards()</code> between epochs. At each <code>closeEpoch()</code> call, the accumulated reward pool is computed and split per the standard schedule. The reward pool for an epoch is derived on-chain as:</p>
+
+    <pre><code>owedToStakers = (totalInvestedAmount × accUsdPerShare / 1e18) − totalClaimedRewards
+rewardPool    = ForgeUSDCBalance − owedToStakers</code></pre>
+
+    <p><code>owedToStakers</code> is the float already credited to stakers but not yet claimed; subtracting it ensures the new pool never re-distributes money that already belongs to members. The pool is then split:</p>
+    <ul>
+      <li><strong>80% to staked AUR holders</strong> — credited via the internal <code>accUsdPerShare</code> accumulator. Members can claim their accumulated USDC at any time without affecting their stake. Rounding dust accrues to stakers, not operators — stakers take the residual.</li>
+      <li><strong>5% to Team</strong> (MLO Payments wallet)</li>
+      <li><strong>5% to Operations</strong> (infrastructure costs, keeper hosting, audit funds)</li>
+      <li><strong>10% to Recovery Fund</strong> — until cumulative Recovery distributions reach $350K, after which the 10% redirects to the Team wallet (taking Team's effective share to 15%).</li>
+    </ul>
+
+    <p>Redemption fees flow into the Forge contract and pool with strategy profits at the next epoch close — they follow the same 80/5/5/10 split.</p>
+
+    <h3>Exiting positions</h3>
+    <p><strong>End-of-Epoch (EOE) redemption</strong> — submit a redemption request, processed at the next epoch close at that epoch's settled NAV. <strong>Fee: 2%.</strong> Operator settles via the multisig.</p>
+    <p><strong>ASAP redemption</strong> — request immediate processing at the current hard NAV. <strong>Fee: 5%.</strong> Use when you can't wait for the next epoch.</p>
+    <p><strong>OTC sale</strong> — list AUR for sale at any price you choose; another member buys it directly. <strong>Fee: 0.5%</strong> (collected by the protocol as OTCv2 trading fee). Settles trustlessly without operator involvement.</p>
+
+    <p>A user may set a <code>minUsdcOut</code> floor on a redemption request; if NAV moves against them between request and processing, the request is rejected rather than filled at a worse price. All three paths preserve mass at the contract level: USDC and AUR move atomically per the redemption tier's terms.</p>
+
+    <h3>Reserve transparency</h3>
+    <p>The protocol's NAV per AUR is computed on-chain from the <strong>ReservesOracle</strong>:</p>
+    <pre><code>hardReserves = sum of USDC balances at the four tracked addresses
+             + pending Hyperliquid bridge withdrawals (per tracked address)
+
+hardNav = hardReserves / totalSupply(AUR)</code></pre>
+
+    <p>This is the "hard floor" — verifiable from on-chain reads alone, no operator trust required.</p>
+
+    <p>A separate soft layer reports live Hyperliquid trading account state. The keeper posts this at minimum every 24 hours. The soft layer is capped at 10× the hard reserves to prevent runaway misreports. The dashboard surfaces both hard and soft views.</p>
+
+    <!-- ═══ 4. CONTROLLED GROWTH ═══ -->
+    <h2 id="s4"><span class="wp__h2-num">§4</span>Controlled growth phase (first 90 days)</h2>
+
+    <p>To match the soft launch posture and protect early members, deposits are capped during the first 90 days:</p>
+    <ul>
+      <li><strong>Total deposits capped at $250,000 USDC in aggregate</strong></li>
+      <li><strong>Per-member positions capped at $50,000 USDC</strong></li>
+    </ul>
+
+    <p>These caps are enforced <strong>operationally</strong>, not contractually. The Forge accepts deposits permissionlessly; the multisig monitors aggregate exposure and per-member positions and will use its pause authority to gate access before either threshold is breached.</p>
+
+    <p>After 90 days (Friday September 4, 2026 — three months from public launch), the caps will be reviewed against operational performance, audit progress, and community input. They may be raised, lowered, or removed by multisig action. The intent is to scale deposits in line with the protocol's demonstrated reliability, not to maintain caps indefinitely.</p>
+
+    <!-- ═══ 5. EPOCH SCHEDULE ═══ -->
+    <h2 id="s5"><span class="wp__h2-num">§5</span>Epoch schedule</h2>
+
+    <div class="wp__table-wrap">
+      <table>
+        <thead><tr><th>Event</th><th>Date (UTC)</th><th>Date (KST)</th></tr></thead>
+        <tbody>
+          <tr><td>Phase 1 mainnet deploy</td><td>Sat May 30, 2026</td><td>Sat May 30, 2026</td></tr>
+          <tr><td>Phase 2 oracle activation</td><td>Sun May 31, 2026</td><td>Sun May 31, 2026</td></tr>
+          <tr><td>Multisig unpause + private operator testing</td><td>Sun–Mon May 31 / Jun 1</td><td>Sun–Mon May 31 / Jun 1</td></tr>
+          <tr style="background:rgba(201,169,97,0.08);"><td><strong>First epoch close</strong></td><td><strong>Fri Jun 5, 2026 · 00:00 UTC</strong></td><td><strong>Fri Jun 5, 2026 · 09:00 KST</strong></td></tr>
+          <tr><td>Public announcement</td><td>After first close validated</td><td>After first close validated</td></tr>
+          <tr><td>Second epoch close</td><td>Fri Jun 19, 2026 · 00:00 UTC</td><td>Fri Jun 19, 2026 · 09:00 KST</td></tr>
+          <tr><td>Third epoch close</td><td>Fri Jul 3, 2026 · 00:00 UTC</td><td>Fri Jul 3, 2026 · 09:00 KST</td></tr>
+          <tr><td>...</td><td>every 14 days, Fridays</td><td>every 14 days, Fridays</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Bi-weekly cadence is enforced contractually: <code>epochInterval = 14 days</code>. The first epoch is intentionally short (~5–6 days) to align the public schedule with Friday 09:00 KST closes from the start.</p>
+
+    <p>The launch is sequenced so the operator unpauses, mints with personal capital, and validates a real first epoch close <strong>before</strong> any public announcement — the protocol's first live distribution happens with operator funds, not member funds.</p>
+
+    <!-- ═══ 6. OPERATOR AUTHORITY ═══ -->
+    <h2 id="s6"><span class="wp__h2-num">§6</span>Operator authority — what the multisig can and cannot do</h2>
+
+    <h3>The multisig CAN</h3>
+    <ul>
+      <li>Unpause and pause the Forge</li>
+      <li>Set the Forge's allowed deposit tokens</li>
+      <li>Call <code>closeEpoch()</code> with a new NAV (subject to a 15% maximum change per close)</li>
+      <li>Process EOE and ASAP redemption requests (individually or in batches)</li>
+      <li>Set tracked addresses on ReservesOracle (subject to 24-hour timelock)</li>
+      <li>Configure reward destination wallets if any need to change</li>
+      <li>Sweep balances between the multisig and HL Strategies wallets for trading operations</li>
+      <li>Use <code>Aureus.setMinter</code> to re-point AUR's minter — intended to be renounced via <code>Ownable.renounceOwnership()</code> once operational confidence is established (operator-discretionary timing, will be publicly announced)</li>
+    </ul>
+
+    <h3>The multisig CANNOT</h3>
+    <ul>
+      <li>Modify member-held AUR balances (no transfer hooks, no blacklist, no force-burn)</li>
+      <li>Change the reward distribution percentages (80/5/5/10 is set in contract storage; verified on-chain)</li>
+      <li>Change NAV by more than 15% in a single <code>closeEpoch</code> call (rate limit in ForgeV2)</li>
+      <li>Make ReservesOracle changes that take effect before 24 hours pass</li>
+      <li>Take more than the 5% (or post-Recovery 15%) Team allocation from any single epoch</li>
+      <li>Withdraw or modify the Recovery Fund allocation before the $350K threshold</li>
+      <li>Mint AUR without depositing corresponding USDC into the protocol (while the minter remains the Forge contract)</li>
+    </ul>
+
+    <p>All multisig actions are public on Arbiscan in real time, and every operator action is now dispatched through the admin dashboard's Safe queue (see §12), where the encoded calldata is reviewable before signatures are collected.</p>
+
+    <!-- ═══ 7. RESERVES ARCHITECTURE ═══ -->
+    <h2 id="s7"><span class="wp__h2-num">§7</span>Reserves architecture</h2>
+
+    <p>Capital flows across three layers, all tracked or accounted for in NAV:</p>
+
+    <h3>Layer 1 — Operational (Arbitrum, immediately liquid)</h3>
+    <ul>
+      <li><strong>Forge proxy</strong> — reward accumulator, claimable staker balance</li>
+      <li><strong>AureusRedemption</strong> — redemption float in flight</li>
+    </ul>
+
+    <h3>Layer 2 — Cold Arbitrum (governance custody)</h3>
+    <ul>
+      <li><strong>Multisig Safe</strong> — forge mint USDC and OTC spread destination; capital staged before sweep to trading</li>
+      <li><strong>HL Strategies wallet</strong> — capital sitting between multisig sweep and Hyperliquid bridging</li>
+    </ul>
+
+    <h3>Layer 3 — Trading (Hyperliquid)</h3>
+    <ul>
+      <li><strong>HL Strategies sub-accounts</strong> — active trading capital across strategies (Aphelion HL, Soomario Strategies, etc.)</li>
+      <li><strong>Hyperliquid bridge</strong> — pending bridge withdrawals (counted per Layer 2 address via the bridge contract)</li>
+    </ul>
+
+    <p>The ReservesOracle queries all four tracked addresses on Layer 1+2 directly, and the Hyperliquid bridge for any pending withdrawals associated with those addresses. Layer 3 active trading state is reported by the keeper bot as the soft layer.</p>
+
+    <!-- ═══ 8. STRATEGY PERFORMANCE ═══ -->
+    <h2 id="s8"><span class="wp__h2-num">§8</span>Strategy performance (pre-launch reference)</h2>
+
+    <p>The strategies AUREUS deploys are not new — they have been running on operator capital before launch and have published live track records at the product level. AUREUS deploys capital across Soomario Strategies including Elite (HYPE/AVAX directional), Aphelion (multi-signal long-bias accumulator), and provisionally Rotation (multi-asset long-only) once paper validation confirms positive expectancy.</p>
+
+    <p>Each underlying strategy has its own product page, dashboard, and individual track record published at <code>soomariostrategies.com/products</code>. The aggregate AUREUS NAV is reported on-chain at each bi-weekly epoch close; backtest or attribution figures for individual strategies are documented on those product pages and in the strategy whitepapers, not in this protocol whitepaper.</p>
+
+    <p><strong>Past performance does not guarantee future results.</strong> Epochs can close at flat or negative NAV.</p>
+
+    <!-- ═══ 9. AUDIT POSTURE ═══ -->
+    <h2 id="s9"><span class="wp__h2-num">§9</span>Audit posture</h2>
+
+    <p>AUREUS launched with internal <strong>RED_TEAM</strong> review (three passes, all findings dispositioned with regression tests; 81 tests passing in <code>test/AureusV2.t.sol</code>). The Sepolia retest cycle validated the architecture end-to-end before mainnet broadcast, including catching one deploy-script gap that would have bricked the first epoch close — exactly the catch the retest exists for.</p>
+
+    <p><strong>Formal external audit</strong> (Sherlock, Trail of Bits, OpenZeppelin, or equivalent firm) is planned for <strong>Months 2–6 post-launch</strong>. The controlled-growth phase ($250K aggregate cap) is structured so that aggregate Member exposure during the audit-pending window is structurally bounded.</p>
+
+    <p>This sequence — internal red team → live deploy → external audit during operations — is a deliberate choice. It avoids the trap of paying for an audit on code that subsequently changes during real-world stress testing, and lets the audit be informed by actual operational data rather than only theory.</p>
+
+    <!-- ═══ 10. RISKS ═══ -->
+    <h2 id="s10"><span class="wp__h2-num">§10</span>Risks and caveats</h2>
+
+    <p>This section is not exhaustive; deposit only what you can afford to lose.</p>
+
+    <ul>
+      <li><strong>Smart contract risk.</strong> RED_TEAM passed three times but is not a substitute for external audit. The 90-day caps mitigate aggregate exposure.</li>
+      <li><strong>Operator key risk.</strong> The multisig holds significant authority. 2-of-3 reduces single-key compromise risk; the upgrade to 2-of-4 in the first 30 days reduces it further.</li>
+      <li><strong>Trading strategy risk.</strong> Profits are not guaranteed; epochs can close at flat or negative NAV. The 15% per-close rate limit bounds single-epoch reporting risk but not actual loss.</li>
+      <li><strong>Hyperliquid platform risk.</strong> Trading happens on Hyperliquid; HL platform outages, bugs, or insolvency would affect AUREUS reserves.</li>
+      <li><strong>Bridge risk.</strong> Capital in transit between Arbitrum and Hyperliquid is exposed to bridge-contract risk.</li>
+      <li><strong>Strategy concentration risk.</strong> The underlying strategies share venue (Hyperliquid) and broadly correlated asset universes. Diversification across strategies reduces single-strategy risk but does not eliminate correlated drawdowns in adverse market regimes.</li>
+    </ul>
+
+    <!-- ═══ 11. HOW TO PARTICIPATE ═══ -->
+    <h2 id="s11"><span class="wp__h2-num">§11</span>How to participate</h2>
+
+    <p>When the multisig signs <code>unpause()</code> (publicly observable on Arbiscan) and the protocol is publicly announced:</p>
+
+    <ol>
+      <li><strong>Deposit USDC.</strong> Visit the dashboard, connect a wallet (Rainbow / WalletConnect / Coinbase Wallet supported), approve USDC for the Forge proxy, deposit any amount up to the per-member cap.</li>
+      <li><strong>Hold AUR.</strong> Your staked AUR earns the staker share of each epoch.</li>
+      <li><strong>Claim epoch rewards.</strong> After each Friday 09:00 KST close, your claimable USDC balance updates. Claim at your convenience.</li>
+      <li><strong>Exit via EOE / ASAP / OTC</strong> when you want to redeem AUR for USDC.</li>
+    </ol>
+
+    <p>All four actions are transactions you sign with your own wallet on Arbitrum One. The protocol never has custody of your AUR or your claimed USDC.</p>
+
+    <!-- ═══ 12. ADMIN DASHBOARD ═══ -->
+    <h2 id="s12"><span class="wp__h2-num">§12</span>Operations &amp; the admin dashboard</h2>
+
+    <p>Every recurring operator action is performed through a purpose-built <strong>admin dashboard</strong> that runs as a Safe App inside the protocol multisig (<code>app.safe.global</code>). The dashboard does not hold keys and cannot move funds on its own — it constructs transactions, previews their on-chain effect, and submits them to the Safe transaction queue, where they still require the full 2-of-3 signature threshold to execute. Nothing is ever sent via a single externally-owned account.</p>
+
+    <h3>What the dashboard surfaces (read-only console)</h3>
+    <ul>
+      <li>Current NAV (hard layer) and the Forge's reward-pool balance</li>
+      <li>Multisig and HL Strategies USDC balances</li>
+      <li>Pending redemption queue (EOE / ASAP requests)</li>
+      <li>Pause state and next-epoch countdown</li>
+      <li>A live <strong>Authorization</strong> check confirming the Safe is the on-chain owner of the Forge and Redemption contracts — surfaced so any future ownership change (including a renounce) is visible before any action is attempted</li>
+    </ul>
+
+    <h3>What the dashboard can dispatch (each gated and previewed)</h3>
+    <ul>
+      <li><strong>Pause / Unpause</strong> — a two-click confirm; unpause is recognized as the public go-live action and is gated accordingly.</li>
+      <li><strong>Deposit rewards</strong> — bundles <code>approve</code> + <code>depositRewards</code> into a single Safe MultiSend so the allowance and the deposit are signed together. Enforces the contract's 1-USDC minimum and a "cannot exceed multisig balance" cap before the transaction can be armed.</li>
+      <li><strong>Close epoch</strong> — the highest-stakes action. The dashboard mirrors the contract's exact integer math to preview the new NAV against the ±15% rate limit, the reward pool (<code>ForgeUSDC − owedToStakers</code>), and the full 80/5/5/10 distribution — including the Recovery-Fund redirect logic — <em>before</em> a signature is collected. The confirm panel displays the concrete distribution amounts so the operator signs against numbers, not an abstraction.</li>
+      <li><strong>Process redemptions</strong> — batches <code>approve</code> + <code>processBatch</code> into one MultiSend, previews each pending request's gross / fee / net payout (2% EOE, 5% ASAP, verified on-chain), checks per-request slippage floors, and auto-excludes any request that would revert. Partial-batch semantics are preserved: a request that fails leaves the others to process and remains retriable.</li>
+    </ul>
+
+    <p>Every capital-moving action computes its preview in exact integer arithmetic (matching the contract's own math, with no floating-point rounding in any threshold), shows a confirmation panel with the concrete figures, and dispatches only through the Safe queue. The design principle throughout: the operator should always be signing against numbers they can see and verify, and no UI affordance should be able to queue a transaction the contract would reject.</p>
+
+    <!-- ═══ 13. ON-CHAIN VERIFICATION ═══ -->
+    <h2 id="s13"><span class="wp__h2-num">§13</span>On-chain verification (performed June 2026)</h2>
+
+    <p>During the admin-dashboard build, the following protocol parameters were read directly from the deployed mainnet contracts and confirmed against this document. Members can reproduce every one of these reads against the addresses in §1.</p>
+
+    <div class="wp__table-wrap">
+      <table>
+        <thead><tr><th>Parameter</th><th>On-chain value</th><th>Confirms</th></tr></thead>
+        <tbody>
+          <tr><td><code>Forge.owner()</code></td><td>Protocol Multisig</td><td>Owner-gated actions route through the 2-of-3 Safe</td></tr>
+          <tr><td><code>AureusRedemption.owner()</code></td><td>Protocol Multisig</td><td>Redemption processing routes through the same Safe</td></tr>
+          <tr><td><code>mloShare / opsShare / recovShare</code></td><td>500 / 500 / 1000 bps</td><td>Reward split is <strong>80 / 5 / 5 / 10</strong></td></tr>
+          <tr><td><code>RECOVERY_FUND_TARGET</code></td><td>$350,000</td><td>Recovery redirect threshold matches §3</td></tr>
+          <tr><td><code>cumulativeRecoveryDistributed</code></td><td>$0</td><td>Pre-launch; no recovery distributed yet</td></tr>
+          <tr><td><code>maxPriceChangeBps</code></td><td>1500 (15%)</td><td>NAV rate limit matches §6</td></tr>
+          <tr><td>Launch NAV (<code>price</code>)</td><td>$1.00 (1e6, 6 decimals)</td><td>Matches §3</td></tr>
+          <tr><td><code>FEE_EOE_BPS / FEE_ASAP_BPS</code></td><td>200 / 500 (immutable)</td><td>Redemption fees are <strong>2% / 5%</strong></td></tr>
+          <tr><td>All three reward wallets</td><td>Set (non-zero)</td><td>No <code>WalletsNotConfigured</code> revert risk at first close</td></tr>
+          <tr><td><code>accUsdPerShare</code> scale</td><td>1e18 at every read/write site</td><td>Reward accounting math is internally consistent</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The reward shares and redemption fees being verified directly from chain — rather than assumed from documentation — closed out the single largest correctness question before launch.</p>
+
+    <!-- ═══ 14. CHANGELOG ═══ -->
+    <h2 id="s14"><span class="wp__h2-num">§14</span>Changelog</h2>
+
+    <h3>v1.5 (June 2026) — Operations version</h3>
+    <p>Added §12 documenting the admin dashboard (Safe App, read-only console, four gated write actions: pause/unpause, depositRewards, closeEpoch, processRedemptions). Added §13 with the on-chain verification table confirming the 80/5/5/10 split, 2%/5% redemption fees, 15% NAV rate limit, $350K recovery target, $1.00 launch NAV, and both contracts owned by the multisig. Corrected the §3 exit-paths line to state fees explicitly (2% EOE / 5% ASAP / 0.5% OTC) and added the <code>minUsdcOut</code> slippage-floor note. Added the reward-pool derivation formula (<code>ForgeUSDC − owedToStakers</code>) and the staker-residual rounding note. Clarified the launch sequence: operator unpauses and validates a real first epoch close with personal capital before public announcement.</p>
+
+    <h3>v1.4 (June 2026) — Post-mainnet-deploy version</h3>
+    <p>Live contract and wallet addresses populated. First epoch schedule confirmed (Fri Jun 5, 2026). Initial NAV set to $1.00 USDC per AUR. All four ReservesOracle tracked addresses live: Forge, AureusRedemption, multisig, HL Strategies wallet. The setMinter renouncement section confirms intent; timing remains operator-discretionary. Sepolia retest summary added to §9. Strategy backtest reference moved to §8 as inherited claim from <code>AUREUS_BACKTEST.md</code>.</p>
+
+    <h3>v1.3 (May 2026) — Pre-deploy version</h3>
+    <p>STRCx reserve removed from launch architecture; bi-weekly epochs (14-day) confirmed; multisig composition disclosed (2-of-3 at launch, 2-of-4 planned); controlled-growth-phase added ($250K / $50K caps for 90 days); restructured §10 around RED_TEAM-gated launch and formal audit deferred to Months 2–6; tracked-address set expanded to four pools post-routing of forge mint revenue to multisig; fee-economics paragraph corrected to reflect the standard 80/5/5/10 split at next close; minter authority qualified with renouncement-intent commitment.</p>
+
+    <h3>v1.2 and earlier — Internal development versions; not published.</h3>
+
+    <!-- Final disclaimer -->
+    <div class="wp__final-note">
+      This document is descriptive. It is not a solicitation, offer, prospectus, or financial advice. AUREUS is a public smart contract protocol on a permissionless blockchain; participation is voluntary and at your own risk. All on-chain claims in this document can be verified directly against Arbitrum One contract state at the addresses listed in §1 and §2.<br><br>
+      <em>Last updated: June 2026 · Soomario Strategies</em>
+    </div>
+
+  </article>
+
+  <script src="../components.js"></script>
+</body>
+</html>
