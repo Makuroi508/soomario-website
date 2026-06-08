@@ -1,0 +1,11 @@
+{
+  "name": "Soomario Strategies",
+  "short_name": "Soomario",
+  "icons": [
+    { "src": "icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "theme_color": "#0f0a1a",
+  "background_color": "#0f0a1a",
+  "display": "standalone"
+}
