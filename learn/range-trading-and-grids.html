@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="What are grid bots and range-trading strategies? How a grid captures sideways oscillation, when grids fail, and how Soomario Farms anchors concentric bidirectional grids to liquidation zones.">
+  <meta name="description" content="What are grid bots and range-trading strategies? How a grid captures sideways oscillation, when grids fail.">
   <title>Range Trading and Grid Bots — How Sideways Markets Pay | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,21 +68,12 @@
       <h3>Rotation Across Universe</h3>
       <p>A single grid on a single asset is a directional bet on that asset's range holding. A grid strategy that scans dozens of assets and rotates capital toward whichever ones currently exhibit the cleanest range behaviour is structurally different — it's no longer betting on one range, it's betting that <em>somewhere in the universe</em> there are always assets that range. The rotation engine makes the strategy regime-agnostic at the portfolio level even though each individual grid is regime-dependent.</p>
 
-      <h2 class="gradient-text">How Soomario Farms Trades This</h2>
-      <p><a href="../products/farms.html" style="color:var(--gold);">Soomario Farms</a> is the platform's grid strategy. Live on a Hyperliquid vault after a 32-day out-of-sample validation period. The mechanics:</p>
-      <p><strong>Zone-anchored bidirectional grids.</strong> Concentric grids span from the long max-pain zone to the short max-pain zone, with an extension below the long zone to capture dip-and-reverse patterns. Each grid is anchored to <em>structural</em> liquidation density, not arbitrary percent bands. See <a href="liquidation-zones.html" style="color:var(--gold);">Liquidation Zones Explained</a>.</p>
-      <p><strong>Up to five concurrent grids from a ~50-asset universe.</strong> Every 30 minutes, the scanner scores all candidates on a multi-component farmability index — proximity to anchor, recent range stability, liquidity, fee economics, breakout proximity, asset-specific edge history, and rotation eligibility. The top five with passing entry gates run; the rest wait.</p>
-      <p><strong>A rotation engine that actually rotates.</strong> Grids that fall out of the top five for two hours rotate out, with their remaining seed transitioning to an ATR trailing stop. Replacements that pass the entry gate rotate in. Capital follows opportunity rather than sitting on a position whose thesis has decayed.</p>
-      <p><strong>Three-layer risk framework.</strong> Position-level: hard stop 1.5% beyond the lowest grid level on every active grid, ATR trailing on the seed. Asset-level: confirmed breakout pauses redeployment for 4 hours, with auto-resume. Portfolio-level: 12% peak drawdown halt and 5% daily loss halt, both with auto-resume after cool-down.</p>
-      <p><strong>Empirically grounded.</strong> The 32-day out-of-sample window (10 April – 12 May 2026) produced 77,734 zone snapshots across 50 symbols. Median forward returns were positive at every horizon (+0.13% at 6h, +0.46% at 24h, +0.66% at 48h, +1.13% at 7d), and 62% of firing-ready entries produced positive 7-day returns. Capital utilisation is structurally low — expected occupied capacity is about 1.0 of 5 slots, with half of all snapshots showing zero firing-ready candidates. The strategy waits patiently rather than deploying continuously.</p>
-
       <h2 class="gradient-text">The Honest Limits</h2>
       <p>Grid strategies are not magic. They earn in chop and lose in trend. They earn from many small wins and pay back a fraction of those wins when the range breaks. The edge is not in the grid mechanic itself — it is in the combination of where the grid is placed (zone-anchored), how it defends itself (multi-layer stops), what it does when the assumption breaks (rotation out, seed trail, drawdown halt), and whether the universe is wide enough to find ranging assets in any market state.</p>
       <p>Bidirectional execution does not mean the strategy is risk-free in trends. It means the strategy can earn on both sides of an anchor when price oscillates, and it means trend breakouts in either direction are losses that have to be bounded by the stop framework. The honest position is: this earns in ranging regimes and protects (not profits) in trending ones.</p>
 
       <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="../products/farms.html" class="btn btn--primary btn--sm">Explore Soomario Farms →</a>
           <a href="liquidation-zones.html" class="btn btn--outline btn--sm">Liquidation Zones</a>
           <a href="mean-reversion-vs-momentum.html" class="btn btn--outline btn--sm">Mean Reversion vs Momentum</a>
         </div>

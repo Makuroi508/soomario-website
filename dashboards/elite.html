@@ -18,21 +18,21 @@
 <link rel="stylesheet" href="../site-chrome.css">
 <style>
 :root{
-  --bg:#0D0A14;--sf:#1A1425;--bd:#2D1B4E;--gold:#D4A843;--gold-dim:#8a6f2e;
-  --gold-glow:#D4A84340;--purple:#7B5EA7;--purple-light:#9B7DC7;
-  --gn:#4ADE80;--rd:#F87171;--text:#E8E0F0;--dim:#8A7FA0;--muted:#4a4340;
-  --bd-gold:#D4A84333
+  --bg:#0f0a1a;--sf:#1a1625;--bd:#3D3566;--gold:#C9A961;--gold-dim:#8B7A4A;
+  --gold-glow:#C9A96140;--purple:#8b5cf6;--purple-light:#9a8bb5;
+  --gn:#4ADE80;--rd:#F87171;--text:#E8E0F0;--dim:#8A7FA0;--muted:#3D3566;
+  --bd-gold:#C9A96133
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;font-size:13px}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,#7B5EA711 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,#D4A84308 0%,transparent 40%);pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,#8b5cf611 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,#C9A96108 0%,transparent 40%);pointer-events:none;z-index:0}
 .hid{display:none!important}
 
 /* ── TOOLTIP SYSTEM ── */
 .tip{position:relative;cursor:help;display:inline-flex;align-items:center;gap:3px}
-.tip .ti{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:#7B5EA730;color:#9B7DC7;font-size:8px;font-weight:700;font-style:normal;flex-shrink:0;line-height:1}
-.tip .tt{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1225;border:1px solid #9B7DC7;border-radius:6px;padding:8px 10px;font-size:10px;font-weight:400;line-height:1.5;color:#E8E0F0;white-space:normal;width:max-content;max-width:260px;z-index:100;pointer-events:none;transition:opacity .15s;letter-spacing:0;text-transform:none}
-.tip .tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#9B7DC7}
+.tip .ti{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:#8b5cf630;color:#9a8bb5;font-size:8px;font-weight:700;font-style:normal;flex-shrink:0;line-height:1}
+.tip .tt{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1625;border:1px solid #9a8bb5;border-radius:6px;padding:8px 10px;font-size:10px;font-weight:400;line-height:1.5;color:#E8E0F0;white-space:normal;width:max-content;max-width:260px;z-index:100;pointer-events:none;transition:opacity .15s;letter-spacing:0;text-transform:none}
+.tip .tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#9a8bb5}
 .tip:hover .tt,.tip.show .tt{visibility:visible;opacity:1;pointer-events:auto}
 .tip-r .tt{left:auto;right:0;transform:none}
 .tip-r .tt::after{left:auto;right:12px;transform:none}
@@ -59,7 +59,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .k{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:14px 16px;transition:border-color .3s,box-shadow .3s}
 .k:hover{border-color:var(--bd-gold)}
 .k.ac{border-color:var(--gold-dim);border-width:1.5px}
-.k.glow{box-shadow:0 0 12px #D4A84340;border-color:var(--gold)}
+.k.glow{box-shadow:0 0 12px #C9A96140;border-color:var(--gold)}
 .kl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:6px}
 .kv{font-size:26px;font-weight:700;color:var(--gold)}
 .kv.vgn{color:var(--gn)}.kv.vrd{color:var(--rd)}.kv.vg{color:var(--gold)}
@@ -73,9 +73,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .tf-toggles{display:flex;gap:3px}
 .tf-btn{background:transparent;border:1px solid var(--bd);border-radius:4px;padding:4px 12px;color:var(--dim);font-family:inherit;font-size:10px;cursor:pointer;transition:all .2s;letter-spacing:.05em;font-weight:600}
 .tf-btn:hover{color:var(--text);border-color:var(--dim)}
-.tf-btn.active{background:#1A1425;color:var(--gold);border-color:var(--gold-dim)}
+.tf-btn.active{background:#1a1625;color:var(--gold);border-color:var(--gold-dim)}
 .equity-chart{width:100%;height:280px;display:block;cursor:crosshair}
-.eq-tooltip{position:absolute;background:#0D0A14ee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.eq-tooltip{position:absolute;background:#0f0a1aee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
 .eq-tooltip .eq-tt-price{color:var(--gold);font-weight:700;font-size:15px}
 .eq-tooltip .eq-tt-time{color:var(--dim);font-size:10px;margin-top:2px}
 .eq-tooltip .eq-tt-change{font-size:11px;margin-top:2px}
@@ -85,10 +85,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .vault-sidebar{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 20px}
 .vault-sidebar .kl{margin-bottom:4px}
 .vault-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.vault-divider{height:1px;margin:12px 0;background:linear-gradient(90deg,transparent,#D4A84333,transparent)}
+.vault-divider{height:1px;margin:12px 0;background:linear-gradient(90deg,transparent,#C9A96133,transparent)}
 .vault-addr{font-size:10px;color:var(--dim);word-break:break-all;line-height:1.8;margin-top:4px}
 .vault-btn{display:block;text-align:center;margin-top:10px;font-family:inherit;font-size:10px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;text-decoration:none;padding:10px 12px;border:1px solid var(--gold-dim);border-radius:6px;transition:all .2s}
-.vault-btn:hover{background:#D4A84312;border-color:var(--gold)}
+.vault-btn:hover{background:#C9A96112;border-color:var(--gold)}
 .vault-btn.dim{color:var(--dim);border-color:var(--bd)}
 .vault-btn.dim:hover{color:var(--text);border-color:var(--dim)}
 
@@ -121,12 +121,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .crd-stats div{display:flex;flex-direction:column;gap:2px}
 .crd-stats .cs-label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
 .crd-stats .cs-val{font-size:14px;font-weight:600}
-.signal-status{margin-top:10px;padding:8px 12px;background:#7B5EA710;border:1px solid #7B5EA730;border-radius:6px;font-size:11px;color:var(--purple-light)}
+.signal-status{margin-top:10px;padding:8px 12px;background:#8b5cf610;border:1px solid #8b5cf630;border-radius:6px;font-size:11px;color:var(--purple-light)}
 
 /* ── METER (P&L bar) ── */
 .m{margin-top:10px}
 .ml{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:3px}
-.mb{width:100%;height:6px;background:#1A1425;border-radius:3px;overflow:hidden}
+.mb{width:100%;height:6px;background:#1a1625;border-radius:3px;overflow:hidden}
 .mf{height:100%;border-radius:3px;transition:width .5s}
 .mfg{background:var(--gn)}.mfy{background:var(--gold)}.mfr{background:var(--rd)}
 .mv{font-size:10px;margin-top:2px;color:var(--dim)}
@@ -134,7 +134,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 /* ── ACTIVITY FEED ── */
 .activity-section{margin-top:14px}
 .activity-section .lbl{font-size:10px;margin-bottom:8px;display:block}
-.ai{display:grid;grid-template-columns:10px 1fr auto auto;align-items:center;gap:8px;padding:7px 12px;border-bottom:1px solid #2D1B4E30}
+.ai{display:grid;grid-template-columns:10px 1fr auto auto;align-items:center;gap:8px;padding:7px 12px;border-bottom:1px solid #3D356630}
 .ai:last-child{border-bottom:none}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .dg{background:var(--gn)}.dy{background:var(--gold)}.dr{background:var(--rd)}
@@ -144,9 +144,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 /* ── DETAILED TABLE ── */
 .table-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
-.table-header{display:grid;padding:10px 16px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-dim);background:#0D0A14;border-bottom:1px solid var(--bd)}
-.table-row{display:grid;padding:10px 16px;font-size:13px;border-bottom:1px solid #2D1B4E30;align-items:center;transition:background .15s}
-.table-row:hover{background:#1A142580}
+.table-header{display:grid;padding:10px 16px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-dim);background:#0f0a1a;border-bottom:1px solid var(--bd)}
+.table-row{display:grid;padding:10px 16px;font-size:13px;border-bottom:1px solid #3D356630;align-items:center;transition:background .15s}
+.table-row:hover{background:#1a162580}
 .table-row:last-child{border-bottom:none}
 .pos-grid{grid-template-columns:70px 60px 90px 100px 100px 60px 1fr}
 .trade-grid{grid-template-columns:70px 60px 130px 90px 1fr}
@@ -170,7 +170,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .crd-topbar .lbl{font-size:12px}
 .ov-cnt{font-size:10px;color:var(--dim);margin-left:4px}
 
-/* ── OVERVIEW ROW: equity curve + vault info (mirrors Max Pain .row.g21) ── */
+/* ── OVERVIEW ROW: equity curve + vault info (mirrors Gladius .row.g21) ── */
 .row{display:grid;gap:10px;margin-bottom:10px}
 .g21{grid-template-columns:2.2fr 1fr}
 .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -190,7 +190,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 /* ── OVERVIEW OPEN POSITIONS (compact rows) ── */
 .ov-pos-list{display:flex;flex-direction:column;gap:4px}
 .ov-pos-row{display:grid;grid-template-columns:60px 70px 1fr auto;gap:10px;align-items:center;padding:10px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:6px;font-size:12px;transition:border-color .2s}
-.ov-pos-row:hover{border-color:#D4A84333}
+.ov-pos-row:hover{border-color:#C9A96133}
 .ov-pos-sym{font-family:'Cinzel',serif;font-weight:700;font-size:14px;color:var(--gold)}
 .ov-pos-side{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;text-align:center;letter-spacing:.06em}
 .ov-pos-side.long{background:#4ADE8018;color:var(--gn);border:1px solid #4ADE8033}
@@ -244,8 +244,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <a href="https://soomariostrategies.com/#products">Products</a>
   <a href="https://soomariostrategies.com/learn/index.html">Learn</a>
   <a href="#" class="sn-active">Elite Dashboard</a>
-  <a href="https://soomariostrategies.com/dashboards/vault.html">Max Pain Dashboard</a>
-  <a href="https://farms.soomariostrategies.com/" target="_blank">Farms Dashboard</a>
+  <a href="https://gladius.soomariostrategies.com" target="_blank">Gladius Dashboard</a>
   <a href="https://rotation.soomariostrategies.com/" target="_blank">Rotation Dashboard</a>
   <a href="https://soomariostrategies.com/tools/compare.html">Compare Products</a>
   <a href="https://whop.com/soomario-strategies/" target="_blank" style="color:var(--gold)">Member Login</a>
@@ -293,7 +292,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <!-- ═══ OVERVIEW PANEL ═══ -->
 <div class="panel active" id="panel-overview">
 
-  <!-- Equity curve + Vault Info (matches Max Pain layout) -->
+  <!-- Equity curve + Vault Info (matches Gladius layout) -->
   <div class="row g21">
     <div class="crd">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -348,6 +347,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <div class="perf-cell"><div class="perf-lbl">CAGR</div><div class="perf-val" id="perf-cagr">—</div><div class="perf-sub">annualized</div></div>
       <div class="perf-cell"><div class="perf-lbl">Max Drawdown</div><div class="perf-val" id="perf-dd">—</div><div class="perf-sub">peak to trough</div></div>
       <div class="perf-cell"><div class="perf-lbl">Avg Trade</div><div class="perf-val" id="perf-avg">—</div><div class="perf-sub">per closed trade</div></div>
+      <div class="perf-cell"><div class="perf-lbl">Net of Profit Share</div><div class="perf-val" id="perf-net">—</div><div class="perf-sub">realized PnL, after 10% profit share</div></div>
       <div class="perf-cell"><div class="perf-lbl">Best Trade</div><div class="perf-val" id="perf-best">—</div><div class="perf-sub" id="perf-best-sub">—</div></div>
     </div>
   </div>
@@ -436,6 +436,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div class="footer" id="footTs">Soomario Elite Vault · Refreshes every 30s</div>
 </div>
 
+<script src="dashboard-core.js"></script>
 <script>
 // ═══════════════════════════════════════════
 //  TOOLTIP HELPER
@@ -529,7 +530,6 @@ const LEGACY_TRADES=[{"coin":"HYPE","side":"LONG","pnl":-7.08911,"px":40.296,"ti
 const round=(n,d=2)=>Math.round(n*10**d)/10**d;
 const fmt=(n,d=2)=>n==null?'—':'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const fmtUsd=(n,d=2)=>n==null?'—':(n>=0?'+':'−')+'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-const col=n=>n>=0?'var(--gn)':'var(--rd)';
 function set(id,text,color){const el=document.getElementById(id);if(!el)return;if(text!==undefined)el.textContent=text;if(color!==undefined)el.style.color=color}
 function fmtDate(ms){if(!ms)return'—';const d=new Date(ms);return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
 function timeAgo(ms){if(!ms)return'—';const diff=Date.now()-ms;const m=Math.floor(diff/60000);if(m<1)return'Just now';if(m<60)return m+'m ago';const h=Math.floor(m/60);if(h<24)return h+'h ago';const d=Math.floor(h/24);return d+'d ago'}
@@ -629,21 +629,21 @@ function drawEquityChart(data){
   const toX=i=>(i/(data.length-1))*W,toY=v=>chartH-((v-min)/range)*(chartH-10)-5;
   // Fill
   const grad=ctx.createLinearGradient(0,0,0,chartH);
-  grad.addColorStop(0,'#D4A84330');grad.addColorStop(1,'#D4A84300');
+  grad.addColorStop(0,'#C9A96130');grad.addColorStop(1,'#C9A96100');
   ctx.beginPath();ctx.moveTo(0,chartH);data.forEach((d,i)=>ctx.lineTo(toX(i),toY(d.equity)));ctx.lineTo(W,chartH);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
   // Line
-  ctx.beginPath();data.forEach((d,i)=>{i===0?ctx.moveTo(toX(i),toY(d.equity)):ctx.lineTo(toX(i),toY(d.equity))});ctx.strokeStyle='#D4A843';ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();data.forEach((d,i)=>{i===0?ctx.moveTo(toX(i),toY(d.equity)):ctx.lineTo(toX(i),toY(d.equity))});ctx.strokeStyle='#C9A961';ctx.lineWidth=2;ctx.stroke();
   // End dot
-  const last=data[data.length-1];ctx.beginPath();ctx.arc(toX(data.length-1),toY(last.equity),4,0,Math.PI*2);ctx.fillStyle='#D4A843';ctx.fill();ctx.strokeStyle='#D4A84366';ctx.lineWidth=8;ctx.stroke();
+  const last=data[data.length-1];ctx.beginPath();ctx.arc(toX(data.length-1),toY(last.equity),4,0,Math.PI*2);ctx.fillStyle='#C9A961';ctx.fill();ctx.strokeStyle='#C9A96166';ctx.lineWidth=8;ctx.stroke();
   // Y labels
   ctx.fillStyle='#8A7FA0';ctx.font='10px JetBrains Mono';ctx.textAlign='left';ctx.fillText('$'+min.toFixed(0),4,chartH-4);
-  ctx.textAlign='right';ctx.fillText('$'+max.toFixed(0),W-4,12);ctx.fillStyle='#D4A843';ctx.fillText('$'+last.equity.toFixed(2),W-4,chartH-4);
+  ctx.textAlign='right';ctx.fillText('$'+max.toFixed(0),W-4,12);ctx.fillStyle='#C9A961';ctx.fillText('$'+last.equity.toFixed(2),W-4,chartH-4);
   // Time axis
-  ctx.fillStyle='#4a4340';ctx.font='9px JetBrains Mono';ctx.textAlign='center';
+  ctx.fillStyle='#3D3566';ctx.font='9px JetBrains Mono';ctx.textAlign='center';
   const numLabels=Math.min(6,data.length);
   for(let i=0;i<numLabels;i++){const idx=Math.floor(i*(data.length-1)/(numLabels-1));const d=data[idx];if(!d||!d.ts)continue;const dt=new Date(d.ts);const label=(dt.getMonth()+1)+'/'+dt.getDate()+' '+dt.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});ctx.fillText(label,toX(idx),H-3)}
   // Baseline
-  ctx.strokeStyle='#2D1B4E';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,chartH);ctx.lineTo(W,chartH);ctx.stroke();
+  ctx.strokeStyle='#3D3566';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,chartH);ctx.lineTo(W,chartH);ctx.stroke();
   chartMeta={data,W,H,chartH,min,max,range,toX,toY};
 }
 
@@ -667,7 +667,7 @@ function drawEquityChart(data){
     tt.innerHTML='<div class="eq-tt-price">$'+pt.equity.toFixed(2)+'</div><div class="eq-tt-time">'+timeStr+'</div><div class="eq-tt-change" style="color:'+col(change)+'">'+(change>=0?'+':'')+change.toFixed(2)+' ('+(changePct>=0?'+':'')+changePct.toFixed(2)+'%)</div>';
     let tx=canvas.offsetLeft+px+14,ty=co+py-40;
     if(tx+160>canvas.parentElement.clientWidth)tx=canvas.offsetLeft+px-170;if(ty<co)ty=co+py+14;
-    tt.style.cssText='position:absolute;left:'+tx+'px;top:'+ty+'px;background:#0D0A14ee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:1;z-index:10;white-space:nowrap';
+    tt.style.cssText='position:absolute;left:'+tx+'px;top:'+ty+'px;background:#0f0a1aee;border:1px solid var(--gold-dim);border-radius:5px;padding:6px 10px;font-size:12px;pointer-events:none;opacity:1;z-index:10;white-space:nowrap';
   });
   canvas.addEventListener('mouseleave',function(){tt.style.opacity='0';cv.style.opacity='0';ch.style.opacity='0';dot.style.opacity='0'});
 })();
@@ -784,7 +784,7 @@ function renderPerfMetrics(metrics) {
     if (cls !== undefined) el.className = cls;
   };
   if (!metrics) {
-    ['perf-sharpe','perf-sortino','perf-cagr','perf-dd','perf-avg','perf-best'].forEach(id => set(id, '—', 'perf-val'));
+    ['perf-sharpe','perf-sortino','perf-cagr','perf-dd','perf-avg','perf-net','perf-best'].forEach(id => set(id, '—', 'perf-val'));
     const sub = document.getElementById('perf-best-sub'); if (sub) sub.textContent = '—';
     return;
   }
@@ -798,6 +798,8 @@ function renderPerfMetrics(metrics) {
   set('perf-dd', dd != null ? '−' + dd.toFixed(1) + '%' : '—', 'perf-val ' + (dd != null && dd < 10 ? 'gn' : (dd != null && dd < 25 ? '' : 'rd')));
   const at = metrics.avgTrade;
   set('perf-avg', at != null ? fmtUsd(at) : '—', 'perf-val ' + (at >= 0 ? 'gn' : 'rd'));
+  const netShare = metrics.totalPnl != null ? metrics.totalPnl * 0.90 : null;
+  set('perf-net', netShare != null ? fmtUsd(netShare) : '—', 'perf-val ' + (netShare >= 0 ? 'gn' : 'rd'));
   const bt = metrics.best;
   set('perf-best', bt != null ? fmtUsd(bt) : '—', 'perf-val gn');
   const subEl = document.getElementById('perf-best-sub');

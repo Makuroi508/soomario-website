@@ -237,9 +237,9 @@
           </div>
         </a>
 
-        <a href="products/max-pain.html" class="strat-card" style="text-decoration:none;">
+        <a href="products/gladius.html" class="strat-card" style="text-decoration:none;">
           <div class="strat-card__head">
-            <div class="strat-card__name">Max Pain</div>
+            <div class="strat-card__name">Gladius</div>
             <span class="strat-card__badge strat-card__badge--live">LIVE</span>
           </div>
           <div class="strat-card__tagline">Liquidation-anchored DCA</div>
@@ -250,13 +250,13 @@
           </div>
         </a>
 
-        <a href="products/farms.html" class="strat-card" style="text-decoration:none;">
+        <a href="products/libration.html" class="strat-card" style="text-decoration:none;">
           <div class="strat-card__head">
-            <div class="strat-card__name">Farms</div>
+            <div class="strat-card__name">Libration</div>
             <span class="strat-card__badge strat-card__badge--live">LIVE</span>
           </div>
-          <div class="strat-card__tagline">Conviction-DCA tranche engine</div>
-          <p class="strat-card__pitch">Farms oscillation around the long max-pain anchor with two-tranche positions: a seed plus a buy grid, with a second tranche that escalates only on confirmation. Up to 5 concurrent farms across ~50 perpetuals. Non-directional.</p>
+          <div class="strat-card__tagline">Multi-coin RSI swing · HL vault</div>
+          <p class="strat-card__pitch">A systematic swing strategy trading a basket of volatile crypto perpetuals from one shared Hyperliquid vault — one position per coin, a tight trailing stop plus a hard stop, sized conservatively and halted on daily drawdown.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">10% profit share</span>
             <span class="strat-card__link">Learn more →</span>
@@ -417,7 +417,7 @@
 
   <script>
   (function(){
-    var API = 'https://accumulator.soomariostrategies.com/api/portfolio_value';
+    var API = 'https://accumulator.soomariostrategies.com/api/portfolio_value?group=mag14';
     var MODEL_BUDGET = 1500;
 
     var liveData = null;
@@ -667,7 +667,7 @@
     renderCalc();
 
     function load(){
-      fetch(API)
+      fetch(API + '&t=' + Date.now(), { cache: 'no-store' })
         .then(function(r){ return r.json(); })
         .then(function(data){
           if(!data) return;
