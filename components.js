@@ -96,7 +96,7 @@
               <a href="${depth}products/gladius.html" class="nav-dropdown__item">Gladius <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
               <div class="nav-dropdown__divider"></div>
-              <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--soon">PAPER</span></a>
+              <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/premia.html" class="nav-dropdown__item">Premia <span class="badge badge--soon">PAPER</span></a>
             </div></div>
           </div>
@@ -165,7 +165,7 @@
           <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/gladius.html" class="mobile-menu__link">Gladius <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--soon">PAPER</span></a>
+          <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/premia.html" class="mobile-menu__link">Premia <span class="badge badge--soon">PAPER</span></a>
         </div>
       </div>
