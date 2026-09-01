@@ -607,13 +607,16 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 
 .metric__value {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+  /* Orbitron is a wide face; .metric has overflow:hidden, so an oversized
+     value used to be clipped mid-character (e.g. "2023-26" -> "2023-2").
+     Cap the size and allow a wrap so long values shrink to fit instead. */
+  font-size: clamp(1.35rem, 2.9vw, 2rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.01em;
   margin-bottom: 0.5rem;
-  word-break: keep-all;
-  white-space: nowrap;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .metric__label {
