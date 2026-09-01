@@ -11,7 +11,7 @@
     name: 'SOOMARIO',
     sub: 'STRATEGIES',
     domain: 'https://soomariostrategies.com',
-    logo: getAssetPath('soomario-logo.png'),
+    logo: getAssetPath('soomario-logo-128.png'),
     whop: {
       accumulator: 'https://whop.com/soomario-strategies/soomario-accumulator/',
       maxpain: 'https://whop.com/soomario-strategies/',
@@ -51,7 +51,7 @@
   /* Recalculate paths after DOM is ready */
   function resolvePaths() {
     const depth = getDepth();
-    SITE.logo = depth + 'soomario-logo.png';
+    SITE.logo = depth + 'soomario-logo-128.png';
     SITE.dashboards.elite = depth + 'dashboards/elite.html';
   }
 
@@ -79,7 +79,7 @@
     nav.innerHTML = `
       <div class="site-nav__inner">
         <a href="${depth}index.html" class="site-nav__brand" aria-label="Soomario home">
-          <img src="${depth}soomario-logo.png" alt="Soomario Logo" width="56" height="56">
+          <img src="${depth}soomario-logo-128.png" alt="Soomario Logo" width="56" height="56" decoding="async">
           <div class="site-nav__brand-text">
             <div class="site-nav__brand-name">SOOMARIO</div>
             <div class="site-nav__brand-sub">STRATEGIES</div>
@@ -91,7 +91,7 @@
             <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('products') ? 'active' : ''}">Products</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--beta">BETA</span></a>
+              <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/gladius.html" class="nav-dropdown__item">Gladius <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
@@ -159,7 +159,7 @@
         <div class="mobile-menu__group-title">Products</div>
         <div class="mobile-menu__links">
           <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--beta">BETA</span></a>
+          <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/gladius.html" class="mobile-menu__link">Gladius <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
