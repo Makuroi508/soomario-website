@@ -839,10 +839,11 @@
     <li class="subitem"><span class="num"></span> <span class="title">1. Soomario Gladius &mdash; Liquidation-Anchored Mean Reversion</span> <span class="pg">20</span></li>
     <li class="subitem"><span class="num"></span> <span class="title">2. Soomario Elite &mdash; Momentum Capture</span> <span class="pg">22</span></li>
     <li class="subitem"><span class="num"></span> <span class="title">3. Soomario Libration &mdash; Multi-Coin RSI Swing</span> <span class="pg">24</span></li>
-    <li class="subitem"><span class="num"></span> <span class="title">4. Soomario Aphelion &mdash; Multi-Signal Equity Accumulator</span> <span class="pg">26</span></li>
-    <li class="subitem"><span class="num"></span> <span class="title">5. Soomario Rotation &mdash; Tokenized Equity Rotation</span> <span class="pg">28</span></li>
-    <li class="subitem"><span class="num"></span> <span class="title">6. Soomario Premia &mdash; Volatility-Harvesting Calls</span> <span class="pg">30</span></li>
-    <li class="subitem"><span class="num"></span> <span class="title">7. Soomario Accumulator &mdash; Subscription Signals</span> <span class="pg">32</span></li>
+    <li class="subitem"><span class="num"></span> <span class="title">4. Soomario Hype Bot &mdash; Single-Asset RSI Swing</span> <span class="pg">26</span></li>
+    <li class="subitem"><span class="num"></span> <span class="title">5. Soomario Aphelion &mdash; Multi-Signal Equity Accumulator</span> <span class="pg">28</span></li>
+    <li class="subitem"><span class="num"></span> <span class="title">6. Soomario Rotation &mdash; Tokenized Equity Rotation</span> <span class="pg">30</span></li>
+    <li class="subitem"><span class="num"></span> <span class="title">7. Soomario Premia &mdash; Volatility-Harvesting Calls</span> <span class="pg">32</span></li>
+    <li class="subitem"><span class="num"></span> <span class="title">8. Soomario Accumulator &mdash; Subscription Signals</span> <span class="pg">34</span></li>
     <li><span class="num">V.</span> <span class="title">Risk Management Framework</span> <span class="pg">38</span></li>
     <li><span class="num">VI.</span> <span class="title">Infrastructure &amp; Transparency</span> <span class="pg">40</span></li>
     <li><span class="num">VII.</span> <span class="title">Honest Limits &amp; Disclosures</span> <span class="pg">42</span></li>
@@ -859,9 +860,9 @@
   <div class="section-mark">— Section I</div>
   <h1 class="section-title"><span class="num">I.</span>Executive Summary</h1>
 
-  <p>Soomario Strategies is a systematic trading platform operated by a single principal, with all production logic running on dedicated infrastructure across four execution venues &mdash; Hyperliquid for crypto perpetual futures, Binance USD-M futures for crypto and US equity perpetuals, Solana spot for tokenized equities, and Deribit for crypto options. The platform comprises seven strategies designed around a common thesis: <strong>most edge in retail-accessible markets is already in public data — observable in liquidation books, unlock calendars, options chains, and price action — and the structural inefficiency lies almost entirely in how few participants apply that data systematically, across many assets, with discipline, in the face of regimes that punish discretion.</strong></p>
+  <p>Soomario Strategies is a systematic trading platform operated by a single principal, with all production logic running on dedicated infrastructure across four execution venues &mdash; Hyperliquid for crypto perpetual futures, Binance USD-M futures for crypto and US equity perpetuals, Solana spot for tokenized equities, and Deribit for crypto options. The platform comprises eight strategies designed around a common thesis: <strong>most edge in retail-accessible markets is already in public data — observable in liquidation books, unlock calendars, options chains, and price action — and the structural inefficiency lies almost entirely in how few participants apply that data systematically, across many assets, with discipline, in the face of regimes that punish discretion.</strong></p>
 
-  <p>The platform addresses two distinct audiences. Six strategies are <strong>vault products</strong>: capital is contributed to an on-chain or exchange-side vault, the strategy executes against pooled equity, and a 10% performance fee is taken on net profits — no management fee, no lockup, no aggregator. The ninth, Accumulator, is a <strong>subscription signal product</strong> at $7 per month that delivers daily quantitative buy recommendations to retail investors who execute the trades themselves. Both audiences receive the same standard of analytical rigour. They differ only in custody, capital model, and degree of automation.</p>
+  <p>The platform addresses two distinct audiences. Seven strategies are <strong>vault products</strong>: capital is contributed to an on-chain or exchange-side vault, the strategy executes against pooled equity, and a 10% performance fee is taken on net profits — no management fee, no lockup, no aggregator. The ninth, Accumulator, is a <strong>subscription signal product</strong> at $7 per month that delivers daily quantitative buy recommendations to retail investors who execute the trades themselves. Both audiences receive the same standard of analytical rigour. They differ only in custody, capital model, and degree of automation.</p>
 
   <p>This document is a unified credential for the platform. It describes how the strategies think, what they look at, where their respective edges sit, and — equally important — what we do not claim. We do not publish exact parameters. We do not publish backtest summary statistics in the body of this paper. We do not promise returns. What follows is a full description of the analytical vocabulary the platform speaks, the structural reasoning behind each strategy, and the controls that bound risk at every layer.</p>
 
@@ -900,6 +901,13 @@
         <td>Hyperliquid</td>
         <td>11 crypto perpetuals</td>
         <td><span class="status live">&#9679; Live</span></td>
+      </tr>
+      <tr>
+        <td class="strat-name">Hype Bot</td>
+        <td>The Libration engine concentrated on a single market, one position at a time</td>
+        <td>Hyperliquid</td>
+        <td>HYPE perpetual</td>
+        <td><span class="status live">&#9679; Live &middot; November 2025</span></td>
       </tr>
       <tr>
         <td class="strat-name">Aphelion</td>
@@ -948,7 +956,7 @@
     </tbody>
   </table>
 
-  <p style="margin-top: 18pt;">The six vault strategies are decoupled by design. They use different signal categories, target different inefficiencies, and reach their drawdowns at different times. A subscriber to the Accumulator subscription is also a qualified prospect for the vault products — and the vault products' transparency (every position visible on-chain, in real time) is itself the cleanest reference any subscription buyer could ask for.</p>
+  <p style="margin-top: 18pt;">The seven vault strategies are decoupled by design. They use different signal categories, target different inefficiencies, and reach their drawdowns at different times. A subscriber to the Accumulator subscription is also a qualified prospect for the vault products — and the vault products' transparency (every position visible on-chain, in real time) is itself the cleanest reference any subscription buyer could ask for.</p>
 
   <div class="page-footer">
     <span>Soomario Strategies · Platform Whitepaper</span>
@@ -1050,7 +1058,7 @@
   <!-- 1. MOMENTUM OSCILLATORS -->
   <div class="toolkit-entry">
     <h3>1 · Momentum Oscillators (RSI Family)</h3>
-    <div class="uses-line">USED BY <span class="strat-tag">Gladius · Elite · Libration · Aphelion · Premia · Rotation · Accumulator</span></div>
+    <div class="uses-line">USED BY <span class="strat-tag">Gladius · Elite · Libration · Hype Bot · Aphelion · Premia · Rotation · Accumulator</span></div>
     <p>The Relative Strength Index is the platform's most universally deployed indicator. RSI measures the magnitude of recent gains against recent losses on a 0–100 scale, identifying when an asset is statistically stretched in one direction. The platform uses Wilder's recursive smoothing method (RMA) — the same calculation native to TradingView — to ensure that any signal that fires on the live engine fires on a chart the operator can manually re-derive.</p>
     <p>RSI is used differently across strategies. Mean-reversion strategies (Gladius, Libration) treat extreme RSI readings as evidence that the move is exhausted. Momentum strategies (Elite) treat RSI <em>crossovers</em> rather than absolute levels — a transition through a threshold is treated as a directional re-anchoring after consolidation, not a contrarian fade. Accumulators (Aphelion, the Accumulator product) treat low RSI on confirmed daily candles as part of a multi-signal oversold filter. Period lengths and threshold values are calibrated per asset; the platform does not run one RSI on every market.</p>
   </div>
@@ -1074,7 +1082,7 @@
   <!-- 4. TREND DIRECTION -->
   <div class="toolkit-entry">
     <h3>4 · Trend Direction (Moving Averages &amp; Supertrend)</h3>
-    <div class="uses-line">USED BY <span class="strat-tag">Gladius · Libration · Aphelion · Accumulator · Premia · Rotation</span></div>
+    <div class="uses-line">USED BY <span class="strat-tag">Gladius · Libration · Hype Bot · Aphelion · Accumulator · Premia · Rotation</span></div>
     <p>The platform reads trend direction through two distinct lenses. Long-period <strong>moving averages</strong> (typically 50-period for crypto, 300-period for equities) define an asset's secular position — is current price extended below the long trend (an accumulation opportunity) or above it (a distribution context)? Aphelion and the Accumulator product use moving-average extension as a third gate alongside RSI and Z-score; they will not signal an accumulation unless the asset is meaningfully below its long-period reference.</p>
     <p><strong>Supertrend</strong> is a volatility-adaptive directional indicator that draws a moving stop line which flips when price crosses it decisively. Supertrend alone whipsaws in sideways markets, which is why the platform never uses it as a sole signal — but as a confirmation layer on top of momentum and volume conditions, it provides directional clarity. Gladius demands a Supertrend flip in addition to RSI and Z-score conditions before any trade fires. Premia uses Supertrend as a directional gate for call selling — a fresh bullish flip will block a call sell entirely, regardless of how attractive the premium looks. Trend direction is a context filter, not a primary entry signal anywhere on the platform.</p>
   </div>
@@ -1199,7 +1207,7 @@
 
   <p class="pull">Each strategy is a complete answer to a different question. Together they form a portfolio whose drawdowns are not synchronised.</p>
 
-  <p>The order of the chapters is roughly thematic rather than chronological — Gladius, Elite, and Libration (the crypto perpetual strategies), then Aphelion (the equity accumulator), then Rotation (the unlevered tokenized-equity book), then Premia (the only options product), and finally Accumulator (the subscription product, treated separately because its mechanics and audience differ).</p>
+  <p>The order of the chapters is roughly thematic rather than chronological — Gladius, Elite, Libration and the Hype Bot (the crypto perpetual strategies), then Aphelion (the equity accumulator), then Rotation (the unlevered tokenized-equity book), then Premia (the only options product), and finally Accumulator (the subscription product, treated separately because its mechanics and audience differ).</p>
 
   <div class="ornament"></div>
 </section>
@@ -1209,7 +1217,7 @@
 ============================================================ -->
 <section class="page strat-chapter">
   <div class="strat-header">
-    <div class="number">— Strategy 01 / 07</div>
+    <div class="number">— Strategy 01 / 08</div>
     <h1>Soomario Gladius</h1>
     <div class="subtitle">Liquidation-Anchored Confluence Mean Reversion</div>
   </div>
@@ -1267,7 +1275,7 @@
 ============================================================ -->
 <section class="page strat-chapter">
   <div class="strat-header">
-    <div class="number">— Strategy 02 / 07</div>
+    <div class="number">— Strategy 02 / 08</div>
     <h1>Soomario Elite</h1>
     <div class="subtitle">Concentrated Momentum Capture</div>
   </div>
@@ -1307,7 +1315,7 @@
 ============================================================ -->
 <section class="page strat-chapter">
   <div class="strat-header">
-    <div class="number">— Strategy 03 / 07</div>
+    <div class="number">— Strategy 03 / 08</div>
     <h1>Soomario Libration</h1>
     <div class="subtitle">Multi-Coin RSI Swing from a Shared Account</div>
   </div>
@@ -1346,11 +1354,57 @@
 </section>
 
 <!-- ============================================================
-     STRATEGY 4 — APHELION
+     STRATEGY 4 — HYPE BOT
 ============================================================ -->
 <section class="page strat-chapter">
   <div class="strat-header">
-    <div class="number">— Strategy 04 / 07</div>
+    <div class="number">— Strategy 04 / 08</div>
+    <h1>Soomario Hype Bot</h1>
+    <div class="subtitle">Single-Asset RSI Swing</div>
+  </div>
+
+  <div class="strat-meta">
+    <div class="strat-meta-row"><span class="lbl">Type</span><span class="val">Single-asset swing, one position at a time</span></div>
+    <div class="strat-meta-row"><span class="lbl">Status</span><span class="val">Live · execution since November 2025</span></div>
+    <div class="strat-meta-row"><span class="lbl">Venue</span><span class="val">Hyperliquid perpetuals</span></div>
+    <div class="strat-meta-row"><span class="lbl">Universe</span><span class="val">HYPE only</span></div>
+    <div class="strat-meta-row"><span class="lbl">Access</span><span class="val">Astrabit copy trading · in preparation</span></div>
+    <div class="strat-meta-row"><span class="lbl">Profit model</span><span class="val">10% performance fee on net profit</span></div>
+  </div>
+
+  <h3>The thesis</h3>
+  <p>The Hype Bot runs the same engine as Libration against a single market. Where Libration spreads one rule across a basket, this book concentrates it on the one asset the platform has the longest continuous read on. The signal is deliberately ordinary — an RSI crossing a level is the most widely known trigger in retail trading, and on any single chart it is close to worthless. What is uncommon is the refusal to act on anything else: no intra-candle entries, no averaging down, no second position, and no override when the chart looks tempting.</p>
+
+  <h3>Analytical inputs</h3>
+  <p>A single <strong>Wilder-smoothed RSI</strong> computed on completed four-hour closes. Long when it crosses up through its long threshold, short when it crosses down through a lower short threshold — the asymmetry is deliberate, since the two directions do not behave identically in crypto perpetuals. Entries are evaluated <strong>only on the close of a completed bar</strong>, with a guard preventing a signal firing twice inside the same bar. Nothing else is consulted.</p>
+
+  <h3>Position lifecycle</h3>
+  <p>One position at a time, no pyramiding. A signal arriving while a position is open is <em>skipped</em>, not acted on — the book waits for the current trade to resolve rather than reversing into it. Two exits run in parallel: a tight trailing stop that arms once the position is modestly in profit and then follows the favourable extreme, and a wide hard stop resting natively on the exchange that is never moved against the position.</p>
+
+  <div class="callout">
+    <div class="callout-title">The arming delay is the strategy</div>
+    <p style="margin:0;">The trailing stop cannot arm during the candle the position opened in. A trade must survive one full four-hour bar before the trail exists at all. This is not a detail — it is the edge. Tested across the full HYPE history at one-minute resolution, arming the trail immediately turns a clearly profitable rule into a net loser on <em>identical entries</em>, because a trade that ticks marginally into profit in its first minutes arms the trail and is stopped out on the first wobble, booking a rounding error that fees turn into a loss. Same signal, same trail width, same hard stop. The only difference is the wait.</p>
+  </div>
+
+  <h3>Risk controls</h3>
+  <p>The hard stop rests on the exchange matching engine, so it fires whether the bot is alive or not, and it sits far inside the liquidation buffer at the operating leverage. A daily drawdown halt stops new entries for the remainder of the UTC day once the book is down a set percentage. Because a single-asset book concentrates its whole allocation in one position, a hard stop costs materially more of the account here than the same stop does inside the multi-coin vault — the sizing is set with that asymmetry in mind rather than inherited from the basket.</p>
+
+  <h3>Honest limits</h3>
+  <p><strong>The published record is simulated.</strong> The trade history shown on the dashboard comes from the strategy tester on both sides of the go-live marker; the segment after November 2025 records when real capital began following the signals, not a set of realised fills. The tester prices roughly thirty points per four-hour candle, which under-triggers a stop as tight as this one — at full one-minute resolution the same rules return materially less per trade than the tester reports. The figures published are the optimistic end of the range and are labelled as such.</p>
+  <p>There is no diversification: when HYPE is untradeable the book has nothing else to do. HYPE also rose roughly 450% across the period covered, and a long-biased engine on a trending asset flatters itself — this record has not been tested through a sustained downtrend in its only market. And like every tight-trail system on the platform, it wins often and small while losing rarely and large; that shape survives only while the win rate holds, and inverts quickly if it slips.</p>
+
+  <div class="page-footer">
+    <span>Soomario Strategies · Platform Whitepaper</span>
+    <span>26 / Strategy 04</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     STRATEGY 5 — APHELION
+============================================================ -->
+<section class="page strat-chapter">
+  <div class="strat-header">
+    <div class="number">— Strategy 05 / 08</div>
     <h1>Soomario Aphelion</h1>
     <div class="subtitle">Multi-Signal Equity Accumulator</div>
   </div>
@@ -1386,16 +1440,16 @@
 
   <div class="page-footer">
     <span>Soomario Strategies &middot; Platform Whitepaper</span>
-    <span>26 / Strategy 04</span>
+    <span>28 / Strategy 05</span>
   </div>
 </section>
 
 <!-- ============================================================
-     STRATEGY 5 — ROTATION
+     STRATEGY 6 — ROTATION
 ============================================================ -->
 <section class="page strat-chapter">
   <div class="strat-header">
-    <div class="number">— Strategy 05 / 07</div>
+    <div class="number">— Strategy 06 / 08</div>
     <h1>Soomario Rotation</h1>
     <div class="subtitle">Tokenized Equity Rotation on Solana</div>
   </div>
@@ -1429,16 +1483,16 @@
 
   <div class="page-footer">
     <span>Soomario Strategies &middot; Platform Whitepaper</span>
-    <span>28 / Strategy 05</span>
+    <span>30 / Strategy 06</span>
   </div>
 </section>
 
 <!-- ============================================================
-     STRATEGY 6 — PREMIA
+     STRATEGY 7 — PREMIA
 ============================================================ -->
 <section class="page strat-chapter">
   <div class="strat-header">
-    <div class="number">— Strategy 06 / 07</div>
+    <div class="number">— Strategy 07 / 08</div>
     <h1>Soomario Premia</h1>
     <div class="subtitle">Volatility-Harvesting Covered Call Engine</div>
   </div>
@@ -1471,17 +1525,17 @@
 
   <div class="page-footer">
     <span>Soomario Strategies · Platform Whitepaper</span>
-    <span>30 / Strategy 06</span>
+    <span>32 / Strategy 07</span>
   </div>
 </section>
 
 <!-- ============================================================
-     STRATEGY 7 — ACCUMULATOR (SUBSCRIPTION)
+     STRATEGY 8 — ACCUMULATOR (SUBSCRIPTION)
 ============================================================ -->
 <section class="page strat-chapter">
   <div class="strat-header" style="border-top: 1px solid var(--gold); border-bottom: 1px solid var(--line); position: relative;">
     <div class="number" style="display: flex; justify-content: space-between; align-items: center;">
-      <span>— Strategy 07 / 07</span>
+      <span>— Strategy 08 / 08</span>
       <span style="color: var(--gold-soft); font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; letter-spacing: 0.25em; padding: 3pt 10pt; border: 1px solid var(--gold-dim); border-radius: 1pt;">SUBSCRIPTION PRODUCT</span>
     </div>
     <h1>Soomario Accumulator</h1>
@@ -1522,7 +1576,7 @@
 
   <div class="page-footer">
     <span>Soomario Strategies · Platform Whitepaper</span>
-    <span>32 / Strategy 07</span>
+    <span>34 / Strategy 08</span>
   </div>
 </section>
 
@@ -1533,7 +1587,7 @@
   <div class="section-mark">— Section V</div>
   <h1 class="section-title"><span class="num">V.</span>Risk Management Framework</h1>
 
-  <p>Risk management on the platform is the same framework reading differently for each strategy. The constraints below are universal — encoded in different forms across the eight vault strategies and (where applicable) in the subscription product's signal-pipeline integrity controls.</p>
+  <p>Risk management on the platform is the same framework reading differently for each strategy. The constraints below are universal — encoded in different forms across the seven vault strategies and (where applicable) in the subscription product's signal-pipeline integrity controls.</p>
 
   <h2>Capital protection layers</h2>
 
@@ -1547,11 +1601,11 @@
   <p>Aphelion's account-level kill switch halts new entries if intraday losses exceed a threshold or if total unrealised P&amp;L drops below a defined percentage. Libration's portfolio-level daily drawdown halt pauses all new entries once trailing drawdown crosses its threshold. Gladius' reconciliation guard refuses to act when live equity (inclusive of all unrealised P&amp;L) falls below peak by a defined amount, closing all grids at market and preventing new positions until operator reset. Each is sticky — once tripped, manual review is required to resume. Existing positions continue to be managed by trail and defense logic; only new entries are blocked.</p>
 
   <h4>Layer 4 — Per-strategy hard caps</h4>
-  <p>Position-size caps, leverage ceilings, no-stacking rules, per-name allocation caps in Rotation — all are encoded as constants the strategy code cannot override based on optimistic signal readings. A strategy that would be more profitable with looser constraints, but is engineered to refuse to loosen them, has a worst-case behaviour that is computable in advance. Gladius caps leverage per venue limits. Aphelion at 2x. Elite at 2x on the primary, 1x on the secondary. Rotation's short sleeve cannot grow into a meaningful share of the portfolio even if every short signal looked great that week.</p>
+  <p>Position-size caps, leverage ceilings, no-stacking rules, per-name allocation caps in Rotation, and a sizing basis set per book rather than inherited — a single-asset book concentrates its whole allocation in one position, so the same percentage stop costs more of the account than it does inside a basket — all are encoded as constants the strategy code cannot override based on optimistic signal readings. A strategy that would be more profitable with looser constraints, but is engineered to refuse to loosen them, has a worst-case behaviour that is computable in advance. Gladius caps leverage per venue limits. Aphelion at 2x. Elite at 2x on the primary, 1x on the secondary. Rotation's short sleeve cannot grow into a meaningful share of the portfolio even if every short signal looked great that week.</p>
 
   <h2>Diversification across strategies</h2>
 
-  <p>The six vault strategies are decoupled by design. They use different signal categories, target different inefficiencies, and reach their drawdowns at different times. A coordinated risk-off across all crypto might pull Gladius, Elite, and Libration into drawdown simultaneously — but it is the regime in which Aphelion's accumulation levels fill and Rotation's unlevered sprts are typically most productive. A sustained risk-on rally would diminish Premia's volatility-overpricing edge but is the exact regime in which Elite's directional momentum capture and Aphelion's long-bias accumulator perform best. The strategies are not chosen by AUM contribution; they are chosen by inefficiency targeted, and the resulting portfolio is what diversification across edges (rather than across assets) actually looks like.</p>
+  <p>The seven vault strategies are decoupled by design. They use different signal categories, target different inefficiencies, and reach their drawdowns at different times. A coordinated risk-off across all crypto might pull Gladius, Elite, and Libration into drawdown simultaneously — but it is the regime in which Aphelion's accumulation levels fill and Rotation's unlevered sprts are typically most productive. A sustained risk-on rally would diminish Premia's volatility-overpricing edge but is the exact regime in which Elite's directional momentum capture and Aphelion's long-bias accumulator perform best. The strategies are not chosen by AUM contribution; they are chosen by inefficiency targeted, and the resulting portfolio is what diversification across edges (rather than across assets) actually looks like.</p>
 
   <h2>State integrity as risk management</h2>
 
@@ -1615,7 +1669,7 @@
   <h2>What Soomario is not</h2>
 
   <ul class="limits-list">
-    <li><strong>Not a fund.</strong> The six vault products are individually-elected capital pools. There is no commingled fund structure, no fund administrator, and no qualified investor verification; the protocol-level vault contracts handle deposits, withdrawals, and accounting natively.</li>
+    <li><strong>Not a fund.</strong> The seven vault products are individually-elected capital pools. There is no commingled fund structure, no fund administrator, and no qualified investor verification; the protocol-level vault contracts handle deposits, withdrawals, and accounting natively.</li>
     <li><strong>Not an investment adviser.</strong> No strategy on the platform constitutes personalised investment advice. The Accumulator subscription product is positioned as market commentary and educational content. The vault products are systematic strategies whose logic is described categorically in this paper — the depositor evaluates whether the strategy fits their risk tolerance.</li>
     <li><strong>Not a fiduciary.</strong> The operator does not represent depositor interests in any fiduciary capacity. The relationship is non-discretionary: capital deposited into a vault is allocated according to the strategy's published logic, and no exception is made for any single depositor.</li>
     <li><strong>Not a guarantee.</strong> Every strategy on the platform is statistical, not deterministic. Drawdowns happen. Stops get hit. Some signals do not play out. Past performance — visible on-chain for live products and described in design language for paper-trading products — does not guarantee future results.</li>
@@ -1698,7 +1752,7 @@
   <h2>Execution venues</h2>
 
   <table class="infra-table">
-    <tr><td>Hyperliquid</td><td>On-chain perpetual exchange. Elite and Libration execute here. Native vault contract provides depositor self-custody. Standard 0.02% taker fee.</td></tr>
+    <tr><td>Hyperliquid</td><td>On-chain perpetual exchange. Elite, Libration and the Hype Bot execute here. Native vault contract provides depositor self-custody. Standard 0.02% taker fee.</td></tr>
     <tr><td>Deribit</td><td>Crypto-native options exchange. Primary venue for Premia. Sub-account custody model.</td></tr>
     <tr><td>Binance USD-M</td><td>Centralised futures venue. Gladius and Aphelion execute here; Aphelion is distributed as a copy-trading lead account, so follower capital stays in the follower's own account. TradFi perpetuals provide the US equity universe.</td></tr>
     <tr><td>Solana · Jupiter</td><td>On-chain spot. Rotation swaps stablecoin against tokenized US equities through Jupiter's aggregated routing, from a self-custodied wallet. No leverage, no liquidation.</td></tr>
@@ -1715,10 +1769,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>Momentum oscillators (RSI)</td><td>Gladius · Elite · Libration · Aphelion · Premia · Rotation · Accumulator</td></tr>
+      <tr><td>Momentum oscillators (RSI)</td><td>Gladius · Elite · Libration · Hype Bot · Aphelion · Premia · Rotation · Accumulator</td></tr>
       <tr><td>Volume anomaly &amp; money flow</td><td>Gladius · Aphelion</td></tr>
       <tr><td>Statistical anomaly (Z-scores)</td><td>Gladius · Aphelion · Accumulator · Rotation · Premia</td></tr>
-      <tr><td>Trend direction (MA, Supertrend)</td><td>Gladius · Libration · Aphelion · Accumulator · Premia · Rotation</td></tr>
+      <tr><td>Trend direction (MA, Supertrend)</td><td>Gladius · Libration · Hype Bot · Aphelion · Accumulator · Premia · Rotation</td></tr>
       <tr><td>Open interest &amp; funding rates</td><td>Gladius · Rotation</td></tr>
       <tr><td>Liquidation density &amp; max-pain zones</td><td>Gladius · Premia · Rotation</td></tr>
       <tr><td>Market regime (Fear &amp; Greed)</td><td>Premia · Rotation</td></tr>
