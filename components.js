@@ -94,6 +94,7 @@
               <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/gladius.html" class="nav-dropdown__item">Gladius <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/hype-bot.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--live">LIVE</span></a>
@@ -109,6 +110,7 @@
             <span class="site-nav__link nav-dropdown__trigger">Dashboards</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}dashboards/hype.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
               <a href="https://libration.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Libration <span class="badge badge--live">LIVE</span></a>
               <a href="https://rotation.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Rotation <span class="badge badge--live">LIVE</span></a>
               <a href="https://gladius.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Gladius <span class="badge badge--live">LIVE</span></a>
@@ -162,6 +164,7 @@
           <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/gladius.html" class="mobile-menu__link">Gladius <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/hype-bot.html" class="mobile-menu__link">Hype Bot <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/premia.html" class="mobile-menu__link">Premia <span class="badge badge--soon">PAPER</span></a>
@@ -180,6 +183,7 @@
         <div class="mobile-menu__group-title">Dashboards</div>
         <div class="mobile-menu__links">
           <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
+          <a href="${depth}dashboards/hype.html" class="mobile-menu__link">Hype Bot</a>
           <a href="https://libration.soomariostrategies.com" class="mobile-menu__link" target="_blank">Libration</a>
           <a href="https://rotation.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Rotation</a>
           <a href="https://gladius.soomariostrategies.com" class="mobile-menu__link" target="_blank">Gladius</a>
@@ -240,6 +244,7 @@
               <li><a href="${depth}products/aphelion.html">Aphelion</a></li>
               <li><a href="${depth}products/elite.html">Elite</a></li>
               <li><a href="${depth}products/gladius.html">Gladius</a></li>
+              <li><a href="${depth}products/hype-bot.html">Hype Bot</a></li>
               <li><a href="${depth}products/libration.html">Libration</a></li>
               <li><a href="${depth}aureus/">Aureus</a></li>
               <li><a href="${depth}products/rotation.html">Rotation</a></li>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f0a1a">
+<title>Soomario — Hype Bot</title>
+<meta name="description" content="Soomario Hype Bot — RSI swing on HYPE. Strategy record since December 2024, live execution since November 2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-chrome.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<style>
+:root{
+  --bg:#0f0a1a;--sf:#1a1625;--bd:#3D3566;--gold:#D4A843;--gold-dim:#8B7A4A;
+  --gn:#4ADE80;--rd:#F87171;--amb:#fbbf24;--text:#E8E0F0;--dim:#8A7FA0;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;
+     min-height:100vh;font-size:13px;margin:0;padding-top:72px}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 64px}
+.hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:6px}
+.hd h1{font-family:'Cinzel',serif;font-size:clamp(1.6rem,4vw,2.2rem);margin:0;color:var(--text);letter-spacing:.02em}
+.tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;border-radius:4px;
+     border:1px solid var(--gold-dim);color:var(--gold)}
+.tag.live{border-color:#4ADE8055;color:var(--gn);background:#4ADE800f}
+.sub{color:var(--dim);font-size:12px;margin-bottom:26px;line-height:1.7;max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:22px}
+.kpi{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:15px 16px;min-width:0}
+.kl{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.kv{font-family:'Orbitron',sans-serif;font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:700;
+    line-height:1.15;overflow-wrap:break-word}
+.kv.sm{font-size:clamp(.95rem,1.7vw,1.15rem);letter-spacing:.01em}
+.ks{font-size:10.5px;color:var(--dim);margin-top:5px}
+.gn{color:var(--gn)}.rd{color:var(--rd)}.gd{color:var(--gold)}.am{color:var(--amb)}
+.panel{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:18px 18px 12px;margin-bottom:22px}
+.ph{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.pt{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.lg{display:flex;gap:16px;font-size:10.5px;color:var(--dim);flex-wrap:wrap}
+.sw{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:6px}
+.cw{position:relative;height:330px}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-bottom:22px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 18px}
+.card h3{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 4px;color:var(--gold)}
+.card .when{font-size:10.5px;color:var(--dim);margin-bottom:12px}
+.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #ffffff08;font-size:12px}
+.row:last-child{border-bottom:none}
+.row span:first-child{color:var(--dim)}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{text-align:right;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);
+   padding:0 10px 10px;font-weight:500;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:8px 10px;border-top:1px solid #ffffff08;text-align:right;white-space:nowrap}
+.pill{font-size:9px;letter-spacing:.1em;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.pl{background:#4ADE801a;color:var(--gn)}.ps{background:#F871711a;color:var(--rd)}
+.tblwrap{overflow-x:auto}
+.note{border-left:2px solid var(--gold-dim);padding:12px 16px;margin:0 0 22px;background:#ffffff05;
+      font-size:11.5px;color:var(--dim);line-height:1.75}
+.note b{color:var(--text);font-weight:600}
+.err{color:var(--dim);text-align:center;padding:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hd">
+    <h1>Hype Bot</h1>
+    <span class="tag live">● Live</span>
+    <span class="tag">HYPE · 4H</span>
+  </div>
+  <div class="sub">
+    Soomario v3 — a single-asset RSI swing engine on HYPE. Long when RSI(14) crosses up through 50 on a
+    completed 4-hour candle, short when it crosses down through 40. One position at a time, a 0.55%
+    trailing stop that cannot arm until the first full candle has closed, and a 10% hard stop.
+  </div>
+
+  <div class="grid" id="kpis"></div>
+
+  <div class="panel">
+    <div class="ph">
+      <span class="pt">Strategy Record · indexed to 100</span>
+      <div class="lg">
+        <span><span class="sw" style="background:#8A7FA0"></span>Backtest</span>
+        <span><span class="sw" style="background:#D4A843"></span>Live execution</span>
+      </div>
+    </div>
+    <div class="cw"><canvas id="curve"></canvas><div id="cerr" class="err" style="display:none"></div></div>
+  </div>
+
+  <div class="split" id="phases"></div>
+
+  <div class="note" id="method"></div>
+
+  <div class="panel">
+    <div class="ph"><span class="pt">Recent Trades</span><span class="lg" id="trcount"></span></div>
+    <div class="tblwrap"><table id="tbl">
+      <thead><tr><th>Closed</th><th>Side</th><th>Entry</th><th>Exit</th><th>Net %</th><th>Phase</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var D=null;
+  function pct(v,d){ if(v==null||isNaN(v))return '—'; d=d==null?2:d; return (v>=0?'+':'')+Number(v).toFixed(d)+'%'; }
+  function cls(v){ return v==null?'':(v>=0?'gn':'rd'); }
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmtDate(s){ var p=String(s).split('-'); return p.length===3 ? MON[+p[1]-1]+' '+(+p[2])+', '+p[0] : s; }
+
+  function kpi(lbl,val,sub,c,sm){
+    return '<div class="kpi"><div class="kl">'+lbl+'</div><div class="kv '+(c||'')+(sm?' sm':'')+'">'+val+
+           '</div><div class="ks">'+(sub||'')+'</div></div>';
+  }
+
+  function render(d){
+    D=d;
+    var a=d.all, lv=d.live, bt=d.backtest;
+    document.getElementById('kpis').innerHTML =
+      kpi('Closed Trades', a.n, a.from+' → '+a.to) +
+      kpi('Win Rate', a.win.toFixed(1)+'%', a.n+' trades', 'gd') +
+      kpi('Avg Net / Trade', pct(a.avg,3), 'after '+d.commission_pct+'% round trip', cls(a.avg)) +
+      kpi('Profit Factor', a.pf==null?'—':a.pf.toFixed(2), 'gross win ÷ gross loss', a.pf>=1.5?'gn':'am') +
+      kpi('Best / Worst', pct(a.best,2)+' / '+pct(a.worst,2), 'single trade', '', true) +
+      kpi('Live Since', fmtDate(d.go_live), lv.n+' trades since', 'gd', true);
+
+    document.getElementById('phases').innerHTML =
+      phase('Backtest', bt, 'Simulated on Bybit HYPEUSDT.P before live execution began.') +
+      phase('Live execution', lv, 'Real capital has followed these signals since '+d.go_live+'.');
+
+    document.getElementById('method').innerHTML =
+      '<b>How to read this.</b> The curve is the TradingView strategy tester’s record for Soomario v3 on '+
+      d.venue+', indexed to 100 at inception and charged '+d.commission_pct+'% per round trip. '+
+      'The gold segment marks the period from <b>'+d.go_live+'</b>, when real capital began following the signals. '+
+      '<b>Both segments are generated by the same simulator</b> — the live segment is not a record of realised '+
+      'fills, and it does not include slippage beyond the modelled commission. TradingView simulates roughly 32 '+
+      'price points per 4-hour candle; at full 1-minute resolution the same rules return about +0.52% per trade '+
+      'rather than '+pct(a.avg,2)+', so treat the figures here as the optimistic end of the range. '+
+      'Past performance does not guarantee future results.';
+
+    var rows=(d.trades||[]).slice().reverse().map(function(t){
+      return '<tr><td>'+t.c.replace('T',' ')+'</td>'+
+        '<td><span class="pill '+(t.side==='long'?'pl':'ps')+'">'+t.side+'</span></td>'+
+        '<td>'+t.ein+'</td><td>'+t.exi+'</td>'+
+        '<td class="'+cls(t.ret)+'">'+pct(t.ret,2)+'</td>'+
+        '<td style="color:'+(t.phase==='live'?'#D4A843':'#8A7FA0')+'">'+t.phase+'</td></tr>';
+    }).join('');
+    document.querySelector('#tbl tbody').innerHTML=rows;
+    document.getElementById('trcount').textContent='last '+(d.trades||[]).length+' of '+a.n;
+
+    chart(d);
+  }
+
+  function phase(title,p,blurb){
+    if(!p) return '';
+    return '<div class="card"><h3>'+title+'</h3><div class="when">'+p.from+' → '+p.to+' · '+blurb+'</div>'+
+      '<div class="row"><span>Trades</span><span>'+p.n+'</span></div>'+
+      '<div class="row"><span>Win rate</span><span>'+p.win.toFixed(1)+'%</span></div>'+
+      '<div class="row"><span>Avg net / trade</span><span class="'+cls(p.avg)+'">'+pct(p.avg,3)+'</span></div>'+
+      '<div class="row"><span>Compounded</span><span class="'+cls(p.cum)+'">'+pct(p.cum,2)+'</span></div>'+
+      '<div class="row"><span>Profit factor</span><span>'+(p.pf==null?'—':p.pf.toFixed(2))+'</span></div>'+
+      '<div class="row"><span>Best / worst</span><span>'+pct(p.best,2)+' / '+pct(p.worst,2)+'</span></div></div>';
+  }
+
+  function chart(d){
+    var cv=document.getElementById('curve');
+    if(!cv||!window.Chart||!d.curve||d.curve.length<2){
+      document.getElementById('cerr').style.display='block';
+      document.getElementById('cerr').textContent='No curve data.';
+      return;
+    }
+    var labels=d.curve.map(function(p){return p.d;});
+    // two series so the live segment renders in gold; they share one point at the seam
+    var iLive=d.curve.findIndex(function(p){return p.phase==='live';});
+    var back=d.curve.map(function(p,i){return i<=iLive?p.v:null;});
+    var live=d.curve.map(function(p,i){return i>=iLive?p.v:null;});
+    new Chart(cv.getContext('2d'),{
+      type:'line',
+      data:{labels:labels,datasets:[
+        {label:'Backtest',data:back,borderColor:'#8A7FA0',backgroundColor:'rgba(138,127,160,.08)',
+         borderWidth:2,pointRadius:0,fill:true,tension:.2,spanGaps:false},
+        {label:'Live',data:live,borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,.10)',
+         borderWidth:2.5,pointRadius:0,pointHoverRadius:4,fill:true,tension:.2,spanGaps:false}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{legend:{display:false},
+          tooltip:{backgroundColor:'rgba(26,22,37,.96)',borderColor:'rgba(212,168,67,.3)',borderWidth:1,
+            titleColor:'#8A7FA0',bodyColor:'#E8E0F0',padding:10,displayColors:false,
+            titleFont:{family:'JetBrains Mono',size:11},bodyFont:{family:'JetBrains Mono',size:12},
+            callbacks:{label:function(it){
+              if(it.parsed.y==null) return null;
+              return 'Index '+it.parsed.y.toFixed(1)+'  ('+((it.parsed.y/100-1)*100>=0?'+':'')+
+                     ((it.parsed.y/100-1)*100).toFixed(1)+'%)';}}}},
+        scales:{
+          x:{grid:{display:false,drawBorder:false},
+             ticks:{color:'#8A7FA0',font:{family:'JetBrains Mono',size:10},maxTicksLimit:7,maxRotation:0}},
+          y:{grid:{color:'rgba(212,168,67,.06)',drawBorder:false},
+             ticks:{color:'#8A7FA0',font:{family:'JetBrains Mono',size:10},padding:8}}
+        }}
+    });
+  }
+
+  fetch('hype-history.json?t='+Date.now(),{cache:'no-store'})
+    .then(function(r){return r.json();})
+    .then(render)
+    .catch(function(){
+      document.getElementById('cerr').style.display='block';
+      document.getElementById('cerr').textContent='History unavailable — try refreshing.';
+    });
+})();
+</script>
+<script src="../components.js"></script>
+</body>
+</html>

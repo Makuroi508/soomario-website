@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="Soomario Hype Bot — a single-asset RSI swing engine on HYPE. One position at a time, a 0.55% trailing stop that arms only after a full candle, and a 10% hard stop. Live since November 2025.">
+  <meta property="og:title" content="Soomario Hype Bot — One Asset, One Rule">
+  <meta property="og:description" content="An RSI swing engine on HYPE. Long on a cross up through 50, short on a cross down through 40, exits on a trailing stop that will not arm inside the entry candle.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://soomariostrategies.com/products/hype-bot.html">
+  <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SoomarioStrat">
+  <link rel="canonical" href="https://soomariostrategies.com/products/hype-bot.html">
+  <title>Soomario Hype Bot — RSI Swing on HYPE | Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="section" style="padding-top:4rem;">
+    <div class="container">
+      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPE &middot; 4H &middot; ONE POSITION</span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
+        <span class="gradient-text">One asset.</span><br>
+        <span style="color:var(--text-primary);">One rule. No discretion.</span>
+      </h1>
+      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
+        The Hype Bot trades a single market on a single signal. It goes long when RSI crosses up through 50
+        on a completed four-hour candle and short when it crosses down through 40 &mdash; then gets out of the
+        way and lets a trailing stop decide when the trade is over.
+      </p>
+
+      <div class="metrics" style="margin:2rem 0;max-width:820px;">
+        <div class="metric"><div class="metric__value gradient-text">1</div><div class="metric__label">Asset &middot; HYPE</div></div>
+        <div class="metric"><div class="metric__value gradient-text">4H</div><div class="metric__label">Signal timeframe</div></div>
+        <div class="metric"><div class="metric__value gradient-text">0.55%</div><div class="metric__label">Trailing stop</div></div>
+        <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Hard stop</div></div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
+        <a href="../dashboards/hype.html" class="btn btn--primary btn--lg">View the record &rarr;</a>
+        <a href="https://twitter.com/SoomarioStrat" target="_blank" rel="noopener" class="btn btn--outline btn--lg">@SoomarioStrat</a>
+      </div>
+
+      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
+        Running on Hyperliquid. Copy trading via Astrabit is in preparation &mdash; join the Discord to be
+        notified at launch.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ THE EDGE ═══ -->
+  <section class="section section--alt">
+    <div class="container container--narrow text-center">
+      <div class="section-label">THE EDGE</div>
+      <h2 class="section-title"><span class="gradient-text">The signal is ordinary.</span><br>The patience is not.</h2>
+      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
+        An RSI crossing 50 is the most widely known signal in retail trading, and on any single chart it is
+        close to worthless &mdash; it fires constantly and most fires are noise. What changes its character is
+        refusing to act on anything else: no intra-candle entries, no averaging down, no second position, and
+        no override when the chart looks tempting.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ THE ONE DETAIL THAT MATTERS ═══ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">HOW IT EXITS</div>
+        <h2 class="section-title"><span class="gradient-text">The trail waits a candle.</span></h2>
+      </div>
+
+      <p style="color:var(--text-secondary);font-size:1.05rem;line-height:1.8;">
+        Every position carries two exits. A <strong>10% hard stop</strong> is the floor. Above it sits a
+        <strong>0.55% trailing stop</strong> &mdash; it arms once the trade is 0.55% in profit, then follows the
+        best price reached, 0.55% behind, and never moves backwards.
+      </p>
+      <p style="color:var(--text-secondary);font-size:1.05rem;line-height:1.8;">
+        The detail that makes it work is <em>when</em> the trail is allowed to start. It cannot arm during the
+        candle the position opened in. A trade has to survive one full four-hour candle before the trailing
+        stop exists at all.
+      </p>
+
+      <div class="card" style="margin-top:1.75rem;border-color:rgba(201,169,97,0.28);">
+        <div class="card__title" style="color:var(--gold);">Why the delay is the strategy</div>
+        <p class="card__text">
+          Without it, a trade that ticks 0.55% up in its first minutes arms the trail immediately and gets
+          stopped out on the first wobble &mdash; booking a rounding error and, after fees, often a small loss.
+          Tested across the full HYPE history at one-minute resolution, arming immediately turns the strategy
+          from clearly profitable into a net loser. Same entries, same trail width, same hard stop. The only
+          difference is the wait.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT YOU GET ═══ -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2.5rem;">
+        <div class="section-label">WHAT YOU GET</div>
+        <h2 class="section-title"><span class="gradient-text">How to follow it</span></h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;max-width:1000px;margin:0 auto;">
+
+        <div class="card" style="border-color:rgba(74,222,128,0.25);">
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+            <span class="badge badge--live" style="font-size:0.65rem;">LIVE NOW</span>
+          </div>
+          <div class="card__title">Watch the full record</div>
+          <p class="card__text" style="margin-bottom:1.25rem;">
+            Every closed trade since December 2024, with the point where live execution began marked on the
+            curve. Entry, exit, side, net result and exit reason for each one &mdash; nothing summarised away.
+          </p>
+          <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
+            277 closed trades &middot; backtest and live shown separately
+          </div>
+          <a href="../dashboards/hype.html" class="btn btn--primary" style="width:100%;text-align:center;">Open the record &rarr;</a>
+        </div>
+
+        <div class="card" style="border-color:rgba(251,191,36,0.25);">
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+            <span class="badge badge--beta" style="font-size:0.65rem;">ASTRABIT &middot; SOON</span>
+          </div>
+          <div class="card__title">Copy Trading &mdash; Coming</div>
+          <p class="card__text" style="margin-bottom:1.25rem;">
+            Astrabit copy trading will let you mirror the Hype Bot from your own account, with custody under
+            your own keys. Every entry and exit would hit your account as it fires. Join the Discord waitlist
+            to be notified the moment it goes live.
+          </p>
+          <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
+            HYPE only &middot; one position &middot; self-custody
+          </div>
+          <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" rel="noopener" class="btn btn--outline" style="width:100%;text-align:center;">Join the waitlist</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HONEST LIMITS ═══ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">HONEST LIMITS</div>
+        <h2 class="section-title"><span class="gradient-text">What the Hype Bot isn't</span></h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">The published record is simulated</div>
+          <p class="card__text">
+            The curve comes from the strategy tester, on both sides of the go-live marker. It is charged a
+            0.2% round-trip commission but does not model slippage beyond that, and the simulator prices
+            roughly 32 points per four-hour candle. At full one-minute resolution the same rules return
+            closer to +0.5% per trade than the +0.8% the tester reports. Treat the published figures as the
+            optimistic end of the range, not as realised fills.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">One asset, and a rising one</div>
+          <p class="card__text">
+            HYPE rose roughly 450% across the period covered here. A long-biased engine on a trending asset
+            flatters itself, and this record has never been tested through a sustained HYPE downtrend. There
+            is no diversification: when HYPE is untradeable, the strategy has nothing else to do.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">High win rate, poor payoff</div>
+          <p class="card__text">
+            A tight trail wins often and small, and loses rarely but large &mdash; the average loss is several
+            times the average win. That shape depends entirely on the win rate holding. If it slips a few
+            points, expectancy inverts quickly. A high win rate is not the same thing as a safe strategy.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Leverage means liquidation risk</div>
+          <p class="card__text">
+            The hard stop sits well inside the liquidation buffer at the operating leverage, and it rests on
+            the exchange so it fires whether the bot is running or not. It is not a guarantee: a gap through
+            the level fills below it. Do not commit capital you cannot afford to lose.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="section section--alt">
+    <div class="container container--narrow text-center">
+      <div class="section-label">LIVE ON HYPERLIQUID</div>
+      <h2 class="section-title"><span class="gradient-text">Read the record first.</span></h2>
+      <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
+        Every trade is published, including the losing ones and the period before real capital was following
+        the signals. Decide from the record, not the pitch.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
+        <a href="../dashboards/hype.html" class="btn btn--primary btn--lg">Open the record &rarr;</a>
+        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" rel="noopener" class="btn btn--outline btn--lg">Join Discord</a>
+      </div>
+
+      <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
+        The Hype Bot trades leveraged perpetual futures, which carries substantial risk of loss including the
+        possibility of liquidation. Past performance does not guarantee future results.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RELATED ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">RELATED STRATEGIES</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+        <a href="libration.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Libration &rarr;</div>
+          <p class="card__text">The same swing engine run across a basket of volatile perpetuals from one shared Hyperliquid vault, one position per coin.</p>
+        </a>
+        <a href="elite.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Elite &rarr;</div>
+          <p class="card__text">HYPE-dominant directional vault on Hyperliquid with AVAX diversification. 10% profit share, self-custody, on-chain.</p>
+        </a>
+        <a href="gladius.html" class="card" style="text-decoration:none;">
+          <div class="card__title">Gladius &rarr;</div>
+          <p class="card__text">Liquidation-anchored mean reversion across a curated crypto universe on Binance USD-M futures.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="../components.js"></script>
+</body>
+</html>
