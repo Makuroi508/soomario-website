@@ -112,11 +112,9 @@
               <a href="https://libration.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Libration <span class="badge badge--live">LIVE</span></a>
               <a href="https://rotation.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Rotation <span class="badge badge--live">LIVE</span></a>
               <a href="https://gladius.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Gladius <span class="badge badge--live">LIVE</span></a>
-              <a href="https://alpha.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Alpha <span class="badge badge--live">LIVE</span></a>
               <a href="https://aphelion.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Aphelion <span class="badge badge--live">LIVE</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator <span class="badge badge--live">LIVE</span></a>
-              <a href="https://soomario-covered-calls-production.up.railway.app/" class="nav-dropdown__item" target="_blank">Premia <span class="badge badge--soon">TESTNET</span></a>
             </div></div>
           </div>
 
@@ -185,10 +183,8 @@
           <a href="https://libration.soomariostrategies.com" class="mobile-menu__link" target="_blank">Libration</a>
           <a href="https://rotation.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Rotation</a>
           <a href="https://gladius.soomariostrategies.com" class="mobile-menu__link" target="_blank">Gladius</a>
-          <a href="https://alpha.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Alpha</a>
           <a href="https://aphelion.soomariostrategies.com" class="mobile-menu__link" target="_blank">Aphelion</a>
           <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
-          <a href="https://soomario-covered-calls-production.up.railway.app/" class="mobile-menu__link" target="_blank">Premia</a>
         </div>
       </div>
 

@@ -68,23 +68,22 @@
       <p><strong>Many unlocks are already priced in.</strong> If a project has been telegraphing an unlock for six months and the entire market is already short, the actual unlock event can produce a relief rally rather than a decline. Distinguishing the unlocks that are already priced from the ones that are not requires a multi-signal validation framework — not just an unlock calendar.</p>
       <p>The structural inefficiency is not in the data. It is in the gap between data availability and disciplined application.</p>
 
-      <h2 class="gradient-text">How Soomario Alpha Trades Unlocks</h2>
-      <p><a href="../products/alpha.html" style="color:var(--gold);">Soomario Alpha</a> uses upcoming unlocks as the dominant signal in its candidate selection for the short side of its market-neutral spread. The mechanics, in plain language:</p>
+      <h2 class="gradient-text">How a Systematic Unlock Strategy Trades Them</h2>
+      <p>A market-neutral engine can use upcoming unlocks as the dominant signal in candidate selection for the short side of its spread. The mechanics, in plain language:</p>
       <p><strong>The unlock database is curated.</strong> The engine maintains a list of upcoming unlock events across approximately 650 perpetual-tradable assets, refreshed weekly. Each unlock is classified by recipient type (team, investor, ecosystem, airdrop), proximity in days, and size relative to circulating supply.</p>
       <p><strong>Scoring weights toward unlock proximity but requires corroboration.</strong> A high unlock-proximity score alone is not enough to open a position. The engine demands at least one secondary signal — technical overextension on 4-hour candles, elevated funding rates indicating crowded longs, or asymmetric liquidation density supporting a downside thesis — before deploying capital. The intersection is rare, and the rare candidates are the ones the strategy trades.</p>
       <p><strong>Two-stage entry.</strong> When a candidate clears the score threshold, an initial probe opens. A larger conviction add fires only if the unlock catalyst becomes imminent (matures) or if price has rallied further into overextension. The conviction add has a rejection condition: if price has rallied too far past the probe entry, the second tranche is cancelled, because excessive pump suggests the short thesis may be breaking.</p>
-      <p><strong>Pair trade structure.</strong> The shorts are paired with a long anchor in HYPE — Hyperliquid's native token, which serves as a quality benchmark. Alpha is a relative-value spread, not a directional macro bet: it profits when high-quality assets outperform low-quality ones, a relationship that holds in most market conditions including bear markets where flight-to-quality is most pronounced.</p>
+      <p><strong>Pair trade structure.</strong> The shorts are paired with a long anchor in a benchmark asset such as HYPE, Hyperliquid's native token, which serves as a quality reference. The result is a relative-value spread, not a directional macro bet: it profits when high-quality assets outperform low-quality ones, a relationship that holds in most market conditions including bear markets where flight-to-quality is most pronounced.</p>
 
       <h2 class="gradient-text">The Limits of Unlock Trading</h2>
-      <p>Unlock-driven shorts are a <strong>statistical edge, not a deterministic one</strong>. Some unlocks do not play out — the price either rallies through the event or retraces what looked like a clean setup before the catalyst matures. Soomario Alpha sizes positions accordingly: small fixed fractions per slot, exchange-side stops at the moment of entry, conviction adds gated on additional confirmation.</p>
+      <p>Unlock-driven shorts are a <strong>statistical edge, not a deterministic one</strong>. Some unlocks do not play out — the price either rallies through the event or retraces what looked like a clean setup before the catalyst matures. A disciplined engine sizes positions accordingly: small fixed fractions per slot, exchange-side stops at the moment of entry, conviction adds gated on additional confirmation.</p>
       <p>The strategy is also explicitly <strong>not high-frequency</strong>. The pipeline scans every four hours. Most positions are held days to weeks, not minutes. The edge accrues slowly, across many candidates, over months. A reader looking for fast-moving trades will be disappointed; a reader looking for a structural inefficiency that compounds patiently will recognise the shape.</p>
 
       <p>For the underlying mechanics that make this trade structure work, see <a href="perpetual-futures.html" style="color:var(--gold);">Perpetual Futures Explained</a> and <a href="funding-rates.html" style="color:var(--gold);">Funding Rates Explained</a>.</p>
 
       <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="../products/alpha.html" class="btn btn--primary btn--sm">Explore Soomario Alpha →</a>
-          <a href="funding-rates.html" class="btn btn--outline btn--sm">Funding Rates</a>
+          <a href="funding-rates.html" class="btn btn--primary btn--sm">Funding Rates →</a>
           <a href="mean-reversion-vs-momentum.html" class="btn btn--outline btn--sm">Mean Reversion vs Momentum</a>
         </div>
       </div>
