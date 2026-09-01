@@ -90,12 +90,12 @@
 
       <div class="showcase-summary" id="scSummary">
         <div>
-          <div class="showcase-summary__lbl">Total Return</div>
+          <div class="showcase-summary__lbl">Strategy Return</div>
           <div class="showcase-summary__big sc-skel" id="scPnl" style="height:60px;width:70%;">&nbsp;</div>
           <div class="showcase-summary__sub" id="scPnlPct"></div>
         </div>
         <div class="showcase-summary__right">
-          <div class="showcase-summary__lbl">Signals Executed</div>
+          <div class="showcase-summary__lbl">Your Money's Return</div>
           <div class="showcase-summary__val sc-skel" id="scValue" style="height:44px;width:60%;margin-left:auto;">&nbsp;</div>
           <div class="showcase-summary__vsub" id="scInvested"></div>
         </div>
@@ -103,10 +103,10 @@
 
       <div class="showcase-curve">
         <div class="showcase-curve__head">
-          <span class="showcase-curve__title">Return by Asset</span>
+          <span class="showcase-curve__title">Performance</span>
           <div class="showcase-curve__legend">
-            <span><span class="showcase-curve__sw showcase-curve__sw--value"></span>Gain</span>
-            <span><span class="showcase-curve__sw showcase-curve__sw--invested"></span>Loss</span>
+            <span><span class="showcase-curve__sw showcase-curve__sw--value"></span>Index</span>
+            <span><span class="showcase-curve__sw showcase-curve__sw--invested"></span>High-water</span>
           </div>
         </div>
         <div class="showcase-curve__canvas-wrap">
@@ -117,24 +117,24 @@
 
       <div class="showcase-metrics">
         <div class="sc-pill">
+          <div class="sc-pill__lbl">Max Drawdown</div>
+          <div class="sc-pill__val" id="scMaxDD">—</div>
+          <div class="sc-pill__sub" id="scMaxDDSub">peak to trough</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Volatility</div>
+          <div class="sc-pill__val" id="scVol">—</div>
+          <div class="sc-pill__sub">annualized</div>
+        </div>
+        <div class="sc-pill">
+          <div class="sc-pill__lbl">Sharpe Ratio</div>
+          <div class="sc-pill__val" id="scSharpe">—</div>
+          <div class="sc-pill__sub">risk-adjusted</div>
+        </div>
+        <div class="sc-pill">
           <div class="sc-pill__lbl">Positions in Profit</div>
           <div class="sc-pill__val" id="scInProfit">—</div>
-          <div class="sc-pill__sub" id="scInProfitSub">—</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Best Performer</div>
-          <div class="sc-pill__val" id="scBest">—</div>
-          <div class="sc-pill__sub" id="scBestSub">—</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Weakest</div>
-          <div class="sc-pill__val" id="scWorst">—</div>
-          <div class="sc-pill__sub" id="scWorstSub">—</div>
-        </div>
-        <div class="sc-pill">
-          <div class="sc-pill__lbl">Median Return</div>
-          <div class="sc-pill__val" id="scMedian">—</div>
-          <div class="sc-pill__sub">per position</div>
+          <div class="sc-pill__sub" id="scInProfitSub">above entry today</div>
         </div>
         <div class="sc-pill">
           <div class="sc-pill__lbl">Total Buys</div>
@@ -142,9 +142,9 @@
           <div class="sc-pill__sub">signals executed</div>
         </div>
         <div class="sc-pill">
-          <div class="sc-pill__lbl">Assets Tracked</div>
-          <div class="sc-pill__val" id="scAssets">—</div>
-          <div class="sc-pill__sub">MAG14 core</div>
+          <div class="sc-pill__lbl">Days Live</div>
+          <div class="sc-pill__val" id="scDays">—</div>
+          <div class="sc-pill__sub" id="scDaysSub">since inception</div>
         </div>
       </div>
 
@@ -470,29 +470,39 @@
       el.style.width = '';
     }
 
-    // The Accumulator API deliberately serves anonymous callers percentages only -
-    // no dollar amounts, no equity curve, no per-trade metrics. See app.py: "Anonymous
-    // callers get PERCENTAGES ONLY". Everything below is derived from that payload.
+    // The Accumulator publishes the same canonical figures its dashboard shows -
+    // strategy return (time-weighted), return on contributed capital, drawdown, and an
+    // index-to-100 performance series. Dollar amounts stay private (PUBLIC_SHOW_DOLLARS),
+    // so nothing here is denominated. Every field degrades to a dash if absent.
     function renderShowcase(data){
-      var pnlPct = data.total_pnl_pct != null ? data.total_pnl_pct : 0;
+      var m = data.metrics || {};
       var assets = (data.assets || []).filter(function(a){ return a.pnl_pct != null; });
-      var buys = data.buy_count != null ? data.buy_count : null;
-      var positive = pnlPct >= 0;
+      var buys = m.total_buys != null ? m.total_buys : data.buy_count;
+
+      // Headline is the time-weighted return - the figure comparable to an index, and
+      // the one the dashboard leads with. Falls back to return-on-contributed when the
+      // canonical block is unavailable.
+      var twr = m.twr_pct != null ? m.twr_pct : data.total_pnl_pct;
+      var roc = m.return_on_contributed_pct != null
+        ? m.return_on_contributed_pct : data.total_pnl_pct;
+      var positive = (twr || 0) >= 0;
 
       var pnlEl = document.getElementById('scPnl');
       removeSkel(pnlEl);
-      pnlEl.textContent = fmtPct(pnlPct, 1);
+      pnlEl.textContent = twr != null ? fmtPct(twr, 1) : '\u2014';
       pnlEl.classList.toggle('is-loss', !positive);
 
       var pctEl = document.getElementById('scPnlPct');
-      pctEl.textContent = 'on capital contributed';
+      pctEl.textContent = m.twr_pct != null
+        ? 'time-weighted' + (data.days ? ' \u00b7 ' + data.days + ' days' : '') + ' \u00b7 not annualized'
+        : 'on capital contributed';
       pctEl.style.color = positive ? 'var(--green)' : 'var(--red)';
 
       var valueEl = document.getElementById('scValue');
       removeSkel(valueEl);
-      valueEl.textContent = buys != null ? buys.toLocaleString() : '—';
+      valueEl.textContent = roc != null ? fmtPct(roc, 1) : '\u2014';
       document.getElementById('scInvested').textContent =
-        'across ' + assets.length + ' asset' + (assets.length === 1 ? '' : 's');
+        'deployed gradually, not at once';
 
       function setPill(id, text, color){
         var el = document.getElementById(id);
@@ -503,45 +513,44 @@
       }
       function setSub(id, text){
         var el = document.getElementById(id);
-        if(el) el.textContent = text;
+        if(el && text) el.textContent = text;
       }
 
-      if(!assets.length){
-        ['scInProfit','scBest','scWorst','scMedian','scTotalBuys','scAssets']
-          .forEach(function(id){ setPill(id, '—', null); });
-        return;
+      var dd = data.drawdown || {};
+      setPill('scMaxDD',
+        m.max_drawdown_pct != null ? Number(m.max_drawdown_pct).toFixed(1) + '%' : '\u2014',
+        'is-red');
+      if(dd.trough_date) setSub('scMaxDDSub', 'trough ' + dd.trough_date);
+
+      setPill('scVol',
+        m.volatility_pct != null ? Number(m.volatility_pct).toFixed(1) + '%' : '\u2014', null);
+
+      setPill('scSharpe',
+        m.sharpe_ratio != null ? Number(m.sharpe_ratio).toFixed(2) : '\u2014',
+        m.sharpe_ratio >= 1 ? 'is-green' : null);
+
+      var inProfit = m.positions_in_profit, total = m.positions_total || assets.length;
+      if(inProfit == null && assets.length){
+        inProfit = assets.filter(function(a){ return a.pnl_pct > 0; }).length;
       }
+      setPill('scInProfit',
+        inProfit != null ? inProfit + ' / ' + total : '\u2014',
+        inProfit != null && inProfit >= total / 2 ? 'is-green' : 'is-amber');
 
-      var sorted = assets.slice().sort(function(a, b){ return b.pnl_pct - a.pnl_pct; });
-      var best = sorted[0], worst = sorted[sorted.length - 1];
-      var up = assets.filter(function(a){ return a.pnl_pct > 0; }).length;
+      setPill('scTotalBuys', buys != null ? Number(buys).toLocaleString() : '\u2014', null);
 
-      var vals = assets.map(function(a){ return a.pnl_pct; }).sort(function(a, b){ return a - b; });
-      var mid = Math.floor(vals.length / 2);
-      var median = vals.length % 2 ? vals[mid] : (vals[mid - 1] + vals[mid]) / 2;
-
-      setPill('scInProfit', up + ' / ' + assets.length, up >= assets.length / 2 ? 'is-green' : 'is-amber');
-      setSub('scInProfitSub', 'positions above entry');
-
-      setPill('scBest', best.asset, 'is-green');
-      setSub('scBestSub', fmtPct(best.pnl_pct, 1));
-
-      setPill('scWorst', worst.asset, worst.pnl_pct >= 0 ? 'is-green' : 'is-red');
-      setSub('scWorstSub', fmtPct(worst.pnl_pct, 1));
-
-      setPill('scMedian', fmtPct(median, 1), median >= 0 ? 'is-green' : 'is-red');
-      setPill('scTotalBuys', buys != null ? buys.toLocaleString() : '—', null);
-      setPill('scAssets', String(assets.length), null);
+      setPill('scDays', data.days != null ? Number(data.days).toLocaleString() : '\u2014', null);
+      if(data.as_of) setSub('scDaysSub', 'as of ' + data.as_of);
     }
 
     var chart = null;
-    // Was an equity curve; the API no longer exposes one publicly. Per-asset returns
-    // are exposed, so the panel now charts those.
+    // The published series is indexed to 100 at inception and carries its own running
+    // high-water mark, which is what makes a drawdown visible rather than implied.
     function renderChart(data){
-      var assets = (data.assets || []).filter(function(a){ return a.pnl_pct != null; });
+      var series = data.performance_series || [];
       var emptyEl = document.getElementById('scChartEmpty');
-      if(assets.length < 2){
-        if(emptyEl){ emptyEl.style.display = 'flex'; emptyEl.textContent = 'Not enough data yet — check back soon.'; }
+      if(series.length < 2){
+        if(emptyEl){ emptyEl.style.display = 'flex'; emptyEl.textContent = 'Not enough data yet \u2014 check back soon.'; }
         return;
       }
       if(emptyEl) emptyEl.style.display = 'none';
@@ -550,31 +559,43 @@
       if(!canvas || !window.Chart) return;
       if(chart) chart.destroy();
 
-      var sorted = assets.slice().sort(function(a, b){ return b.pnl_pct - a.pnl_pct; });
-      var labels = sorted.map(function(a){ return a.asset; });
-      var values = sorted.map(function(a){ return a.pnl_pct; });
+      var labels = series.map(function(p){ return p.date; });
+      var index  = series.map(function(p){ return p.index; });
+      var high   = series.map(function(p){ return p.high_water; });
 
       chart = new Chart(canvas.getContext('2d'), {
-        type: 'bar',
+        type: 'line',
         data: {
           labels: labels,
-          datasets: [{
-            label: 'Return',
-            data: values,
-            backgroundColor: values.map(function(v){
-              return v >= 0 ? 'rgba(201,169,97,0.75)' : 'rgba(239,110,110,0.7)';
-            }),
-            borderColor: values.map(function(v){
-              return v >= 0 ? '#C9A961' : '#ef6e6e';
-            }),
-            borderWidth: 1,
-            borderRadius: 3,
-            maxBarThickness: 34
-          }]
+          datasets: [
+            {
+              label: 'Index',
+              data: index,
+              borderColor: '#C9A961',
+              backgroundColor: 'rgba(201,169,97,0.1)',
+              borderWidth: 2.5,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              pointHoverBackgroundColor: '#C9A961',
+              fill: true,
+              tension: 0.25
+            },
+            {
+              label: 'High-water',
+              data: high,
+              borderColor: 'rgba(157, 145, 184, 0.5)',
+              borderDash: [5,4],
+              borderWidth: 1.5,
+              pointRadius: 0,
+              fill: false,
+              tension: 0
+            }
+          ]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
           plugins: {
             legend: { display: false },
             tooltip: {
@@ -586,16 +607,29 @@
               padding: 10,
               titleFont: { family: 'JetBrains Mono', size: 11 },
               bodyFont: { family: 'JetBrains Mono', size: 12 },
-              displayColors: false,
               callbacks: {
-                label: function(item){ return fmtPct(item.parsed.y, 1) + ' since first buy'; }
+                label: function(item){
+                  var pt = series[item.dataIndex] || {};
+                  if(item.datasetIndex === 0){
+                    var growth = ((pt.index / 100 - 1) * 100);
+                    return 'Index ' + Number(pt.index).toFixed(1) +
+                           '  (' + fmtPct(growth, 1) + ')';
+                  }
+                  return 'Drawdown ' + Number(pt.drawdown_pct || 0).toFixed(1) + '%';
+                }
               }
             }
           },
           scales: {
             x: {
               grid: { display: false, drawBorder: false },
-              ticks: { color: '#9d91b8', font: { family: 'JetBrains Mono', size: 10 }, maxRotation: 0, autoSkip: false },
+              ticks: {
+                color: '#9d91b8',
+                font: { family: 'JetBrains Mono', size: 10 },
+                maxTicksLimit: 6,
+                maxRotation: 0,
+                autoSkip: true
+              },
               border: { display: false }
             },
             y: {
@@ -603,7 +637,7 @@
               ticks: {
                 color: '#9d91b8',
                 font: { family: 'JetBrains Mono', size: 10 },
-                callback: function(v){ return v + '%'; },
+                callback: function(v){ return v; },
                 padding: 8
               },
               border: { display: false }
