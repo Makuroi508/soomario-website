@@ -125,7 +125,7 @@
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}tools/calculator.html" class="nav-dropdown__item">DCA Calculator</a>
               <a href="${depth}tools/compare.html" class="nav-dropdown__item">Compare Products</a>
-              <a href="${depth}tools/whitepaper.html" class="nav-dropdown__item">Whitepaper</a>
+              <a href="${depth}whitepapers/platform.html" class="nav-dropdown__item">Whitepaper</a>
             </div></div>
           </div>
         </div>
@@ -198,7 +198,7 @@
           <a href="${depth}learn/index.html" class="mobile-menu__link">Education</a>
           <a href="${depth}tools/calculator.html" class="mobile-menu__link">DCA Calculator</a>
           <a href="${depth}tools/compare.html" class="mobile-menu__link">Compare Products</a>
-          <a href="${depth}tools/whitepaper.html" class="mobile-menu__link">Whitepaper</a>
+          <a href="${depth}whitepapers/platform.html" class="mobile-menu__link">Whitepaper</a>
           <a href="${depth}learn/glossary.html" class="mobile-menu__link">Glossary</a>
         </div>
       </div>
@@ -269,7 +269,7 @@
               <li><a href="${SITE.discord}" target="_blank">Discord</a></li>
               <li><a href="${SITE.twitter}" target="_blank">Twitter / X</a></li>
               <li><a href="${SITE.hyperliquid}" target="_blank">Hyperliquid</a></li>
-              <li><a href="${depth}tools/whitepaper.html">Whitepaper</a></li>
+              <li><a href="${depth}whitepapers/platform.html">Whitepaper</a></li>
               <li><a href="${depth}tools/calculator.html">DCA Calculator</a></li>
             </ul>
           </div>
