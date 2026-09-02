@@ -753,22 +753,6 @@
     gap: 0.85rem;
     align-items: center;
   }
-  .topbar__print {
-    background: transparent;
-    border: 1px solid var(--gold-dim);
-    color: var(--gold);
-    padding: 0.35rem 0.8rem;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .topbar__print:hover {
-    background: var(--gold-faint);
-    border-color: var(--gold);
-  }
   @media print {
     .topbar { display: none !important; }
   }
@@ -846,7 +830,6 @@
   <span class="topbar__meta">Platform Whitepaper · v2.0 · September 2026</span>
   <div class="topbar__actions">
     <button class="topbar__nav" id="chapBtn" type="button" aria-expanded="false">Contents</button>
-    <button class="topbar__print" onclick="window.print()" type="button">Print / Save PDF</button>
   </div>
 </div>
 
