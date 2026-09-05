@@ -16,7 +16,10 @@
       accumulator: 'https://whop.com/soomario-strategies/soomario-accumulator/',
       maxpain: 'https://whop.com/soomario-strategies/',
       elite: 'https://whop.com/soomario-strategies/',
+      hype: 'https://whop.com/soomario-strategies/hype-bot',
+      libration: 'https://whop.com/soomario-strategies/libration-strat',
     },
+    engine: 'https://soomario-engine-production.up.railway.app',
     discord: 'https://discord.com/invite/gzpyCd3v7g',
     twitter: 'https://twitter.com/SoomarioStrat',
     hyperliquid: 'https://app.hyperliquid.xyz/join/SMR',
@@ -96,6 +99,7 @@
               <a href="${depth}products/gladius.html" class="nav-dropdown__item">Gladius <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/hype-bot.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/own-account.html" class="nav-dropdown__item">Your Own Account <span class="badge badge--new">NEW</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/premia.html" class="nav-dropdown__item">Premia <span class="badge badge--soon">PAPER</span></a>
@@ -166,6 +170,7 @@
           <a href="${depth}products/gladius.html" class="mobile-menu__link">Gladius <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/hype-bot.html" class="mobile-menu__link">Hype Bot <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/own-account.html" class="mobile-menu__link">Your Own Account <span class="badge badge--new">NEW</span></a>
           <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/premia.html" class="mobile-menu__link">Premia <span class="badge badge--soon">PAPER</span></a>
         </div>
@@ -246,6 +251,7 @@
               <li><a href="${depth}products/gladius.html">Gladius</a></li>
               <li><a href="${depth}products/hype-bot.html">Hype Bot</a></li>
               <li><a href="${depth}products/libration.html">Libration</a></li>
+              <li><a href="${depth}products/own-account.html">Your Own Account — from $29/mo</a></li>
               <li><a href="${depth}aureus/">Aureus</a></li>
               <li><a href="${depth}products/rotation.html">Rotation</a></li>
               <li><a href="${depth}products/premia.html">Premia</a></li>
@@ -269,6 +275,7 @@
               <li><a href="${SITE.discord}" target="_blank">Discord</a></li>
               <li><a href="${SITE.twitter}" target="_blank">Twitter / X</a></li>
               <li><a href="${SITE.hyperliquid}" target="_blank">Hyperliquid</a></li>
+              <li><a href="${SITE.engine}/login" target="_blank">Engine Member Login</a></li>
               <li><a href="${depth}whitepapers/platform.html">Whitepaper</a></li>
               <li><a href="${depth}tools/calculator.html">DCA Calculator</a></li>
             </ul>
