@@ -52,6 +52,15 @@
     .hc-table td:first-child, .hc-table th:first-child { text-align:left; }
     .hc-table .up { color:#4ade80; } .hc-table .down { color:#f87171; }
     .hc-toggle { font-size:0.8rem; color:var(--text-muted); display:flex; gap:0.5rem; align-items:center; margin-top:0.6rem; }
+    .hc-details { margin-top:1.25rem; border:1px solid var(--border-default); border-radius:var(--radius-lg); background:var(--bg-card); }
+    .hc-details summary { cursor:pointer; list-style:none; padding:0.9rem 1rem; font-family:var(--font-heading); font-size:1.05rem; color:var(--text-primary); display:flex; justify-content:space-between; align-items:center; }
+    .hc-details summary::-webkit-details-marker { display:none; }
+    .hc-details summary::after { content:'+'; font-family:var(--font-display); color:var(--text-muted); }
+    .hc-details[open] summary::after { content:'\2013'; color:var(--gold); }
+    .hc-details > div { padding:0 1rem 1rem; }
+    .hc-details .hc-chart { height:280px; margin-top:0.25rem; }
+    .hc-table tr.total td { border-top:1px solid var(--border-default); color:var(--text-primary); font-weight:600; }
+    .hc-scroll { overflow-x:auto; }
   </style>
 </head>
 <body>
@@ -104,14 +113,13 @@
           <input id="hc-comp" type="number" min="0" max="100" step="5" value="100" inputmode="decimal">
           <div class="hint">100% sizes every trade on the whole balance. 50% reinvests half the profit above the base and banks the rest. 0% keeps sizing on the base and banks everything. Losses always shrink the base: you cannot trade money you no longer have.</div>
 
-          <label for="hc-freq">Compound on</label>
+          <label for="hc-freq">Settle profit</label>
           <select id="hc-freq">
-            <option value="trade" selected>Every trade</option>
+            <option value="trade">After every trade</option>
             <option value="week">Once a week (Mondays)</option>
-            <option value="month">The 1st of each month</option>
-            <option value="never">Never (fixed size)</option>
+            <option value="month" selected>Once a month</option>
           </select>
-          <div class="hint">When the sizing base is refreshed from the balance. The strategy tester compounds on every trade.</div>
+          <div class="hint">How often the profit made since the last settlement is split: the compounded share stays in the account and sizes the next trades, the rest is withdrawn. With 100% compounded nothing is withdrawn and the cadence makes no difference.</div>
 
           <label for="hc-from">Start date</label>
           <input id="hc-from" type="date" min="2024-12-05" max="2026-09-06" value="2024-12-05">
@@ -126,6 +134,13 @@
           <div class="hc-toggle"><input type="checkbox" id="hc-log"><label for="hc-log" style="margin:0;text-transform:none;letter-spacing:0;font-size:0.8rem;">Logarithmic scale</label></div>
           <div id="hc-warn"></div>
           <div id="hc-ref" class="hc-note"></div>
+          <details class="hc-details" id="hc-details">
+            <summary>Month by month: back into the strategy vs withdrawn</summary>
+            <div>
+              <div class="hc-chart"><canvas id="hc-monthly"></canvas></div>
+              <div class="hc-scroll" id="hc-months"></div>
+            </div>
+          </details>
           <div id="hc-years"></div>
         </div>
 
@@ -180,52 +195,61 @@
   <script>
   (function () {
     var FEE = 0.002;                       // round trip, on notional
-    var trades = null, chart = null;
+    var trades = null, chart = null, mchart = null, last = null;
     var $ = function (id) { return document.getElementById(id); };
     var fmtUsd = function (v) { return (v < 0 ? '-' : '') + '$' + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); };
     var fmtPct = function (v, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + '%'; };
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var fmtMonth = function (ym) { return MONTHS[parseInt(ym.slice(5, 7), 10) - 1] + ' ' + ym.slice(0, 4); };
 
+    // The account A is what every trade is sized on. At each settlement the
+    // profit made since the last one is split: comp stays in A, the rest moves
+    // to W (withdrawn, out of the account for good). Until fullUntil everything
+    // stays. Losses simply shrink A. Wealth = A + W.
     function simulate(tr, start, size, lev, comp, freq, from, fullUntil) {
-      var E = start, B = start, peak = start, maxDD = 0, liq = 0, wins = 0, n = 0;
-      var anchor = start, anchored = !fullUntil;   // base the % rule measures profit from
-      var best = null, worst = null, lastKey = null, ruined = false;
-      var pts = [{ t: from, e: start }], years = {};
+      var A = start, W = 0, lastA = start, full = !!fullUntil;
+      var peak = start, maxDD = 0, liq = 0, wins = 0, n = 0, best = null, worst = null, lastKey = null, ruined = false;
+      var pts = [{ t: from, e: start }], years = {}, months = {}, order = [];
       for (var i = 0; i < tr.length; i++) {
         var t = tr[i];
         if (t.o < from) continue;
-        if (E <= 0) { ruined = true; break; }
+        if (A <= 0) { ruined = true; break; }
         var move = (t.side === 'long' ? 1 : -1) * (t.exi / t.ein - 1);
-        var notional = B * size, margin = notional / lev;
+        var notional = A * size, margin = notional / lev;
         var pnl = notional * (move - FEE);
         if (-pnl >= margin) { pnl = -margin; liq++; }   // isolated margin: the trade's margin is the floor
-        E += pnl; n++;
+        A += pnl; n++;
         if (pnl > 0) wins++;
         if (best === null || pnl > best) best = pnl;
         if (worst === null || pnl < worst) worst = pnl;
-        if (E > peak) peak = E;
-        var dd = peak > 0 ? (peak - E) / peak * 100 : 100;
-        if (dd > maxDD) maxDD = dd;
-        var y = t.c.slice(0, 4);
-        years[y] = years[y] || { n: 0, pnl: 0, startEq: E - pnl, endEq: E, wins: 0 };
-        years[y].n++; years[y].pnl += pnl; years[y].endEq = E; if (pnl > 0) years[y].wins++;
-        // compounding schedule: refresh the sizing base from the balance
-        var key = freq === 'trade' ? i : freq === 'week' ? isoWeek(t.c) : freq === 'month' ? t.c.slice(0, 7) : null;
-        if (key !== null && key !== lastKey) {
+        var m = t.c.slice(0, 7), y = t.c.slice(0, 4);
+        if (!months[m]) { months[m] = { n: 0, pnl: 0, withdrawn: 0, wins: 0, endA: A, endW: W }; order.push(m); }
+        months[m].n++; months[m].pnl += pnl; if (pnl > 0) months[m].wins++;
+        years[y] = years[y] || { n: 0, pnl: 0, startEq: A - pnl + W, endEq: A + W, wins: 0 };
+        years[y].n++; years[y].pnl += pnl; if (pnl > 0) years[y].wins++;
+        // settlement
+        var key = freq === 'trade' ? i : freq === 'week' ? isoWeek(t.c) : m;
+        if (key !== lastKey) {
           lastKey = key;
-          if (!anchored && t.c >= fullUntil) { anchored = true; anchor = E; }   // full compounding ends here
-          if (!anchored) {
-            B = E;                                   // 100% until the switch date
-          } else {
-            var profit = E - anchor;
-            B = profit > 0 ? anchor + comp * profit : E;
+          if (full && t.c >= fullUntil) { full = false; lastA = A; }     // full compounding ends here
+          if (!full) {
+            var profit = A - lastA;
+            if (profit > 0 && comp < 1) {
+              var w = (1 - comp) * profit;
+              W += w; A -= w; months[m].withdrawn += w;
+            }
           }
-        } else if (E < B) {
-          B = E;                                     // a loss always shrinks the base
+          lastA = A;
         }
-        if (B < 0) B = 0;
-        pts.push({ t: t.c, e: E });
+        months[m].endA = A; months[m].endW = W; years[y].endEq = A + W;
+        var wealth = A + W;
+        if (wealth > peak) peak = wealth;
+        var dd = peak > 0 ? (peak - wealth) / peak * 100 : 100;
+        if (dd > maxDD) maxDD = dd;
+        pts.push({ t: t.c, e: wealth });
       }
-      return { end: E, pts: pts, maxDD: maxDD, liq: liq, wins: wins, n: n, best: best, worst: worst, years: years, ruined: ruined };
+      return { account: A, withdrawn: W, end: A + W, pts: pts, maxDD: maxDD, liq: liq, wins: wins, n: n,
+               best: best, worst: worst, years: years, months: months, order: order, ruined: ruined };
     }
 
     function isoWeek(iso) {
@@ -237,6 +261,44 @@
 
     function kpi(v, l, cls) { return '<div class="hc-kpi"><div class="hc-kpi__v ' + (cls || '') + '">' + v + '</div><div class="hc-kpi__l">' + l + '</div></div>'; }
 
+    function renderMonthly(r) {
+      var labels = r.order.map(fmtMonth);
+      var re = r.order.map(function (m) { return Math.round(r.months[m].pnl - r.months[m].withdrawn); });
+      var wd = r.order.map(function (m) { return Math.round(r.months[m].withdrawn); });
+      var rows = '', sumP = 0, sumR = 0, sumW = 0, sumN = 0;
+      r.order.forEach(function (m) {
+        var v = r.months[m], rein = v.pnl - v.withdrawn;
+        sumP += v.pnl; sumR += rein; sumW += v.withdrawn; sumN += v.n;
+        rows += '<tr><td>' + fmtMonth(m) + '</td><td>' + v.n + '</td><td class="' + (v.pnl >= 0 ? 'up' : 'down') + '">' + fmtUsd(v.pnl) +
+          '</td><td class="' + (rein >= 0 ? 'up' : 'down') + '">' + fmtUsd(rein) + '</td><td class="' + (v.withdrawn > 0 ? 'up' : '') + '">' + fmtUsd(v.withdrawn) +
+          '</td><td>' + fmtUsd(v.endA) + '</td><td>' + fmtUsd(v.endW) + '</td></tr>';
+      });
+      rows += '<tr class="total"><td>Total</td><td>' + sumN + '</td><td class="' + (sumP >= 0 ? 'up' : 'down') + '">' + fmtUsd(sumP) +
+        '</td><td class="' + (sumR >= 0 ? 'up' : 'down') + '">' + fmtUsd(sumR) + '</td><td class="up">' + fmtUsd(sumW) +
+        '</td><td>' + fmtUsd(r.account) + '</td><td>' + fmtUsd(r.withdrawn) + '</td></tr>';
+      $('hc-months').innerHTML = r.order.length
+        ? '<table class="hc-table"><thead><tr><th>Month</th><th>Trades</th><th>P&amp;L</th><th>Back into the strategy</th><th>Withdrawn</th><th>Account</th><th>Withdrawn so far</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+          '<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.5;">"Back into the strategy" is the month\'s P&amp;L that stayed in the account (negative in a losing month). Ending wealth = account ' + fmtUsd(r.account) + ' + withdrawn ' + fmtUsd(r.withdrawn) + ' = <strong style="color:var(--gold)">' + fmtUsd(r.end) + '</strong>.</p>'
+        : '';
+      if (!$('hc-details').open) return;            // draw the chart when the block is open (Chart.js needs a size)
+      if (mchart) mchart.destroy();
+      mchart = new Chart($('hc-monthly').getContext('2d'), {
+        type: 'bar',
+        data: { labels: labels, datasets: [
+          { label: 'Back into the strategy', data: re, backgroundColor: 'rgba(201,169,97,0.75)', stack: 's' },
+          { label: 'Withdrawn', data: wd, backgroundColor: 'rgba(74,222,128,0.7)', stack: 's' }
+        ] },
+        options: {
+          responsive: true, maintainAspectRatio: false, animation: false,
+          plugins: { legend: { labels: { color: '#8a8598' } }, tooltip: { callbacks: { label: function (c) { return c.dataset.label + ': ' + fmtUsd(c.parsed.y); } } } },
+          scales: {
+            x: { stacked: true, ticks: { color: '#8a8598', maxTicksLimit: 12, maxRotation: 0 }, grid: { display: false } },
+            y: { stacked: true, ticks: { color: '#8a8598', callback: function (v) { return fmtUsd(v); } }, grid: { color: 'rgba(255,255,255,0.06)' } }
+          }
+        }
+      });
+    }
+
     function render() {
       if (!trades) return;
       var start = Math.max(10, parseFloat($('hc-start').value) || 10000);
@@ -245,39 +307,44 @@
       sizeEl.max = maxSize;
       var size = Math.min(maxSize, Math.max(5, parseFloat(sizeEl.value) || 90));
       if (parseFloat(sizeEl.value) > maxSize) sizeEl.value = maxSize;
-      $('hc-size-hint').textContent = 'Each trade\'s notional as a share of the sizing base. 100% is the published record; 90% is the engine\'s default. Allowed 5–' + maxSize + '% at ' + lev + 'x.';
+      $('hc-size-hint').textContent = 'Each trade\'s notional as a share of the account. 100% is the published record; 90% is the engine\'s default. Allowed 5–' + maxSize + '% at ' + lev + 'x.';
       var comp = Math.min(100, Math.max(0, parseFloat($('hc-comp').value) || 0)) / 100;
       var freq = $('hc-freq').value;
       var from = ($('hc-from').value || '2024-12-05') + 'T00:00';
       var fullUntil = $('hc-full-until').value ? $('hc-full-until').value + 'T00:00' : null;
       var r = simulate(trades, start, size / 100, lev, comp, freq, from, fullUntil);
+      last = r;
       var ret = (r.end / start - 1) * 100;
       $('hc-kpis').innerHTML =
-        kpi(fmtUsd(r.end), 'Final balance', ret >= 0 ? 'up' : 'down') +
+        kpi(fmtUsd(r.end), 'Ending wealth · account + withdrawn', ret >= 0 ? 'up' : 'down') +
         kpi(fmtPct(ret, 1), 'Return on ' + fmtUsd(start), ret >= 0 ? 'up' : 'down') +
-        kpi('-' + r.maxDD.toFixed(1) + '%', 'Max drawdown', 'down') +
+        kpi(fmtUsd(r.account), 'Left in the account', 'gold') +
+        kpi(fmtUsd(r.withdrawn), 'Withdrawn over the period', r.withdrawn > 0 ? 'up' : '') +
+        kpi('-' + r.maxDD.toFixed(1) + '%', 'Max drawdown on wealth', 'down') +
         kpi(r.worst === null ? '—' : fmtUsd(r.worst), 'Worst trade', 'down') +
         kpi(r.best === null ? '—' : fmtUsd(r.best), 'Best trade', 'up') +
         kpi(r.n ? (r.wins / r.n * 100).toFixed(1) + '%' : '—', r.n + ' trades · win rate', 'gold');
 
       var warn = '';
-      if (size > 100) warn += '<div class="hc-warn"><strong>' + size + '% size:</strong> you are trading more than the account holds. Every trade in the record, the losing ones included, is multiplied by ' + (size / 100).toFixed(2) + ': the 10% hard stop costs ' + (size / 10).toFixed(0) + '% of the sizing base in one trade. Three stops in a row would cost ' + Math.min(100, size * 3 / 10).toFixed(0) + '%.</div>';
+      if (size > 100) warn += '<div class="hc-warn"><strong>' + size + '% size:</strong> you are trading more than the account holds. Every trade in the record, the losing ones included, is multiplied by ' + (size / 100).toFixed(2) + ': the 10% hard stop costs ' + (size / 10).toFixed(0) + '% of the account in one trade. Three stops in a row would cost ' + Math.min(100, size * 3 / 10).toFixed(0) + '%.</div>';
       if (lev >= 3) warn += '<div class="hc-warn"><strong>3x:</strong> liquidation sits about 33% away from the entry instead of the whole account at 1x. The hard stop rests inside that, but a gap through it fills wherever the market is.</div>';
       if (r.liq) warn += '<div class="hc-warn"><strong>' + r.liq + ' trade' + (r.liq > 1 ? 's' : '') + ' would have been liquidated</strong> at this leverage: the loss exceeded the trade\'s isolated margin.</div>';
       if (r.ruined) warn += '<div class="hc-warn"><strong>The account was wiped out</strong> before the end of the record.</div>';
       $('hc-warn').innerHTML = warn;
 
-      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on ' + trades.length + ' trades. Set leverage 2x and size 100% and this page reproduces it to within rounding (at 1x the engine caps size at 90%). The two inputs above are the same two settings you get on the engine.';
+      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on ' + trades.length + ' trades. Set leverage 2x, size 100% and 100% compounded and this page reproduces it to within rounding (at 1x the engine caps size at 90%). Size and leverage are the same two settings you get on the engine.';
 
-      // yearly table
+      // yearly table (wealth = account + withdrawn)
       var ys = Object.keys(r.years).sort(), rows = '';
       ys.forEach(function (y) {
         var v = r.years[y], pct = v.startEq > 0 ? v.pnl / v.startEq * 100 : 0;
         rows += '<tr><td>' + y + '</td><td>' + v.n + '</td><td>' + (v.wins / v.n * 100).toFixed(0) + '%</td><td class="' + (v.pnl >= 0 ? 'up' : 'down') + '">' + fmtUsd(v.pnl) + '</td><td class="' + (pct >= 0 ? 'up' : 'down') + '">' + fmtPct(pct, 1) + '</td><td>' + fmtUsd(v.endEq) + '</td></tr>';
       });
-      $('hc-years').innerHTML = ys.length ? '<table class="hc-table"><thead><tr><th>Year</th><th>Trades</th><th>Win</th><th>P&amp;L</th><th>Return</th><th>Balance</th></tr></thead><tbody>' + rows + '</tbody></table>' : '';
+      $('hc-years').innerHTML = ys.length ? '<table class="hc-table"><thead><tr><th>Year</th><th>Trades</th><th>Win</th><th>P&amp;L</th><th>Return</th><th>Wealth</th></tr></thead><tbody>' + rows + '</tbody></table>' : '';
 
-      // chart
+      renderMonthly(r);
+
+      // wealth curve
       var labels = r.pts.map(function (p) { return p.t.slice(0, 10); });
       var data = r.pts.map(function (p) { return Math.round(p.e * 100) / 100; });
       var log = $('hc-log').checked;
@@ -299,6 +366,7 @@
     ['hc-start', 'hc-lev', 'hc-size', 'hc-full-until', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
       $(id).addEventListener('input', render); $(id).addEventListener('change', render);
     });
+    $('hc-details').addEventListener('toggle', function () { if (last) renderMonthly(last); });
 
     fetch('../dashboards/hype-trades.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.json(); })
