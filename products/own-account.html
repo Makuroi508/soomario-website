@@ -148,11 +148,11 @@
           <div class="card__title">Hype Bot</div>
           <p class="card__text" style="margin-bottom:1.25rem;">
             One coin, one position at a time. The record that runs on Hyperliquid, on your account. Leverage is
-            yours to set at 1x, 2x or 3x (default 2x), position size from 5% of the account up to 90% per turn of
-            leverage, with an optional dollar cap per order.
+            yours to set at 1x, 2x or 3x (default 2x) and so is the margin per trade, 5% to 90% of the account
+            (default 45%, which at 2x is 90% of the account per position), with an optional dollar cap per order.
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
-            HYPE only &middot; one position &middot; 1&ndash;3x &middot; cap per order &middot; <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay the record on your numbers &rarr;</a>
+            HYPE only &middot; one position &middot; margin 5&ndash;90% &middot; 1&ndash;3x &middot; cap per order &middot; <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay the record on your numbers &rarr;</a>
           </div>
           <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;text-align:center;">Subscribe to Hype Bot &rarr;</a>
           <a href="hype-bot.html" style="display:block;text-align:center;margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);">Read about the strategy &rarr;</a>
@@ -348,7 +348,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-question">What leverage should I use?</button>
-        <div class="faq-answer"><p>Two settings, and they do different things. <strong>Position size</strong> is how much of the account each trade puts on as notional; it is what scales the record. The record is 100%, the engine's default is 90%, and above 100% every trade, the losing ones included, is multiplied. <strong>Leverage</strong> (1x, 2x or 3x, default 2x) sets the margin the exchange locks and how close liquidation sits; it is what allows a size above 100% (up to 90% per turn of leverage). <a href="../tools/hype-calculator.html" style="color:var(--gold);">Replay the record</a> with both inputs and look at the max drawdown before you decide. Libration stays at 2x and 20% per slot.</p></div>
+        <div class="faq-answer"><p>Two settings that work like your exchange's order form. <strong>Margin per trade</strong> is how much of the account each trade puts up (5% to 90%). <strong>Leverage</strong> (1x, 2x or 3x, default 2x) multiplies it into exposure: 45% at 2x is 90% of the account per position, the live bot's setting, and the published record is 100%. Raising leverage with the same margin scales every win and every loss and moves liquidation closer (about 100% divided by leverage). Above 100% exposure you are trading more than the account holds. <a href="../tools/hype-calculator.html" style="color:var(--gold);">Replay the record</a> with both inputs and look at the max drawdown before you decide. Libration stays at 2x and 20% per slot.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question">What happens if I deposit or withdraw?</button>

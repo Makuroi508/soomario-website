@@ -78,7 +78,7 @@
       </h1>
       <p style="font-size:1.15rem;color:var(--text-secondary);max-width:720px;line-height:1.55;margin-bottom:0.5rem;">
         Every Hype Bot trade from the strategy tester, losers included, replayed on the account you would have
-        connected: your starting amount, your size and leverage, how much of the profit you let compound, from when, and how often.
+        connected: your starting amount, your margin and leverage, how much of the profit you let compound, from when, and how often.
         Fees are charged on every trade. Nothing here is a projection; it is the past, re-sized.
       </p>
     </div>
@@ -99,15 +99,25 @@
             <option value="2" selected>2x &mdash; the engine's default</option>
             <option value="3">3x &mdash; maximum on the engine</option>
           </select>
-          <div class="hint">Sets the margin locked per trade and how far away liquidation sits (about 100% &divide; leverage). It does not change the size of a win or a loss; position size does.</div>
+          <div class="hint">Multiplies the margin below into exposure, so it scales every win and loss, and sets how close liquidation sits (about 100% &divide; leverage).</div>
 
-          <label for="hc-size">Position size (% of account, notional)</label>
-          <input id="hc-size" type="number" min="5" max="180" step="5" value="90" inputmode="decimal">
-          <div class="hint" id="hc-size-hint">Each trade's notional as a share of the sizing base. 100% is the published record; 90% is the engine's default. The engine allows up to 90% per turn of leverage.</div>
+          <label for="hc-size">Margin per trade (% of account)</label>
+          <input id="hc-size" type="number" min="5" max="90" step="5" value="45" inputmode="decimal">
+          <div class="hint" id="hc-size-hint">What each trade puts up. The engine's default is 45% at 2x, which is 90% of the account per position.</div>
 
-          <label for="hc-full-until">Compound 100% until</label>
-          <input id="hc-full-until" type="date" min="2024-12-05" max="2026-09-06" value="">
-          <div class="hint">Optional. Until this date every dollar of profit is reinvested. From it on, the percentage below applies and the balance on that date becomes the new base. Leave blank to apply the percentage from day one.</div>
+          <label for="hc-full-months">Compound everything for the first</label>
+          <select id="hc-full-months">
+            <option value="0">0 months &mdash; apply the % below from day one</option>
+            <option value="1">1 month</option>
+            <option value="2">2 months</option>
+            <option value="3">3 months</option>
+            <option value="6">6 months</option>
+            <option value="9">9 months</option>
+            <option value="12">12 months</option>
+            <option value="18">18 months</option>
+            <option value="24">24 months</option>
+          </select>
+          <div class="hint">Counted from the start date. Until then every dollar of profit stays in; after that the percentage below applies and the balance at that point is the new base.</div>
 
           <label for="hc-comp">Profit compounded after that (%)</label>
           <input id="hc-comp" type="number" min="0" max="100" step="5" value="100" inputmode="decimal">
@@ -157,12 +167,12 @@
       </div>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Size multiplies the losers too</div>
-          <p class="card__text">Position size is the number that scales the record. At 100% every trade lands as published; at 180% every trade, the losing ones included, lands at 1.8 times. The Hype Bot wins often and small and loses rarely and large, so the 10% hard stop is an 18% loss of the sizing base at 180% and 27% at 270%. Look at the max drawdown above, not only at the final balance.</p>
+          <div class="card__title" style="color:var(--gold);">Exposure multiplies the losers too</div>
+          <p class="card__text">Margin × leverage is the exposure, and exposure is what scales the record. At 100% every trade lands as published; at 180% every trade, the losing ones included, lands at 1.8 times. The Hype Bot wins often and small and loses rarely and large, so the 10% hard stop is an 18% loss of the account at 180% exposure and 27% at 270%. Look at the max drawdown above, not only at the final balance.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Leverage moves liquidation closer</div>
-          <p class="card__text">Leverage does not change a trade's profit or loss. It decides how much margin the exchange locks and how far the price can go against you before that margin is gone: the whole way at 1x, about half at 2x, about a third at 3x. The hard stop rests on the exchange inside that distance, but a gap through the stop fills wherever the market is. Higher leverage is what lets you size above 100%; it is also what makes a gap expensive.</p>
+          <p class="card__text">Doubling the leverage with the same margin doubles every win and every loss, and halves the distance to liquidation: the price can go the whole way against you at 1x, about half at 2x, about a third at 3x. The hard stop rests on the exchange inside that distance, but a gap through the stop fills wherever the market is.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">The record is the optimistic end</div>
@@ -303,15 +313,20 @@
       if (!trades) return;
       var start = Math.max(10, parseFloat($('hc-start').value) || 10000);
       var lev = parseFloat($('hc-lev').value) || 1;
-      var sizeEl = $('hc-size'), maxSize = 90 * lev;
-      sizeEl.max = maxSize;
-      var size = Math.min(maxSize, Math.max(5, parseFloat(sizeEl.value) || 90));
-      if (parseFloat(sizeEl.value) > maxSize) sizeEl.value = maxSize;
-      $('hc-size-hint').textContent = 'Each trade\'s notional as a share of the account. 100% is the published record; 90% is the engine\'s default. Allowed 5–' + maxSize + '% at ' + lev + 'x.';
+      var marginPct = Math.min(90, Math.max(5, parseFloat($('hc-size').value) || 45));
+      var size = marginPct * lev;                      // exposure, % of account
+      $('hc-size-hint').textContent = 'What each trade puts up (5–90%). This setting: ' + marginPct + '% × ' + lev + 'x = ' + Math.round(size) + '% of the account per trade. The record is 100% (50% at 2x); the engine\'s default is 45% at 2x.';
       var comp = Math.min(100, Math.max(0, parseFloat($('hc-comp').value) || 0)) / 100;
       var freq = $('hc-freq').value;
-      var from = ($('hc-from').value || '2024-12-05') + 'T00:00';
-      var fullUntil = $('hc-full-until').value ? $('hc-full-until').value + 'T00:00' : null;
+      var fromDay = $('hc-from').value || '2024-12-05';
+      var from = fromDay + 'T00:00';
+      var fullMonths = parseInt($('hc-full-months').value, 10) || 0;
+      var fullUntil = null;
+      if (fullMonths > 0) {
+        var fd = new Date(fromDay + 'T00:00:00Z');
+        fd.setUTCMonth(fd.getUTCMonth() + fullMonths);
+        fullUntil = fd.toISOString().slice(0, 10) + 'T00:00';
+      }
       var r = simulate(trades, start, size / 100, lev, comp, freq, from, fullUntil);
       last = r;
       var ret = (r.end / start - 1) * 100;
@@ -326,13 +341,13 @@
         kpi(r.n ? (r.wins / r.n * 100).toFixed(1) + '%' : '—', r.n + ' trades · win rate', 'gold');
 
       var warn = '';
-      if (size > 100) warn += '<div class="hc-warn"><strong>' + size + '% size:</strong> you are trading more than the account holds. Every trade in the record, the losing ones included, is multiplied by ' + (size / 100).toFixed(2) + ': the 10% hard stop costs ' + (size / 10).toFixed(0) + '% of the account in one trade. Three stops in a row would cost ' + Math.min(100, size * 3 / 10).toFixed(0) + '%.</div>';
+      if (size > 100) warn += '<div class="hc-warn"><strong>' + Math.round(size) + '% exposure</strong> (' + marginPct + '% margin × ' + lev + 'x): you are trading more than the account holds. Every trade in the record, the losing ones included, is multiplied by ' + (size / 100).toFixed(2) + ': the 10% hard stop costs ' + (size / 10).toFixed(0) + '% of the account in one trade. Three stops in a row would cost ' + Math.min(100, size * 3 / 10).toFixed(0) + '%.</div>';
       if (lev >= 3) warn += '<div class="hc-warn"><strong>3x:</strong> liquidation sits about 33% away from the entry instead of the whole account at 1x. The hard stop rests inside that, but a gap through it fills wherever the market is.</div>';
       if (r.liq) warn += '<div class="hc-warn"><strong>' + r.liq + ' trade' + (r.liq > 1 ? 's' : '') + ' would have been liquidated</strong> at this leverage: the loss exceeded the trade\'s isolated margin.</div>';
       if (r.ruined) warn += '<div class="hc-warn"><strong>The account was wiped out</strong> before the end of the record.</div>';
       $('hc-warn').innerHTML = warn;
 
-      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on ' + trades.length + ' trades. Set leverage 2x, size 100% and 100% compounded and this page reproduces it to within rounding (at 1x the engine caps size at 90%). Size and leverage are the same two settings you get on the engine.';
+      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on ' + trades.length + ' trades. Set leverage 2x, margin 50% (= 100% exposure) and 100% compounded and this page reproduces it to within rounding. Margin and leverage are the same two settings you get on the engine.';
 
       // yearly table (wealth = account + withdrawn)
       var ys = Object.keys(r.years).sort(), rows = '';
@@ -363,7 +378,7 @@
       });
     }
 
-    ['hc-start', 'hc-lev', 'hc-size', 'hc-full-until', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
+    ['hc-start', 'hc-lev', 'hc-size', 'hc-full-months', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
       $(id).addEventListener('input', render); $(id).addEventListener('change', render);
     });
     $('hc-details').addEventListener('toggle', function () { if (last) renderMonthly(last); });
