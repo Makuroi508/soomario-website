@@ -69,8 +69,8 @@
   <section class="section" style="padding-top:4rem;padding-bottom:1.5rem;">
     <div class="container">
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">280 TRADES</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPE &middot; 4H &middot; DEC 2024 &rarr; SEP 2026</span>
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-n">280 TRADES</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-range">HYPE &middot; 4H &middot; DEC 2024 &rarr; SEP 2026</span>
       </div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.5rem);margin-bottom:1rem;max-width:820px;">
         <span class="gradient-text">Replay the record</span><br>
@@ -205,7 +205,8 @@
   <script>
   (function () {
     var FEE = 0.002;                       // round trip, on notional
-    var trades = null, chart = null, mchart = null, last = null;
+    var LIVE_URL = 'https://engine.soomariostrategies.com/public/reference-trades.json';
+    var trades = null, chart = null, mchart = null, last = null, live = null, backtestEnd = null;
     var $ = function (id) { return document.getElementById(id); };
     var fmtUsd = function (v) { return (v < 0 ? '-' : '') + '$' + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); };
     var fmtPct = function (v, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + '%'; };
@@ -347,7 +348,10 @@
       if (r.ruined) warn += '<div class="hc-warn"><strong>The account was wiped out</strong> before the end of the record.</div>';
       $('hc-warn').innerHTML = warn;
 
-      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on ' + trades.length + ' trades. Set leverage 2x, margin 50% (= 100% exposure) and 100% compounded and this page reproduces it to within rounding. Margin and leverage are the same two settings you get on the engine.';
+      var liveNote = '';
+      if (live && live.n > 0) liveNote = ' <strong style="color:#4ade80">+' + live.n + ' trade' + (live.n > 1 ? 's' : '') + '</strong> taken by the engine on our own account since then (' + live.mode + ', updated ' + live.updated.slice(0, 16).replace('T', ' ') + ' UTC) are appended automatically.';
+      else if (live && live.n === 0) liveNote = ' The engine has not closed a trade since then; new ones are appended automatically.';
+      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on 280 trades. Set leverage 2x, margin 50% (= 100% exposure), 100% compounded and the start date 5 Dec 2024, and this page reproduces it to within rounding. Margin and leverage are the same two settings you get on the engine.' + liveNote;
 
       // yearly table (wealth = account + withdrawn)
       var ys = Object.keys(r.years).sort(), rows = '';
@@ -383,10 +387,32 @@
     });
     $('hc-details').addEventListener('toggle', function () { if (last) renderMonthly(last); });
 
+    function updateBadges() {
+      var lastT = trades[trades.length - 1].c;
+      $('hc-badge-n').textContent = trades.length + ' TRADES';
+      $('hc-badge-range').textContent = 'HYPE · 4H · DEC 2024 → ' + MONTHS[parseInt(lastT.slice(5, 7), 10) - 1].toUpperCase() + ' ' + lastT.slice(0, 4);
+      $('hc-from').max = lastT.slice(0, 10);
+    }
+
+    // The backtest is the fixed history; the engine's own book supplies every
+    // trade closed after it, so the calculator keeps up on its own.
+    function mergeLive(d) {
+      var added = (d.trades || []).filter(function (t) {
+        return t.o && t.c && t.ein > 0 && t.exi > 0 && t.o > backtestEnd;
+      }).map(function (t) { return { o: t.o, c: t.c, side: t.side, ein: t.ein, exi: t.exi, live: true }; });
+      trades = trades.concat(added);
+      live = { n: added.length, mode: d.mode || 'LIVE', updated: d.updated || '' };
+    }
+
     fetch('../dashboards/hype-trades.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.json(); })
-      .then(function (d) { trades = d.trades; render(); })
-      .catch(function (e) { $('hc-kpis').innerHTML = '<div class="hc-warn">Could not load the trade list (' + e + ').</div>'; });
+      .then(function (d) {
+        trades = d.trades; backtestEnd = trades[trades.length - 1].c;
+        updateBadges(); render();
+        return fetch(LIVE_URL, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; });
+      })
+      .then(function (d) { if (d) { mergeLive(d); updateBadges(); render(); } })
+      .catch(function (e) { if (!trades) $('hc-kpis').innerHTML = '<div class="hc-warn">Could not load the trade list (' + e + ').</div>'; });
   })();
   </script>
 
