@@ -86,13 +86,15 @@
 
           <label for="hc-lev">Leverage</label>
           <select id="hc-lev">
-            <option value="1">1x &mdash; the published record</option>
-            <option value="1.5">1.5x</option>
+            <option value="1">1x</option>
             <option value="2" selected>2x &mdash; the engine's default</option>
-            <option value="2.5">2.5x</option>
             <option value="3">3x &mdash; maximum on the engine</option>
           </select>
-          <div class="hint">Position notional = leverage &times; the sizing base. On the engine this is the Hype Bot's leverage setting with position size at 100%.</div>
+          <div class="hint">Sets the margin locked per trade and how far away liquidation sits (about 100% &divide; leverage). It does not change the size of a win or a loss; position size does.</div>
+
+          <label for="hc-size">Position size (% of account, notional)</label>
+          <input id="hc-size" type="number" min="5" max="180" step="5" value="90" inputmode="decimal">
+          <div class="hint" id="hc-size-hint">Each trade's notional as a share of the sizing base. 100% is the published record; 90% is the engine's default. The engine allows up to 90% per turn of leverage.</div>
 
           <label for="hc-comp">Profit compounded (%)</label>
           <input id="hc-comp" type="number" min="0" max="100" step="5" value="100" inputmode="decimal">
@@ -132,16 +134,16 @@
     <div class="container container--narrow">
       <div class="text-center" style="margin-bottom:2rem;">
         <div class="section-label">BEFORE YOU TURN IT UP</div>
-        <h2 class="section-title"><span class="gradient-text">What leverage does to this strategy</span></h2>
+        <h2 class="section-title"><span class="gradient-text">What size and leverage do to this strategy</span></h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">It multiplies the losers too</div>
-          <p class="card__text">The Hype Bot wins often and small and loses rarely and large. The 10% hard stop is a 10% loss at 1x, a 20% loss at 2x and a 30% loss at 3x, on the whole sizing base, in one trade. Three of those in a row at 3x is more than half the account. Look at the max drawdown above, not only at the final balance.</p>
+          <div class="card__title" style="color:var(--gold);">Size multiplies the losers too</div>
+          <p class="card__text">Position size is the number that scales the record. At 100% every trade lands as published; at 180% every trade, the losing ones included, lands at 1.8 times. The Hype Bot wins often and small and loses rarely and large, so the 10% hard stop is an 18% loss of the sizing base at 180% and 27% at 270%. Look at the max drawdown above, not only at the final balance.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">Liquidation moves closer</div>
-          <p class="card__text">With isolated margin at 3x, a move of roughly a third against you wipes the trade's margin. The hard stop rests on the exchange well inside that, but a gap through the stop fills wherever the market is. At 3x that gap has far less room than at 1x.</p>
+          <div class="card__title" style="color:var(--gold);">Leverage moves liquidation closer</div>
+          <p class="card__text">Leverage does not change a trade's profit or loss. It decides how much margin the exchange locks and how far the price can go against you before that margin is gone: the whole way at 1x, about half at 2x, about a third at 3x. The hard stop rests on the exchange inside that distance, but a gap through the stop fills wherever the market is. Higher leverage is what lets you size above 100%; it is also what makes a gap expensive.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">The record is the optimistic end</div>
@@ -179,7 +181,7 @@
     var fmtUsd = function (v) { return (v < 0 ? '-' : '') + '$' + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); };
     var fmtPct = function (v, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + '%'; };
 
-    function simulate(tr, start, lev, comp, freq, from) {
+    function simulate(tr, start, size, lev, comp, freq, from) {
       var E = start, B = start, peak = start, maxDD = 0, liq = 0, wins = 0, n = 0;
       var best = null, worst = null, lastKey = null, ruined = false;
       var pts = [{ t: from, e: start }], years = {};
@@ -188,9 +190,9 @@
         if (t.o < from) continue;
         if (E <= 0) { ruined = true; break; }
         var move = (t.side === 'long' ? 1 : -1) * (t.exi / t.ein - 1);
-        var notional = B * lev;
+        var notional = B * size, margin = notional / lev;
         var pnl = notional * (move - FEE);
-        if (-pnl >= B) { pnl = -B; liq++; }          // isolated margin: the trade's margin is the floor
+        if (-pnl >= margin) { pnl = -margin; liq++; }   // isolated margin: the trade's margin is the floor
         E += pnl; n++;
         if (pnl > 0) wins++;
         if (best === null || pnl > best) best = pnl;
@@ -229,10 +231,15 @@
       if (!trades) return;
       var start = Math.max(10, parseFloat($('hc-start').value) || 10000);
       var lev = parseFloat($('hc-lev').value) || 1;
+      var sizeEl = $('hc-size'), maxSize = 90 * lev;
+      sizeEl.max = maxSize;
+      var size = Math.min(maxSize, Math.max(5, parseFloat(sizeEl.value) || 90));
+      if (parseFloat(sizeEl.value) > maxSize) sizeEl.value = maxSize;
+      $('hc-size-hint').textContent = 'Each trade\'s notional as a share of the sizing base. 100% is the published record; 90% is the engine\'s default. Allowed 5–' + maxSize + '% at ' + lev + 'x.';
       var comp = Math.min(100, Math.max(0, parseFloat($('hc-comp').value) || 0)) / 100;
       var freq = $('hc-freq').value;
       var from = ($('hc-from').value || '2024-12-05') + 'T00:00';
-      var r = simulate(trades, start, lev, comp, freq, from);
+      var r = simulate(trades, start, size / 100, lev, comp, freq, from);
       var ret = (r.end / start - 1) * 100;
       $('hc-kpis').innerHTML =
         kpi(fmtUsd(r.end), 'Final balance', ret >= 0 ? 'up' : 'down') +
@@ -243,13 +250,13 @@
         kpi(r.n ? (r.wins / r.n * 100).toFixed(1) + '%' : '—', r.n + ' trades · win rate', 'gold');
 
       var warn = '';
-      if (lev >= 2.5) warn += '<div class="hc-warn"><strong>' + lev + 'x:</strong> the 10% hard stop is a ' + (lev * 10).toFixed(0) + '% hit to the sizing base in a single trade, and a gap of about ' + (100 / lev).toFixed(0) + '% against the position liquidates it. Three stops in a row at this leverage would cost more than half the account.</div>';
-      else if (lev > 1) warn += '<div class="hc-warn"><strong>' + lev + 'x:</strong> every loss in the record is multiplied by ' + lev + ' as well. The max drawdown above is the number to sit with.</div>';
+      if (size > 100) warn += '<div class="hc-warn"><strong>' + size + '% size:</strong> you are trading more than the account holds. Every trade in the record, the losing ones included, is multiplied by ' + (size / 100).toFixed(2) + ': the 10% hard stop costs ' + (size / 10).toFixed(0) + '% of the sizing base in one trade. Three stops in a row would cost ' + Math.min(100, size * 3 / 10).toFixed(0) + '%.</div>';
+      if (lev >= 3) warn += '<div class="hc-warn"><strong>3x:</strong> liquidation sits about 33% away from the entry instead of the whole account at 1x. The hard stop rests inside that, but a gap through it fills wherever the market is.</div>';
       if (r.liq) warn += '<div class="hc-warn"><strong>' + r.liq + ' trade' + (r.liq > 1 ? 's' : '') + ' would have been liquidated</strong> at this leverage: the loss exceeded the trade\'s isolated margin.</div>';
       if (r.ruined) warn += '<div class="hc-warn"><strong>The account was wiped out</strong> before the end of the record.</div>';
       $('hc-warn').innerHTML = warn;
 
-      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 1x, every trade compounded, from 5 December 2024 to 6 September 2026, on ' + trades.length + ' trades. Set those inputs and this page reproduces it to within rounding.';
+      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on ' + trades.length + ' trades. Set leverage 2x and size 100% and this page reproduces it to within rounding (at 1x the engine caps size at 90%). The two inputs above are the same two settings you get on the engine.';
 
       // yearly table
       var ys = Object.keys(r.years).sort(), rows = '';
@@ -278,7 +285,7 @@
       });
     }
 
-    ['hc-start', 'hc-lev', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
+    ['hc-start', 'hc-lev', 'hc-size', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
       $(id).addEventListener('input', render); $(id).addEventListener('change', render);
     });
 

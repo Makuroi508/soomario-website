@@ -348,7 +348,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-question">What leverage should I use?</button>
-        <div class="faq-answer"><p>The published record is 1x and the engine defaults the Hype Bot to 2x. You can set 1x, 2x or 3x from the connect page or the dashboard. Leverage multiplies every trade in the record, the losing ones included: the 10% hard stop is a 20% hit at 2x and 30% at 3x. <a href="../tools/hype-calculator.html" style="color:var(--gold);">Replay the record</a> at each setting and look at the max drawdown before you decide. Libration stays at 2x; its exposure comes from ten slots, not from the dial.</p></div>
+        <div class="faq-answer"><p>Two settings, and they do different things. <strong>Position size</strong> is how much of the account each trade puts on as notional; it is what scales the record. The record is 100%, the engine's default is 90%, and above 100% every trade, the losing ones included, is multiplied. <strong>Leverage</strong> (1x, 2x or 3x, default 2x) sets the margin the exchange locks and how close liquidation sits; it is what allows a size above 100% (up to 90% per turn of leverage). <a href="../tools/hype-calculator.html" style="color:var(--gold);">Replay the record</a> with both inputs and look at the max drawdown before you decide. Libration stays at 2x and 20% per slot.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question">What happens if I deposit or withdraw?</button>
