@@ -19,7 +19,7 @@
       hype: 'https://whop.com/soomario-strategies/hype-bot',
       libration: 'https://whop.com/soomario-strategies/libration-strat',
     },
-    engine: 'https://soomario-engine-production.up.railway.app',
+    engine: 'https://engine.soomariostrategies.com',
     discord: 'https://discord.com/invite/gzpyCd3v7g',
     twitter: 'https://twitter.com/SoomarioStrat',
     hyperliquid: 'https://app.hyperliquid.xyz/join/SMR',
@@ -128,6 +128,7 @@
             <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('tools') ? 'active' : ''}">Tools</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}tools/calculator.html" class="nav-dropdown__item">DCA Calculator</a>
+              <a href="${depth}tools/hype-calculator.html" class="nav-dropdown__item">Hype Bot Calculator <span class="badge badge--new">NEW</span></a>
               <a href="${depth}tools/compare.html" class="nav-dropdown__item">Compare Products</a>
               <a href="${depth}whitepapers/platform.html" class="nav-dropdown__item">Whitepaper</a>
             </div></div>
@@ -202,6 +203,7 @@
         <div class="mobile-menu__links">
           <a href="${depth}learn/index.html" class="mobile-menu__link">Education</a>
           <a href="${depth}tools/calculator.html" class="mobile-menu__link">DCA Calculator</a>
+          <a href="${depth}tools/hype-calculator.html" class="mobile-menu__link">Hype Bot Calculator</a>
           <a href="${depth}tools/compare.html" class="mobile-menu__link">Compare Products</a>
           <a href="${depth}whitepapers/platform.html" class="mobile-menu__link">Whitepaper</a>
           <a href="${depth}learn/glossary.html" class="mobile-menu__link">Glossary</a>

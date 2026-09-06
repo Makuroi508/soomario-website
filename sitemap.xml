@@ -44,6 +44,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://soomariostrategies.com/tools/hype-calculator.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://soomariostrategies.com/products/rotation.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>

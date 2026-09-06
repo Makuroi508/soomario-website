@@ -55,7 +55,7 @@
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
         <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Hype Bot &mdash; $49/mo &rarr;</a>
         <a href="https://whop.com/soomario-strategies/libration-strat" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Libration &mdash; $29/mo &rarr;</a>
-        <a href="https://soomario-engine-production.up.railway.app/login" target="_blank" rel="noopener" class="btn btn--outline btn--lg">Member login &rarr;</a>
+        <a href="https://engine.soomariostrategies.com/login" target="_blank" rel="noopener" class="btn btn--outline btn--lg">Member login &rarr;</a>
       </div>
 
       <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
@@ -147,12 +147,12 @@
           </div>
           <div class="card__title">Hype Bot</div>
           <p class="card__text" style="margin-bottom:1.25rem;">
-            One coin, one position at a time. The record that runs on Hyperliquid, on your account. Position size
-            defaults to 90% of the account per trade and is yours to set anywhere from 5% to 100%, with an optional
-            dollar cap per order.
+            One coin, one position at a time. The record that runs on Hyperliquid, on your account. Leverage is
+            yours to set at 1x, 2x or 3x (default 2x), position size from 5% of the account up to 90% per turn of
+            leverage, with an optional dollar cap per order.
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
-            HYPE only &middot; one position &middot; size 5&ndash;100% &middot; cap per order
+            HYPE only &middot; one position &middot; 1&ndash;3x &middot; cap per order &middot; <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay the record on your numbers &rarr;</a>
           </div>
           <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;text-align:center;">Subscribe to Hype Bot &rarr;</a>
           <a href="hype-bot.html" style="display:block;text-align:center;margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);">Read about the strategy &rarr;</a>
@@ -180,7 +180,7 @@
 
       <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);max-width:640px;margin:1.5rem auto 0;line-height:1.6;">
         One subscription runs one strategy on as many of your accounts as you like. Both strategies need both subscriptions.
-        Isolated margin, at the strategy's operating leverage, on every venue.
+        Isolated margin on every venue: the Hype Bot at the leverage you choose, Libration fixed at 2x.
       </p>
     </div>
   </section>
@@ -277,7 +277,7 @@
         targets. Sign in with the same Whop account you paid with.
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1.5rem;">
-        <a href="https://soomario-engine-production.up.railway.app/login" target="_blank" rel="noopener" class="btn btn--outline">Member login &rarr;</a>
+        <a href="https://engine.soomariostrategies.com/login" target="_blank" rel="noopener" class="btn btn--outline">Member login &rarr;</a>
         <a href="../dashboards/hype.html" class="btn btn--ghost">See the Hype Bot record &rarr;</a>
       </div>
     </div>
@@ -347,6 +347,10 @@
         <div class="faq-answer"><p>On the Hype Bot, yes: anywhere from 5% to 100% of the account per trade, plus an optional dollar cap per order, from the dashboard. It applies to the next entry. Libration is fixed at 20% per slot across ten slots because the spread is the strategy; the dollar cap per order still applies.</p></div>
       </div>
       <div class="faq-item">
+        <button class="faq-question">What leverage should I use?</button>
+        <div class="faq-answer"><p>The published record is 1x and the engine defaults the Hype Bot to 2x. You can set 1x, 2x or 3x from the connect page or the dashboard. Leverage multiplies every trade in the record, the losing ones included: the 10% hard stop is a 20% hit at 2x and 30% at 3x. <a href="../tools/hype-calculator.html" style="color:var(--gold);">Replay the record</a> at each setting and look at the max drawdown before you decide. Libration stays at 2x; its exposure comes from ten slots, not from the dial.</p></div>
+      </div>
+      <div class="faq-item">
         <button class="faq-question">What happens if I deposit or withdraw?</button>
         <div class="faq-answer"><p>Sizing follows your live balance, so the next entry reflects it immediately. While the account is flat the engine also recognises the flow in its ledger, so returns since inception stay honest and the daily drawdown guard measures against what is actually in the account.</p></div>
       </div>
@@ -381,7 +385,8 @@
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
         <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Hype Bot &mdash; $49/mo &rarr;</a>
         <a href="https://whop.com/soomario-strategies/libration-strat" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Libration &mdash; $29/mo &rarr;</a>
-        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" rel="noopener" class="btn btn--outline btn--lg">Join Discord</a>
+        <a href="../tools/hype-calculator.html" class="btn btn--outline btn--lg">Hype Bot calculator &rarr;</a>
+        <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" rel="noopener" class="btn btn--ghost btn--lg">Join Discord</a>
       </div>
 
       <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
