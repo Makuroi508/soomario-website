@@ -69,7 +69,7 @@
       </h1>
       <p style="font-size:1.15rem;color:var(--text-secondary);max-width:720px;line-height:1.55;margin-bottom:0.5rem;">
         Every Hype Bot trade from the strategy tester, losers included, replayed on the account you would have
-        connected: your starting amount, your leverage, how much of the profit you let compound and how often.
+        connected: your starting amount, your size and leverage, how much of the profit you let compound, from when, and how often.
         Fees are charged on every trade. Nothing here is a projection; it is the past, re-sized.
       </p>
     </div>
@@ -96,9 +96,13 @@
           <input id="hc-size" type="number" min="5" max="180" step="5" value="90" inputmode="decimal">
           <div class="hint" id="hc-size-hint">Each trade's notional as a share of the sizing base. 100% is the published record; 90% is the engine's default. The engine allows up to 90% per turn of leverage.</div>
 
-          <label for="hc-comp">Profit compounded (%)</label>
+          <label for="hc-full-until">Compound 100% until</label>
+          <input id="hc-full-until" type="date" min="2024-12-05" max="2026-09-06" value="">
+          <div class="hint">Optional. Until this date every dollar of profit is reinvested. From it on, the percentage below applies and the balance on that date becomes the new base. Leave blank to apply the percentage from day one.</div>
+
+          <label for="hc-comp">Profit compounded after that (%)</label>
           <input id="hc-comp" type="number" min="0" max="100" step="5" value="100" inputmode="decimal">
-          <div class="hint">100% sizes every trade on the whole balance. 0% keeps sizing on the starting amount and banks the profit. Losses always shrink the base: you cannot trade money you no longer have.</div>
+          <div class="hint">100% sizes every trade on the whole balance. 50% reinvests half the profit above the base and banks the rest. 0% keeps sizing on the base and banks everything. Losses always shrink the base: you cannot trade money you no longer have.</div>
 
           <label for="hc-freq">Compound on</label>
           <select id="hc-freq">
@@ -181,8 +185,9 @@
     var fmtUsd = function (v) { return (v < 0 ? '-' : '') + '$' + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); };
     var fmtPct = function (v, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + '%'; };
 
-    function simulate(tr, start, size, lev, comp, freq, from) {
+    function simulate(tr, start, size, lev, comp, freq, from, fullUntil) {
       var E = start, B = start, peak = start, maxDD = 0, liq = 0, wins = 0, n = 0;
+      var anchor = start, anchored = !fullUntil;   // base the % rule measures profit from
       var best = null, worst = null, lastKey = null, ruined = false;
       var pts = [{ t: from, e: start }], years = {};
       for (var i = 0; i < tr.length; i++) {
@@ -207,8 +212,13 @@
         var key = freq === 'trade' ? i : freq === 'week' ? isoWeek(t.c) : freq === 'month' ? t.c.slice(0, 7) : null;
         if (key !== null && key !== lastKey) {
           lastKey = key;
-          var profit = E - start;
-          B = profit > 0 ? start + comp * profit : E;
+          if (!anchored && t.c >= fullUntil) { anchored = true; anchor = E; }   // full compounding ends here
+          if (!anchored) {
+            B = E;                                   // 100% until the switch date
+          } else {
+            var profit = E - anchor;
+            B = profit > 0 ? anchor + comp * profit : E;
+          }
         } else if (E < B) {
           B = E;                                     // a loss always shrinks the base
         }
@@ -239,7 +249,8 @@
       var comp = Math.min(100, Math.max(0, parseFloat($('hc-comp').value) || 0)) / 100;
       var freq = $('hc-freq').value;
       var from = ($('hc-from').value || '2024-12-05') + 'T00:00';
-      var r = simulate(trades, start, size / 100, lev, comp, freq, from);
+      var fullUntil = $('hc-full-until').value ? $('hc-full-until').value + 'T00:00' : null;
+      var r = simulate(trades, start, size / 100, lev, comp, freq, from, fullUntil);
       var ret = (r.end / start - 1) * 100;
       $('hc-kpis').innerHTML =
         kpi(fmtUsd(r.end), 'Final balance', ret >= 0 ? 'up' : 'down') +
@@ -285,7 +296,7 @@
       });
     }
 
-    ['hc-start', 'hc-lev', 'hc-size', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
+    ['hc-start', 'hc-lev', 'hc-size', 'hc-full-until', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
       $(id).addEventListener('input', render); $(id).addEventListener('change', render);
     });
 
