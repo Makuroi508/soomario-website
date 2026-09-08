@@ -146,7 +146,7 @@
           <div id="hc-ref" class="hc-note"></div>
           <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.6rem;">The backtest trade list is public: <a href="../dashboards/hype-trades.csv" download style="color:var(--gold);">download it as CSV</a> or <a href="../dashboards/hype-trades.json" style="color:var(--gold);">as JSON</a>. Times are UTC.</div>
           <details class="hc-details" id="hc-details">
-            <summary>Month by month: back into the strategy vs withdrawn</summary>
+            <summary>Month by month: kept in the account vs withdrawn</summary>
             <div>
               <div class="hc-chart"><canvas id="hc-monthly"></canvas></div>
               <div class="hc-scroll" id="hc-months"></div>
@@ -214,13 +214,16 @@
     var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var fmtMonth = function (ym) { return MONTHS[parseInt(ym.slice(5, 7), 10) - 1] + ' ' + ym.slice(0, 4); };
 
-    // The account A is what every trade is sized on. At each settlement the
-    // profit made since the last one is split: comp stays in A, the rest moves
-    // to W (withdrawn, out of the account for good). Until fullUntil everything
-    // stays. Losses simply shrink A. Wealth = A + W.
+    // The account A is what every trade is sized on. At the END of each
+    // settlement period (after its last trade) that period's profit is split:
+    // comp stays in A, the rest moves to W (withdrawn, out of the account for
+    // good) and is booked to the month the period ended in. A losing period
+    // withdraws nothing; the loss simply shrinks A. Until fullUntil everything
+    // stays. Wealth = A + W.
+    function periodKey(t, i, freq) { return freq === 'trade' ? i : freq === 'week' ? isoWeek(t.c) : t.c.slice(0, 7); }
     function simulate(tr, start, size, lev, comp, freq, from, fullUntil) {
-      var A = start, W = 0, lastA = start, full = !!fullUntil;
-      var peak = start, maxDD = 0, liq = 0, wins = 0, n = 0, best = null, worst = null, lastKey = null, ruined = false;
+      var A = start, W = 0, lastA = start;
+      var peak = start, maxDD = 0, liq = 0, wins = 0, n = 0, best = null, worst = null, ruined = false;
       var pts = [{ t: from, e: start }], years = {}, months = {}, order = [];
       for (var i = 0; i < tr.length; i++) {
         var t = tr[i];
@@ -239,19 +242,17 @@
         months[m].n++; months[m].pnl += pnl; if (pnl > 0) months[m].wins++;
         years[y] = years[y] || { n: 0, pnl: 0, startEq: A - pnl + W, endEq: A + W, wins: 0 };
         years[y].n++; years[y].pnl += pnl; if (pnl > 0) years[y].wins++;
-        // settlement
-        var key = freq === 'trade' ? i : freq === 'week' ? isoWeek(t.c) : m;
-        if (key !== lastKey) {
-          lastKey = key;
-          if (full && t.c >= fullUntil) { full = false; lastA = A; }     // full compounding ends here
-          if (!full) {
-            var profit = A - lastA;
-            if (profit > 0 && comp < 1) {
-              var w = (1 - comp) * profit;
-              W += w; A -= w; months[m].withdrawn += w;
-            }
+        // settlement at the end of the period: this trade is the period's last one
+        var next = tr[i + 1];
+        var periodEnds = !next || periodKey(next, i + 1, freq) !== periodKey(t, i, freq);
+        if (periodEnds) {
+          var profit = A - lastA;                        // what this period made
+          var stillFull = fullUntil && t.c < fullUntil;  // inside the compound-everything phase
+          if (profit > 0 && comp < 1 && !stillFull) {
+            var w = (1 - comp) * profit;
+            W += w; A -= w; months[m].withdrawn += w;
           }
-          lastA = A;
+          lastA = A;                                     // next period measures from here
         }
         months[m].endA = A; months[m].endW = W; years[y].endEq = A + W;
         var wealth = A + W;
@@ -289,15 +290,15 @@
         '</td><td class="' + (sumR >= 0 ? 'up' : 'down') + '">' + fmtUsd(sumR) + '</td><td class="up">' + fmtUsd(sumW) +
         '</td><td>' + fmtUsd(r.account) + '</td><td>' + fmtUsd(r.withdrawn) + '</td></tr>';
       $('hc-months').innerHTML = r.order.length
-        ? '<table class="hc-table"><thead><tr><th>Month</th><th>Trades</th><th>P&amp;L</th><th>Back into the strategy</th><th>Withdrawn</th><th>Account</th><th>Withdrawn so far</th></tr></thead><tbody>' + rows + '</tbody></table>' +
-          '<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.5;">"Back into the strategy" is the month\'s P&amp;L that stayed in the account (negative in a losing month). Ending wealth = account ' + fmtUsd(r.account) + ' + withdrawn ' + fmtUsd(r.withdrawn) + ' = <strong style="color:var(--gold)">' + fmtUsd(r.end) + '</strong>.</p>'
+        ? '<table class="hc-table"><thead><tr><th>Month</th><th>Trades</th><th>P&amp;L</th><th>Kept in the account</th><th>Withdrawn</th><th>Account</th><th>Withdrawn so far</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+          '<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.5;">Each period is settled at its end: the compounded share of its profit is kept in the account, the rest is withdrawn and booked to that month. A losing month withdraws nothing and shows the loss under Kept. This month\'s P&amp;L minus what it withdrew is what it left in the account. Ending wealth = account ' + fmtUsd(r.account) + ' + withdrawn ' + fmtUsd(r.withdrawn) + ' = <strong style="color:var(--gold)">' + fmtUsd(r.end) + '</strong>.</p>'
         : '';
       if (!$('hc-details').open) return;            // draw the chart when the block is open (Chart.js needs a size)
       if (mchart) mchart.destroy();
       mchart = new Chart($('hc-monthly').getContext('2d'), {
         type: 'bar',
         data: { labels: labels, datasets: [
-          { label: 'Back into the strategy', data: re, backgroundColor: 'rgba(201,169,97,0.75)', stack: 's' },
+          { label: 'Kept in the account', data: re, backgroundColor: 'rgba(201,169,97,0.75)', stack: 's' },
           { label: 'Withdrawn', data: wd, backgroundColor: 'rgba(74,222,128,0.7)', stack: 's' }
         ] },
         options: {
