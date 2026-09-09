@@ -59,7 +59,7 @@
       <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
         Running on Hyperliquid. Subscribers run the same engine on their own Hyperliquid, Bybit, Binance, OKX
         or Pacifica account with a trade-only key &mdash; <a href="own-account.html" style="color:var(--gold);">how that works</a>,
-        or <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay all 280 trades on your own numbers</a>.
+        or <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay all 281 trades on your own numbers</a>.
       </div>
     </div>
   </section>
@@ -169,11 +169,14 @@
         <div class="card">
           <div class="card__title" style="color:var(--gold);">The published record is simulated</div>
           <p class="card__text">
-            The curve comes from the strategy tester, on both sides of the go-live marker. It is charged a
-            0.2% round-trip commission but does not model slippage beyond that, and the simulator prices
-            roughly 32 points per four-hour candle. At full one-minute resolution the same rules return
-            closer to +0.5% per trade than the +0.8% the tester reports. Treat the published figures as the
-            optimistic end of the range, not as realised fills.
+            The curve comes from the strategy tester, on both sides of the go-live marker. It charges a 0.2%
+            round-trip commission, models the trailing stop at four-hour bar resolution rather than tick by
+            tick, and prices roughly 32 points per candle. We reconciled 96 live signals against the fills and
+            fees on our own Hyperliquid account: the real cost was 0.12% a round trip, not 0.2%, and 96% of
+            the tester's trades reached the account. Those two errors partly cancel, and over the 48 trades
+            where every source agrees the live account finished slightly ahead of the tester. Treat the
+            published figures as a model, not as realised fills, and
+            <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay them at real costs</a>.
           </p>
         </div>
         <div class="card">

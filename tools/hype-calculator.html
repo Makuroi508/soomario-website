@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="Replay every Hype Bot trade since December 2024 on your own numbers: starting amount, leverage, how much profit you compound and how often. Fees included, losing trades included.">
+  <meta name="description" content="Replay every Hype Bot trade since December 2024 on your own numbers: starting amount, margin and leverage, costs per round trip and the share of trades you actually catch. Costs measured from live fills, losing trades included.">
   <meta property="og:title" content="Hype Bot Calculator — Replay the Record on Your Numbers">
   <meta property="og:description" content="All 280 backtested trades, your starting amount, your leverage, your compounding rule. See the balance, the drawdown and the worst day before you subscribe.">
   <meta property="og:type" content="website">
@@ -27,6 +27,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
   <style>
     .hc-grid { display:grid; grid-template-columns: 340px 1fr; gap:1.5rem; align-items:start; }
+    /* grid items default to min-width:auto, so the trade table's min-content
+       width blows the column (and the page) past the viewport on a phone */
+    .hc-grid > * { min-width: 0; }
     @media (max-width: 900px) { .hc-grid { grid-template-columns: 1fr; } }
     .hc-form label { display:block; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin:1rem 0 0.35rem; }
     .hc-form label:first-child { margin-top:0; }
@@ -60,7 +63,7 @@
     .hc-details > div { padding:0 1rem 1rem; }
     .hc-details .hc-chart { height:280px; margin-top:0.25rem; }
     .hc-table tr.total td { border-top:1px solid var(--border-default); color:var(--text-primary); font-weight:600; }
-    .hc-scroll { overflow-x:auto; }
+    .hc-scroll, #hc-years { overflow-x:auto; }
   </style>
 </head>
 <body>
@@ -78,8 +81,9 @@
       </h1>
       <p style="font-size:1.15rem;color:var(--text-secondary);max-width:720px;line-height:1.55;margin-bottom:0.5rem;">
         Every Hype Bot trade from the strategy tester, losers included, replayed on the account you would have
-        connected: your starting amount, your margin and leverage, how much of the profit you let compound, from when, and how often.
-        Fees are charged on every trade. Nothing here is a projection; it is the past, re-sized.
+        connected: your starting amount, your margin and leverage, what the round trip costs you, how many
+        trades you actually catch, and how much of the profit you let compound. Costs and fill rate default to
+        what we measured on our own live account. Nothing here is a projection; it is the past, re-sized.
       </p>
     </div>
   </section>
@@ -104,6 +108,19 @@
           <label for="hc-size">Margin per trade (% of account)</label>
           <input id="hc-size" type="number" min="5" max="90" step="5" value="45" inputmode="decimal">
           <div class="hint" id="hc-size-hint">What each trade puts up. The engine's default is 45% at 2x, which is 90% of the account per position.</div>
+
+          <label for="hc-venue">Costs per round trip</label>
+          <select id="hc-venue">
+            <option value="0.12" selected>0.12% &mdash; Hyperliquid, measured</option>
+            <option value="0.17">0.17% &mdash; centralised exchange, measured</option>
+            <option value="0.20">0.20% &mdash; the published backtest</option>
+            <option value="0.30">0.30% &mdash; conservative</option>
+          </select>
+          <div class="hint" id="hc-venue-hint"></div>
+
+          <label for="hc-fillrate">Trades actually caught (%)</label>
+          <input id="hc-fillrate" type="number" min="50" max="100" step="1" value="96" inputmode="decimal">
+          <div class="hint" id="hc-fill-hint">Live, 96% of the backtest's trades reached the account over the last seven months. The rest are skipped here, the same ones each time, so you can see what missing a few costs.</div>
 
           <label for="hc-full-months">Compound everything for the first</label>
           <select id="hc-full-months">
@@ -176,8 +193,12 @@
           <p class="card__text">Doubling the leverage with the same margin doubles every win and every loss, and halves the distance to liquidation: the price can go the whole way against you at 1x, about half at 2x, about a third at 3x. The hard stop rests on the exchange inside that distance, but a gap through the stop fills wherever the market is.</p>
         </div>
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">The record is the optimistic end</div>
-          <p class="card__text">The tester fills at the bar's price with 0.2% commission and no slippage, and HYPE rose about 450% over this period. Run the same rules at one-minute resolution and the average trade is nearer +0.5% than +0.8%. Multiply your expectations down before you multiply the leverage up.</p>
+          <div class="card__title" style="color:var(--gold);">Costs and fills, measured not guessed</div>
+          <p class="card__text">The 0.12% default comes from reconciling 96 live signals against the fills and fees on our own Hyperliquid account: 0.090% of fees plus about 0.03% of execution. The 96% fill rate is the share of backtest trades that actually reached the account over the last seven months. Both are ours; a different fee tier, a larger account or a dropped alert moves them.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">The record is still the optimistic end</div>
+          <p class="card__text">The tester fills at the bar's price and HYPE rose about 450% over this period. It has never been tested through a sustained HYPE downtrend, and the trailing stop is modelled at bar resolution rather than tick by tick. Multiply your expectations down before you multiply the leverage up.</p>
         </div>
       </div>
     </div>
@@ -205,13 +226,23 @@
 
   <script>
   (function () {
-    var FEE = 0.002;                       // round trip, on notional
+    // Costs charged per round trip, as a fraction of notional. Measured against
+    // 96 live signals: Hyperliquid fees are 0.090% and execution slippage adds
+    // about 0.03%; a centralised exchange runs nearer 0.17%. The backtest's own
+    // 0.20% is kept as an option because it is what the published curve uses.
+    var FEE = 0.0012;
     var LIVE_URL = 'https://engine.soomariostrategies.com/public/reference-trades.json';
     var trades = null, chart = null, mchart = null, last = null, live = null, backtestEnd = null;
     var $ = function (id) { return document.getElementById(id); };
     var fmtUsd = function (v) { return (v < 0 ? '-' : '') + '$' + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); };
     var fmtPct = function (v, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + '%'; };
     var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var VENUE_NOTE = {
+      '0.12': 'Measured from our own fills: Hyperliquid charges 0.045% a side, and entries fill about 0.04% worse than the backtest price while exits fill slightly better, so execution adds roughly 0.03%.',
+      '0.17': 'Measured on a centralised venue: 0.05% a side in fees plus about 0.07% of execution slippage across entry and exit.',
+      '0.20': 'What the published backtest charges. Roughly double the fee actually paid on Hyperliquid, so the published curve understates a real Hyperliquid account.',
+      '0.30': 'A deliberate haircut for a worse fee tier, thinner liquidity or a larger account than ours.'
+    };
     var fmtMonth = function (ym) { return MONTHS[parseInt(ym.slice(5, 7), 10) - 1] + ' ' + ym.slice(0, 4); };
 
     // The account A is what every trade is sized on. At the END of each
@@ -221,17 +252,31 @@
     // withdraws nothing; the loss simply shrinks A. Until fullUntil everything
     // stays. Wealth = A + W.
     function periodKey(t, i, freq) { return freq === 'trade' ? i : freq === 'week' ? isoWeek(t.c) : t.c.slice(0, 7); }
-    function simulate(tr, start, size, lev, comp, freq, from, fullUntil) {
+
+    // A stable score per trade, so a fill rate below 100% always drops the SAME
+    // trades and dropping more is monotonic: the numbers move smoothly instead
+    // of reshuffling on every keystroke.
+    function score(i) {
+      var x = Math.imul(i + 1, 2654435761);
+      x ^= x >>> 15; x = Math.imul(x, 2246822519);
+      x ^= x >>> 13; x = Math.imul(x, 3266489917);
+      x ^= x >>> 16;
+      return (x >>> 0) / 4294967296;
+    }
+
+    function simulate(tr, start, size, lev, comp, freq, from, fullUntil, fee, fillRate) {
       var A = start, W = 0, lastA = start;
       var peak = start, maxDD = 0, liq = 0, wins = 0, n = 0, best = null, worst = null, ruined = false;
       var pts = [{ t: from, e: start }], years = {}, months = {}, order = [];
+      var skipped = 0;
       for (var i = 0; i < tr.length; i++) {
         var t = tr[i];
         if (t.o < from) continue;
+        if (fillRate < 1 && score(i) >= fillRate) { skipped++; continue; }   // never reached the account
         if (A <= 0) { ruined = true; break; }
         var move = (t.side === 'long' ? 1 : -1) * (t.exi / t.ein - 1);
         var notional = A * size, margin = notional / lev;
-        var pnl = notional * (move - FEE);
+        var pnl = notional * (move - fee);
         if (-pnl >= margin) { pnl = -margin; liq++; }   // isolated margin: the trade's margin is the floor
         A += pnl; n++;
         if (pnl > 0) wins++;
@@ -262,7 +307,8 @@
         pts.push({ t: t.c, e: wealth });
       }
       return { account: A, withdrawn: W, end: A + W, pts: pts, maxDD: maxDD, liq: liq, wins: wins, n: n,
-               best: best, worst: worst, years: years, months: months, order: order, ruined: ruined };
+               best: best, worst: worst, years: years, months: months, order: order, ruined: ruined,
+               skipped: skipped };
     }
 
     function isoWeek(iso) {
@@ -330,7 +376,10 @@
         fd.setUTCMonth(fd.getUTCMonth() + fullMonths);
         fullUntil = fd.toISOString().slice(0, 10) + 'T00:00';
       }
-      var r = simulate(trades, start, size / 100, lev, comp, freq, from, fullUntil);
+      var fee = parseFloat($('hc-venue').value) / 100;
+      var fillRate = Math.min(100, Math.max(50, parseFloat($('hc-fillrate').value) || 100)) / 100;
+      $('hc-venue-hint').textContent = VENUE_NOTE[$('hc-venue').value] || '';
+      var r = simulate(trades, start, size / 100, lev, comp, freq, from, fullUntil, fee, fillRate);
       last = r;
       var ret = (r.end / start - 1) * 100;
       $('hc-kpis').innerHTML =
@@ -341,7 +390,8 @@
         kpi('-' + r.maxDD.toFixed(1) + '%', 'Max drawdown on wealth', 'down') +
         kpi(r.worst === null ? '—' : fmtUsd(r.worst), 'Worst trade', 'down') +
         kpi(r.best === null ? '—' : fmtUsd(r.best), 'Best trade', 'up') +
-        kpi(r.n ? (r.wins / r.n * 100).toFixed(1) + '%' : '—', r.n + ' trades · win rate', 'gold');
+        kpi(r.n ? (r.wins / r.n * 100).toFixed(1) + '%' : '—',
+            r.n + ' trades' + (r.skipped ? ' · ' + r.skipped + ' missed' : '') + ' · win rate', 'gold');
 
       var warn = '';
       if (size > 100) warn += '<div class="hc-warn"><strong>' + Math.round(size) + '% exposure</strong> (' + marginPct + '% margin × ' + lev + 'x): you are trading more than the account holds. Every trade in the record, the losing ones included, is multiplied by ' + (size / 100).toFixed(2) + ': the 10% hard stop costs ' + (size / 10).toFixed(0) + '% of the account in one trade. Three stops in a row would cost ' + Math.min(100, size * 3 / 10).toFixed(0) + '%.</div>';
@@ -353,7 +403,7 @@
       var liveNote = '';
       if (live && live.n > 0) liveNote = ' <strong style="color:#4ade80">+' + live.n + ' trade' + (live.n > 1 ? 's' : '') + '</strong> taken by the engine on our own account since then (' + live.mode + ', updated ' + live.updated.slice(0, 16).replace('T', ' ') + ' UTC) are appended automatically.';
       else if (live && live.n === 0) liveNote = ' The engine has not closed a trade since then; new ones are appended automatically.';
-      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+717.19%</strong> on $10,000 at 100% position size, every trade compounded, from 5 December 2024 to 6 September 2026, on 280 trades. Set leverage 2x, margin 50% (= 100% exposure), 100% compounded and the start date 5 Dec 2024, and this page reproduces it to within rounding. Margin and leverage are the same two settings you get on the engine.' + liveNote;
+      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+721.31%</strong> on $10,000 over ' + trades.length + ' trades, at 100% position size with every trade compounded and 0.20% charged per round trip. Set costs to 0.20%, trades caught to 100%, leverage 2x, margin 50% and 100% compounded, and this page reproduces it to within rounding. The defaults instead show what the same trades did at the costs and fill rate we actually measured on a live Hyperliquid account.' + liveNote;
 
       // yearly table (wealth = account + withdrawn)
       var ys = Object.keys(r.years).sort(), rows = '';
@@ -384,7 +434,8 @@
       });
     }
 
-    ['hc-start', 'hc-lev', 'hc-size', 'hc-full-months', 'hc-comp', 'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
+    ['hc-start', 'hc-lev', 'hc-size', 'hc-venue', 'hc-fillrate', 'hc-full-months', 'hc-comp',
+     'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
       $(id).addEventListener('input', render); $(id).addEventListener('change', render);
     });
     $('hc-details').addEventListener('toggle', function () { if (last) renderMonthly(last); });
