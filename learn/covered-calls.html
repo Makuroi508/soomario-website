@@ -73,17 +73,17 @@
       <h2 class="gradient-text">Strike Selection</h2>
       <p>Picking the strike is the core decision. Three considerations.</p>
       <p><strong>Out-of-the-money depth.</strong> A strike very close to current price (1–2% OTM) collects the largest premium but is most likely to be exercised — you get assigned and lose the upside frequently. A strike far out-of-the-money (20%+ OTM) collects almost nothing and rarely matters. The sweet spot is wide enough that exercise is unlikely in most market conditions but close enough that the premium is meaningful — typically 7–12% OTM in crypto.</p>
-      <p><strong>The 5% hard floor.</strong> Strikes below 5% OTM should be filtered out entirely, regardless of premium. They generate exercise events too frequently and they cap upside in a market that occasionally moves 30% in a week. Premia hard-filters this.</p>
-      <p><strong>USDC-settled vs inverse.</strong> On Deribit, BTC and ETH have inverse-settled options (collateralised in BTC/ETH, denominated in coin terms). Most other assets have USDC-settled linear options (collateralised and denominated in USDC). Linear is operationally cleaner; inverse has tax and settlement quirks. Premia prefers USDC-settled where available.</p>
+      <p><strong>The 5% hard floor.</strong> Strikes below 5% OTM should be filtered out entirely, regardless of premium. They generate exercise events too frequently and they cap upside in a market that occasionally moves 30% in a week. A disciplined engine hard-filters them.</p>
+      <p><strong>USDC-settled vs inverse.</strong> On Deribit, BTC and ETH have inverse-settled options (collateralised in BTC/ETH, denominated in coin terms). Most other assets have USDC-settled linear options (collateralised and denominated in USDC). Linear is operationally cleaner; inverse has tax and settlement quirks. Where available, USDC-settled is the simpler choice.</p>
 
       <h2 class="gradient-text">Expiration Selection</h2>
       <p>The 14–45 day window is the operational sweet spot. Shorter expirations (1–7 days) are tempting because theta acceleration is highest, but the volatility risk near expiry — gamma exposure if the strike is approached — is also highest. Longer expirations (60+ days) are safer but capture less of the steep part of the decay curve and lock the position into a stale strike for too long.</p>
-      <p>Mechanical roll discipline matters. When an option is held to expiration (or close to it), the next position opens on the same asset with a fresh strike at the same OTM depth and a fresh expiration in the same window. Premia automates this — no manual roll decisions, no strike-picking by feel.</p>
+      <p>Mechanical roll discipline matters. When an option is held to expiration (or close to it), the next position opens on the same asset with a fresh strike at the same OTM depth and a fresh expiration in the same window. Automating it removes manual roll decisions and strike-picking by feel.</p>
 
-      <h2 class="gradient-text">How Soomario Premia Trades This</h2>
-      <p><a href="../products/premia.html" style="color:var(--gold);">Soomario Premia</a> runs the covered-call trade across seven crypto holdings (BTC, ETH, SOL, AVAX, DOGE, XRP, TRX) on Deribit, fully automated through a five-signal timing engine that decides <em>when</em> to open new positions rather than running a rigid grid.</p>
+      <h2 class="gradient-text">How a Systematic Engine Trades This</h2>
+      <p>A systematic covered-call engine can run this trade across several crypto holdings on an options venue such as Deribit, using a timing layer that decides <em>when</em> to open new positions rather than running a rigid grid.</p>
       <p>The engine reads conviction scoring, Supertrend direction, range farmability, zone proximity, and macro regime indicators to identify moments when selling premium is favourable — typically when realised volatility has compressed below implied volatility (rich premium environment) and the underlying is not in an obvious breakout. When conditions deteriorate, the engine pauses opening new positions rather than mechanically rolling. Strike selection lands in the 7–12% OTM sweet spot with a 5% hard floor; expirations stay in the 14–45 day band.</p>
-      <p>Position sizing matches the account's holdings exactly — fully covered, no naked exposure. Maximum one open position per asset prevents over-concentration in a single expiration. Premia is currently in paper validation; the live deployment is pending.</p>
+      <p>Position sizing matches the account's holdings exactly — fully covered, no naked exposure. Maximum one open position per asset prevents over-concentration in a single expiration.</p>
 
       <h2 class="gradient-text">The Honest Trade-Offs</h2>
       <p>Covered calls cap upside in strong rallies. In a 2020-style bull run where BTC doubles in three months, a covered-call strategy delivers premium income but assigns out of every position above strike — leaving the strategy materially behind a buy-and-hold benchmark. This is the single biggest psychological challenge of running covered calls during exuberant markets. The defence is to remember that the strategy is designed to outperform across <em>most</em> regimes, not the rare runaway-rally regime.</p>
@@ -92,8 +92,7 @@
 
       <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="../products/premia.html" class="btn btn--primary btn--sm">Explore Soomario Premia →</a>
-          <a href="mean-reversion-vs-momentum.html" class="btn btn--outline btn--sm">Mean Reversion vs Momentum</a>
+          <a href="mean-reversion-vs-momentum.html" class="btn btn--primary btn--sm">Mean Reversion vs Momentum →</a>
           <a href="glossary.html" class="btn btn--outline btn--sm">Glossary</a>
         </div>
       </div>

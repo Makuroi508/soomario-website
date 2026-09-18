@@ -69,35 +69,24 @@
       <p>Soomario's product dashboards do exactly this — they pull live data from the Hyperliquid API and display it in a readable format. But you do not have to trust the dashboards. You can query the API directly or use any third-party explorer. The vault is its own audit trail.</p>
 
       <h2 class="gradient-text">Soomario's Vaults</h2>
-      <p>Soomario currently operates four live vaults on Hyperliquid plus two more in paper-trading validation, all on the same vault model — 10% performance fee, no management fee, no lockup beyond Hyperliquid's standard settlement.</p>
+      <p>Three Soomario strategies run as Hyperliquid vaults, all on the same vault model — 10% performance fee, no management fee, no lockup beyond Hyperliquid's standard settlement.</p>
 
       <div style="margin: 1.5rem 0;">
         <div class="vault-row">
           <span class="name"><a href="../products/elite.html" style="color:var(--text-gold);">Elite</a></span>
           <span class="desc">Concentrated momentum capture on HYPE and AVAX perpetuals.</span>
-          <span class="status" style="color:var(--green);">● LIVE</span>
-        </div>
-        <div class="vault-row">
-          <span class="name"><a href="../products/gladius.html" style="color:var(--text-gold);">Gladius</a></span>
-          <span class="desc">Mean-reversion at exhausted liquidation cascades, 18 coins, per-coin tuning.</span>
-          <span class="status" style="color:var(--green);">● LIVE</span>
+          <span class="status" style="color:var(--green);">&#9679; LIVE</span>
         </div>
         <div class="vault-row">
           <span class="name"><a href="../products/libration.html" style="color:var(--text-gold);">Libration</a></span>
-          <span class="desc">Multi-coin RSI swing across a basket of crypto perpetuals, one shared Hyperliquid vault.</span>
-          <span class="status" style="color:var(--green);">● LIVE</span>
+          <span class="desc">Multi-coin RSI swing across a basket of crypto perpetuals, one position per coin.</span>
+          <span class="status" style="color:var(--green);">&#9679; LIVE</span>
         </div>
         <div class="vault-row">
-          <span class="name"><a href="../products/rotation.html" style="color:var(--text-gold);">Rotation</a></span>
-          <span class="desc">Long-only multi-asset: equity rotation + crypto core with liquidation-aware DCA.</span>
-          <span class="status" style="color:var(--violet);">◐ PAPER</span>
+          <span class="name"><a href="../products/hype-bot.html" style="color:var(--text-gold);">Hype Bot</a></span>
+          <span class="desc">The same RSI swing engine on HYPE alone, one position at a time.</span>
+          <span class="status" style="color:var(--green);">&#9679; LIVE</span>
         </div>
-        <div class="vault-row">
-          <span class="name"><a href="../products/premia.html" style="color:var(--text-gold);">Premia</a></span>
-          <span class="desc">Volatility-harvesting covered calls on Deribit (separate from Hyperliquid).</span>
-          <span class="status" style="color:var(--violet);">◐ PAPER</span>
-        </div>
-      </div>
 
       <p>The non-vault product, the <a href="../products/accumulator.html" style="color:var(--gold);">Accumulator</a>, is a $7/month signal subscription. You execute the trades yourself on whatever broker or exchange you prefer, with no leverage and no custody handoff.</p>
 
@@ -113,6 +102,7 @@
           <a href="../products/gladius.html" class="btn btn--outline btn--sm">Explore Gladius</a>
           <a href="../tools/compare.html" class="btn btn--outline btn--sm">Compare All Products</a>
         </div>
+      <p style="margin-top:1rem;font-size:0.9rem;color:var(--text-muted);">Gladius and Aphelion run on Binance and are followed by copy trading; Rotation holds tokenized equities in a self-custodied Solana wallet. Neither model is a vault, so they are not listed here.</p>
       </div>
     </div>
   </section>

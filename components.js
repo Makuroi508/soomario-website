@@ -102,7 +102,6 @@
               <a href="${depth}products/own-account.html" class="nav-dropdown__item">Your Own Account <span class="badge badge--new">NEW</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/premia.html" class="nav-dropdown__item">Premia <span class="badge badge--soon">PAPER</span></a>
             </div></div>
           </div>
 
@@ -173,7 +172,6 @@
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/own-account.html" class="mobile-menu__link">Your Own Account <span class="badge badge--new">NEW</span></a>
           <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/premia.html" class="mobile-menu__link">Premia <span class="badge badge--soon">PAPER</span></a>
         </div>
       </div>
 
@@ -256,7 +254,6 @@
               <li><a href="${depth}products/own-account.html">Your Own Account — from $29/mo</a></li>
               <li><a href="${depth}aureus/">Aureus</a></li>
               <li><a href="${depth}products/rotation.html">Rotation</a></li>
-              <li><a href="${depth}products/premia.html">Premia</a></li>
             </ul>
           </div>
 
