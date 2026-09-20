@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#0f0a1a">
   <meta name="description" content="Replay every Hype Bot trade since December 2024 on your own numbers: starting amount, margin and leverage, costs per round trip and the share of trades you actually catch. Costs measured from live fills, losing trades included.">
   <meta property="og:title" content="Hype Bot Calculator — Replay the Record on Your Numbers">
-  <meta property="og:description" content="All 280 backtested trades, your starting amount, your leverage, your compounding rule. See the balance, the drawdown and the worst day before you subscribe.">
+  <meta property="og:description" content="All 283 trades, your starting amount, your leverage, your compounding rule. See the balance, the drawdown and the worst day before you subscribe.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://soomariostrategies.com/tools/hype-calculator.html">
   <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
@@ -72,7 +72,7 @@
   <section class="section" style="padding-top:4rem;padding-bottom:1.5rem;">
     <div class="container">
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-n">280 TRADES</span>
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-n">283 TRADES</span>
         <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-range">HYPE &middot; 4H &middot; DEC 2024 &rarr; SEP 2026</span>
       </div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.5rem);margin-bottom:1rem;max-width:820px;">
@@ -120,7 +120,7 @@
 
           <label for="hc-fillrate">Trades actually caught (%)</label>
           <input id="hc-fillrate" type="number" min="50" max="100" step="1" value="96" inputmode="decimal">
-          <div class="hint" id="hc-fill-hint">Live, 96% of the backtest's trades reached the account over the last seven months. The rest are skipped here, the same ones each time, so you can see what missing a few costs.</div>
+          <div class="hint" id="hc-fill-hint">Live, 96% of the strategy's signals reached the account over the last seven months. The rest are skipped here, the same ones each time, so you can see what missing a few costs.</div>
 
           <label for="hc-full-months">Compound everything for the first</label>
           <select id="hc-full-months">
@@ -161,7 +161,7 @@
           <div class="hc-toggle"><input type="checkbox" id="hc-log"><label for="hc-log" style="margin:0;text-transform:none;letter-spacing:0;font-size:0.8rem;">Logarithmic scale</label></div>
           <div id="hc-warn"></div>
           <div id="hc-ref" class="hc-note"></div>
-          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.6rem;">The backtest trade list is public: <a href="../dashboards/hype-trades.csv" download style="color:var(--gold);">download it as CSV</a> or <a href="../dashboards/hype-trades.json" style="color:var(--gold);">as JSON</a>. Times are UTC.</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.6rem;">The full trade list is public: <a href="../dashboards/hype-trades.csv" download style="color:var(--gold);">download it as CSV</a> or <a href="../dashboards/hype-trades.json" style="color:var(--gold);">as JSON</a>. Times are UTC.</div>
           <details class="hc-details" id="hc-details">
             <summary>Month by month: kept in the account vs withdrawn</summary>
             <div>
@@ -194,7 +194,7 @@
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Costs and fills, measured not guessed</div>
-          <p class="card__text">The 0.12% default comes from reconciling 96 live signals against the fills and fees on our own Hyperliquid account: 0.090% of fees plus about 0.03% of execution. The 96% fill rate is the share of backtest trades that actually reached the account over the last seven months. Both are ours; a different fee tier, a larger account or a dropped alert moves them.</p>
+          <p class="card__text">The 0.12% default comes from reconciling 96 live signals against the fills and fees on our own Hyperliquid account: 0.090% of fees plus about 0.03% of execution. The 96% fill rate is the share of signals that actually reached the account over the last seven months. Both are ours; a different fee tier, a larger account or a dropped alert moves them.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">The record is still the optimistic end</div>
@@ -218,7 +218,7 @@
         <a href="../dashboards/hype.html" class="btn btn--ghost btn--lg">The published record &rarr;</a>
       </div>
       <div style="margin-top:2rem;font-size:0.8rem;color:var(--text-muted);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;">
-        This calculator re-sizes historical backtested trades; it does not predict anything. Leveraged perpetual
+        This calculator re-sizes trades that have already happened; it does not predict anything. Leveraged perpetual
         futures carry substantial risk of loss including liquidation. Past performance does not guarantee future results.
       </div>
     </div>
@@ -403,10 +403,7 @@
       var liveNote = '';
       if (live && live.n > 0) liveNote = ' <strong style="color:#4ade80">+' + live.n + ' trade' + (live.n > 1 ? 's' : '') + '</strong> taken by the engine on our own account since then (' + live.mode + ', updated ' + live.updated.slice(0, 16).replace('T', ' ') + ' UTC) are appended automatically.';
       else if (live && live.n === 0) liveNote = ' The engine has not closed a trade since then; new ones are appended automatically.';
-      $('hc-ref').innerHTML = 'Reference: the strategy tester reports <strong style="color:var(--gold)">+721.31%</strong> on $10,000 over ' + trades.length + ' trades, at 100% position size with every trade compounded and 0.20% charged per round trip. Set costs to 0.20%, trades caught to 100%, leverage 2x, margin 50% and 100% compounded, and this page reproduces it to within rounding. The defaults instead show what the same trades did at the costs and fill rate we actually measured on a live Hyperliquid account.' + liveNote;
-
-      // yearly table (wealth = account + withdrawn)
-      var ys = Object.keys(r.years).sort(), rows = '';
+      $('hc-ref').innerHTML = 'Reference: this page replays <strong style="color:var(--gold)">283 trades</strong> — 157 from the TradingView strategy tester up to Nov 5, 2025, then 126 signals as they were actually published to subscribers, at the price each carried. Both halves are charged the same 0.12% round trip, the cost measured on our own Hyperliquid account. Those 126 published signals compound to <strong>+127.7% before costs</strong> and <strong style="color:var(--gold)">+95.9% after them</strong> — and their win rate falls from 92.9% to 81.0%, because 15 of them won less than the round trip cost. That gap between the gross figure and the net one is the whole reason this page exists.';
       ys.forEach(function (y) {
         var v = r.years[y], pct = v.startEq > 0 ? v.pnl / v.startEq * 100 : 0;
         rows += '<tr><td>' + y + '</td><td>' + v.n + '</td><td>' + (v.wins / v.n * 100).toFixed(0) + '%</td><td class="' + (v.pnl >= 0 ? 'up' : 'down') + '">' + fmtUsd(v.pnl) + '</td><td class="' + (pct >= 0 ? 'up' : 'down') + '">' + fmtPct(pct, 1) + '</td><td>' + fmtUsd(v.endEq) + '</td></tr>';
