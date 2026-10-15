@@ -202,6 +202,7 @@
           <a href="${depth}tools/compare.html" class="mobile-menu__link">Compare Products</a>
           <a href="${depth}whitepapers/platform.html" class="mobile-menu__link">Whitepaper</a>
           <a href="${depth}learn/glossary.html" class="mobile-menu__link">Glossary</a>
+          <a href="${depth}about.html" class="mobile-menu__link">About</a>
         </div>
       </div>
 
@@ -270,6 +271,7 @@
               <li><a href="${SITE.discord}" target="_blank">Discord</a></li>
               <li><a href="${SITE.twitter}" target="_blank">Twitter / X</a></li>
               <li><a href="${SITE.hyperliquid}" target="_blank">Hyperliquid</a></li>
+              <li><a href="${depth}about.html">About</a></li>
               <li><a href="${depth}start.html">Get Started</a></li>
               <li><a href="${depth}login.html">Log In</a></li>
               <li><a href="${depth}whitepapers/platform.html">Whitepaper</a></li>

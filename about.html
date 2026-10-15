@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f0a1a">
+  <meta name="description" content="Marcelo Santos Lobato, founder of Soomario Strategies: a former stockbroker and long-time teacher who builds, runs and publishes rule-based trading strategies.">
+  <title>About — Soomario Strategies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="canonical" href="https://soomariostrategies.com/about.html">
+  <style>
+    .article { max-width: 700px; }
+    .article h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+    .article p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .article strong { color: var(--text-primary); }
+    .article .facts { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.4rem; }
+    .article .facts li { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+    .article .facts li strong { color: var(--text-primary); }
+  </style>
+</head>
+<body>
+  <section class="section" style="padding-top:2rem;">
+    <div class="container article">
+      <div class="section-label">ABOUT</div>
+      <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);"><span class="gradient-text">Marcelo Santos Lobato</span></h1>
+      <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2rem;">Founder of Soomario Strategies</p>
+
+      <p>I'm Marcelo, and I run Soomario Strategies.</p>
+
+      <p>I started in finance. After a finance degree I became a licensed stockbroker at Scottrade, and later I was a
+        relationship manager at Bank of America. Most of my working life, though, has been in South Korea, where
+        I've taught since 2009: public schools, corporate training rooms and, since 2021, my own academy.
+        Seventeen years of explaining hard things to people who didn't ask to learn them turned out to be good
+        practice for writing trading rules that have to make sense to someone else.</p>
+
+      <p>Soomario is built on a simple idea: a strategy should be simple enough to explain in a sentence, and its
+        record should show every trade. The <a href="products/hype-bot.html" style="color:var(--gold);">Hype Bot</a>
+        is the clearest example. It trades one coin, HYPE, on one rule: an RSI swing on four-hour candles, with a
+        hard stop that rests on the exchange. I've published every signal since November 2025, the losing trades
+        included, and it trades my own money first.</p>
+
+      <p>Around it I built the rest. <a href="products/libration.html" style="color:var(--gold);">Libration</a>
+        runs the same swing across six coins as a Hyperliquid vault.
+        <a href="products/aphelion.html" style="color:var(--gold);">Aphelion</a> and
+        <a href="products/rotation.html" style="color:var(--gold);">Rotation</a> work on US equities, and the
+        <a href="products/accumulator.html" style="color:var(--gold);">Accumulator</a> is for people who would
+        rather buy the dips themselves. Then there's the
+        <a href="products/own-account.html" style="color:var(--gold);">Soomario Engine</a>, which takes each signal
+        and places it on a subscriber's own exchange account with a key that can trade but never withdraw.</p>
+
+      <p>I design every rule and run every system myself, building them with AI-assisted development tools. A
+        separate watchdog checks every account around the clock, so nothing depends on me watching a screen.</p>
+
+      <p>What I care about most is that the record is real. If a rule stops working, I want to be the first to see
+        it and the first to say so. Most of what you see on this site has been designed, tested, found wrong
+        somewhere and rebuilt. That's the job, and I like it.</p>
+
+      <h2 class="gradient-text">Background</h2>
+      <ul class="facts">
+        <li><strong>Finance:</strong> B.S. in Finance, Metropolitan State University of Denver. Former FINRA Series 7
+          &amp; 63 registered representative at Scottrade; relationship manager at Bank of America.</li>
+        <li><strong>Teaching:</strong> M.Ed. in Curriculum Design, Concordia University. Teaching in South Korea since
+          2009, and owner of MLO Education since 2021.</li>
+        <li><strong>Languages:</strong> English, Portuguese and Korean.</li>
+      </ul>
+
+      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="dashboards/hype.html" class="btn btn--primary btn--sm">See the Hype Bot record &rarr;</a>
+          <a href="start.html" class="btn btn--outline btn--sm">Get started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="components.js"></script>
+</body>
+</html>
