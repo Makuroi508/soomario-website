@@ -119,11 +119,11 @@
         </div>
         <div class="step">
           <div class="step__title">Connect it</div>
-          <p class="step__text">Choose the venue, paste the key, set your position size if the strategy allows it. The key is sealed before it is stored and is never displayed again, to you or to us.</p>
+          <p class="step__text">Choose the venue, paste the key, and set your equity allocation and leverage. The key is sealed before it is stored and is never displayed again, to you or to us.</p>
         </div>
         <div class="step">
           <div class="step__title">Watch it trade</div>
-          <p class="step__text">Every four-hour close the engine reads the signal and places the order on your account, with the hard stop resting on the exchange. Your dashboard shows the equity curve, open positions and every closed trade.</p>
+          <p class="step__text">When the strategy signals on TradingView, the engine places the order on your account within about two minutes, with the hard stop resting on the exchange. Your dashboard shows the equity curve, open positions and every closed trade.</p>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">PLANS</div>
         <h2 class="section-title"><span class="gradient-text">One strategy, one fee.</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">Both run the same RSI swing engine on completed four-hour candles: long on a cross up through 50, short on a cross down through 40, a 0.55% trailing stop that arms only after a full candle, and a 10% hard stop.</p>
+        <p class="section-subtitle" style="margin:0 auto;">Both run the same RSI swing: long on a cross up through 50, short on a cross down through 40, a trailing stop to bank the move and a hard stop resting on the exchange. The Hype Bot trades HYPE on four-hour candles with a 0.55% trail; Libration tunes the timeframe, trail and stop coin by coin.</p>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;max-width:1000px;margin:0 auto;">
@@ -147,12 +147,13 @@
           </div>
           <div class="card__title">Hype Bot</div>
           <p class="card__text" style="margin-bottom:1.25rem;">
-            One coin, one position at a time. The record that runs on Hyperliquid, on your account. Leverage is
-            yours to set at 1x, 2x or 3x (default 2x) and so is the margin per trade, 5% to 90% of the account
-            (default 45%, which at 2x is 90% of the account per position), with an optional dollar cap per order.
+            One coin, one position at a time, on your account. You choose the <strong>equity allocation</strong>,
+            the share of the account the Hype Bot uses as margin (1% to 90%, default 45%), and the
+            <strong>leverage</strong> (1x, 2x or 3x, default 2x). The position is allocation &times; leverage: the
+            default puts 90% of the account in each trade. An optional not-to-exceed cap limits the dollars it uses.
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
-            HYPE only &middot; one position &middot; margin 5&ndash;90% &middot; 1&ndash;3x &middot; cap per order &middot; <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay the record on your numbers &rarr;</a>
+            HYPE only &middot; one position &middot; allocation 1&ndash;90% &middot; 1&ndash;3x &middot; not-to-exceed cap &middot; <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay the record on your numbers &rarr;</a>
           </div>
           <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;text-align:center;">Try Hype Bot free for 7 days &rarr;</a>
           <a href="hype-bot.html" style="display:block;text-align:center;margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);">Read about the strategy &rarr;</a>
@@ -165,12 +166,13 @@
           </div>
           <div class="card__title">Libration</div>
           <p class="card__text" style="margin-bottom:1.25rem;">
-            The same engine across a basket of ten volatile perpetuals, one position per coin, up to ten open at
-            once. Each slot is fixed at 20% of the account: that spread is the strategy, so it is not adjustable.
-            Venues that do not list a coin simply skip it.
+            The same engine across fifteen volatile perpetuals, one position per coin, up to fifteen open at
+            once. You choose the equity allocation (1% to 100%, default 100%) and the leverage (1x to 3x); the
+            engine spreads the allocation across the coins so that all of them open at once use exactly that much
+            margin &mdash; at 100%, about 5.8% per coin and 19% on HYPE. Venues that do not list a coin skip it.
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
-            10 coins &middot; up to 10 positions &middot; 20% per slot &middot; cap per order
+            15 coins &middot; up to 15 positions &middot; allocation 1&ndash;100% &middot; 1&ndash;3x
           </div>
           <a href="https://whop.com/soomario-strategies/libration-strat" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;text-align:center;">Try Libration free for 7 days &rarr;</a>
           <a href="libration.html" style="display:block;text-align:center;margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);">Read about the strategy &rarr;</a>
@@ -180,7 +182,8 @@
 
       <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);max-width:640px;margin:1.5rem auto 0;line-height:1.6;">
         One subscription runs one strategy on as many of your accounts as you like. Both strategies need both subscriptions.
-        Isolated margin on every venue: the Hype Bot at the leverage you choose, Libration fixed at 2x.
+        Isolated margin on every venue, at the leverage you choose. Running both on one account? Their allocations
+        share it (up to 100% in total), and a coin both trade &mdash; HYPE &mdash; stays with the one you connected first.
       </p>
     </div>
   </section>
@@ -218,8 +221,12 @@
           <a href="https://app.pacifica.fi?referral=MLO" target="_blank" rel="noopener" style="display:inline-block;margin-top:0.75rem;font-family:var(--font-mono);font-size:0.8rem;color:var(--gold);">Join with our link &rarr;</a>
         </div>
         <div class="card">
-          <div class="card__title">Bulk</div>
-          <p class="card__text">Invite-only venue. Members claim a personal access code from their dashboard, one click, while the pool lasts.</p>
+          <div class="card__title">Pionex &middot; Hype Bot only</div>
+          <p class="card__text">Already run a Pionex signal bot? Paste its webhook URL and message on the connect page and every Hype Bot signal goes straight to it. Your Pionex bot sets the size, leverage and stop; we never hold a trading key.</p>
+        </div>
+        <div class="card">
+          <div class="card__title">Bulk &middot; invite only</div>
+          <p class="card__text">Not traded by the engine yet. Members claim a personal access code from their dashboard, one click, while the pool lasts.</p>
           <a href="https://app.bulk.trade/ref/MLO" target="_blank" rel="noopener" style="display:inline-block;margin-top:0.75rem;font-family:var(--font-mono);font-size:0.8rem;color:var(--gold);">Join with our link &rarr;</a>
         </div>
       </div>
@@ -245,11 +252,11 @@
         </div>
         <div class="card">
           <div class="card__title">Stops rest on the exchange</div>
-          <p class="card__text">Every position gets a 10% hard stop placed on the venue the moment it opens. If the engine is offline, the exchange still fires it. The 0.55% trail tightens it once a full candle has passed.</p>
+          <p class="card__text">Every position gets a hard stop (10% on most coins) placed on the venue the moment it opens. If the engine is offline, the exchange still fires it. The strategy's own exit, trail included, arrives as a TradingView signal and is carried out within about two minutes.</p>
         </div>
         <div class="card">
           <div class="card__title">Sized on your live balance</div>
-          <p class="card__text">Each entry is sized on the balance your exchange reports right then. Top up and the next trade is bigger; withdraw and it is smaller. The dashboard shows the next entry size so there is no guessing.</p>
+          <p class="card__text">Each entry is sized on your allocated share of the balance your exchange reports right then. Top up and the next trade is bigger; withdraw and it is smaller. The dashboard shows the next entry size so there is no guessing.</p>
         </div>
         <div class="card">
           <div class="card__title">Daily drawdown halt</div>
@@ -340,15 +347,15 @@
       </div>
       <div class="faq-item">
         <button class="faq-question">How much do I need in the account?</button>
-        <div class="faq-answer"><p>The engine waits for at least $10 before it captures a starting balance, but exchange minimum order sizes make a few hundred dollars the practical floor, and for Libration's ten slots more. Size the account for a 10% hard stop you can live with.</p></div>
+        <div class="faq-answer"><p>The engine waits for at least $10 before it captures a starting balance, but exchange minimum order sizes make a few hundred dollars the practical floor, and for Libration's fifteen coins more. Size the account for a 10% hard stop you can live with.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question">Can I change the position size?</button>
-        <div class="faq-answer"><p>On the Hype Bot, yes: anywhere from 5% to 100% of the account per trade, plus an optional dollar cap per order, from the dashboard. It applies to the next entry. Libration is fixed at 20% per slot across ten slots because the spread is the strategy; the dollar cap per order still applies.</p></div>
+        <div class="faq-answer"><p>Yes, on both, from the dashboard: the equity allocation, an optional not-to-exceed cap in dollars, and the leverage. It applies to the next entry. On Libration the allocation is spread across the fifteen coins, so a 10% allocation is about 0.6% of the account as margin per coin.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question">What leverage should I use?</button>
-        <div class="faq-answer"><p>Two settings that work like your exchange's order form. <strong>Margin per trade</strong> is how much of the account each trade puts up (5% to 90%). <strong>Leverage</strong> (1x, 2x or 3x, default 2x) multiplies it into exposure: 45% at 2x is 90% of the account per position, the live bot's setting, and the published record is 100%. Raising leverage with the same margin scales every win and every loss and moves liquidation closer (about 100% divided by leverage). Above 100% exposure you are trading more than the account holds. <a href="../tools/hype-calculator.html" style="color:var(--gold);">Replay the record</a> with both inputs and look at the max drawdown before you decide. Libration stays at 2x and 20% per slot.</p></div>
+        <div class="faq-answer"><p>Two settings that work like your exchange's order form. <strong>Equity allocation</strong> is how much of the account the strategy puts up as margin (Hype Bot 1% to 90%). <strong>Leverage</strong> (1x, 2x or 3x, default 2x) multiplies it into the position: 45% at 2x is 90% of the account per position, and the published record is 100%. Raising leverage with the same margin scales every win and every loss and moves liquidation closer (about 100% divided by leverage). Above 100% exposure you are trading more than the account holds. <a href="../tools/hype-calculator.html" style="color:var(--gold);">Replay the record</a> with both inputs and look at the max drawdown before you decide. Libration takes the same two settings; its allocation is shared across its coins.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question">What happens if I deposit or withdraw?</button>
@@ -368,7 +375,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-question">Why not just deposit into the vault?</button>
-        <div class="faq-answer"><p>Do, if Hyperliquid is where you want the money and a profit share suits you better than a fee. The vault is one shared book with one leader. Your own account is for people who want to stay on Bybit, Binance, OKX or Pacifica, keep the whole profit, or size the Hype Bot their own way.</p></div>
+        <div class="faq-answer"><p>Do, if Hyperliquid is where you want the money and a profit share suits you better than a fee. The vault is one shared book with one leader. Your own account is for people who want to stay on Bybit, Binance, OKX or Pacifica, keep the whole profit, or size the strategy their own way.</p></div>
       </div>
     </div>
   </section>

@@ -20,6 +20,7 @@
       libration: 'https://whop.com/soomario-strategies/libration-strat',
     },
     engine: 'https://engine.soomariostrategies.com',
+    engineLogin: 'https://engine.soomariostrategies.com/login',
     discord: 'https://discord.com/invite/gzpyCd3v7g',
     twitter: 'https://twitter.com/SoomarioStrat',
     hyperliquid: 'https://app.hyperliquid.xyz/join/SMR',
@@ -96,10 +97,9 @@
               <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/gladius.html" class="nav-dropdown__item">Gladius <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/hype-bot.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/own-account.html" class="nav-dropdown__item">Your Own Account <span class="badge badge--new">NEW</span></a>
+              <a href="${depth}products/own-account.html" class="nav-dropdown__item">Your Own Account (Engine) <span class="badge badge--new">NEW</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--live">LIVE</span></a>
             </div></div>
@@ -116,7 +116,6 @@
               <a href="${depth}dashboards/hype.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
               <a href="https://libration.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Libration <span class="badge badge--live">LIVE</span></a>
               <a href="https://rotation.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Rotation <span class="badge badge--live">LIVE</span></a>
-              <a href="https://gladius.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Gladius <span class="badge badge--live">LIVE</span></a>
               <a href="https://aphelion.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Aphelion <span class="badge badge--live">LIVE</span></a>
               <div class="nav-dropdown__divider"></div>
               <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator <span class="badge badge--live">LIVE</span></a>
@@ -135,9 +134,9 @@
         </div>
 
         <div class="site-nav__actions">
-          <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--ghost btn--sm site-nav__login-desktop" target="_blank">Member Login</a>
-          <a href="${SITE.whop.accumulator}" class="btn btn--primary btn--sm" target="_blank">Get Started</a>
-          <a href="${SITE.dashboards.accumulatorLogin}" class="site-nav__login-mobile" target="_blank" aria-label="Member Login">
+          <a href="${depth}login.html" class="btn btn--ghost btn--sm site-nav__login-desktop">Log In</a>
+          <a href="${depth}start.html" class="btn btn--primary btn--sm">Get Started</a>
+          <a href="${depth}login.html" class="site-nav__login-mobile" aria-label="Log in">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
@@ -167,10 +166,9 @@
           <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/gladius.html" class="mobile-menu__link">Gladius <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/hype-bot.html" class="mobile-menu__link">Hype Bot <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/own-account.html" class="mobile-menu__link">Your Own Account <span class="badge badge--new">NEW</span></a>
+          <a href="${depth}products/own-account.html" class="mobile-menu__link">Your Own Account (Engine) <span class="badge badge--new">NEW</span></a>
           <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--live">LIVE</span></a>
         </div>
       </div>
@@ -190,7 +188,6 @@
           <a href="${depth}dashboards/hype.html" class="mobile-menu__link">Hype Bot</a>
           <a href="https://libration.soomariostrategies.com" class="mobile-menu__link" target="_blank">Libration</a>
           <a href="https://rotation.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Rotation</a>
-          <a href="https://gladius.soomariostrategies.com" class="mobile-menu__link" target="_blank">Gladius</a>
           <a href="https://aphelion.soomariostrategies.com" class="mobile-menu__link" target="_blank">Aphelion</a>
           <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
         </div>
@@ -209,8 +206,8 @@
       </div>
 
       <div class="mobile-menu__ctas">
-        <a href="${SITE.whop.accumulator}" class="btn btn--primary" target="_blank">Start Free Trial</a>
-        <a href="${SITE.dashboards.accumulatorLogin}" class="btn btn--outline" target="_blank">Member Login</a>
+        <a href="${depth}start.html" class="btn btn--primary">Get Started — 7 Days Free</a>
+        <a href="${depth}login.html" class="btn btn--outline">Log In</a>
         <a href="${SITE.discord}" class="btn btn--ghost btn--sm" target="_blank">Join Discord</a>
       </div>
     `;
@@ -248,7 +245,6 @@
               <li><a href="${depth}products/accumulator.html">Accumulator — $7/mo</a></li>
               <li><a href="${depth}products/aphelion.html">Aphelion</a></li>
               <li><a href="${depth}products/elite.html">Elite</a></li>
-              <li><a href="${depth}products/gladius.html">Gladius</a></li>
               <li><a href="${depth}products/hype-bot.html">Hype Bot</a></li>
               <li><a href="${depth}products/libration.html">Libration</a></li>
               <li><a href="${depth}products/own-account.html">Your Own Account — from $29/mo</a></li>
@@ -274,7 +270,8 @@
               <li><a href="${SITE.discord}" target="_blank">Discord</a></li>
               <li><a href="${SITE.twitter}" target="_blank">Twitter / X</a></li>
               <li><a href="${SITE.hyperliquid}" target="_blank">Hyperliquid</a></li>
-              <li><a href="${SITE.engine}/login" target="_blank">Engine Member Login</a></li>
+              <li><a href="${depth}start.html">Get Started</a></li>
+              <li><a href="${depth}login.html">Log In</a></li>
               <li><a href="${depth}whitepapers/platform.html">Whitepaper</a></li>
               <li><a href="${depth}tools/calculator.html">DCA Calculator</a></li>
             </ul>

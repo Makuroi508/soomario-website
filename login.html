@@ -10,9 +10,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="Sign in to your Soomario Accumulator dashboard or start your 7-day free trial.">
+  <meta name="description" content="Log in to the Soomario Engine (Hype Bot, Libration) or the Accumulator dashboard.">
   <meta name="robots" content="noindex">
-  <title>Member Login — Soomario Strategies</title>
+  <title>Log In — Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -216,58 +216,103 @@
     }
 
     .login-preview-link:hover { color: var(--gold); }
+
+    .login-card--wide { max-width: 860px; }
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1.75rem 0 1.25rem;
+      text-align: left;
+    }
+    .choice {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 1.4rem 1.3rem;
+      border-radius: 14px;
+      border: 1px solid rgba(201,169,97,0.22);
+      background: var(--bg-card);
+    }
+    .choice--featured { border-color: rgba(201,169,97,0.55); }
+    .choice__tag {
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+    .choice__title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .choice__price { font-size: 0.95rem; color: var(--text-primary); font-weight: 600; }
+    .choice__text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; flex: 1; }
+    .choice .btn-whop, .choice .btn-trial { width: 100%; text-align: center; }
+    .choice__small { font-size: 0.78rem; color: var(--text-muted); }
+    .choice__small a { color: var(--gold); }
+    .steps {
+      text-align: left;
+      margin: 1.5rem auto 0;
+      max-width: 620px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .steps h2 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .steps ol { padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+    .steps a { color: var(--gold); }
   </style>
 </head>
 <body>
   <div class="login-page">
 
     <main class="login-main">
-      <div class="login-card">
+      <div class="login-card login-card--wide">
 
         <img src="soomario-logo.png" alt="Soomario" class="login-logo"
           onerror="this.style.display='none'">
 
-        <div class="login-badge">⚡ ACCUMULATOR DASHBOARD</div>
+        <div class="login-badge">MEMBER LOGIN</div>
 
-        <h1 class="login-headline">
-          Buy smart.<br>
-          <span>Accumulate</span><br>
-          patiently.
-        </h1>
+        <h1 class="login-headline">Log in to <span>your strategy</span></h1>
 
         <p class="login-sub">
-          Intelligent dollar-cost averaging for the systematic retail investor. Precise signals for 14 AI stocks and cryptos, delivered to Telegram.
+          Every login is your Whop account. Pick the product you subscribe to.
         </p>
 
-        <div class="login-actions">
-          <a href="https://accumulator.soomariostrategies.com/auth/whop/login"
-             class="btn-whop">
-            Sign In with Whop
-          </a>
-          <a href="https://whop.com/soomario-strategies/soomario-accumulator/"
-             target="_blank" rel="noopener"
-             class="btn-trial">
-            Start 7-Day Free Trial — $7/mo
-          </a>
+        <div class="choice-grid">
+          <div class="choice choice--featured">
+            <div class="choice__tag">SOOMARIO ENGINE</div>
+            <div class="choice__title">Hype Bot &amp; Libration</div>
+            <p class="choice__text">Runs the strategy on your own exchange account. Connect an exchange,
+              set your equity allocation and leverage, and follow every trade on your dashboard.</p>
+            <a href="https://engine.soomariostrategies.com/auth/whop/login?next=/dashboard" class="btn-whop">Log in to the Engine</a>
+            <span class="choice__small">engine.soomariostrategies.com</span>
+          </div>
+          <div class="choice">
+            <div class="choice__tag">ACCUMULATOR</div>
+            <div class="choice__title">Accumulator signals</div>
+            <p class="choice__text">The dollar-cost-averaging signal dashboard: Mag14 signals, DCA
+              multipliers and Telegram alerts.</p>
+            <a href="https://accumulator.soomariostrategies.com/auth/whop/login" class="btn-whop">Log in to the Accumulator</a>
+            <span class="choice__small"><a href="https://accumulator.soomariostrategies.com/dashboard" target="_blank" rel="noopener">Preview the dashboard without signing in &rarr;</a></span>
+          </div>
         </div>
 
         <p class="login-hint">
-          Already subscribed? Sign in above.<br>
-          No account yet? Start your free trial.
+          Not subscribed yet? <a href="start.html" style="color:var(--gold)">Start a 7-day free trial &rarr;</a><br>
+          In a vault (Libration, Elite)? There is nothing to log in to: your deposit and its record are on
+          <a href="https://app.hyperliquid.xyz/vaults" target="_blank" rel="noopener" style="color:var(--gold)">Hyperliquid</a>.
         </p>
-
-        <div class="feature-pills">
-          <span class="feature-pill">📊 Mag14 Signals</span>
-          <span class="feature-pill">💰 DCA Multipliers</span>
-          <span class="feature-pill">📱 Telegram Alerts</span>
-          <span class="feature-pill">🔒 Self-Custody</span>
-        </div>
-
-        <a href="https://accumulator.soomariostrategies.com/dashboard"
-           target="_blank" rel="noopener"
-           class="login-preview-link">
-          Preview the dashboard without signing in →
-        </a>
 
       </div>
     </main>

@@ -105,9 +105,9 @@
           </select>
           <div class="hint">Multiplies the margin below into exposure, so it scales every win and loss, and sets how close liquidation sits (about 100% &divide; leverage).</div>
 
-          <label for="hc-size">Margin per trade (% of account)</label>
+          <label for="hc-size">Equity allocation (% of account, as margin)</label>
           <input id="hc-size" type="number" min="5" max="90" step="5" value="45" inputmode="decimal">
-          <div class="hint" id="hc-size-hint">What each trade puts up. The engine's default is 45% at 2x, which is 90% of the account per position.</div>
+          <div class="hint" id="hc-size-hint">The engine's equity allocation: the share of the account each trade puts up as margin. Its default is 45% at 2x, which is 90% of the account per position.</div>
 
           <label for="hc-venue">Costs per round trip</label>
           <select id="hc-venue">
