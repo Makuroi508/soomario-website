@@ -134,7 +134,8 @@ td{padding:8px 10px;border-top:1px solid #ffffff08;text-align:right;white-space:
 
     document.getElementById('phases').innerHTML =
       phase('Backtest', bt, 'Strategy tester on Bybit HYPEUSDT.P, before any signal was published.') +
-      phase('Published signals', lv, 'What subscribers were actually sent since '+d.go_live+', at the price each signal carried.');
+      phase('Live', lv, 'Signals as sent to subscribers since '+d.go_live+', at the price each signal carried'+
+        (d.engine_from ? '; from '+d.engine_from+', the engine\u2019s own fills on its Bybit HYPE account.' : '.'));
 
     document.getElementById('method').innerHTML =
       '<b>How to read this.</b> <b>The two segments are different in kind.</b> The grey segment is the '+
@@ -151,6 +152,9 @@ td{padding:8px 10px;border-top:1px solid #ffffff08;text-align:right;white-space:
       ((d.gaps||[]).length ? '<b>One window is missing.</b> The signal export covering '+d.gaps[0].from+' to '+
         d.gaps[0].to+' is not yet in the data, so trades from that window are absent from the live segment '+
         'and the compounded figure understates it. ' : '')+
+      (d.engine_from ? '<b>From '+d.engine_from+' the live segment is the engine\u2019s own fills</b> on its Bybit '+
+        'HYPE account, the account that trades every signal: real executions rather than signal prices, charged '+
+        'the same '+d.commission_pct+'%, and added here automatically as each trade closes. ' : '')+
       'Past performance does not guarantee future results.';
 
     var rows=(d.trades||[]).slice().reverse().map(function(t){
@@ -158,7 +162,7 @@ td{padding:8px 10px;border-top:1px solid #ffffff08;text-align:right;white-space:
         '<td><span class="pill '+(t.side==='long'?'pl':'ps')+'">'+t.side+'</span></td>'+
         '<td>'+t.ein+'</td><td>'+t.exi+'</td>'+
         '<td class="'+cls(t.ret)+'">'+pct(t.ret,2)+'</td>'+
-        '<td style="color:'+(t.phase==='live'?'#D4A843':'#8A7FA0')+'">'+t.phase+'</td></tr>';
+        '<td style="color:'+(t.phase==='live'?'#D4A843':'#8A7FA0')+'">'+t.phase+(t.src==='engine'?' · engine':'')+'</td></tr>';
     }).join('');
     document.querySelector('#tbl tbody').innerHTML=rows;
     document.getElementById('trcount').textContent='last '+(d.trades||[]).length+' of '+a.n;
@@ -216,8 +220,43 @@ td{padding:8px 10px;border-top:1px solid #ffffff08;text-align:right;white-space:
     });
   }
 
+  // The file holds the record up to when it was built; every trade the
+  // engine's Bybit account has opened since is appended from its public feed,
+  // the same rule the Hype Bot calculator uses, so the page keeps up by itself.
+  var FEED='https://engine.soomariostrategies.com/public/reference-trades.json';
+  function extend(p,adds,net){
+    if(!p||!p.agg||!adds.length) return p;
+    var a={wins:p.agg.wins,sum:p.agg.sum,pos:p.agg.pos,neg:p.agg.neg,idx:p.agg.idx},
+        n=p.n,best=p.best,worst=p.worst;
+    adds.forEach(function(t){var r=net(t); n++; a.sum+=r; a.idx*=1+r/100;
+      if(r>0){a.wins++;a.pos+=r;} else if(r<0){a.neg-=r;}
+      best=Math.max(best,r); worst=Math.min(worst,r);});
+    return Object.assign({},p,{n:n,win:100*a.wins/n,avg:a.sum/n,cum:(a.idx-1)*100,
+      pf:a.neg?a.pos/a.neg:null,best:best,worst:worst,to:adds[adds.length-1].c.slice(0,10),agg:a});
+  }
+  function mergeFeed(d,f){
+    var trs=d.trades||[];
+    if(!f||!f.trades||!trs.length) return d;
+    var lastC=trs[trs.length-1].c, fee=d.commission_pct;
+    var net=function(t){var g=t.side==='long'?(t.exi/t.ein-1):(t.ein-t.exi)/t.ein; return g*100-fee;};
+    var adds=f.trades.filter(function(t){return t.o&&t.c&&t.ein>0&&t.exi>0&&t.o>lastC;});
+    if(!adds.length) return d;
+    d.all=extend(d.all,adds,net); d.live=extend(d.live,adds,net);
+    var v=d.curve[d.curve.length-1].v;
+    adds.forEach(function(t){v*=1+net(t)/100; d.curve.push({d:t.c.slice(0,10),v:v,phase:'live'});});
+    d.trades=trs.concat(adds.map(function(t){return {o:t.o,c:t.c,side:t.side,ein:t.ein,exi:t.exi,
+      ret:Math.round(net(t)*100)/100,phase:'live',src:'engine'};})).slice(-60);
+    return d;
+  }
+
   fetch('hype-history.json?t='+Date.now(),{cache:'no-store'})
     .then(function(r){return r.json();})
+    .then(function(d){
+      return fetch(FEED,{cache:'no-store'})
+        .then(function(r){return r.ok?r.json():null;})
+        .catch(function(){return null;})
+        .then(function(f){return mergeFeed(d,f);});
+    })
     .then(render)
     .catch(function(){
       document.getElementById('cerr').style.display='block';
