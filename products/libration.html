@@ -39,7 +39,7 @@
       </p>
 
       <div class="metrics" style="margin:2rem 0;max-width:820px;">
-        <div class="metric"><div class="metric__value gradient-text">15</div><div class="metric__label">Coins</div></div>
+        <div class="metric"><div class="metric__value gradient-text">6</div><div class="metric__label">Coins</div></div>
         <div class="metric"><div class="metric__value gradient-text">RSI</div><div class="metric__label">Swing signal</div></div>
         <div class="metric"><div class="metric__value gradient-text">1</div><div class="metric__label">Position per coin</div></div>
         <div class="metric"><div class="metric__value gradient-text">Both</div><div class="metric__label">Long and short</div></div>
@@ -87,7 +87,7 @@
         </div>
         <div class="card">
           <div class="card__title">Layered protection</div>
-          <p class="card__text">Every position gets a hard, exchange-resting protective stop the instant it opens, plus a self-tightening trailing stop that ratchets in the favorable direction only. A daily-drawdown halt stops new risk-taking on bad days.</p>
+          <p class="card__text">Every position gets a hard, exchange-resting protective stop the instant it opens, plus a self-tightening trailing stop that ratchets in the favorable direction only. Accounts run through the engine also stop opening new positions after a 5% down day; the vault itself runs without a daily halt.</p>
         </div>
         <div class="card">
           <div class="card__title">On-chain, self-custody</div>
@@ -102,7 +102,7 @@
     <div class="container container--narrow">
       <div class="text-center" style="margin-bottom:2rem;">
         <div class="section-label">HOW IT WORKS</div>
-        <h2 class="section-title"><span class="gradient-text">Mechanical, narrow, capital-conservative</span></h2>
+        <h2 class="section-title"><span class="gradient-text">Mechanical, narrow, rule-bound</span></h2>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:1rem;">
@@ -116,7 +116,7 @@
         </div>
         <div class="card">
           <div class="card__title">Sizing that compounds with the book</div>
-          <p class="card__text">Position size is a fixed, conservative fraction of current account equity, recomputed at entry off live equity. Sizing scales up as the account grows and down as it shrinks, with no manual intervention. Newer, unproven names are sized down further.</p>
+          <p class="card__text">Position size is a fixed fraction of current account equity, the same for every coin, recomputed at entry off live equity. Sizing scales up as the account grows and down as it shrinks, with no manual intervention. Newer, unproven names are sized down further.</p>
         </div>
         <div class="card">
           <div class="card__title">Exchange-is-truth reconciliation</div>
@@ -137,7 +137,7 @@
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
           <div class="card__title" style="color:var(--gold);">A shared, leveraged book</div>
-          <p class="card__text">All positions run from one account. In a synchronized market selloff, many correlated positions can stop out in the same session. The daily-drawdown halt caps new risk-taking, but it does not stop losses accruing on positions already open.</p>
+          <p class="card__text">All positions run from one account. In a synchronized market selloff, many correlated positions can stop out in the same session. The vault has no daily-drawdown halt; on accounts that have one it caps new risk-taking, but it does not stop losses accruing on positions already open.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">The universe is a deployment choice</div>
@@ -149,7 +149,7 @@
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">A young live record</div>
-          <p class="card__text">Libration runs live at conservative leverage, and its results are shown as they happen on the <a href="https://libration.soomariostrategies.com" target="_blank" rel="noopener" style="color:var(--gold);">live dashboard</a>, fees and slippage included. The live record is still short: treat it as evidence that execution holds up, not as a forecast of future returns.</p>
+          <p class="card__text">The vault runs Libration live at 3x leverage, and its results are shown as they happen on the <a href="https://libration.soomariostrategies.com" target="_blank" rel="noopener" style="color:var(--gold);">live dashboard</a>, fees and slippage included. The live record is still short: treat it as evidence that execution holds up, not as a forecast of future returns.</p>
         </div>
       </div>
     </div>
@@ -180,8 +180,8 @@
         </div>
         <p class="card__text" style="margin-bottom:1.25rem;">
           Not on Hyperliquid, or would rather keep the whole profit? Subscribe, connect a trade-only key from
-          Hyperliquid, Bybit, Binance, OKX or Pacifica, and the engine runs the same fifteen-coin book on your
-          balance: 20% per slot, exchange-resting hard stops, daily drawdown halt. Flat fee, no profit share.
+          Hyperliquid, Bybit, Binance, OKX or Pacifica, and the engine runs the same six-coin book on your
+          balance: your allocation split equally across the coins, exchange-resting hard stops, a daily drawdown halt. Flat fee, no profit share.
         </p>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="https://whop.com/soomario-strategies/libration-strat" target="_blank" rel="noopener" class="btn btn--primary">Start the 7-day free trial &rarr;</a>
