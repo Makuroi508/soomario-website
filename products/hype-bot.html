@@ -57,7 +57,7 @@
       </div>
 
       <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
-        Running on Hyperliquid. Subscribers run the same engine on their own Hyperliquid, Bybit, Binance, OKX
+        The engine trades every signal on its own Bybit HYPE account and publishes the fills. Subscribers run the same engine on their own Hyperliquid, Bybit, Binance, OKX
         or Pacifica account with a trade-only key &mdash; <a href="own-account.html" style="color:var(--gold);">how that works</a>,
         or <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay every trade since December 2024 on your own numbers</a>.
       </div>
@@ -167,16 +167,16 @@
 
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
-          <div class="card__title" style="color:var(--gold);">The published record is simulated</div>
+          <div class="card__title" style="color:var(--gold);">Three sources, labelled</div>
           <p class="card__text">
-            The curve comes from the strategy tester, on both sides of the go-live marker. It charges a 0.2%
-            round-trip commission, models the trailing stop at four-hour bar resolution rather than tick by
-            tick, and prices roughly 32 points per candle. We reconciled 96 live signals against the fills and
-            fees on our own Hyperliquid account: the real cost was 0.12% a round trip, not 0.2%, and 96% of
-            the tester's trades reached the account. Those two errors partly cancel, and over the 48 trades
-            where every source agrees the live account finished slightly ahead of the tester. Treat the
-            published figures as a model, not as realised fills, and
-            <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay them at real costs</a>.
+            The record has three parts. Before 6 November 2025 it is the TradingView strategy tester, which
+            models the trailing stop at four-hour bar resolution rather than tick by tick. From 6 November 2025
+            it is every signal as published to subscribers, at the price each signal carried. From 23 September
+            2026 it is the engine's own fills on its Bybit HYPE account. All three are charged the same 0.12%
+            round trip: we reconciled 96 live signals against the fills and fees on our own Hyperliquid account,
+            and 0.12% was the real cost, with 96% of signals reaching the account. Only the last part is
+            realised fills, so treat the earlier figures as a model, and
+            <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay them at your own costs</a>.
           </p>
         </div>
         <div class="card">
@@ -210,7 +210,7 @@
   <!-- ═══ CTA ═══ -->
   <section class="section section--alt">
     <div class="container container--narrow text-center">
-      <div class="section-label">LIVE ON HYPERLIQUID</div>
+      <div class="section-label">LIVE ON FIVE EXCHANGES</div>
       <h2 class="section-title"><span class="gradient-text">Read the record first.</span></h2>
       <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
         Every trade is published, including the losing ones and the period before real capital was following

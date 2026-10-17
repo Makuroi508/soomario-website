@@ -1103,7 +1103,7 @@
     <h3>2 · Volume Anomaly &amp; Money Flow</h3>
     <div class="uses-line">USED BY <span class="strat-tag">Gladius · Aphelion</span></div>
     <p>Volume tells the platform what level of conviction a price move is happening on. A move on average volume is more likely to be a normal mean-reverting fluctuation; the same percentage move on volume two or three standard deviations above the recent baseline is more likely to be a flow event — capitulation, forced liquidation, or a regime-changing shift in positioning. The platform measures volume anomaly through a Z-score normalisation, which compares the current bar against the asset's own recent history rather than against a universal scale.</p>
-    <p>Aphelion specifically tracks <strong>up-volume versus down-volume separately</strong> — a directional money flow read — to flag capitulation candles where down-volume dominates the bar even at oversold prices. Gladius uses a custom volume-weighted price excursion Z-score on its three-indicator confluence. Libration incorporates volume context into its conviction gate alongside open-interest signals. The platform does not use traditional named "money flow" indicators (CMF, MFI) directly; the Z-score formulation is more flexible and produces fewer false signals across heterogeneous assets.</p>
+    <p>Gladius uses a custom volume-weighted price excursion Z-score on its three-indicator confluence. Libration incorporates volume context into its conviction gate alongside open-interest signals. The platform does not use traditional named "money flow" indicators (CMF, MFI) directly; the Z-score formulation is more flexible and produces fewer false signals across heterogeneous assets.</p>
   </div>
 
   <!-- 3. STATISTICAL ANOMALY -->
@@ -1127,7 +1127,7 @@
     <h3>5 · Open Interest &amp; Funding Rates</h3>
     <div class="uses-line">USED BY <span class="strat-tag">Gladius · Rotation</span></div>
     <p>In perpetual futures markets, open interest reveals the size of leveraged positioning at every venue, and funding rates reveal which side of the book is paying the other to hold their positions. These are direct readings of crowdedness — they tell the platform whether longs or shorts are the structurally fragile side of any given market.</p>
-    <p>Gladius and Rotation both use the long/short open-interest skew as a secondary input — a short-heavy book is structurally favourable for accumulation entries, since shorts covering against a bounce supply the buying pressure that translates a DCA fill into realised P&amp;L. These are not primary signals on any of these strategies; they are confirmation layers that flag when a primary signal is structurally well-supported.</p>
+    <p>Gladius uses the long/short open-interest skew as a secondary input — a short-heavy book is structurally favourable for accumulation entries, since shorts covering against a bounce supply the buying pressure that translates a DCA fill into realised P&amp;L. It is not a primary signal; it is a confirmation layer that flag when a primary signal is structurally well-supported.</p>
   </div>
 
   <div class="page-footer">
@@ -1152,7 +1152,7 @@
     <h3>7 · Market Regime Indicators (Fear &amp; Greed)</h3>
     <div class="uses-line">USED BY <span class="strat-tag">Rotation</span></div>
     <p>The Alternative.me Fear &amp; Greed index is a daily synthetic reading of broad crypto market sentiment, computed from volatility, momentum, social media volume, dominance, and survey inputs. It is publicly available, updated daily, and meaningfully predictive of <em>regime</em> behaviour even when it is poor at predicting next-day price.</p>
-    <p>Rotation uses the index as one input to its conviction gate, where extreme fear readings combined with deep liquidation-zone touches produce higher-conviction long entries than either signal alone would justify.</p>
+    <p>Rotation displays the index on its dashboard for context; no current strategy trades on it.</p>
   </div>
 
   <!-- 8. PRICE-VS-TREND EXTENSION -->
@@ -1160,7 +1160,7 @@
     <h3>8 · Price-vs-Trend Extension</h3>
     <div class="uses-line">USED BY <span class="strat-tag">Aphelion · Accumulator · Rotation</span></div>
     <p>Distinct from a simple moving-average crossover, price-vs-trend extension measures the magnitude by which current price sits below (or above) its long-period reference line. The reading is normalised to give an apples-to-apples score across assets with different volatility profiles. A Bitcoin sitting 8% below its 50-day moving average is a different signal from a low-volatility large-cap equity sitting 8% below its 300-day reference.</p>
-    <p>Aphelion uses extension below the long MA as a third confirmation layer — RSI oversold and capitulation volume <em>and</em> meaningful below-MA extension are required before any signal fires. The Accumulator product uses extension below the long MA as one of the two or three weighted inputs into its 0–100 strength score. Rotation's Fastest Horse equity sleeve uses moving-average context as part of its technical timing layer to identify favourable entries on otherwise-fundamentally-screened candidates. Across all uses, the principle is consistent: extension is a measure of <em>how far</em> the asset is from its trend, not just <em>which side</em> of the trend it sits on.</p>
+    <p>Aphelion weights extension below the 300-day average at 40% of its signal score, alongside a 60% weight on short-term RSI(2) oversold readings; a score of 30 or more fires a buy. The Accumulator product uses extension below the long MA as one of the two or three weighted inputs into its 0–100 strength score. Rotation's Fastest Horse equity sleeve uses moving-average context as part of its technical timing layer to identify favourable entries on otherwise-fundamentally-screened candidates. Across all uses, the principle is consistent: extension is a measure of <em>how far</em> the asset is from its trend, not just <em>which side</em> of the trend it sits on.</p>
   </div>
 
   <!-- 9. VOLATILITY REGIMES -->
@@ -1207,7 +1207,7 @@
     <h3>13 · State Integrity &amp; Reconciliation</h3>
     <div class="uses-line">USED BY <span class="strat-tag">All strategies</span></div>
     <p>Every strategy on the platform reconciles its internal position state against ground-truth exchange data on every cycle. This is not an analytical input to a trading decision — it is the substrate that makes any other analytical input trustworthy. In algorithmic trading, the bug that destroys an account is rarely a bad signal. It is the bug where the bot believes it has a position the exchange does not recognise, or believes it does not have one when it does.</p>
-    <p>Aphelion's reconciliation loop runs every five minutes against Binance. Gladius reconciles against exchange ground truth every cycle and refuses to act on a stale read. Rotation sizes every sell from the on-chain balance rather than its internal ledger, so the chain is always the authority on what is actually held. State integrity is a category because we treat it as one. It deserves the prominence.</p>
+    <p>Aphelion reconciles its in-universe positions against Binance every 60-second tick. Gladius reconciles against exchange ground truth every cycle and refuses to act on a stale read. Rotation sizes every sell from the on-chain balance rather than its internal ledger, so the chain is always the authority on what is actually held. State integrity is a category because we treat it as one. It deserves the prominence.</p>
   </div>
 
   <div class="closing">
@@ -1445,10 +1445,10 @@
   </div>
 
   <h3>The thesis</h3>
-  <p>The signals Aphelion trades are visible on every charting platform. What is uncommon is acting on every confirmation across nineteen assets, twice a day, every day, with identical sizing &mdash; and then holding the exit rule fixed while the position is still working. The structural inefficiency it exploits is the gap between <em>what is statistically oversold</em> and <em>what most participants find emotionally tradeable</em>. Most retail traders avoid these setups because they look terrible on the chart. Most institutional accumulators do not run leveraged perpetuals on single-name equities.</p>
+  <p>The signals Aphelion trades are visible on every charting platform. What is uncommon is acting on every confirmation across nineteen assets, once a day at the US close, every day, with identical sizing &mdash; and then holding the exit rule fixed while the position is still working. The structural inefficiency it exploits is the gap between <em>what is statistically oversold</em> and <em>what most participants find emotionally tradeable</em>. Most retail traders avoid these setups because they look terrible on the chart. Most institutional accumulators do not run leveraged perpetuals on single-name equities.</p>
 
   <h3>Analytical inputs</h3>
-  <p>A weighted composite of <strong>momentum oscillators</strong>, <strong>statistical anomaly detection</strong> (Z-score against the asset's own recent history), and <strong>price-versus-trend extension</strong>. Weights are set per asset rather than uniformly, and a per-asset minimum score gates whether a signal fires at all. Below that threshold nothing happens, however tempting the chart looks.</p>
+  <p>A weighted score of a <strong>momentum oscillator</strong> (RSI(2), 60%) and <strong>price-versus-trend extension</strong> below the 300-day average (40%), the same template for every stock. A minimum score of 30 gates whether a signal fires at all; deeper and longer-awaited dips buy more. Below that threshold nothing happens, however tempting the chart looks.</p>
 
   <h3>Position lifecycle</h3>
   <p>Confirmed signals buy in scaled increments against an accruing budget. Positions are then held through normal volatility and exited by a <strong>recycling tail trail</strong>: the trail arms once a position is well above its cycle anchor, and on a defined giveback from the peak it trims half the position and re-anchors the cycle to the trim price. The average entry is never rewritten by this process &mdash; only the cycle anchor moves &mdash; so the position's true cost basis stays honest across repeated trims. The strategy is accumulate-and-trim, not predict-the-top.</p>
@@ -1486,14 +1486,14 @@
     <div class="strat-meta-row"><span class="lbl">Venue</span><span class="val">Solana spot, routed via Jupiter</span></div>
     <div class="strat-meta-row"><span class="lbl">Universe</span><span class="val">Permanent equity core + scored mega-cap rotation slots</span></div>
     <div class="strat-meta-row"><span class="lbl">Custody</span><span class="val">Self-custodied wallet &mdash; no leverage, no liquidation</span></div>
-    <div class="strat-meta-row"><span class="lbl">Profit model</span><span class="val">10% performance fee on net profit</span></div>
+    <div class="strat-meta-row"><span class="lbl">Profit model</span><span class="val">Not open to outside capital yet · 10% performance fee planned</span></div>
   </div>
 
   <h3>The thesis</h3>
   <p>Tokenized equities put US single-name exposure on-chain, tradeable spot, around a self-custodied wallet rather than a brokerage relationship. That removes the two things that make leveraged equity strategies fragile &mdash; margin and liquidation &mdash; and leaves a simpler question: which names deserve the capital this week. Rotation answers it with a scoring model rather than a view, holds a permanent core in its highest-conviction name, and rotates the remainder across a small set of scored mega-caps.</p>
 
   <h3>Scoring</h3>
-  <p>Candidates are ranked on three weighted layers: <strong>long-horizon visionary upside</strong> drawn from thesis-driven research, <strong>near-term analyst consensus</strong> refreshed daily, and <strong>technical entry timing</strong> from momentum and trend indicators. The visionary layer carries the most weight because it is the hardest to fake and the slowest to change. The composite ranks the universe; the top names fill a fixed number of rotation slots alongside the permanent core. Rebalances run weekly, with a hysteresis band that prevents churn when two candidates are close.</p>
+  <p>Candidates are ranked on three weighted layers: <strong>long-horizon visionary upside</strong> drawn from thesis-driven research, <strong>near-term analyst consensus</strong> refreshed daily, and <strong>technical entry timing</strong> from momentum and trend indicators. The visionary layer carries the most weight because it is the hardest to fake and the slowest to change. The composite ranks the universe; the top names fill a fixed number of rotation slots alongside the permanent core. Membership is checked every 30 minutes and weights are rebalanced every weekday, with a hysteresis band that prevents churn when two candidates are close.</p>
 
   <div class="callout">
     <div class="callout-title">On the removal of the short sleeve</div>
@@ -1505,7 +1505,7 @@
 
   <h3>Risk controls &amp; honest limits</h3>
   <p>No leverage anywhere in the sleeve, so there is no liquidation risk and no margin call &mdash; the worst case is the drawdown of the underlying equities themselves. Position sizing is capped per name, with a ceiling on the permanent core so conviction cannot become concentration by drift.</p>
-  <p>As a point-in-time reading from the public dashboard, Rotation is up 46.2% on 42 closed trades over roughly 80 days, at a 71.4% win rate and a 1.2% maximum drawdown. <strong>Eighty days is a short window and a rising one</strong>; a long-only equity book in an up-trending market is expected to look good, and this record has not yet been tested by a sustained drawdown in its underlying names. Annualised figures derived from a window this short are not meaningful and are not claimed. Rotation is net long by construction and is not a hedge against anything. Tokenized equity wrappers additionally carry issuer and redemption risk that direct share ownership does not.</p>
+  <p>Rotation's current record starts on 8 September 2026, when the book moved back to Solana; earlier records were reset and are not cited. As of 17 October 2026 it was down 3.1% against SPY −0.7% and QQQ −1.2% over the same window, with a 7.3% maximum drawdown. <strong>Six weeks is far too short to judge</strong>, and the record has not yet been tested by a sustained drawdown in its underlying names. Rotation is not yet open to outside capital. Annualised figures derived from a window this short are not meaningful and are not claimed. Rotation is net long by construction and is not a hedge against anything. Tokenized equity wrappers additionally carry issuer and redemption risk that direct share ownership does not.</p>
 
   <div class="page-footer">
     <span>Soomario Strategies &middot; Platform Whitepaper</span>
@@ -1576,13 +1576,13 @@
   <h2>Capital protection layers</h2>
 
   <h4>Layer 1 — Position-level hard stops</h4>
-  <p>Every leveraged position on the platform has a hard stop, sized to the asset's volatility and the strategy's risk budget for that position. Where the venue supports it, the stop is a reduce-only stop-market trigger placed directly on the exchange's matching engine — Hyperliquid and Binance for the perpetual strategies. Stops on the exchange fire whether the bot is alive or not. Where the strategy's design also calls for it (Gladius, Libration, Aphelion), an independent bot-side monitoring loop checks the same thresholds at a fixed interval and force-closes any position that has crossed without the exchange-side stop having fired. <strong>Two independent components must both fail before a position runs unmanaged.</strong></p>
+  <p>Every leveraged position on the platform has a hard stop except Aphelion's, which deliberately runs without one on isolated margin (see Aphelion above). Each stop is sized to the asset's volatility and the strategy's risk budget for that position. Where the venue supports it, the stop is a reduce-only stop-market trigger placed directly on the exchange's matching engine — Hyperliquid and Binance for the perpetual strategies. Stops on the exchange fire whether the bot is alive or not. Where the strategy's design also calls for it (Gladius, Libration), an independent bot-side monitoring loop checks the same thresholds at a fixed interval and force-closes any position that has crossed without the exchange-side stop having fired. <strong>Two independent components must both fail before a position runs unmanaged.</strong></p>
 
   <h4>Layer 2 — Pre-positioned defense</h4>
-  <p>Aphelion specifically pre-positions a passive limit BUY order on the exchange book at a fixed buffer above the calculated liquidation price. If price ever drops to that trigger, the order fills automatically with maker pricing and zero slippage — even if the bot is offline. The position averages down, the take-profit ladder resets, and a fresh defense limit goes back on the book at the new trigger. This is the only platform mechanism designed specifically to convert a near-liquidation event into an improved cost basis. It is bounded — three defense fills per position, after which the position is held to trail or take-profit without further defense.</p>
+  <p>Earlier versions of Aphelion pre-positioned a passive limit buy above the liquidation price. <strong>That layer has been removed</strong>: Monte Carlo testing showed it added size where losses were fattest. No strategy on the platform currently runs a pre-positioned defense layer.</p>
 
   <h4>Layer 3 — Strategy-level kill switches</h4>
-  <p>Aphelion's account-level kill switch halts new entries if intraday losses exceed a threshold or if total unrealised P&amp;L drops below a defined percentage. Libration's portfolio-level daily drawdown halt pauses all new entries once trailing drawdown crosses its threshold. Gladius' reconciliation guard refuses to act when live equity (inclusive of all unrealised P&amp;L) falls below peak by a defined amount, closing all grids at market and preventing new positions until operator reset. Each is sticky — once tripped, manual review is required to resume. Existing positions continue to be managed by trail and defense logic; only new entries are blocked.</p>
+  <p>Aphelion's account-level kill switch halts new entries if intraday losses exceed a threshold or if total unrealised P&amp;L drops below a defined percentage. On engine-run accounts, a daily drawdown halt pauses all new entries for the rest of the UTC day once the account is down 5%. Gladius' reconciliation guard refuses to act when live equity (inclusive of all unrealised P&amp;L) falls below peak by a defined amount, closing all grids at market and preventing new positions until operator reset. Each is sticky — once tripped, manual review is required to resume. Existing positions continue to be managed by their trail and stop logic; only new entries are blocked.</p>
 
   <h4>Layer 4 — Per-strategy hard caps</h4>
   <p>Position-size caps, leverage ceilings, no-stacking rules, per-name allocation caps in Rotation, and a sizing basis set per book rather than inherited — a single-asset book concentrates its whole allocation in one position, so the same percentage stop costs more of the account than it does inside a basket — all are encoded as constants the strategy code cannot override based on optimistic signal readings. A strategy that would be more profitable with looser constraints, but is engineered to refuse to loosen them, has a worst-case behaviour that is computable in advance. Gladius caps leverage per venue limits. Aphelion at 2x. Elite at 2x on the primary, 1x on the secondary. Rotation's short sleeve cannot grow into a meaningful share of the portfolio even if every short signal looked great that week.</p>
@@ -1717,7 +1717,7 @@
 
     <div class="glossary-term"><dt>HIP-3</dt><dd>Hyperliquid Improvement Proposal 3 — the protocol extension that enables stock perpetuals (AAPL, MSFT, NVDA, etc.) to trade alongside crypto perpetuals on Hyperliquid's native order book.</dd></div>
 
-    <div class="glossary-term"><dt>VWACB · Volume-Weighted Average Cost Basis</dt><dd>The position's average entry price, weighted by the size of each fill. Used by Aphelion as the reference for take-profit ladder placement, which adjusts as defense fills lower the basis.</dd></div>
+    <div class="glossary-term"><dt>VWACB · Volume-Weighted Average Cost Basis</dt><dd>The position's average entry price, weighted by the size of each fill. Aphelion keeps it unchanged through trims, so the true cost basis stays visible across repeated cycles.</dd></div>
 
     <div class="glossary-term"><dt>ATR · Average True Range</dt><dd>A volatility measure averaging the largest of (high-low), (high-prev_close), and (low-prev_close) over a window. Used by Libration for universe selection and by Rotation for volatility-adjusted level spacing.</dd></div>
 
@@ -1752,11 +1752,11 @@
     <tbody>
       <tr><td>Momentum oscillators (RSI)</td><td>Gladius · Elite · Libration · Hype Bot · Aphelion · Rotation · Accumulator</td></tr>
       <tr><td>Volume anomaly &amp; money flow</td><td>Gladius · Aphelion</td></tr>
-      <tr><td>Statistical anomaly (Z-scores)</td><td>Gladius · Aphelion · Accumulator · Rotation</td></tr>
+      <tr><td>Statistical anomaly (Z-scores)</td><td>Gladius · Accumulator</td></tr>
       <tr><td>Trend direction (MA, Supertrend)</td><td>Gladius · Libration · Hype Bot · Aphelion · Accumulator · Rotation</td></tr>
-      <tr><td>Open interest &amp; funding rates</td><td>Gladius · Rotation</td></tr>
+      <tr><td>Open interest &amp; funding rates</td><td>Gladius</td></tr>
       <tr><td>Liquidation density &amp; max-pain zones</td><td>Gladius · Rotation</td></tr>
-      <tr><td>Market regime (Fear &amp; Greed)</td><td>Rotation</td></tr>
+      <tr><td>Market regime (Fear &amp; Greed)</td><td>Display only (Rotation dashboard)</td></tr>
       <tr><td>Price-vs-trend extension</td><td>Aphelion · Accumulator · Rotation</td></tr>
       <tr><td>Volatility regimes &amp; adaptive sizing</td><td>All strategies</td></tr>
       <tr><td>Multi-timeframe confluence</td><td>Gladius · Rotation</td></tr>

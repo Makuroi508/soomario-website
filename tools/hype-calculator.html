@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#0f0a1a">
   <meta name="description" content="Replay every Hype Bot trade since December 2024 on your own numbers: starting amount, margin and leverage, costs per round trip and the share of trades you actually catch. Costs measured from live fills, losing trades included.">
   <meta property="og:title" content="Hype Bot Calculator — Replay the Record on Your Numbers">
-  <meta property="og:description" content="All 283 trades, your starting amount, your leverage, your compounding rule. See the balance, the drawdown and the worst day before you subscribe.">
+  <meta property="og:description" content="Every published HYPE trade, your starting amount, your leverage, your compounding rule. See the balance, the drawdown and the worst day before you subscribe.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://soomariostrategies.com/tools/hype-calculator.html">
   <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
@@ -72,7 +72,7 @@
   <section class="section" style="padding-top:4rem;padding-bottom:1.5rem;">
     <div class="container">
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-n">283 TRADES</span>
+        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-n">TRADES</span>
         <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-range">HYPE &middot; 4H &middot; DEC 2024 &rarr; SEP 2026</span>
       </div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.5rem);margin-bottom:1rem;max-width:820px;">
@@ -149,8 +149,8 @@
           <div class="hint">How often the profit made since the last settlement is split: the compounded share stays in the account and sizes the next trades, the rest is withdrawn. With 100% compounded nothing is withdrawn and the cadence makes no difference.</div>
 
           <label for="hc-from">Start date</label>
-          <input id="hc-from" type="date" min="2024-12-05" max="2026-09-06" value="2024-12-05">
-          <div class="hint">Only trades entered on or after this date count. The record starts 5 December 2024.</div>
+          <input id="hc-from" type="date" min="2024-12-10" max="2026-10-15" value="2024-12-10">
+          <div class="hint">Only trades entered on or after this date count. The record starts 10 December 2024.</div>
 
           <div class="hint" style="margin-top:1.25rem;">Costs are charged per round trip on notional, at the rate chosen above (the tester itself uses 0.20%). Isolated margin: a trade cannot lose more than its own margin. Slippage and funding are not modelled.</div>
         </div>
@@ -367,7 +367,7 @@
       $('hc-size-hint').textContent = 'What each trade puts up (5–90%). This setting: ' + marginPct + '% × ' + lev + 'x = ' + Math.round(size) + '% of the account per trade. The record is 100% (50% at 2x); the engine\'s default is 45% at 2x.';
       var comp = Math.min(100, Math.max(0, parseFloat($('hc-comp').value) || 0)) / 100;
       var freq = $('hc-freq').value;
-      var fromDay = $('hc-from').value || '2024-12-05';
+      var fromDay = $('hc-from').value || '2024-12-10';
       var from = fromDay + 'T00:00';
       var fullMonths = parseInt($('hc-full-months').value, 10) || 0;
       var fullUntil = null;
@@ -403,7 +403,9 @@
       var liveNote = '';
       if (live && live.n > 0) liveNote = ' <strong style="color:#4ade80">+' + live.n + ' trade' + (live.n > 1 ? 's' : '') + '</strong> taken by the engine on our own account since then (' + live.mode + ', updated ' + live.updated.slice(0, 16).replace('T', ' ') + ' UTC) are appended automatically.';
       else if (live && live.n === 0) liveNote = ' The engine has not closed a trade since then; new ones are appended automatically.';
-      $('hc-ref').innerHTML = 'Reference: this page replays <strong style="color:var(--gold)">283 trades</strong> — 157 from the TradingView strategy tester up to Nov 5, 2025, then 126 signals as they were actually published to subscribers, at the price each carried. Both halves are charged the same 0.12% round trip, the cost measured on our own Hyperliquid account. Those 126 published signals compound to <strong>+127.7% before costs</strong> and <strong style="color:var(--gold)">+95.9% after them</strong> — and their win rate falls from 92.9% to 81.0%, because 15 of them won less than the round trip cost. That gap between the gross figure and the net one is the whole reason this page exists.' + liveNote;
+      var nFile = trades.length - (live ? live.n : 0);
+      var nEng = trades.filter(function (t) { return t.src === 'engine'; }).length;
+      $('hc-ref').innerHTML = 'Reference: this page replays <strong style="color:var(--gold)">' + nFile + ' trades</strong> — 157 from the TradingView strategy tester up to Nov 5, 2025, then 126 signals as they were actually published to subscribers, at the price each carried' + (nEng ? ', then ' + nEng + ' fills from the engine\'s own Bybit HYPE account from Sep 23, 2026' : '') + '. All of them are charged the same 0.12% round trip, the cost measured on our own Hyperliquid account. Those 126 published signals compound to <strong>+127.7% before costs</strong> and <strong style="color:var(--gold)">+95.9% after them</strong> — and their win rate falls from 92.9% to 81.0%, because 15 of them won less than the round trip cost. That gap between the gross figure and the net one is the whole reason this page exists.' + liveNote;
 
       // yearly table (wealth = account + withdrawn)
       var ys = Object.keys(r.years).sort(), rows = '';

@@ -52,7 +52,7 @@
       </div>
 
       <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
-        Instruments are tokenized US equities: Backed Finance "xStocks" (Solana Token-2022) and Ondo-wrapped equities where no xStock exists. Priced and quoted in USDC. No exchange account, no margin.
+        Instruments are tokenized US equities: Backed Finance "xStocks" (Solana Token-2022), Ondo-wrapped equities and one Backpack issue where no xStock route is reliable. Priced and quoted in USDC. No exchange account, no margin. Not open to outside capital yet: Rotation trades the founder's own wallet, live since 8 September 2026.
       </div>
     </div>
   </section>
@@ -63,7 +63,7 @@
       <div class="section-label">THE EDGE</div>
       <h2 class="section-title"><span class="gradient-text">Conviction first,</span><br>consensus second</h2>
       <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Most systematic equity books chase momentum or analyst consensus. Rotation deliberately overweights long-horizon conviction, then uses consensus and technicals as secondary confirmation - with a dip bonus and an extension penalty so a vertical name cannot sit at the top. The result is a low-turnover, high-conviction book that compounds a Tesla core while rotating a small slate of the strongest mega-caps.
+        Most systematic equity books chase momentum or analyst consensus. Rotation deliberately overweights long-horizon conviction, then uses consensus and technicals as secondary confirmation - with a dip bonus and an extension penalty so a vertical name cannot sit at the top. The result is a concentrated, high-conviction book that compounds a Tesla core while rotating a small slate of the highest-scoring names. It is an active book: membership is checked every 30 minutes and weights are rebalanced every weekday.
       </p>
     </div>
   </section>
@@ -100,7 +100,7 @@
             A small number of rotating slots are filled by the highest-scoring names from a curated mega-cap universe - household large-cap, semiconductor, cloud, and crypto-adjacent leaders. Selection uses a composite score that overweights long-horizon conviction, with a hysteresis band to prevent churn and only one swap per cycle.
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);line-height:1.7;">
-            Composite-scored &middot; hysteresis-protected &middot; low turnover
+            Composite-scored &middot; hysteresis-protected &middot; checked every 30 min
           </div>
         </div>
 
@@ -121,15 +121,15 @@
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Visionary upside &middot; highest weight</div>
-          <p class="card__text">Long-horizon conviction price targets (ARK / InvestAnswers style), operator-set and version-tracked. This layer carries the most weight in the composite.</p>
+          <p class="card__text">Long-horizon conviction price targets (ARK / InvestAnswers style), operator-set and version-tracked since August 2026. Half of the 100-point score.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Wall Street consensus &middot; secondary</div>
-          <p class="card__text">Mean analyst target refreshed daily from yfinance, with an Alpha Vantage fallback. Used as confirmation, not the primary driver.</p>
+          <p class="card__text">Mean analyst target refreshed daily from yfinance, with an Alpha Vantage fallback. A quarter of the score: confirmation, not the primary driver.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Technical momentum &middot; secondary</div>
-          <p class="card__text">Trend, momentum, and distance-above-trend measures drawn from intraday candles.</p>
+          <p class="card__text">RSI(14), Supertrend and the 50-bar average on four-hour candles. The last quarter of the score.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Dip bonus &amp; extension penalty</div>
@@ -157,7 +157,7 @@
         </div>
         <div class="card">
           <div class="card__title">Daily rebalancer</div>
-          <p class="card__text">A band-based rebalancer runs on weekdays during market hours. Each slot has a target weight proportional to its composite, plus a tolerance band; within band it does nothing. Overweights are trimmed, feeding underweight laggards and the Tesla skim. A trend gate blocks adds to names still falling.</p>
+          <p class="card__text">A band-based rebalancer runs every weekday at 14:30 UTC. Each slot has a target weight proportional to its composite, plus a tolerance band; within band it does nothing. Overweights are trimmed, feeding underweight laggards and the Tesla skim. A trend gate blocks adds to names still falling.</p>
         </div>
       </div>
     </div>
@@ -209,11 +209,11 @@
         </div>
         <div class="card">
           <div class="card__title">Price-impact guard</div>
-          <p class="card__text">Every order's price impact is checked before signing and rejected if it exceeds a configured ceiling. On an unlevered spot book, this guard and the trade window are the primary protection against poor fills.</p>
+          <p class="card__text">Every order's price impact is checked before signing and rejected if it exceeds a configured ceiling. On an unlevered spot book, this guard is the primary protection against poor fills.</p>
         </div>
         <div class="card">
-          <div class="card__title">Trade window &amp; idempotency</div>
-          <p class="card__text">Orders are gated to a US-market window that skips the volatile first hour after the open, where off-hours spreads are punitive. Quote retries are confined to the pre-signing step, so a retry cannot double-execute.</p>
+          <div class="card__title">Around-the-clock execution</div>
+          <p class="card__text">Tokenized stocks trade 24/7, and the live book currently executes rotations, ladder fills and stops at any hour, weekends included, where off-hours spreads can be wider. Quote retries are confined to the pre-signing step, so a retry cannot double-execute.</p>
         </div>
         <div class="card">
           <div class="card__title">Kill switch &amp; alerts</div>
@@ -229,7 +229,7 @@
       <div class="section-label">VALIDATION &amp; PERFORMANCE</div>
       <h2 class="section-title"><span class="gradient-text">Reported against the live wallet</span></h2>
       <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Because the system holds real tokens, performance is reported against the live wallet rather than a simulated book - realized and unrealized P&amp;L, win rate, per-position drift between book and chain, and on-chain wallet value priced at live Jupiter quotes. Figures are point-in-time and move with the market. No Sharpe or drawdown figure is asserted here; the strategy should be judged on risk-adjusted return over a full cycle, not on an early streak.
+        Because the system holds real tokens, performance is reported against the live wallet rather than a simulated book - realized and unrealized P&amp;L, win rate, per-position drift between book and chain, and on-chain wallet value priced at live Jupiter quotes. The current record starts on 8 September 2026, when the book moved back to Solana; earlier records were reset and are not cited. There is no backtest: half the score is long-range price targets, which have only been logged point-in-time since August 2026. Judge it on risk-adjusted return over a full cycle, not on an early streak.
       </p>
     </div>
   </section>
@@ -252,7 +252,11 @@
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Statistical, not deterministic</div>
-          <p class="card__text">The scoring and rebalancing are probabilistic edges, not guarantees. Quiet stretches with no trades are normal for a band-gated, low-turnover book.</p>
+          <p class="card__text">The scoring and rebalancing are probabilistic edges, not guarantees. Frequent trims and ladder fills mean trading costs and taxable events add up.</p>
+        </div>
+        <div class="card">
+          <div class="card__title" style="color:var(--gold);">Liquidity pools</div>
+          <p class="card__text">A small slice of each position (about 8%) is placed in Raydium concentrated-liquidity ranges to earn swap fees. Those ranges sell into strength and buy into weakness, and the fees are reported before that cost.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Early track record</div>
