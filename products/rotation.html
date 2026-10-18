@@ -63,7 +63,7 @@
       <div class="section-label">THE EDGE</div>
       <h2 class="section-title"><span class="gradient-text">Conviction first,</span><br>consensus second</h2>
       <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Most systematic equity books chase momentum or analyst consensus. Rotation deliberately overweights long-horizon conviction, then uses consensus and technicals as secondary confirmation - with a dip bonus and an extension penalty so a vertical name cannot sit at the top. The result is a concentrated, high-conviction book that compounds a Tesla core while rotating a small slate of the highest-scoring names. It is an active book: membership is checked every 30 minutes and weights are rebalanced every weekday.
+        Most systematic equity books chase momentum or analyst consensus. Rotation deliberately overweights long-horizon conviction, then uses consensus and technicals as secondary confirmation - with a dip bonus and an extension penalty so a vertical name cannot sit at the top. The result is a concentrated, high-conviction book that compounds a Tesla core while rotating a small slate of the highest-scoring names. It is an active book: membership is checked throughout the day and weights are rebalanced regularly.
       </p>
     </div>
   </section>
@@ -84,7 +84,7 @@
           </div>
           <div class="card__title">Tesla core</div>
           <p class="card__text" style="margin-bottom:1.25rem;">
-            Tesla is held as a permanent core, separate from the rotation and not scored. It also acts as a ratchet: every rotation trim routes a fixed share of proceeds into Tesla, so the core compounds each time a rotation winner is skimmed - up to a ceiling allocation. A layered take-profit ladder trims the core in stages, after which a trailing stop harvests the remainder.
+            Tesla is held as a permanent core, separate from the rotation and not scored. It also acts as a ratchet: every rotation trim routes a fixed share of proceeds into Tesla, so the core compounds each time a rotation winner is skimmed - up to a ceiling allocation. The core takes profit in stages after strong runs, and a trailing take-profit harvests the remainder.
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);line-height:1.7;">
             Permanent &middot; ratchets up via the skim &middot; capped at ceiling
@@ -97,10 +97,10 @@
           </div>
           <div class="card__title">Fastest Horse rotation</div>
           <p class="card__text" style="margin-bottom:1.25rem;">
-            A small number of rotating slots are filled by the highest-scoring names from a curated mega-cap universe - household large-cap, semiconductor, cloud, and crypto-adjacent leaders. Selection uses a composite score that overweights long-horizon conviction, with a hysteresis band to prevent churn and only one swap per cycle.
+            A small number of rotating slots are filled by the highest-scoring names from a curated mega-cap universe - household large-cap, semiconductor, cloud, and crypto-adjacent leaders. Selection uses a composite score that overweights long-horizon conviction, with a buffer that protects incumbents to prevent churn and only one swap per cycle.
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);line-height:1.7;">
-            Composite-scored &middot; hysteresis-protected &middot; checked every 30 min
+            Composite-scored &middot; churn-protected &middot; checked through the day
           </div>
         </div>
 
@@ -116,24 +116,24 @@
         <h2 class="section-title"><span class="gradient-text">How names are ranked</span></h2>
       </div>
       <p style="color:var(--text-secondary);font-size:1.05rem;line-height:1.7;margin:0 auto 1.75rem;max-width:640px;text-align:center;">
-        Each candidate is scored across three layers plus adjustments. Visionary and consensus upside are normalized across the universe, so the score reflects relative upside rather than an absolute number.
+        Each candidate is scored across three layers plus adjustments; the exact weights are private. Visionary and consensus upside are normalized across the universe, so the score reflects relative upside rather than an absolute number.
       </p>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Visionary upside &middot; highest weight</div>
-          <p class="card__text">Long-horizon conviction price targets (ARK / InvestAnswers style), operator-set and version-tracked since August 2026. Half of the 100-point score.</p>
+          <p class="card__text">Long-horizon conviction price targets (ARK / InvestAnswers style), operator-set and version-tracked since August 2026. The largest share of the score.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Wall Street consensus &middot; secondary</div>
-          <p class="card__text">Mean analyst target refreshed daily from yfinance, with an Alpha Vantage fallback. A quarter of the score: confirmation, not the primary driver.</p>
+          <p class="card__text">Mean analyst target, refreshed regularly from public data. A smaller share of the score: confirmation, not the primary driver.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Technical momentum &middot; secondary</div>
-          <p class="card__text">RSI(14), Supertrend and the 50-bar average on four-hour candles. The last quarter of the score.</p>
+          <p class="card__text">A blend of standard momentum and trend readings that times entries. A smaller share of the score, alongside consensus.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Dip bonus &amp; extension penalty</div>
-          <p class="card__text">A small positive adjustment rewards a name trading below its moving average while conviction stays high; an extension penalty docks names that are overbought or far above trend, so a vertical name cannot sit at the top.</p>
+          <p class="card__text">A small positive adjustment rewards a name trading at a discount to its trend while conviction stays high; an extension penalty docks names that are overbought or far above trend, so a vertical name cannot sit at the top.</p>
         </div>
       </div>
     </div>
@@ -144,20 +144,20 @@
     <div class="container">
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">MECHANICS</div>
-        <h2 class="section-title"><span class="gradient-text">Rotation, ladders, rebalancing</span></h2>
+        <h2 class="section-title"><span class="gradient-text">Rotation, dip buys, rebalancing</span></h2>
       </div>
       <div class="grid-3">
         <div class="card">
-          <div class="card__title">Rotation &amp; hysteresis</div>
-          <p class="card__text">The top names by composite fill the slots. A hysteresis band protects incumbents, so a benched name must beat the weakest holder by a meaningful margin to displace it, and only one swap happens per cycle. When a rotation occurs the outgoing name is closed and banked; nothing is averaged into the new name.</p>
+          <div class="card__title">Rotation &amp; churn control</div>
+          <p class="card__text">The top names by composite fill the slots. A buffer protects incumbents, so a benched name must beat the weakest holder by a meaningful margin to displace it, and only one swap happens per cycle. When a rotation occurs the outgoing name is closed and banked; nothing is averaged into the new name.</p>
         </div>
         <div class="card">
-          <div class="card__title">Dip-buy ladders</div>
-          <p class="card__text">Every position averages down through a pre-computed, multi-level dip-buy ladder. The seed fills at entry; progressively deeper levels fill on pullbacks, front-loading conviction into the seed and weighting the tail lightly. The ladder is bounded to a reachable drawdown so reserve capital fills in a normal correction.</p>
+          <div class="card__title">Buying the dips in steps</div>
+          <p class="card__text">Every position buys in steps on dips. The first buy fills at entry and further buys fill on pullbacks, front-loading conviction into the first buy and keeping later ones light. The steps are sized so reserve capital is put to work in a normal correction.</p>
         </div>
         <div class="card">
-          <div class="card__title">Daily rebalancer</div>
-          <p class="card__text">A band-based rebalancer runs every weekday at 14:30 UTC. Each slot has a target weight proportional to its composite, plus a tolerance band; within band it does nothing. Overweights are trimmed, feeding underweight laggards and the Tesla skim. A trend gate blocks adds to names still falling.</p>
+          <div class="card__title">Rebalancer</div>
+          <p class="card__text">A rebalancer runs on a regular schedule. Each slot has a target weight proportional to its composite and a tolerance around it; within tolerance it does nothing. Overweights are trimmed, feeding underweight laggards and the Tesla skim. A trend gate blocks adds to names still falling.</p>
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@
         </div>
         <div class="card">
           <div class="card__title">Zone-aware stops</div>
-          <p class="card__text">A zone-aware stop closes a position below its deepest filled dip-buy level by a buffer, giving the ladder room to fill before any exit. A cooldown blacklists a name after it is stopped out to prevent immediate re-entry.</p>
+          <p class="card__text">A zone-aware stop sits below the deepest dip buy, giving the steps room to fill before any exit. A cooldown blacklists a name after it is stopped out to prevent immediate re-entry.</p>
         </div>
         <div class="card">
           <div class="card__title">Order-fail safety</div>
@@ -213,7 +213,7 @@
         </div>
         <div class="card">
           <div class="card__title">Around-the-clock execution</div>
-          <p class="card__text">Tokenized stocks trade 24/7, and the live book currently executes rotations, ladder fills and stops at any hour, weekends included, where off-hours spreads can be wider. Quote retries are confined to the pre-signing step, so a retry cannot double-execute.</p>
+          <p class="card__text">Tokenized stocks trade 24/7, and the live book currently executes rotations, dip buys and stops at any hour, weekends included, where off-hours spreads can be wider. Quote retries are confined to the pre-signing step, so a retry cannot double-execute.</p>
         </div>
         <div class="card">
           <div class="card__title">Kill switch &amp; alerts</div>
@@ -229,7 +229,7 @@
       <div class="section-label">VALIDATION &amp; PERFORMANCE</div>
       <h2 class="section-title"><span class="gradient-text">Reported against the live wallet</span></h2>
       <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Because the system holds real tokens, performance is reported against the live wallet rather than a simulated book - realized and unrealized P&amp;L, win rate, per-position drift between book and chain, and on-chain wallet value priced at live Jupiter quotes. The current record starts on 8 September 2026, when the book moved back to Solana; earlier records were reset and are not cited. There is no backtest: half the score is long-range price targets, which have only been logged point-in-time since August 2026. Judge it on risk-adjusted return over a full cycle, not on an early streak.
+        Because the system holds real tokens, performance is reported against the live wallet rather than a simulated book - realized and unrealized P&amp;L, win rate, per-position drift between book and chain, and on-chain wallet value priced at live Jupiter quotes. The current record starts on 8 September 2026, when the book moved back to Solana; earlier records were reset and are not cited. There is no backtest: the score leans heavily on long-range price targets, which have only been logged point-in-time since August 2026. Judge it on risk-adjusted return over a full cycle, not on an early streak.
       </p>
     </div>
   </section>
@@ -252,7 +252,7 @@
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Statistical, not deterministic</div>
-          <p class="card__text">The scoring and rebalancing are probabilistic edges, not guarantees. Frequent trims and ladder fills mean trading costs and taxable events add up.</p>
+          <p class="card__text">The scoring and rebalancing are probabilistic edges, not guarantees. Frequent trims and dip buys mean trading costs and taxable events add up.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Liquidity pools</div>
@@ -297,7 +297,7 @@
         </a>
         <a href="libration.html" class="card" style="text-decoration:none;">
           <div class="card__title">Libration &rarr;</div>
-          <p class="card__text">The same RSI swing engine across six volatile perpetuals, one position per coin. Hyperliquid vault, or your own exchange account for $29/mo.</p>
+          <p class="card__text">A momentum swing engine across six volatile perpetuals, one position per coin. Hyperliquid vault, or your own exchange account for $29/mo.</p>
         </a>
         <a href="accumulator.html" class="card" style="text-decoration:none;">
           <div class="card__title">Accumulator &rarr;</div>

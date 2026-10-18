@@ -10,10 +10,10 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="Soomario Libration — an RSI swing engine trading a basket of volatile crypto perps from one self-custody Hyperliquid vault, one position per coin with a tight trailing stop.">
-  <meta property="og:title" content="Soomario Libration — Multi-Coin RSI Swing Vault">
+  <meta name="description" content="Soomario Libration — a momentum swing engine trading a basket of volatile crypto perps from one self-custody Hyperliquid vault, one position per coin with a tight trailing stop.">
+  <meta property="og:title" content="Soomario Libration — Multi-Coin Swing Vault">
   <meta property="og:description" content="A disciplined swing engine that buys statistically oversold volatility and rides the recovery. Live Hyperliquid vault, self-custody, on-chain.">
-  <title>Soomario Libration — Multi-Coin RSI Swing Vault | Soomario Strategies</title>
+  <title>Soomario Libration — Multi-Coin Swing Vault | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -35,12 +35,12 @@
         <span style="color:var(--text-primary);">Ride the recovery.</span>
       </h1>
       <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        A disciplined RSI swing engine across six volatile crypto perpetuals: HYPE, FARTCOIN, CC, PENGU, TAO and AVAX. One position per coin, harvested with a tight trailing stop, with a hard stop resting on the exchange. Now running as a self-custody Hyperliquid vault.
+        A disciplined swing engine across six volatile crypto perpetuals: HYPE, FARTCOIN, CC, PENGU, TAO and AVAX. One position per coin, harvested with a tight trailing take-profit, with a hard stop resting on the exchange. Now running as a self-custody Hyperliquid vault.
       </p>
 
       <div class="metrics" style="margin:2rem 0;max-width:820px;">
         <div class="metric"><div class="metric__value gradient-text">6</div><div class="metric__label">Coins</div></div>
-        <div class="metric"><div class="metric__value gradient-text">RSI</div><div class="metric__label">Swing signal</div></div>
+        <div class="metric"><div class="metric__value gradient-text">Swing</div><div class="metric__label">Momentum signal</div></div>
         <div class="metric"><div class="metric__value gradient-text">1</div><div class="metric__label">Position per coin</div></div>
         <div class="metric"><div class="metric__value gradient-text">Both</div><div class="metric__label">Long and short</div></div>
       </div>
@@ -67,7 +67,7 @@
       <div class="section-label">THE EDGE</div>
       <h2 class="section-title"><span class="gradient-text">Volatility overreacts.</span><br>Libration is built to be patient.</h2>
       <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Volatile perpetual markets spend a lot of time overreacting. A sharp, panicked flush frequently overshoots fair value and snaps back; a blow-off in strength frequently exhausts and rolls over. Libration expresses a single frozen thesis — statistically oversold and exhausted conditions on multi-hour timeframes tend to mean-revert. It waits for that condition to appear on a completed bar, takes one position in the indicated direction, and lets a trailing stop harvest the move.
+        Volatile perpetual markets spend a lot of time overreacting. A sharp, panicked flush frequently overshoots fair value and snaps back; a blow-off in strength frequently exhausts and rolls over. Libration expresses a single frozen thesis — statistically oversold and exhausted conditions tend to mean-revert. It waits for that condition to appear on a completed bar, takes one position in the indicated direction, and lets a trailing take-profit harvest the move. The exact signal and exit settings are private; every trade is visible on-chain.
       </p>
     </div>
   </section>
@@ -108,7 +108,7 @@
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
           <div class="card__title">Completed bars only</div>
-          <p class="card__text">Entries are evaluated exclusively on the close of a completed multi-hour bar, never on a partially formed one. A dedicated guard ensures each bar is evaluated exactly once, so a single condition can never fire an entry twice, and live behavior stays faithful to how the strategy was validated.</p>
+          <p class="card__text">Entries are evaluated exclusively on completed bars, never on a partially formed one. A dedicated guard ensures each bar is evaluated exactly once, so a single condition can never fire an entry twice, and live behavior stays faithful to how the strategy was validated.</p>
         </div>
         <div class="card">
           <div class="card__title">One position per coin</div>
