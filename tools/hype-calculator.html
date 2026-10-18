@@ -73,7 +73,7 @@
     <div class="container">
       <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
         <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-n">TRADES</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-range">HYPE &middot; 4H &middot; DEC 2024 &rarr; SEP 2026</span>
+        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-range">HYPE &middot; DEC 2024 &rarr; SEP 2026</span>
       </div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.5rem);margin-bottom:1rem;max-width:820px;">
         <span class="gradient-text">Replay the record</span><br>
@@ -210,7 +210,7 @@
       <div class="section-label">RUN IT ON YOUR ACCOUNT</div>
       <h2 class="section-title"><span class="gradient-text">Like the numbers? Connect an account.</span></h2>
       <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
-        $49 a month, your exchange, your keys, leverage and position size set by you on the dashboard. No profit share.
+        $49/mo, your exchange, your keys, leverage and position size set by you on the dashboard. No profit share.
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
         <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Subscribe to Hype Bot &rarr;</a>
@@ -445,7 +445,7 @@
     function updateBadges() {
       var lastT = trades[trades.length - 1].c;
       $('hc-badge-n').textContent = trades.length + ' TRADES';
-      $('hc-badge-range').textContent = 'HYPE · 4H · DEC 2024 → ' + MONTHS[parseInt(lastT.slice(5, 7), 10) - 1].toUpperCase() + ' ' + lastT.slice(0, 4);
+      $('hc-badge-range').textContent = 'HYPE · DEC 2024 → ' + MONTHS[parseInt(lastT.slice(5, 7), 10) - 1].toUpperCase() + ' ' + lastT.slice(0, 4);
       $('hc-from').max = lastT.slice(0, 10);
     }
 
