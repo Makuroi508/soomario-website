@@ -42,7 +42,7 @@
       <p>A <strong>grid bot</strong> automates the same idea. Place a series of buy orders at evenly-spaced levels below current price. Place a corresponding series of sell orders at evenly-spaced levels above. As price oscillates inside the grid, the orders execute pairwise: a buy fills, then a sell at a higher level fills, capturing the spread between them. Each completed pair is a small profit. The grid runs continuously, indifferent to direction, capturing every oscillation as profit.</p>
 
       <h2 class="gradient-text">How a Grid Captures Profit</h2>
-      <p>The arithmetic is simple. If a grid has spacing of 0.35% between levels, and price oscillates from one level to an adjacent level and back, a complete buy-then-sell round trip captures 0.35% minus fees. Across hundreds of oscillations, the cumulative profit accumulates linearly.</p>
+      <p>The arithmetic is simple. If a grid has spacing of 0.5% between levels, and price oscillates from one level to an adjacent level and back, a complete buy-then-sell round trip captures 0.5% minus fees. Across hundreds of oscillations, the cumulative profit accumulates linearly.</p>
       <p>Two things matter for grid profitability:</p>
       <p><strong>Number of completed round trips.</strong> The more times price ranges across the grid, the more profit accumulates. A wide-ranging asset in chop is the ideal environment.</p>
       <p><strong>Spacing relative to fees.</strong> If the spacing between levels is too tight, fees consume the spread. If spacing is too wide, fewer round trips complete in a given period. The right spacing balances frequency against per-trade economics.</p>
