@@ -11,7 +11,7 @@
   <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0f0a1a">
 <title>Soomario — Hype Bot</title>
-<meta name="description" content="Soomario Hype Bot — RSI swing on HYPE. Strategy record since December 2024, published signals since November 2025.">
+<meta name="description" content="Soomario Hype Bot — momentum swing on HYPE. Strategy record since December 2024, published signals since November 2025.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -73,12 +73,12 @@ td{padding:8px 10px;border-top:1px solid #ffffff08;text-align:right;white-space:
   <div class="hd">
     <h1>Hype Bot</h1>
     <span class="tag live">● Live</span>
-    <span class="tag">HYPE · 4H</span>
+    <span class="tag">HYPE · Long &amp; short</span>
   </div>
   <div class="sub">
-    Soomario v3 — a single-asset RSI swing engine on HYPE. Long when RSI(14) crosses up through 50 on a
-    completed 4-hour candle, short when it crosses down through 40. One position at a time, a 0.55%
-    trailing stop that cannot arm until the first full candle has closed, and a 10% hard stop.
+    Soomario v3 — a single-asset swing engine on HYPE, driven by a proprietary momentum signal, long and
+    short. One position at a time, a tight trailing take-profit and a 10% hard stop resting on the
+    exchange. The exact settings are private; every trade is published below.
   </div>
 
   <div class="grid" id="kpis"></div>
@@ -146,7 +146,7 @@ td{padding:8px 10px;border-top:1px solid #ffffff08;text-align:right;white-space:
       'measured on our own Hyperliquid account, fees plus execution. '+
       '<b>Neither segment is any account’s realised return.</b> The live segment uses signal prices rather than '+
       'your fills, and your venue, size and timing decide the rest. The backtest segment carries one caveat of '+
-      'its own: TradingView simulates roughly 32 price points per 4-hour candle, and at full 1-minute resolution '+
+      'its own: TradingView simulates only a few dozen price points per bar, and at full 1-minute resolution '+
       'the same rules return about +0.52% per trade, so read the pre-November figures as the optimistic end of '+
       'the range. '+
       ((d.gaps||[]).length ? '<b>One window is missing.</b> The signal export covering '+d.gaps[0].from+' to '+

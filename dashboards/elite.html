@@ -278,7 +278,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="k">
     <div class="kl" id="kl-signal"></div>
     <div class="kv vg" id="kv-signal">—</div>
-    <div class="ks" id="ks-signal">RSI crossover</div>
+    <div class="ks" id="ks-signal">Momentum signal</div>
   </div>
 </div>
 
@@ -486,7 +486,7 @@ function initTooltips() {
   safe('kl-pnl', T('Vault P&L', 'Total profit or loss in the vault since launch, including closed trades and open positions. This is your actual return.'));
   safe('kl-pos', T('HYPE Position', 'Current HYPE trade direction and leverage. Long means expecting price to rise.'));
   safe('kl-equity', T('Vault Value', 'Total value of the vault right now, including open positions and available cash.'));
-  safe('kl-signal', T('Last Signal', 'When the RSI crossover last triggered a trade entry or exit.', 'tip-r'));
+  safe('kl-signal', T('Last Signal', 'When the strategy\'s signal last triggered a trade entry or exit.', 'tip-r'));
 
   // Vault sidebar (removed in v3 restructure — safe() handles absent ids)
   safe('kl-dep', T('Depositors', 'Number of people who have deposited funds into this vault.'));
@@ -690,7 +690,7 @@ function redrawChart(){
 function renderSimplePositions(positions, unrealised) {
   const el = document.getElementById('posSimple');
   if (!positions.length) {
-    el.innerHTML = '<div class="crd"><div class="empty-state" style="padding:20px"><div class="icon">🎯</div>No open positions — waiting for RSI crossover signal</div></div>';
+    el.innerHTML = '<div class="crd"><div class="empty-state" style="padding:20px"><div class="icon">🎯</div>No open positions — waiting for the next signal</div></div>';
     return;
   }
   let html = '';
