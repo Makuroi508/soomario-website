@@ -880,7 +880,7 @@
     <li><span class="num">III.</span> <span class="title">The Analytical Toolkit</span> <span class="pg">10</span></li>
     <li><span class="num">IV.</span> <span class="title">The Strategies</span> <span class="pg">19</span></li>
     <li class="subitem"><span class="num"></span> <span class="title">1. Soomario Gladius &mdash; Liquidation-Anchored Mean Reversion</span> <span class="pg">20</span></li>
-    <li class="subitem"><span class="num"></span> <span class="title">2. Soomario Elite &mdash; Momentum Capture</span> <span class="pg">22</span></li>
+    <li class="subitem"><span class="num"></span> <span class="title">2. Soomario Elite &mdash; Founder-Managed Vault</span> <span class="pg">22</span></li>
     <li class="subitem"><span class="num"></span> <span class="title">3. Soomario Libration &mdash; Multi-Coin Momentum Swing</span> <span class="pg">24</span></li>
     <li class="subitem"><span class="num"></span> <span class="title">4. Soomario Hype Bot &mdash; Single-Asset Momentum Swing</span> <span class="pg">26</span></li>
     <li class="subitem"><span class="num"></span> <span class="title">5. Soomario Aphelion &mdash; Multi-Signal Equity Accumulator</span> <span class="pg">28</span></li>
@@ -932,10 +932,10 @@
       </tr>
       <tr>
         <td class="strat-name">Elite</td>
-        <td>Concentrated momentum capture on two highest-conviction perp markets</td>
+        <td>Discretionary vault managed by the founder, with small automated positions alongside</td>
         <td>Hyperliquid</td>
-        <td>HYPE / AVAX perpetuals</td>
-        <td><span class="status live">&#9679; Live &middot; January 2026</span></td>
+        <td>Varies &mdash; chosen by the manager</td>
+        <td><span class="status live">&#9679; Live &middot; vault since March 2026</span></td>
       </tr>
       <tr>
         <td class="strat-name">Libration</td>
@@ -1293,32 +1293,26 @@
   <div class="strat-header">
     <div class="number">— Strategy 02 / 07</div>
     <h1>Soomario Elite</h1>
-    <div class="subtitle">Concentrated Momentum Capture</div>
+    <div class="subtitle">Founder-Managed Discretionary Vault</div>
   </div>
 
   <div class="strat-meta">
-    <div class="strat-meta-row"><span class="lbl">Type</span><span class="val">Directional momentum, dual-asset</span></div>
-    <div class="strat-meta-row"><span class="lbl">Status</span><span class="val">Live · January 2026 (vault March 2026)</span></div>
+    <div class="strat-meta-row"><span class="lbl">Type</span><span class="val">Discretionary, with small automated positions alongside</span></div>
+    <div class="strat-meta-row"><span class="lbl">Status</span><span class="val">Live · vault since March 2026, open to deposits</span></div>
     <div class="strat-meta-row"><span class="lbl">Venue</span><span class="val">Hyperliquid perpetuals</span></div>
-    <div class="strat-meta-row"><span class="lbl">Universe</span><span class="val">HYPE-USD &amp; AVAX-USD</span></div>
+    <div class="strat-meta-row"><span class="lbl">Universe</span><span class="val">Varies &mdash; chosen by the manager</span></div>
     <div class="strat-meta-row"><span class="lbl">Vault</span><span class="val"><span class="vault-addr">0x8bd03b8a06612cdb83ebee91e901dae9203ef537</span></span></div>
-    <div class="strat-meta-row"><span class="lbl">Profit model</span><span class="val">10% performance fee on net profit</span></div>
+    <div class="strat-meta-row"><span class="lbl">Profit model</span><span class="val">10% of profits · 1-day lockup after each deposit</span></div>
   </div>
 
-  <h3>The thesis</h3>
-  <p>Elite trades two assets — HYPE and AVAX — through a proprietary momentum engine. The strategy does not predict prices. It waits for a specific, repeatable condition to appear in the data, takes a position, and lets a trailing stop decide when to exit. Most of the time the engine is doing nothing, and that inactivity is part of the design. The edge it exploits is structural inattention to confirmed momentum on liquid perp markets — most participants react to how stretched a chart looks, and they get chopped up in trending markets where an asset can stay stretched for days. Elite ignores how stretched the chart looks and waits, on completed bars only, for the directional re-anchoring that happens after consolidation.</p>
+  <h3>How it is run</h3>
+  <p>Elite is a Hyperliquid vault traded by Soomario's founder. He decides what the vault holds, how large each position is and how much leverage it uses, and he trades by hand on the vault's behalf. A few small automated positions run alongside the discretionary book. The founder keeps his own capital in the vault, so his results move with the depositors'.</p>
 
-  <h3>Analytical inputs</h3>
-  <p>Elite uses a single primary signal — <strong>momentum oscillators</strong> — calibrated separately for each asset. The calculation is matched exactly to the reference charting implementation, which matters because retail implementations vary and settings that work in backtest only work in live trading if the math is identical. Signals are evaluated on confirmed bars only; the engine never acts intra-bar. The exact settings are private; every trade is published on-chain.</p>
-
-  <h3>Position lifecycle</h3>
-  <p>Elite runs as two parallel position streams managed independently. HYPE carries the larger allocation share at 2x leverage; AVAX carries a smaller allocation at 1x leverage. Position size is computed as a fixed percentage of vault equity at the moment of entry, so position scales with vault growth and shrinks during drawdowns without intervention. The engine never adds to a winner and never averages down on a loser. When an opposing signal fires while a position is open, the engine closes and reverses in one execution — partial participation is treated as more dangerous than full reversal.</p>
-
-  <h3>Risk controls</h3>
-  <p>Every position carries a hard stop-loss at a fixed percentage from entry, computed at order placement and tracked in the bot's internal state. The stop exists outside the entry signal logic and cannot be overridden by a contradictory signal reading. The primary exit is a trailing stop that ratchets with favourable price action and exits when price gives back part of the move. The trail is deliberately patient about when it begins to follow price, which eliminates a class of immediate stop-outs that plague other momentum systems. State is reconciled to disk on every cycle so external position changes — manual close, forced liquidation — are detected within the next polling interval.</p>
+  <h3>What depositors get</h3>
+  <p>A deposit buys a pro-rata share of the vault, held in Hyperliquid's native vault contract. Gains and losses are shared in proportion to each stake. The manager takes 10% of profits and nothing else: no management, deposit or withdrawal fees. Each deposit is locked for one day, after which it can be withdrawn at any time. Every position and trade is public on Hyperliquid, and the live dashboard shows the vault's value, time-weighted returns, drawdown, positions and recent trades.</p>
 
   <h3>Honest limits</h3>
-  <p>Not market-neutral — Elite takes directional positions. Not high-frequency — completed-bar evaluation produces relatively few signals per asset. Not capacity-unlimited — HYPE and AVAX have deep but finite order books. Not foolproof. Any month where momentum compresses across both assets simultaneously will produce losses.</p>
+  <p>Not systematic &mdash; most of the book depends on one person's judgement, so there is no backtest that describes what Elite will do. Not market-neutral &mdash; the vault takes directional, leveraged positions and can be concentrated. Not a balanced portfolio &mdash; markets, direction and size change with the manager's view. Past results, shown on the live dashboard, do not predict future ones.</p>
 
   <div class="page-footer">
     <span>Soomario Strategies · Platform Whitepaper</span>
@@ -1575,7 +1569,7 @@
   <p>Aphelion's account-level kill switch halts new entries if intraday losses exceed a threshold or if total unrealised P&amp;L drops below a defined percentage. On engine-run accounts, a daily drawdown halt pauses all new entries for the rest of the UTC day once the account is down 5%. Gladius' reconciliation guard refuses to act when live equity (inclusive of all unrealised P&amp;L) falls below peak by a defined amount, closing all grids at market and preventing new positions until operator reset. Each is sticky — once tripped, manual review is required to resume. Existing positions continue to be managed by their trail and stop logic; only new entries are blocked.</p>
 
   <h4>Layer 4 — Per-strategy hard caps</h4>
-  <p>Position-size caps, leverage ceilings, no-stacking rules, per-name allocation caps in Rotation, and a sizing basis set per book rather than inherited — a single-asset book concentrates its whole allocation in one position, so the same percentage stop costs more of the account than it does inside a basket — all are encoded as constants the strategy code cannot override based on optimistic signal readings. A strategy that would be more profitable with looser constraints, but is engineered to refuse to loosen them, has a worst-case behaviour that is computable in advance. Gladius caps leverage per venue limits. Aphelion at 2x. Elite at 2x on the primary, 1x on the secondary. Rotation's short sleeve cannot grow into a meaningful share of the portfolio even if every short signal looked great that week.</p>
+  <p>Position-size caps, leverage ceilings, no-stacking rules, per-name allocation caps in Rotation, and a sizing basis set per book rather than inherited — a single-asset book concentrates its whole allocation in one position, so the same percentage stop costs more of the account than it does inside a basket — all are encoded as constants the strategy code cannot override based on optimistic signal readings. A strategy that would be more profitable with looser constraints, but is engineered to refuse to loosen them, has a worst-case behaviour that is computable in advance. Gladius caps leverage per venue limits. Aphelion at 2x. Elite's leverage is set position by position by its manager, within Hyperliquid's limits. Rotation's short sleeve cannot grow into a meaningful share of the portfolio even if every short signal looked great that week.</p>
 
   <h2>Diversification across strategies</h2>
 
@@ -1648,7 +1642,7 @@
     <li><strong>Not a fiduciary.</strong> The operator does not represent depositor interests in any fiduciary capacity. The relationship is non-discretionary: capital deposited into a vault is allocated according to the strategy's published logic, and no exception is made for any single depositor.</li>
     <li><strong>Not a guarantee.</strong> Every strategy on the platform is statistical, not deterministic. Drawdowns happen. Stops get hit. Some signals do not play out. Past performance — visible on-chain for live products and described in design language for paper-trading products — does not guarantee future results.</li>
     <li><strong>Not regime-proof.</strong> Each strategy targets a specific structural inefficiency. Several strategies will underperform in regimes where their target inefficiency is dormant. The platform's diversification across edges is designed to smooth the combined equity curve, but it cannot guarantee positive returns in every quarter on every product.</li>
-    <li><strong>Not capacity-unlimited.</strong> Each strategy has an honest capacity ceiling determined by the order book depth on its target assets. Several strategies (Libration's fixed concurrency cap, Gladius' curated universe, Elite's two-asset book) are explicitly designed to be capacity-aware. AUM growth is monitored relative to capacity per strategy; new capital may be paused when execution quality risks degrading.</li>
+    <li><strong>Not capacity-unlimited.</strong> Each strategy has an honest capacity ceiling determined by the order book depth on its target assets. Several strategies (Libration's fixed concurrency cap, Gladius' curated universe) are explicitly designed to be capacity-aware. AUM growth is monitored relative to capacity per strategy; new capital may be paused when execution quality risks degrading.</li>
   </ul>
 
   <h2>Operational risks</h2>
