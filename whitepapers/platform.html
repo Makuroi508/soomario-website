@@ -815,6 +815,130 @@
     .readbar, .chapnav, .chapnav__scrim, .topbar__nav { display: none !important; }
   }
 
+  .arch-scroll-hint { display: none; }
+
+  /* ── Phones ────────────────────────────────────────────────────
+     The document is laid out as 7.5in print pages: 0.85in margins,
+     56pt cover title, five-column tables, a two-column meta grid and
+     a preformatted architecture block. At 360px that pushed the page
+     to ~540px wide. Below 640px the pages reflow for a phone instead,
+     with the same reading floor as the rest of the site (16px body,
+     nothing under 12px). Desktop and print are untouched. */
+  @media screen and (max-width: 640px) {
+    html, body { font-size: 16px; line-height: 1.6; }
+    body { background-attachment: scroll; }
+    .doc { max-width: 100%; overflow-x: clip; }
+    .doc p, .doc li, .doc dd, .doc td, .doc .val, .cover-meta-block {
+      overflow-wrap: anywhere;
+    }
+    .doc img, .doc svg, .doc figure, .doc video, .doc canvas { max-width: 100%; height: auto; }
+    .doc h1, .doc h2, .doc h3, .doc h4, .cover-sub, .strat-header .subtitle { text-wrap: balance; overflow-wrap: anywhere; }
+
+    .topbar { padding: 0.6rem 16px; }
+
+    /* pages: phone margins, no print-page heights */
+    .page { min-height: 0; padding: 40px 16px 72px; }
+    .cover { min-height: calc(100svh - 72px); padding: 40px 16px; gap: 32px; }
+    .page-footer {
+      left: 16px; right: 16px; bottom: 20px;
+      flex-wrap: wrap; gap: 4px 12px;
+      font-size: 12px; letter-spacing: 0.12em;
+    }
+
+    /* cover */
+    .cover-mark { font-size: 14px; letter-spacing: 0.3em; }
+    .cover-mark::before { margin-right: 12px; }
+    .cover h1 { font-size: clamp(34px, 11vw, 44px); }
+    .cover-sub { font-size: 18px; margin-bottom: 24px; }
+    .cover-tag { font-size: 16px; padding-left: 14px; max-width: 100%; }
+    .cover-meta { flex-direction: column; align-items: stretch; gap: 14px; }
+    .cover-meta-block, .cover-meta-block[style] { font-size: 13px; text-align: left !important; }
+    .cover-meta-block .label { font-size: 12px; }
+
+    /* headings */
+    .section-mark { font-size: 12px; letter-spacing: 0.22em; }
+    h1.section-title { font-size: 30px; padding-bottom: 14px; margin-bottom: 20px; }
+    h1.section-title .num { font-size: 22px; margin-right: 10px; }
+    h2 { font-size: 22px; line-height: 1.25; margin: 28px 0 12px; }
+    h3 { font-size: 19px; line-height: 1.3; }
+    h4 { font-size: 14px; line-height: 1.4; }
+    .strat-header .number { font-size: 12px; letter-spacing: 0.2em; flex-wrap: wrap; gap: 8px; }
+    .strat-header .number span[style] { font-size: 12px !important; letter-spacing: 0.15em !important; padding: 3px 8px !important; }
+    .strat-header h1 { font-size: 30px; line-height: 1.15; }
+    .strat-header .subtitle { font-size: 16px; }
+
+    /* running text */
+    code, .mono { font-size: 13px; overflow-wrap: anywhere; }
+    .callout { padding: 14px 16px; font-size: 16px; }
+    .callout .callout-title { font-size: 12px; letter-spacing: 0.15em; }
+    .callout p[style*="font-size"] { font-size: 14px !important; line-height: 1.6 !important; }
+    .pull { font-size: 18px; padding-left: 16px; }
+    .closing { font-size: 16px; line-height: 1.6; }
+    .closing + p[style], p[style*="letter-spacing: 0.4em"] { font-size: 14px !important; letter-spacing: 0.25em !important; }
+    .toolkit-entry { padding-left: 14px; }
+    .toolkit-entry h3 { font-size: 18px; }
+    .toolkit-entry .uses-line { font-size: 12px; letter-spacing: 0.1em; line-height: 1.5; }
+    .tenet { gap: 12px; }
+    .tenet .tenet-num { font-size: 26px; width: 32px; }
+    .tenet .tenet-body h4 { font-size: 17px; line-height: 1.35; }
+    .tenet .tenet-body p { font-size: 16px; }
+    .limits-list li { font-size: 16px; padding-left: 20px; }
+    .glossary-term dt { font-size: 17px; }
+    .glossary-term dd { font-size: 16px; line-height: 1.6; }
+    .ornament::before, .ornament::after { margin: 0 8px; }
+
+    /* contents list */
+    .toc li { font-size: 16px; gap: 10px; line-height: 1.45; }
+    .toc li.subitem { padding-left: 12px; }
+    .toc li.subitem .num { display: none; }
+    .toc li.subitem .title { font-size: 15px; }
+    .toc .num, .toc .pg { font-size: 12px; }
+    .toc .num { width: 40px; }
+
+    /* strategy fact sheet: one column, label over value */
+    .strat-meta { grid-template-columns: 1fr; gap: 10px; padding: 12px 14px; font-size: 16px; }
+    .strat-meta-row { flex-direction: column; gap: 2px; }
+    .strat-meta-row .lbl { width: auto; font-size: 12px; letter-spacing: 0.14em; }
+    .strat-meta-row .val { font-size: 16px; min-width: 0; }
+    .strat-meta-row .val .vault-addr { font-size: 13px; }
+
+    /* summary tables become one card per strategy */
+    .product-class-label { font-size: 12px; letter-spacing: 0.15em; line-height: 1.5; padding: 8px 12px; }
+    .summary-table, .summary-table tbody, .summary-table tr, .summary-table td { display: block; width: auto !important; }
+    .summary-table { margin: 12px 0 20px; font-size: 16px; }
+    .summary-table thead { display: none; }
+    .summary-table tr { border: 1px solid var(--line); background: rgba(34, 26, 48, 0.3); padding: 12px 14px; margin: 0 0 10px; }
+    .summary-table td { padding: 0; border: 0; margin-top: 8px; line-height: 1.5; }
+    .summary-table td::before {
+      content: attr(data-label); display: block;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+    }
+    .summary-table td.strat-name { margin-top: 0; font-size: 20px; white-space: normal; padding-bottom: 6px; border-bottom: 1px solid var(--line-soft); }
+    .summary-table td.strat-name::before { content: none; }
+    .summary-table .status { font-size: 12px; }
+
+    /* two-column fact tables: label stacked over value */
+    .infra-table, .infra-table tbody, .infra-table tr, .infra-table td { display: block; width: auto !important; }
+    .infra-table { font-size: 16px; }
+    .infra-table tr { padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+    .infra-table td { padding: 0; border: 0; }
+    .infra-table td:first-child { font-size: 12px; margin-bottom: 4px; }
+
+    /* the architecture diagram is preformatted; it scrolls inside its own box */
+    .arch-block {
+      font-size: 12px; padding: 12px 14px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+    .arch-scroll-hint {
+      display: block; margin: -8px 0 14px; text-align: right;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute);
+    }
+  }
+  @media print { .arch-scroll-hint { display: none !important; } }
+
 </style>
 </head>
 <body>
@@ -924,46 +1048,46 @@
     </thead>
     <tbody>
       <tr>
-        <td class="strat-name">Gladius</td>
-        <td>Mean reversion at exhausted liquidation cascades, multi-signal confluence</td>
-        <td>Binance USD-M</td>
-        <td>14 crypto perpetuals</td>
-        <td><span class="status live">&#9679; Live &middot; June 2026</span></td>
+        <td data-label="Strategy" class="strat-name">Gladius</td>
+        <td data-label="Design Principle">Mean reversion at exhausted liquidation cascades, multi-signal confluence</td>
+        <td data-label="Venue">Binance USD-M</td>
+        <td data-label="Asset Class">14 crypto perpetuals</td>
+        <td data-label="Status"><span class="status live">&#9679; Live &middot; June 2026</span></td>
       </tr>
       <tr>
-        <td class="strat-name">Elite</td>
-        <td>Discretionary vault managed by the founder, with small automated positions alongside</td>
-        <td>Hyperliquid</td>
-        <td>Varies &mdash; chosen by the manager</td>
-        <td><span class="status live">&#9679; Live &middot; vault since March 2026</span></td>
+        <td data-label="Strategy" class="strat-name">Elite</td>
+        <td data-label="Design Principle">Discretionary vault managed by the founder, with small automated positions alongside</td>
+        <td data-label="Venue">Hyperliquid</td>
+        <td data-label="Asset Class">Varies &mdash; chosen by the manager</td>
+        <td data-label="Status"><span class="status live">&#9679; Live &middot; vault since March 2026</span></td>
       </tr>
       <tr>
-        <td class="strat-name">Libration</td>
-        <td>Multi-coin momentum swing from one shared account, one position per coin</td>
-        <td>Hyperliquid</td>
-        <td>11 crypto perpetuals</td>
-        <td><span class="status live">&#9679; Live</span></td>
+        <td data-label="Strategy" class="strat-name">Libration</td>
+        <td data-label="Design Principle">Multi-coin momentum swing from one shared account, one position per coin</td>
+        <td data-label="Venue">Hyperliquid</td>
+        <td data-label="Asset Class">11 crypto perpetuals</td>
+        <td data-label="Status"><span class="status live">&#9679; Live</span></td>
       </tr>
       <tr>
-        <td class="strat-name">Hype Bot</td>
-        <td>The Libration engine concentrated on a single market, one position at a time</td>
-        <td>Hyperliquid</td>
-        <td>HYPE perpetual</td>
-        <td><span class="status live">&#9679; Live &middot; November 2025</span></td>
+        <td data-label="Strategy" class="strat-name">Hype Bot</td>
+        <td data-label="Design Principle">The Libration engine concentrated on a single market, one position at a time</td>
+        <td data-label="Venue">Hyperliquid</td>
+        <td data-label="Asset Class">HYPE perpetual</td>
+        <td data-label="Status"><span class="status live">&#9679; Live &middot; November 2025</span></td>
       </tr>
       <tr>
-        <td class="strat-name">Aphelion</td>
-        <td>Long-bias accumulator exited by a recycling tail trail</td>
-        <td>Binance USD-M</td>
-        <td>19 US equity perpetuals</td>
-        <td><span class="status live">&#9679; Live &middot; April 2026</span></td>
+        <td data-label="Strategy" class="strat-name">Aphelion</td>
+        <td data-label="Design Principle">Long-bias accumulator exited by a recycling tail trail</td>
+        <td data-label="Venue">Binance USD-M</td>
+        <td data-label="Asset Class">19 US equity perpetuals</td>
+        <td data-label="Status"><span class="status live">&#9679; Live &middot; April 2026</span></td>
       </tr>
       <tr>
-        <td class="strat-name">Rotation</td>
-        <td>Long-only unlevered rotation of tokenized US equities, permanent core plus scored slots</td>
-        <td>Solana spot (Jupiter)</td>
-        <td>Tokenized US equities</td>
-        <td><span class="status live">&#9679; Live</span></td>
+        <td data-label="Strategy" class="strat-name">Rotation</td>
+        <td data-label="Design Principle">Long-only unlevered rotation of tokenized US equities, permanent core plus scored slots</td>
+        <td data-label="Venue">Solana spot (Jupiter)</td>
+        <td data-label="Asset Class">Tokenized US equities</td>
+        <td data-label="Status"><span class="status live">&#9679; Live</span></td>
       </tr>
     </tbody>
   </table>
@@ -982,11 +1106,11 @@
     </thead>
     <tbody>
       <tr class="subscription">
-        <td class="strat-name">Accumulator</td>
-        <td>Quantitative signals to scale DCA buys by oversold opportunity, personalised to budget</td>
-        <td>Telegram + Web Push</td>
-        <td>14 curated equities &amp; crypto + unlimited watchlist</td>
-        <td><span class="status live">● Live · February 2026</span></td>
+        <td data-label="Product" class="strat-name">Accumulator</td>
+        <td data-label="Design Principle">Quantitative signals to scale DCA buys by oversold opportunity, personalised to budget</td>
+        <td data-label="Delivery">Telegram + Web Push</td>
+        <td data-label="Asset Coverage">14 curated equities &amp; crypto + unlimited watchlist</td>
+        <td data-label="Status"><span class="status live">● Live · February 2026</span></td>
       </tr>
     </tbody>
   </table>
@@ -1266,7 +1390,7 @@
                   Walk-forward out-of-sample gate
 <span class="accent">LIVE EXECUTOR</span>    Venue adapters (Binance, Hyperliquid, OKX,
                   paper), reconciliation loop, rested
-                  exchange-side stops</div>
+                  exchange-side stops</div><span class="arch-scroll-hint" aria-hidden="true">Swipe to scroll &rarr;</span>
 
   <p>The single most important architectural decision is that the backtest and the live bot <strong>import the same signal code</strong>. Backtest and live cannot compute a signal differently, because there is only one implementation. This was a deliberate response to an earlier generation of the strategy in which locally-computed indicator math produced live trades that did not match the backtest they were sized against.</p>
 
