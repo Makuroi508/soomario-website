@@ -1096,6 +1096,12 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
 }
 
 /* ── Responsive ── */
+/* Six top-level items: keep them on one line between the desktop and tablet breakpoints */
+.site-nav__link { white-space: nowrap; }
+@media (max-width: 1240px) {
+  .site-nav__links { gap: 1.3rem; }
+}
+
 @media (max-width: 1024px) {
   .site-nav__links { display: none; }
   .site-nav__actions .site-nav__login-desktop { display: none; }
