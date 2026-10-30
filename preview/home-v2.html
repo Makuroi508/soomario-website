@@ -85,7 +85,7 @@
 
     .bots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 108px; align-items: stretch; }
     .bot { --c: var(--brass); position: relative; display: flex; flex-direction: column; text-align: center;
-      padding: 92px 32px 30px; border-radius: 20px; color: var(--ink);
+      padding: 100px 32px 30px; border-radius: 20px; color: var(--ink);
       background: linear-gradient(180deg, color-mix(in srgb, var(--c) 9%, rgba(29,18,48,.92)), rgba(16,9,27,.95) 60%);
       border: 1px solid color-mix(in srgb, var(--brass) 70%, transparent);
       box-shadow: 0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,235,190,.18);
@@ -103,7 +103,7 @@
     .bot--tide::before { animation-delay: -2.7s; } .bot--acc::before { animation-delay: -5.3s; }
     @keyframes bifrost { to { --a: 360deg; } }
 
-    .seal { position: absolute; top: -80px; left: 50%; width: 160px; height: 160px; margin-left: -80px;
+    .seal { position: absolute; top: -88px; left: 50%; width: 176px; height: 176px; margin-left: -88px;
       filter: drop-shadow(0 12px 18px rgba(0,0,0,.6)); }
     .seal__ring, .seal__core { position: absolute; inset: 0; background: center / contain no-repeat; }
     .seal__ring { animation: turn 70s linear infinite; }   /* only the outer teeth turn; the wax stays still */
@@ -192,7 +192,7 @@
       .nav { gap: 12px; } .nav .btn-brass { padding: 11px 14px; font-size: 15px; }
       .nav__keep { display: none; }
       .hero { padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
-      .bot { padding: 86px 22px 24px; }
+      .bot { padding: 94px 22px 24px; }
       .bot__name { font-size: 31px; }
       .proof > div { padding: 22px 18px; } .proof b { font-size: 34px; } .proof span { font-size: 15px; }
       section.band { padding-block: 72px; }
