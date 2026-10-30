@@ -39,7 +39,7 @@
     const path = window.location.pathname;
     const segments = path.split('/').filter(s => s && !s.includes('.'));
     // Detect if we're in a subdirectory (products/, learn/, etc.)
-    const knownDirs = ['products', 'learn', 'tools', 'dashboards', 'aureus', 'whitepapers'];
+    const knownDirs = ['products', 'learn', 'tools', 'dashboards', 'aureus', 'whitepapers', 'preview'];
     for (const dir of knownDirs) {
       if (path.includes('/' + dir + '/')) return '../';
     }

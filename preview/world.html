@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta name="theme-color" content="#0b0812">
+  <title>Soomario World (preview) | Soomario Strategies</title>
+  <meta name="description" content="Three trading bots, every trade published: Hype Bot, Tide and Accumulator. Your money stays on your own account.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="preload" as="image" href="../assets/world/ring.webp" type="image/webp">
+  <style>
+    :root { --hype:#a78bfa; --tide:#2dd4bf; --acc:#d4a843; }
+    body { background:#07050c; }
+
+    /* ── the gate: sky, ring, light paths, three islands ── */
+    .world { position:relative; overflow:hidden; padding:5.5rem 0 3.5rem;
+      background:#07050c url(../assets/world/sky.webp) center top / cover no-repeat; }
+    .world::after { content:""; position:absolute; inset:auto 0 0 0; height:140px; background:linear-gradient(transparent, #07050c); pointer-events:none; }
+    .world__head { position:relative; z-index:4; text-align:center; padding:0 max(16px, env(safe-area-inset-left)); }
+    .world__eyebrow { font-family:var(--font-display, 'Cinzel'), serif; letter-spacing:.32em; font-size:.75rem; color:var(--gold); }
+    .world h1 { font-family:'Cinzel', serif; font-weight:600; font-size:clamp(2rem, 5vw, 3.4rem); line-height:1.1; margin:.6rem auto .7rem; max-width:900px; color:#f3ecfa; text-wrap:balance; }
+    .world__sub { color:#c9bfdc; font-size:1.08rem; line-height:1.6; max-width:640px; margin:0 auto; }
+
+    .gate { position:relative; max-width:1180px; margin:0 auto; padding:0 max(16px, env(safe-area-inset-left)); }
+    .ring { position:relative; z-index:2; width:min(720px, 88vw); aspect-ratio:1400/942; margin:-1.5rem auto -7rem; }
+    .ring img { width:100%; height:auto; display:block; filter:drop-shadow(0 30px 60px rgba(0,0,0,.6)); }
+    .bifrost { position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
+      -webkit-mask:url(../assets/world/ring.webp) center / 100% 100% no-repeat; mask:url(../assets/world/ring.webp) center / 100% 100% no-repeat;
+      background:conic-gradient(from var(--a) at 50% 50%, transparent 0deg 318deg,
+        rgba(45,212,191,.55) 330deg, rgba(167,139,250,.6) 340deg, rgba(212,168,67,.55) 350deg, transparent 358deg);
+      filter:blur(2px) saturate(1.2); opacity:.9;
+      animation:bifrost 10s linear infinite; }
+    @property --a { syntax:'<angle>'; inherits:false; initial-value:0deg; }
+    @keyframes bifrost { to { --a:360deg; } }
+
+    svg.vias { position:absolute; inset:0; width:100%; height:100%; z-index:1; overflow:visible; pointer-events:none; }
+    .via-base { fill:none; stroke-width:2.5; opacity:.8; }
+    .via-flow { fill:none; stroke-width:4.5; stroke-linecap:round; stroke-dasharray:70 1400; animation:flow 4.5s linear infinite; }
+    @keyframes flow { from { stroke-dashoffset:1470; } to { stroke-dashoffset:0; } }
+
+    .isles { position:relative; z-index:3; display:grid; grid-template-columns:1fr 1.18fr 1fr; gap:1.5rem; align-items:end; }
+    .isle { display:flex; flex-direction:column; text-decoration:none; color:inherit; }
+    .isle__art { width:100%; height:auto; display:block; margin-bottom:-1.5rem; transition:transform .35s ease; }
+    .isle:hover .isle__art { transform:translateY(-6px); }
+    .isle__card { position:relative; background:rgba(16,12,26,.86); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.09);
+      border-top:2px solid var(--c); border-radius:16px; padding:1.25rem 1.3rem 1.2rem; display:flex; flex-direction:column; gap:.5rem; }
+    .isle--featured .isle__card { padding:1.5rem 1.5rem 1.4rem; box-shadow:0 0 0 1px rgba(45,212,191,.25), 0 20px 60px rgba(45,212,191,.12); }
+    .isle__row { display:flex; justify-content:space-between; align-items:baseline; gap:.75rem; }
+    .isle__name { font-family:'Cinzel', serif; font-size:1.55rem; color:#f3ecfa; }
+    .isle--featured .isle__name { font-size:1.85rem; }
+    .isle__price { font-family:'Cinzel', serif; color:var(--gold); font-size:1.15rem; white-space:nowrap; }
+    .isle__price small { color:#8f84a6; font-size:.75rem; font-family:Inter, sans-serif; }
+    .isle__what { color:#c9bfdc; font-size:.96rem; line-height:1.5; }
+    .isle__proof { font-family:'JetBrains Mono', monospace; font-size:.86rem; color:var(--c); line-height:1.45; }
+    .isle__tag { align-self:flex-start; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; padding:.2rem .55rem; border-radius:99px; background:rgba(45,212,191,.12); color:var(--tide); }
+    .isle__go { margin-top:.35rem; display:inline-flex; justify-content:center; padding:.7rem 1rem; border-radius:10px; font-weight:600; font-size:.95rem;
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); color:#f3ecfa; transition:background .2s, border-color .2s; }
+    .isle:hover .isle__go { border-color:var(--c); background:color-mix(in srgb, var(--c) 14%, transparent); }
+    .isle--featured .isle__go { background:var(--tide); color:#06231f; border-color:var(--tide); }
+    .world__trust { position:relative; z-index:4; text-align:center; margin-top:2rem; color:#8f84a6; font-size:.92rem; }
+    .world__trust a { color:var(--gold); }
+
+    @media (max-width: 860px) {
+      .ring { margin:-.5rem auto -3.5rem; }
+      .isles { grid-template-columns:1fr; gap:2.25rem; max-width:440px; margin:0 auto; }
+      .isle--featured { order:-1; }
+      .isle__art { width:72%; margin:0 auto -1rem; }
+      .world { padding-top:5rem; }
+      svg.vias { display:none; }
+      .isles::before { content:""; position:absolute; left:50%; top:-2rem; bottom:2rem; width:2px; transform:translateX(-50%);
+        background:linear-gradient(var(--tide), var(--hype), var(--acc)); opacity:.35; z-index:-1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bifrost { animation:none; --a:300deg; opacity:.6; }
+      .via-flow { animation:none; display:none; }
+      .isle__art { transition:none; }
+    }
+
+    /* ── below the gate ── */
+    .proof { display:grid; grid-template-columns:repeat(4, 1fr); gap:0; border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; max-width:1100px; margin:0 auto; }
+    .proof > div { padding:1.25rem 1.4rem; border-right:1px solid rgba(255,255,255,.08); }
+    .proof > div:last-child { border-right:0; }
+    .proof b { display:block; font-family:'JetBrains Mono', monospace; font-size:1.35rem; color:#f3ecfa; font-weight:500; }
+    .proof span { color:#8f84a6; font-size:.88rem; line-height:1.45; }
+    @media (max-width: 860px) { .proof { grid-template-columns:1fr 1fr; } .proof > div:nth-child(2) { border-right:0; } .proof > div:nth-child(-n+2) { border-bottom:1px solid rgba(255,255,255,.08); } }
+
+    .how { display:grid; grid-template-columns:1fr 1.1fr; gap:3rem; align-items:center; max-width:1100px; margin:0 auto; }
+    .how ol { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:1.6rem; counter-reset:s; }
+    .how li { counter-increment:s; display:grid; grid-template-columns:2.6rem 1fr; gap:.9rem; }
+    .how li::before { content:counter(s); font-family:'Cinzel', serif; font-size:1.6rem; color:var(--gold); line-height:1; }
+    .how h3 { margin:0 0 .3rem; font-size:1.12rem; color:#f3ecfa; font-family:Inter, sans-serif; font-weight:600; }
+    .how p { margin:0; color:#b5aac9; line-height:1.6; }
+    .how figure { margin:0; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.1); box-shadow:0 30px 80px rgba(0,0,0,.5); }
+    .how figure img { display:block; width:100%; height:auto; }
+    .how figcaption { font-size:.8rem; color:#8f84a6; padding:.6rem .9rem; background:#120e1c; }
+    @media (max-width: 860px) { .how { grid-template-columns:1fr; gap:2rem; } }
+
+    .note { max-width:760px; margin:0 auto; display:grid; grid-template-columns:auto 1fr; gap:1.5rem; align-items:start; }
+    .note img { width:72px; height:72px; border-radius:50%; border:1px solid rgba(212,168,67,.4); }
+    .note p { color:#c9bfdc; line-height:1.75; margin:0 0 1rem; font-size:1.02rem; }
+    .note .sig { font-family:'Cinzel', serif; color:var(--gold); }
+    .draft { display:inline-block; font-size:.7rem; letter-spacing:.12em; padding:.15rem .5rem; border:1px dashed #f87171; color:#f87171; border-radius:6px; margin-bottom:.8rem; }
+
+    .faq { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:.6rem; }
+    .faq details { border:1px solid rgba(255,255,255,.09); border-radius:12px; background:#0f0b18; }
+    .faq summary { cursor:pointer; padding:1rem 1.2rem; color:#f3ecfa; font-weight:600; list-style:none; display:flex; justify-content:space-between; gap:1rem; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:"+"; color:var(--gold); }
+    .faq details[open] summary::after { content:"\2013"; }
+    .faq details p { margin:0; padding:0 1.2rem 1.1rem; color:#b5aac9; line-height:1.65; }
+    .h2 { font-family:'Cinzel', serif; font-weight:600; color:#f3ecfa; font-size:clamp(1.6rem, 3.5vw, 2.3rem); text-align:center; margin:0 0 2rem; text-wrap:balance; }
+    .wrap { padding:4.5rem max(16px, env(safe-area-inset-left)); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ THE GATE ═══ -->
+  <section class="world" aria-labelledby="world-title">
+    <div class="world__head">
+      <div class="world__eyebrow">SOOMARIO STRATEGIES</div>
+      <h1 id="world-title">Three bots. Every trade published.</h1>
+      <p class="world__sub">Pick the one that fits how you invest. Your money stays on your own account: the bot can trade, never withdraw.</p>
+    </div>
+
+    <div class="gate" id="gate">
+      <svg class="vias" id="vias" aria-hidden="true"></svg>
+      <div class="ring" id="ring">
+        <img src="../assets/world/ring.webp" alt="" width="1400" height="942" fetchpriority="high">
+        <div class="bifrost" aria-hidden="true"></div>
+      </div>
+
+      <div class="isles">
+        <a class="isle" href="../products/hype-bot.html" style="--c:var(--hype)" data-via>
+          <img class="isle__art" src="../assets/world/island-hype.webp" alt="" width="680" height="581" loading="lazy">
+          <div class="isle__card">
+            <div class="isle__row"><span class="isle__name">Hype Bot</span><span class="isle__price">$49<small>/mo</small></span></div>
+            <div class="isle__what">Trades HYPE long and short, one position at a time, on your exchange account.</div>
+            <div class="isle__proof">+53% while HYPE fell 66%<br>138 live trades published</div>
+            <span class="isle__go">See every trade &rarr;</span>
+          </div>
+        </a>
+
+        <a class="isle isle--featured" href="../products/tide.html" style="--c:var(--tide)" data-via>
+          <img class="isle__art" src="../assets/world/island-tide.webp" alt="" width="680" height="536" loading="lazy">
+          <div class="isle__card">
+            <span class="isle__tag">New &middot; first 10: 3 months free</span>
+            <div class="isle__row"><span class="isle__name">Tide</span><span class="isle__price">from $19<small>/mo</small></span></div>
+            <div class="isle__what">Buys dips in steps across the top coins and 17 large stocks, and sells the bounce.</div>
+            <div class="isle__proof">+41.7% a year, 1,946 ladders<br>backtest with the losers left in</div>
+            <span class="isle__go">How Tide works &rarr;</span>
+          </div>
+        </a>
+
+        <a class="isle" href="../products/accumulator.html" style="--c:var(--acc)" data-via>
+          <img class="isle__art" src="../assets/world/island-accumulator.webp" alt="" width="680" height="450" loading="lazy">
+          <div class="isle__card">
+            <div class="isle__row"><span class="isle__name">Accumulator</span><span class="isle__price">$7<small>/mo</small></span></div>
+            <div class="isle__what">Buy-the-dip signals for 14 stocks and coins, sent to Telegram. No exchange account needed.</div>
+            <div class="isle__proof">Live model portfolio<br>since 9 February 2026</div>
+            <span class="isle__go">See the signals &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <p class="world__trust">Every plan has a 7-day free trial. <a href="../products/own-account.html">How your keys stay safe</a> &middot; <a href="https://engine.soomariostrategies.com/auth/whop/login?next=/home">Log in</a></p>
+  </section>
+
+  <!-- ═══ PROOF ═══ -->
+  <section class="wrap" style="padding-top:2rem;">
+    <div class="proof">
+      <div><b>Nov 2025</b><span>Hype Bot live; every signal on a public ledger since</span></div>
+      <div><b>+116%</b><span>Hype Bot live record at 1x, after 0.12% fees a trade</span></div>
+      <div><b>0</b><span>withdrawal rights: keys can trade, never move your money</span></div>
+      <div><b>5</b><span>exchanges: Hyperliquid, Bybit, Binance, OKX, Pacifica</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section class="wrap">
+    <h2 class="h2">From signup to first trade in about ten minutes</h2>
+    <div class="how">
+      <ol>
+        <li><div><h3>Pick a bot and start the free week</h3><p>Hype Bot, Tide or Accumulator, each on Whop. Cancel any time; there is no profit share.</p></div></li>
+        <li><div><h3>Connect your exchange with a trade-only key</h3><p>The key can place trades and nothing else. It is sealed the moment you paste it, and you can revoke it at the exchange whenever you like.</p></div></li>
+        <li><div><h3>Watch it trade from your Home screen</h3><p>Balance, open positions and every closed trade, on your phone or desktop. Pause it with one button.</p></div></li>
+      </ol>
+      <figure>
+        <img src="../assets/world/engine-home.jpg" alt="The Soomario engine's Home screen: account balance, open positions and the last closed trades" loading="lazy">
+        <figcaption>The engine's Home screen (demo account)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ═══ FOUNDER NOTE ═══ -->
+  <section class="wrap" style="background:#0b0812;">
+    <div class="note">
+      <img src="../soomario-logo-128.png" alt="">
+      <div>
+        <span class="draft">DRAFT &middot; REPLACE WITH YOUR OWN WORDS AND PHOTO</span>
+        <p>I built these bots to trade my own money first. Every rule was tested on years of data, the losing coins included, before a cent of anyone else's followed it, and every trade they take is published, the bad ones too.</p>
+        <p>If a number on this site ever looks too good, ask me where it comes from. You will get the trade list.</p>
+        <div class="sig">&mdash; Founder, Soomario Strategies</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="wrap">
+    <h2 class="h2">Questions people ask first</h2>
+    <div class="faq">
+      <details><summary>Do you ever hold my money?</summary><p>No. The bots trade on your own exchange account through a key that can trade but cannot withdraw. Accumulator does not touch an account at all: it sends signals to Telegram.</p></details>
+      <details><summary>Which bot should I pick?</summary><p>Hype Bot if you want one coin, long and short, at full size. Tide if you want many small dip-buying positions across coins and stocks. Accumulator if you invest for the long term and place your own orders.</p></details>
+      <details><summary>What does it cost?</summary><p>Hype Bot $49 a month. Tide $19 (sizes up to $2,500) or $49. Accumulator $7. All with a 7-day free trial and no profit share.</p></details>
+      <details><summary>Can I lose money?</summary><p>Yes. Hype Bot and Tide trade leveraged perpetual futures, and every bot has losing trades and losing months. Each product page lists its worst drop and how its losses happen, and every trade is published so you can check.</p></details>
+      <details><summary>How fast can I start?</summary><p>About ten minutes: subscribe, connect a trade-only key, pick the bot. Accumulator is faster: subscribe and join the Telegram channel.</p></details>
+    </div>
+  </section>
+
+  <script>
+  // The light paths: from the portals inside the ring down to each island,
+  // redrawn when the layout changes. Hidden on phones (cards stack there).
+  (function () {
+    var gate = document.getElementById('gate'), svg = document.getElementById('vias'), ring = document.getElementById('ring');
+    var NS = 'http://www.w3.org/2000/svg';
+    function draw() {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      if (window.innerWidth <= 860) return;
+      var g = gate.getBoundingClientRect(), r = ring.getBoundingClientRect();
+      var isles = gate.querySelectorAll('[data-via]');
+      var defs = document.createElementNS(NS, 'defs');
+      svg.appendChild(defs);
+      isles.forEach(function (el, i) {
+        var card = el.querySelector('.isle__card').getBoundingClientRect();
+        var art = el.querySelector('.isle__art').getBoundingClientRect();
+        var c = getComputedStyle(el).getPropertyValue('--c').trim() || '#d4a843';
+        var col = getComputedStyle(document.documentElement).getPropertyValue(c.replace(/var\(|\)/g, '')).trim() || c;
+        var sx = r.left - g.left + r.width * (0.40 + i * 0.10), sy = r.top - g.top + r.height * 0.50;
+        var ex = card.left - g.left + card.width / 2, ey = art.top - g.top + art.height * 0.55;
+        var dy = ey - sy;
+        var d = 'M' + sx + ',' + sy + ' C' + sx + ',' + (sy + dy * 0.55) + ' ' + ex + ',' + (ey - dy * 0.6) + ' ' + ex + ',' + ey;
+        var f = document.createElementNS(NS, 'filter');
+        f.setAttribute('id', 'glow' + i); f.setAttribute('x', '-50%'); f.setAttribute('y', '-50%'); f.setAttribute('width', '200%'); f.setAttribute('height', '200%');
+        f.innerHTML = '<feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>';
+        defs.appendChild(f);
+        [['via-base', 0], ['via-flow', 1]].forEach(function (k) {
+          var p = document.createElementNS(NS, 'path');
+          p.setAttribute('d', d); p.setAttribute('class', k[0]); p.setAttribute('stroke', col);
+          p.setAttribute('filter', 'url(#glow' + i + ')');
+          if (k[1]) p.style.animationDelay = (-i * 1.4) + 's';
+          svg.appendChild(p);
+        });
+      });
+    }
+    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 120); });
+    window.addEventListener('load', draw);
+    draw();
+  })();
+  </script>
+  <script src="../components.js"></script>
+</body>
+</html>
