@@ -93,54 +93,49 @@
         </a>
 
         <div class="site-nav__links">
+          <a href="${depth}products/hype-bot.html" class="site-nav__link ${isActivePath('products/hype-bot.html') ? 'active' : ''}">Hype Bot</a>
+          <a href="${depth}products/tide.html" class="site-nav__link ${isActivePath('products/tide.html') ? 'active' : ''}">Tide<small>BETA</small></a>
+          <a href="${depth}products/accumulator.html" class="site-nav__link ${isActivePath('products/accumulator.html') ? 'active' : ''}">Accumulator</a>
+
           <div class="nav-dropdown">
-            <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('products') ? 'active' : ''}">Products</span>
+            <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('aureus') ? 'active' : ''}">More</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${depth}products/hype-bot.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/tide.html" class="nav-dropdown__item">Tide <span class="badge badge--new">BETA</span></a>
-              <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/own-account.html" class="nav-dropdown__item">How the engine works</a>
+              <a href="${depth}tools/compare.html" class="nav-dropdown__item">Compare the bots</a>
               <div class="nav-dropdown__divider"></div>
-              <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}aureus/" class="nav-dropdown__item">Aureus vault</a>
+              <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite</a>
+              <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion</a>
+              <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation</a>
+              <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration</a>
             </div></div>
           </div>
-
-          <a href="${depth}aureus/" class="site-nav__link ${isActiveSection('aureus') ? 'active' : ''}">Aureus <span class="badge badge--live" style="margin-left:0.35rem;font-size:0.55rem;padding:0.12rem 0.4rem;">LIVE</span></a>
-
-          <a href="${depth}learn/index.html" class="site-nav__link ${isActiveSection('learn') ? 'active' : ''}">Learn</a>
 
           <div class="nav-dropdown">
             <span class="site-nav__link nav-dropdown__trigger">Dashboards</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}dashboards/hype.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
-              <a href="https://libration.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Libration <span class="badge badge--live">LIVE</span></a>
-              <a href="https://rotation.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Rotation <span class="badge badge--live">LIVE</span></a>
-              <a href="https://aphelion.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Aphelion <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}dashboards/hype.html" class="nav-dropdown__item">Hype Bot</a>
+              <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator</a>
               <div class="nav-dropdown__divider"></div>
-              <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite</a>
+              <a href="https://aphelion.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Aphelion</a>
+              <a href="https://rotation.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Rotation</a>
+              <a href="https://libration.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Libration</a>
             </div></div>
           </div>
 
           <div class="nav-dropdown">
-            <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('tools') ? 'active' : ''}">Tools</span>
+            <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('learn') || isActiveSection('tools') ? 'active' : ''}">Learn</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${depth}tools/calculator.html" class="nav-dropdown__item">DCA Calculator</a>
-              <a href="${depth}tools/hype-calculator.html" class="nav-dropdown__item">Hype Bot Calculator</a>
-              <a href="${depth}tools/tide-calculator.html" class="nav-dropdown__item">Tide Calculator <span class="badge badge--new">NEW</span></a>
-              <a href="${depth}tools/compare.html" class="nav-dropdown__item">Compare Products</a>
+              <a href="${depth}learn/index.html" class="nav-dropdown__item">Education</a>
+              <a href="${depth}tools/hype-calculator.html" class="nav-dropdown__item">Hype Bot calculator</a>
+              <a href="${depth}tools/tide-calculator.html" class="nav-dropdown__item">Tide calculator</a>
+              <a href="${depth}tools/calculator.html" class="nav-dropdown__item">DCA calculator</a>
               <a href="${depth}whitepapers/platform.html" class="nav-dropdown__item">Whitepaper</a>
-            </div></div>
-          </div>
-
-          <div class="nav-dropdown">
-            <span class="site-nav__link nav-dropdown__trigger">Community</span>
-            <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${SITE.discord}" class="nav-dropdown__item" target="_blank" rel="noopener"><span style="display:inline-flex;align-items:center;gap:0.55rem;">${SITE.discordIcon}Discord</span><span style="opacity:0.55;font-size:0.68rem;white-space:nowrap;">Join the server</span></a>
-              <a href="${SITE.twitter}" class="nav-dropdown__item" target="_blank" rel="noopener"><span style="display:inline-flex;align-items:center;gap:0.55rem;">${SITE.xIcon}X</span><span style="opacity:0.55;font-size:0.68rem;white-space:nowrap;">@SoomarioStrat</span></a>
+              <a href="${depth}about.html" class="nav-dropdown__item">About</a>
+              <div class="nav-dropdown__divider"></div>
+              <a href="${SITE.discord}" class="nav-dropdown__item" target="_blank" rel="noopener"><span style="display:inline-flex;align-items:center;gap:0.55rem;">${SITE.discordIcon}Discord</span></a>
+              <a href="${SITE.twitter}" class="nav-dropdown__item" target="_blank" rel="noopener"><span style="display:inline-flex;align-items:center;gap:0.55rem;">${SITE.xIcon}X · @SoomarioStrat</span></a>
             </div></div>
           </div>
         </div>
@@ -173,36 +168,36 @@
 
     menu.innerHTML = `
       <div class="mobile-menu__group">
-        <div class="mobile-menu__group-title">Products</div>
+        <div class="mobile-menu__group-title">Bots</div>
         <div class="mobile-menu__links">
-          <a href="${depth}products/hype-bot.html" class="mobile-menu__link">Hype Bot <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/hype-bot.html" class="mobile-menu__link">Hype Bot</a>
           <a href="${depth}products/tide.html" class="mobile-menu__link">Tide <span class="badge badge--new">BETA</span></a>
-          <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator</a>
           <a href="${depth}products/own-account.html" class="mobile-menu__link">How the engine works</a>
-          <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}tools/compare.html" class="mobile-menu__link">Compare the bots</a>
         </div>
       </div>
 
       <div class="mobile-menu__group">
-        <div class="mobile-menu__group-title">Aureus</div>
+        <div class="mobile-menu__group-title">Vaults &amp; more</div>
         <div class="mobile-menu__links">
-          <a href="${depth}aureus/" class="mobile-menu__link">Overview <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}aureus/whitepaper.html" class="mobile-menu__link">Whitepaper v1.5</a>
+          <a href="${depth}aureus/" class="mobile-menu__link">Aureus vault</a>
+          <a href="${depth}products/elite.html" class="mobile-menu__link">Elite</a>
+          <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion</a>
+          <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation</a>
+          <a href="${depth}products/libration.html" class="mobile-menu__link">Libration</a>
         </div>
       </div>
 
       <div class="mobile-menu__group">
         <div class="mobile-menu__group-title">Dashboards</div>
         <div class="mobile-menu__links">
-          <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
           <a href="${depth}dashboards/hype.html" class="mobile-menu__link">Hype Bot</a>
-          <a href="https://libration.soomariostrategies.com" class="mobile-menu__link" target="_blank">Libration</a>
-          <a href="https://rotation.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Rotation</a>
-          <a href="https://aphelion.soomariostrategies.com" class="mobile-menu__link" target="_blank">Aphelion</a>
           <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
+          <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
+          <a href="https://aphelion.soomariostrategies.com" class="mobile-menu__link" target="_blank">Aphelion</a>
+          <a href="https://rotation.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Rotation</a>
+          <a href="https://libration.soomariostrategies.com" class="mobile-menu__link" target="_blank">Libration</a>
         </div>
       </div>
 

@@ -133,6 +133,7 @@
 
       <div class="text-center" style="margin-top:1.5rem;">
         <a href="https://accumulator.soomariostrategies.com/dashboard" target="_blank" class="btn btn--outline">View the live dashboard →</a>
+        <a href="../accumulator-live.html#budget" class="btn btn--ghost">Scale it to your budget →</a>
       </div>
 
     </div>
@@ -430,6 +431,7 @@
     function renderShowcase(data){
       var pnl = data.total_pnl_usd || 0;
       var pnlPct = data.total_pnl_pct || 0;
+      if (pnlPct <= -99.9 && (data.metrics || {}).twr_pct != null) pnlPct = data.metrics.twr_pct;   // feed glitch: a -100% that is not a loss
       var value = data.total_value || 0;
       var invested = data.total_invested || 0;
       var positive = pnl >= 0;
