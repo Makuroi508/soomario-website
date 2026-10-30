@@ -547,3 +547,44 @@
   .hamburger { width: 44px; height: 44px; padding: 0; align-items: center; justify-content: center; }
   .btn { white-space: normal; text-align: center; max-width: 100%; }
 }
+
+/* -- Header refresh (2026-10-30): the name readable at a glance, plain link
+   type, the three bots first, wider on big screens -- */
+.site-nav__inner { max-width: 1400px; padding: 0.7rem 2rem; }
+.site-nav__brand { gap: 0.85rem; }
+.site-nav__brand img { height: 54px; }
+.site-nav__brand-name {
+  font-family: 'Cinzel', var(--font-heading); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.06em; line-height: 1;
+  background: linear-gradient(180deg, #fff3d0, #cfa851 70%, #8a6d2f); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.site-nav__brand-sub {
+  font-family: 'Cinzel', var(--font-heading); font-weight: 700; font-size: 0.74rem; letter-spacing: 0.42em;
+  line-height: 1; margin-top: 0.35rem; color: #cfa851;
+}
+.site-nav__links { gap: 1.7rem; }
+.site-nav__link { font-family: var(--font-body); font-size: 0.98rem; font-weight: 500; letter-spacing: 0; }
+.site-nav__link small { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.05em; color: #3ee0c8; margin-left: 0.3rem; }
+@media (max-width: 1240px) { .site-nav__inner { padding-inline: 1.25rem; } .site-nav__links { gap: 1.2rem; } }
+@media (max-width: 1150px) {
+  .site-nav__links { display: none; }
+  .site-nav__actions .site-nav__login-desktop { display: none; }
+  .site-nav__login-mobile { display: flex; }
+  .hamburger { display: flex; }
+}
+@media (max-width: 768px) {
+  .site-nav__brand img { height: 42px; }
+  .site-nav__brand-name { font-size: 1.2rem; }
+  .site-nav__brand-sub { font-size: 0.6rem; letter-spacing: 0.38em; }
+}
+@media (max-width: 480px) {
+  .site-nav__brand img { height: 36px; }
+  .site-nav__brand-name { font-size: 1.02rem; letter-spacing: 0.04em; }
+  .site-nav__brand-sub { font-size: 0.52rem; letter-spacing: 0.32em; margin-top: 0.25rem; }
+}
+/* the dropdown arrow sits beside its label, not under it as the hover line does */
+.site-nav__link.nav-dropdown__trigger::after {
+  content: '▾'; position: static; width: auto; height: auto; background: none;
+  font-size: 0.7rem; opacity: 0.6; margin-left: 0.15rem; transition: none;
+}
+.site-nav__link.nav-dropdown__trigger:hover::after { width: auto; }
+.mobile-menu__link { font-family: var(--font-body); font-size: 1.05rem; font-weight: 500; letter-spacing: 0; text-transform: none; }
