@@ -5,184 +5,225 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <meta name="theme-color" content="#0b0812">
-  <title>Soomario World (preview) | Soomario Strategies</title>
+  <meta name="theme-color" content="#0d0814">
+  <title>Soomario (preview) | Soomario Strategies</title>
   <meta name="description" content="Three trading bots, every trade published: Hype Bot, Tide and Accumulator. Your money stays on your own account.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link rel="preload" as="image" href="../assets/world/ring.webp" type="image/webp">
+  <link rel="preload" as="image" href="../assets/world/logo.webp" type="image/webp">
   <style>
-    :root { --hype:#a78bfa; --tide:#2dd4bf; --acc:#d4a843; }
-    body { background:#07050c; }
+    /* Everything here is taken from the logo: its brass, its purple enamel,
+       its gear teeth, its pointed ornaments and its up-arrow. */
+    :root {
+      --enamel:#150c22; --enamel-2:#1d1130; --ink:#f4ead2; --ink-2:#cfc2a6; --ink-3:#9d8f76;
+      --brass:linear-gradient(135deg,#f7e6a8 0%,#d2ab52 18%,#80601f 40%,#ecd287 58%,#8e6c2c 78%,#f2da92 100%);
+      --brass-flat:#cfa851; --hype:#b79cff; --tide:#3ee0c8; --acc:#f0c35a;
+    }
+    body { background:var(--enamel); color:var(--ink); }
 
-    /* ── the gate: sky, ring, light paths, three islands ── */
-    .world { position:relative; overflow:hidden; padding:5.5rem 0 3.5rem;
-      background:#07050c url(../assets/world/sky.webp) center top / cover no-repeat; }
-    .world::after { content:""; position:absolute; inset:auto 0 0 0; height:140px; background:linear-gradient(transparent, #07050c); pointer-events:none; }
-    .world__head { position:relative; z-index:4; text-align:center; padding:0 max(16px, env(safe-area-inset-left)); }
-    .world__eyebrow { font-family:var(--font-display, 'Cinzel'), serif; letter-spacing:.32em; font-size:.75rem; color:var(--gold); }
-    .world h1 { font-family:'Cinzel', serif; font-weight:600; font-size:clamp(2rem, 5vw, 3.4rem); line-height:1.1; margin:.6rem auto .7rem; max-width:900px; color:#f3ecfa; text-wrap:balance; }
-    .world__sub { color:#c9bfdc; font-size:1.08rem; line-height:1.6; max-width:640px; margin:0 auto; }
+    /* ── crest: the logo, alive ── */
+    .crest { position:relative; overflow:hidden; text-align:center; padding:6.5rem max(16px, env(safe-area-inset-left)) 2rem;
+      background:radial-gradient(60% 55% at 50% 30%, #2a1840 0%, var(--enamel) 70%); }
+    .medal { position:relative; width:min(300px, 62vw); aspect-ratio:1; margin:1.5rem auto 3.4rem; }
+    .medal__gear { position:absolute; inset:-11%; width:122%; height:122%; transform:rotate(var(--turn, 0deg)); transition:transform .2s linear; }
+    .medal__gear svg { width:100%; height:100%; animation:turn 120s linear infinite; filter:drop-shadow(0 0 18px rgba(207,168,81,.18)); }
+    @keyframes turn { to { transform:rotate(360deg); } }
+    .medal__logo { position:relative; width:100%; height:100%; filter:drop-shadow(0 18px 40px rgba(0,0,0,.65)); }
+    .medal__logo img { width:100%; height:100%; display:block; }
+    .medal__shine { position:absolute; inset:0; pointer-events:none; mix-blend-mode:overlay;
+      -webkit-mask:url(../assets/world/logo.webp) center / 100% 100% no-repeat; mask:url(../assets/world/logo.webp) center / 100% 100% no-repeat;
+      background:linear-gradient(115deg, transparent 38%, rgba(255,248,220,.85) 50%, transparent 62%) -160% 0 / 250% 100% no-repeat;
+      animation:shine 7s ease-in-out 1.2s infinite; }
+    @keyframes shine { 0%, 62% { background-position:-160% 0; } 100% { background-position:160% 0; } }
+    .crest__eyebrow { font-family:'Cinzel', serif; letter-spacing:.36em; font-size:.78rem; color:var(--brass-flat); }
+    .crest h1 { font-family:'Cinzel', serif; font-weight:600; font-size:clamp(2.1rem, 5.2vw, 3.6rem); line-height:1.08; margin:.55rem auto .8rem; max-width:920px;
+      background:linear-gradient(180deg, #fbf1d4 0%, #e6c97a 60%, #b8913f 100%); -webkit-background-clip:text; background-clip:text; color:transparent; text-wrap:balance; }
+    .crest__sub { color:var(--ink-2); font-size:1.08rem; line-height:1.6; max-width:640px; margin:0 auto; }
 
-    .gate { position:relative; max-width:1180px; margin:0 auto; padding:0 max(16px, env(safe-area-inset-left)); }
-    .ring { position:relative; z-index:2; width:min(720px, 88vw); aspect-ratio:1400/942; margin:-1.5rem auto -7rem; }
-    .ring img { width:100%; height:auto; display:block; filter:drop-shadow(0 30px 60px rgba(0,0,0,.6)); }
-    .bifrost { position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
-      -webkit-mask:url(../assets/world/ring.webp) center / 100% 100% no-repeat; mask:url(../assets/world/ring.webp) center / 100% 100% no-repeat;
-      background:conic-gradient(from var(--a) at 50% 50%, transparent 0deg 318deg,
-        rgba(45,212,191,.55) 330deg, rgba(167,139,250,.6) 340deg, rgba(212,168,67,.55) 350deg, transparent 358deg);
-      filter:blur(2px) saturate(1.2); opacity:.9;
-      animation:bifrost 10s linear infinite; }
+    /* the logo's pointed ornament, as a divider */
+    .ornament { display:flex; align-items:center; justify-content:center; gap:14px; margin:2.4rem auto 0; max-width:560px; }
+    .ornament i { flex:1; height:1px; background:linear-gradient(90deg, transparent, var(--brass-flat), transparent); }
+    .ornament svg { width:22px; height:22px; flex:none; }
+
+    /* ── three brass plaques with the bifrost running round their frames ── */
+    .plaques { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:2.4rem; max-width:1360px; margin:4.2rem auto 0; padding:0 max(16px, env(safe-area-inset-left)); }
+    .plaque { --c:var(--brass-flat); position:relative; display:flex; flex-direction:column; text-decoration:none; color:inherit; border-radius:22px; padding:3px;
+      background:var(--brass); box-shadow:0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(0,0,0,.6); transition:transform .3s ease; }
+    .plaque:hover { transform:translateY(-6px); }
+    .plaque::before { content:""; position:absolute; inset:-3px; border-radius:25px; padding:4px; pointer-events:none;
+      background:conic-gradient(from var(--a), transparent 0deg 255deg, color-mix(in srgb, var(--c) 30%, transparent) 285deg,
+        var(--c) 318deg, #fff6d9 334deg, var(--c) 346deg, transparent 360deg);
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude;
+      filter:drop-shadow(0 0 7px var(--c)); animation:bifrost 7s linear infinite; }
+    .plaque:nth-child(2)::before { animation-delay:-2.3s; } .plaque:nth-child(3)::before { animation-delay:-4.6s; }
     @property --a { syntax:'<angle>'; inherits:false; initial-value:0deg; }
     @keyframes bifrost { to { --a:360deg; } }
+    .plaque__in { position:relative; flex:1; border-radius:19px; padding:4.8rem 2.2rem 2rem; min-height:600px; display:flex; flex-direction:column; gap:.85rem;
+      background:radial-gradient(120% 70% at 50% 0%, #2a1a3e 0%, var(--enamel-2) 45%, #120a1c 100%);
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,.7), inset 0 0 0 7px rgba(0,0,0,.18), inset 0 0 0 8px rgba(242,218,146,.22), inset 0 6px 24px rgba(0,0,0,.6); }
+    .rivet { position:absolute; width:9px; height:9px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #fff1c2, #c69a3f 45%, #5e4314 100%); box-shadow:0 1px 2px rgba(0,0,0,.7); }
+    .rivet.tl { top:16px; left:16px; } .rivet.tr { top:16px; right:16px; } .rivet.bl { bottom:16px; left:16px; } .rivet.br { bottom:16px; right:16px; }
+    .seal { position:absolute; top:-48px; left:50%; width:104px; height:104px; transform:translateX(-50%); filter:drop-shadow(0 10px 18px rgba(0,0,0,.6)); z-index:2; }
+    .plaque:hover .seal .seal-gear { transform:rotate(30deg); }
+    .seal-gear { transform-origin:50% 50%; transition:transform .8s ease; }
+    .numeral { text-align:center; font-family:'Cinzel', serif; letter-spacing:.5em; font-size:.8rem; color:var(--brass-flat); }
+    .plaque__name { text-align:center; font-family:'Cinzel', serif; font-weight:700; font-size:2.2rem; line-height:1;
+      background:linear-gradient(180deg, #fff3cf, #d9b45e 70%, #a77f30); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .plaque__what { text-align:center; color:var(--ink-2); line-height:1.55; font-size:1rem; min-height:4.7em; }
+    .plaque__big { text-align:center; margin-top:.2rem; }
+    .plaque__big b { display:block; font-family:'Cinzel', serif; font-size:3rem; line-height:1; color:var(--c); text-shadow:0 0 24px color-mix(in srgb, var(--c) 35%, transparent); }
+    .plaque__big span { display:block; color:var(--ink-3); font-size:.85rem; margin-top:.4rem; }
+    .facts { list-style:none; padding:0; margin:.6rem 0 0; display:flex; flex-direction:column; gap:.55rem; border-top:1px solid rgba(242,218,146,.14); padding-top:1rem; }
+    .facts li { display:grid; grid-template-columns:16px 1fr; gap:.6rem; color:var(--ink-2); font-size:.98rem; line-height:1.45; text-align:left; }
+    .facts svg { width:14px; height:16px; margin-top:.15rem; }
+    .plaque__foot { margin-top:auto; padding-top:1.1rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .price { font-family:'Cinzel', serif; font-size:1.5rem; color:var(--ink); } .price small { font-family:Inter, sans-serif; font-size:.8rem; color:var(--ink-3); }
+    .btn-brass { display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1.15rem; border-radius:12px; font-weight:700; font-size:.95rem; color:#2a1b06;
+      background:var(--brass); box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 6px 16px rgba(0,0,0,.45); white-space:nowrap; }
+    .tag { align-self:center; white-space:nowrap; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; margin-bottom:-.2rem;
+      padding:.25rem .65rem; border-radius:99px; background:rgba(62,224,200,.12); color:var(--tide); border:1px solid rgba(62,224,200,.3); }
+    .trustline { text-align:center; margin:2.4rem auto 0; color:var(--ink-3); font-size:.95rem; padding:0 16px; }
+    .trustline a { color:var(--brass-flat); }
 
-    svg.vias { position:absolute; inset:0; width:100%; height:100%; z-index:1; overflow:visible; pointer-events:none; }
-    .via-base { fill:none; stroke-width:2.5; opacity:.8; }
-    .via-flow { fill:none; stroke-width:4.5; stroke-linecap:round; stroke-dasharray:70 1400; animation:flow 4.5s linear infinite; }
-    @keyframes flow { from { stroke-dashoffset:1470; } to { stroke-dashoffset:0; } }
-
-    .isles { position:relative; z-index:3; display:grid; grid-template-columns:1fr 1.18fr 1fr; gap:1.5rem; align-items:end; }
-    .isle { display:flex; flex-direction:column; text-decoration:none; color:inherit; }
-    .isle__art { width:100%; height:auto; display:block; margin-bottom:-1.5rem; transition:transform .35s ease; }
-    .isle:hover .isle__art { transform:translateY(-6px); }
-    .isle__card { position:relative; background:rgba(16,12,26,.86); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.09);
-      border-top:2px solid var(--c); border-radius:16px; padding:1.25rem 1.3rem 1.2rem; display:flex; flex-direction:column; gap:.5rem; }
-    .isle--featured .isle__card { padding:1.5rem 1.5rem 1.4rem; box-shadow:0 0 0 1px rgba(45,212,191,.25), 0 20px 60px rgba(45,212,191,.12); }
-    .isle__row { display:flex; justify-content:space-between; align-items:baseline; gap:.75rem; }
-    .isle__name { font-family:'Cinzel', serif; font-size:1.55rem; color:#f3ecfa; }
-    .isle--featured .isle__name { font-size:1.85rem; }
-    .isle__price { font-family:'Cinzel', serif; color:var(--gold); font-size:1.15rem; white-space:nowrap; }
-    .isle__price small { color:#8f84a6; font-size:.75rem; font-family:Inter, sans-serif; }
-    .isle__what { color:#c9bfdc; font-size:.96rem; line-height:1.5; }
-    .isle__proof { font-family:'JetBrains Mono', monospace; font-size:.86rem; color:var(--c); line-height:1.45; }
-    .isle__tag { align-self:flex-start; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; padding:.2rem .55rem; border-radius:99px; background:rgba(45,212,191,.12); color:var(--tide); }
-    .isle__go { margin-top:.35rem; display:inline-flex; justify-content:center; padding:.7rem 1rem; border-radius:10px; font-weight:600; font-size:.95rem;
-      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); color:#f3ecfa; transition:background .2s, border-color .2s; }
-    .isle:hover .isle__go { border-color:var(--c); background:color-mix(in srgb, var(--c) 14%, transparent); }
-    .isle--featured .isle__go { background:var(--tide); color:#06231f; border-color:var(--tide); }
-    .world__trust { position:relative; z-index:4; text-align:center; margin-top:2rem; color:#8f84a6; font-size:.92rem; }
-    .world__trust a { color:var(--gold); }
-
-    @media (max-width: 860px) {
-      .ring { margin:-.5rem auto -3.5rem; }
-      .isles { grid-template-columns:1fr; gap:2.25rem; max-width:440px; margin:0 auto; }
-      .isle--featured { order:-1; }
-      .isle__art { width:72%; margin:0 auto -1rem; }
-      .world { padding-top:5rem; }
-      svg.vias { display:none; }
-      .isles::before { content:""; position:absolute; left:50%; top:-2rem; bottom:2rem; width:2px; transform:translateX(-50%);
-        background:linear-gradient(var(--tide), var(--hype), var(--acc)); opacity:.35; z-index:-1; }
-    }
+    @media (max-width: 1000px) { .plaques { grid-template-columns:1fr; max-width:520px; gap:4rem; } .plaque--tide { order:-1; } .plaque__what { min-height:0; } }
     @media (prefers-reduced-motion: reduce) {
-      .bifrost { animation:none; --a:300deg; opacity:.6; }
-      .via-flow { animation:none; display:none; }
-      .isle__art { transition:none; }
+      .plaque::before { animation:none; --a:300deg; } .medal__gear svg, .medal__shine { animation:none; } .medal__gear { transition:none; }
     }
 
-    /* ── below the gate ── */
-    .proof { display:grid; grid-template-columns:repeat(4, 1fr); gap:0; border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; max-width:1100px; margin:0 auto; }
-    .proof > div { padding:1.25rem 1.4rem; border-right:1px solid rgba(255,255,255,.08); }
-    .proof > div:last-child { border-right:0; }
-    .proof b { display:block; font-family:'JetBrains Mono', monospace; font-size:1.35rem; color:#f3ecfa; font-weight:500; }
-    .proof span { color:#8f84a6; font-size:.88rem; line-height:1.45; }
-    @media (max-width: 860px) { .proof { grid-template-columns:1fr 1fr; } .proof > div:nth-child(2) { border-right:0; } .proof > div:nth-child(-n+2) { border-bottom:1px solid rgba(255,255,255,.08); } }
-
+    /* ── below ── */
+    .wrap { padding:5rem max(16px, env(safe-area-inset-left)); }
+    .h2 { font-family:'Cinzel', serif; font-weight:600; color:var(--ink); font-size:clamp(1.6rem, 3.5vw, 2.3rem); text-align:center; margin:0 0 2.2rem; text-wrap:balance; }
+    .proof { display:grid; grid-template-columns:repeat(4, 1fr); max-width:1100px; margin:0 auto; border-radius:18px; padding:2px; background:var(--brass); gap:1px; }
+    .proof .cell { background:#130b1f; padding:1.3rem 1.4rem; }
+    .proof .cell:first-child { border-radius:16px 0 0 16px; } .proof .cell:last-child { border-radius:0 16px 16px 0; }
+    .proof b { display:block; font-family:'Cinzel', serif; font-size:1.6rem; color:var(--ink); }
+    .proof span { color:var(--ink-3); font-size:.88rem; line-height:1.45; }
+    @media (max-width: 860px) { .proof { grid-template-columns:1fr 1fr; } .proof .cell { border-radius:0 !important; } }
     .how { display:grid; grid-template-columns:1fr 1.1fr; gap:3rem; align-items:center; max-width:1100px; margin:0 auto; }
     .how ol { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:1.6rem; counter-reset:s; }
-    .how li { counter-increment:s; display:grid; grid-template-columns:2.6rem 1fr; gap:.9rem; }
-    .how li::before { content:counter(s); font-family:'Cinzel', serif; font-size:1.6rem; color:var(--gold); line-height:1; }
-    .how h3 { margin:0 0 .3rem; font-size:1.12rem; color:#f3ecfa; font-family:Inter, sans-serif; font-weight:600; }
-    .how p { margin:0; color:#b5aac9; line-height:1.6; }
-    .how figure { margin:0; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.1); box-shadow:0 30px 80px rgba(0,0,0,.5); }
-    .how figure img { display:block; width:100%; height:auto; }
-    .how figcaption { font-size:.8rem; color:#8f84a6; padding:.6rem .9rem; background:#120e1c; }
+    .how li { counter-increment:s; display:grid; grid-template-columns:3rem 1fr; gap:1rem; }
+    .how li::before { content:counter(s, upper-roman); font-family:'Cinzel', serif; font-size:1.5rem; color:var(--brass-flat); line-height:1.1; }
+    .how h3 { margin:0 0 .3rem; font-size:1.12rem; color:var(--ink); font-family:Inter, sans-serif; font-weight:600; }
+    .how p { margin:0; color:var(--ink-2); line-height:1.6; }
+    .how figure { margin:0; border-radius:16px; padding:3px; background:var(--brass); box-shadow:0 30px 80px rgba(0,0,0,.5); }
+    .how figure img { display:block; width:100%; height:auto; border-radius:13px 13px 0 0; }
+    .how figcaption { font-size:.8rem; color:var(--ink-3); padding:.6rem .9rem; background:#130b1f; border-radius:0 0 13px 13px; }
     @media (max-width: 860px) { .how { grid-template-columns:1fr; gap:2rem; } }
-
-    .note { max-width:760px; margin:0 auto; display:grid; grid-template-columns:auto 1fr; gap:1.5rem; align-items:start; }
-    .note img { width:72px; height:72px; border-radius:50%; border:1px solid rgba(212,168,67,.4); }
-    .note p { color:#c9bfdc; line-height:1.75; margin:0 0 1rem; font-size:1.02rem; }
-    .note .sig { font-family:'Cinzel', serif; color:var(--gold); }
-    .draft { display:inline-block; font-size:.7rem; letter-spacing:.12em; padding:.15rem .5rem; border:1px dashed #f87171; color:#f87171; border-radius:6px; margin-bottom:.8rem; }
-
-    .faq { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:.6rem; }
-    .faq details { border:1px solid rgba(255,255,255,.09); border-radius:12px; background:#0f0b18; }
-    .faq summary { cursor:pointer; padding:1rem 1.2rem; color:#f3ecfa; font-weight:600; list-style:none; display:flex; justify-content:space-between; gap:1rem; }
+    .faq { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:.7rem; }
+    .faq details { border:1px solid rgba(242,218,146,.18); border-radius:14px; background:#130b1f; }
+    .faq summary { cursor:pointer; padding:1.05rem 1.25rem; color:var(--ink); font-weight:600; list-style:none; display:flex; justify-content:space-between; gap:1rem; }
     .faq summary::-webkit-details-marker { display:none; }
-    .faq summary::after { content:"+"; color:var(--gold); }
+    .faq summary::after { content:"+"; color:var(--brass-flat); font-family:'Cinzel', serif; }
     .faq details[open] summary::after { content:"\2013"; }
-    .faq details p { margin:0; padding:0 1.2rem 1.1rem; color:#b5aac9; line-height:1.65; }
-    .h2 { font-family:'Cinzel', serif; font-weight:600; color:#f3ecfa; font-size:clamp(1.6rem, 3.5vw, 2.3rem); text-align:center; margin:0 0 2rem; text-wrap:balance; }
-    .wrap { padding:4.5rem max(16px, env(safe-area-inset-left)); }
+    .faq details p { margin:0; padding:0 1.25rem 1.15rem; color:var(--ink-2); line-height:1.65; }
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f7e6a8"/><stop offset=".22" stop-color="#d2ab52"/><stop offset=".45" stop-color="#80601f"/>
+        <stop offset=".62" stop-color="#ecd287"/><stop offset=".82" stop-color="#8e6c2c"/><stop offset="1" stop-color="#f2da92"/>
+      </linearGradient>
+      <radialGradient id="enamel" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#3a2356"/><stop offset="1" stop-color="#150c22"/></radialGradient>
+      <path id="gear" d="M94.36,46.51 L98.95,47.69 L98.95,52.31 L94.36,53.49 L93.75,58.11 L97.88,60.44 L96.68,64.90 L91.95,64.85 L90.17,69.16 L93.54,72.47 L91.23,76.47 L86.67,75.21 L83.84,78.90 L86.24,82.98 L82.98,86.24 L78.90,83.84 L75.21,86.67 L76.47,91.23 L72.47,93.54 L69.16,90.17 L64.85,91.95 L64.90,96.68 L60.44,97.88 L58.11,93.75 L53.49,94.36 L52.31,98.95 L47.69,98.95 L46.51,94.36 L41.89,93.75 L39.56,97.88 L35.10,96.68 L35.15,91.95 L30.84,90.17 L27.53,93.54 L23.53,91.23 L24.79,86.67 L21.10,83.84 L17.02,86.24 L13.76,82.98 L16.16,78.90 L13.33,75.21 L8.77,76.47 L6.46,72.47 L9.83,69.16 L8.05,64.85 L3.32,64.90 L2.12,60.44 L6.25,58.11 L5.64,53.49 L1.05,52.31 L1.05,47.69 L5.64,46.51 L6.25,41.89 L2.12,39.56 L3.32,35.10 L8.05,35.15 L9.83,30.84 L6.46,27.53 L8.77,23.53 L13.33,24.79 L16.16,21.10 L13.76,17.02 L17.02,13.76 L21.10,16.16 L24.79,13.33 L23.53,8.77 L27.53,6.46 L30.84,9.83 L35.15,8.05 L35.10,3.32 L39.56,2.12 L41.89,6.25 L46.51,5.64 L47.69,1.05 L52.31,1.05 L53.49,5.64 L58.11,6.25 L60.44,2.12 L64.90,3.32 L64.85,8.05 L69.16,9.83 L72.47,6.46 L76.47,8.77 L75.21,13.33 L78.90,16.16 L82.98,13.76 L86.24,17.02 L83.84,21.10 L86.67,24.79 L91.23,23.53 L93.54,27.53 L90.17,30.84 L91.95,35.15 L96.68,35.10 L97.88,39.56 L93.75,41.89 Z"/>
+      <!-- the logo's central arrow, as a bullet -->
+      <symbol id="arrow" viewBox="0 0 14 16"><path d="M7 1 L12.5 7 H9 V15 H5 V7 H1.5 Z" fill="url(#brass)"/></symbol>
+      <!-- the logo's pointed ornament -->
+      <symbol id="diamond" viewBox="0 0 22 22"><path d="M11 1 L15 11 L11 21 L7 11 Z" fill="url(#brass)"/><circle cx="11" cy="11" r="2.2" fill="#150c22"/></symbol>
+    </defs>
+  </svg>
 
-  <!-- ═══ THE GATE ═══ -->
-  <section class="world" aria-labelledby="world-title">
-    <div class="world__head">
-      <div class="world__eyebrow">SOOMARIO STRATEGIES</div>
-      <h1 id="world-title">Three bots. Every trade published.</h1>
-      <p class="world__sub">Pick the one that fits how you invest. Your money stays on your own account: the bot can trade, never withdraw.</p>
-    </div>
-
-    <div class="gate" id="gate">
-      <svg class="vias" id="vias" aria-hidden="true"></svg>
-      <div class="ring" id="ring">
-        <img src="../assets/world/ring.webp" alt="" width="1400" height="942" fetchpriority="high">
-        <div class="bifrost" aria-hidden="true"></div>
+  <!-- ═══ CREST ═══ -->
+  <section class="crest" aria-labelledby="t">
+    <div class="medal">
+      <div class="medal__gear" id="gearturn" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><use href="#gear" fill="none" stroke="url(#brass)" stroke-width=".7"/><circle cx="50" cy="50" r="41" fill="none" stroke="url(#brass)" stroke-width=".35" opacity=".6"/></svg>
       </div>
-
-      <div class="isles">
-        <a class="isle" href="../products/hype-bot.html" style="--c:var(--hype)" data-via>
-          <img class="isle__art" src="../assets/world/island-hype.webp" alt="" width="680" height="581" loading="lazy">
-          <div class="isle__card">
-            <div class="isle__row"><span class="isle__name">Hype Bot</span><span class="isle__price">$49<small>/mo</small></span></div>
-            <div class="isle__what">Trades HYPE long and short, one position at a time, on your exchange account.</div>
-            <div class="isle__proof">+53% while HYPE fell 66%<br>138 live trades published</div>
-            <span class="isle__go">See every trade &rarr;</span>
-          </div>
-        </a>
-
-        <a class="isle isle--featured" href="../products/tide.html" style="--c:var(--tide)" data-via>
-          <img class="isle__art" src="../assets/world/island-tide.webp" alt="" width="680" height="536" loading="lazy">
-          <div class="isle__card">
-            <span class="isle__tag">New &middot; first 10: 3 months free</span>
-            <div class="isle__row"><span class="isle__name">Tide</span><span class="isle__price">from $19<small>/mo</small></span></div>
-            <div class="isle__what">Buys dips in steps across the top coins and 17 large stocks, and sells the bounce.</div>
-            <div class="isle__proof">+41.7% a year, 1,946 ladders<br>backtest with the losers left in</div>
-            <span class="isle__go">How Tide works &rarr;</span>
-          </div>
-        </a>
-
-        <a class="isle" href="../products/accumulator.html" style="--c:var(--acc)" data-via>
-          <img class="isle__art" src="../assets/world/island-accumulator.webp" alt="" width="680" height="450" loading="lazy">
-          <div class="isle__card">
-            <div class="isle__row"><span class="isle__name">Accumulator</span><span class="isle__price">$7<small>/mo</small></span></div>
-            <div class="isle__what">Buy-the-dip signals for 14 stocks and coins, sent to Telegram. No exchange account needed.</div>
-            <div class="isle__proof">Live model portfolio<br>since 9 February 2026</div>
-            <span class="isle__go">See the signals &rarr;</span>
-          </div>
-        </a>
-      </div>
+      <div class="medal__logo"><img src="../assets/world/logo.webp" alt="Soomario Strategies crest" width="640" height="650" fetchpriority="high"></div>
+      <div class="medal__shine" aria-hidden="true"></div>
     </div>
+    <div class="crest__eyebrow">SOOMARIO STRATEGIES</div>
+    <h1 id="t">Three bots. Every trade published.</h1>
+    <p class="crest__sub">Pick the one that fits how you invest. Your money stays on your own account: the bot can trade, never withdraw.</p>
+    <div class="ornament" aria-hidden="true"><i></i><svg><use href="#diamond"/></svg><i></i></div>
 
-    <p class="world__trust">Every plan has a 7-day free trial. <a href="../products/own-account.html">How your keys stay safe</a> &middot; <a href="https://engine.soomariostrategies.com/auth/whop/login?next=/home">Log in</a></p>
+    <div class="plaques">
+      <a class="plaque" href="../products/hype-bot.html" style="--c:var(--hype)">
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><g class="seal-gear"><use href="#gear" fill="url(#brass)"/></g>
+          <circle cx="50" cy="50" r="36" fill="url(#enamel)" stroke="url(#brass)" stroke-width="3"/>
+          <g fill="none" stroke="url(#brass)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M39 65 V37 M31 45 L39 35 L47 45"/><path d="M61 35 V63 M53 55 L61 65 L69 55"/></g></svg>
+        <div class="plaque__in">
+          <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+          <div class="numeral">I</div>
+          <div class="plaque__name">Hype Bot</div>
+          <div class="plaque__what">Trades HYPE long and short, one position at a time, on your own exchange account.</div>
+          <div class="plaque__big"><b>+53%</b><span>while HYPE fell 66%, Sep 2025 &ndash; Jan 2026</span></div>
+          <ul class="facts">
+            <li><svg><use href="#arrow"/></svg>138 live trades published since November 2025</li>
+            <li><svg><use href="#arrow"/></svg>10% stop resting on the exchange, every trade</li>
+            <li><svg><use href="#arrow"/></svg>Hyperliquid, Bybit, Binance, OKX or Pacifica</li>
+          </ul>
+          <div class="plaque__foot"><span class="price">$49<small> /mo</small></span><span class="btn-brass">See every trade</span></div>
+        </div>
+      </a>
+
+      <a class="plaque plaque--tide" href="../products/tide.html" style="--c:var(--tide)">
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><g class="seal-gear"><use href="#gear" fill="url(#brass)"/></g>
+          <circle cx="50" cy="50" r="36" fill="url(#enamel)" stroke="url(#brass)" stroke-width="3"/>
+          <g fill="none" stroke="url(#brass)" stroke-width="5" stroke-linecap="round"><path d="M27 44 q5.75 -7 11.5 0 t11.5 0 t11.5 0 t11.5 0"/><path d="M27 58 q5.75 -7 11.5 0 t11.5 0 t11.5 0 t11.5 0"/></g></svg>
+        <div class="plaque__in">
+          <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+          <span class="tag">New &middot; first 10: 3 months free</span>
+          <div class="numeral">II</div>
+          <div class="plaque__name">Tide</div>
+          <div class="plaque__what">Buys dips in steps across the top coins and 17 large stocks, and sells the bounce.</div>
+          <div class="plaque__big"><b>+41.7%</b><span>a year, backtest with the losers left in</span></div>
+          <ul class="facts">
+            <li><svg><use href="#arrow"/></svg>1,946 ladders tested, 99.8% closed in profit</li>
+            <li><svg><use href="#arrow"/></svg>Up to 20 small ladders at once, buys only</li>
+            <li><svg><use href="#arrow"/></svg>Every live ladder published next to the backtest</li>
+          </ul>
+          <div class="plaque__foot"><span class="price">from $19<small> /mo</small></span><span class="btn-brass">How Tide works</span></div>
+        </div>
+      </a>
+
+      <a class="plaque" href="../products/accumulator.html" style="--c:var(--acc)">
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><g class="seal-gear"><use href="#gear" fill="url(#brass)"/></g>
+          <circle cx="50" cy="50" r="36" fill="url(#enamel)" stroke="url(#brass)" stroke-width="3"/>
+          <g fill="#1c1029" stroke="url(#brass)" stroke-width="3.5"><ellipse cx="50" cy="64" rx="16" ry="5.5"/><ellipse cx="50" cy="56" rx="16" ry="5.5"/><ellipse cx="50" cy="48" rx="16" ry="5.5"/><ellipse cx="50" cy="40" rx="16" ry="5.5"/></g></svg>
+        <div class="plaque__in">
+          <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+          <div class="numeral">III</div>
+          <div class="plaque__name">Accumulator</div>
+          <div class="plaque__what">Buy-the-dip signals for 14 stocks and coins, sent to Telegram. No exchange account needed.</div>
+          <div class="plaque__big"><b>14</b><span>assets, a live model portfolio since 9 February 2026</span></div>
+          <ul class="facts">
+            <li><svg><use href="#arrow"/></svg>You place the orders; we never touch an account</li>
+            <li><svg><use href="#arrow"/></svg>Built for long-term investing, not day trading</li>
+            <li><svg><use href="#arrow"/></svg>Every signal kept on the public dashboard</li>
+          </ul>
+          <div class="plaque__foot"><span class="price">$7<small> /mo</small></span><span class="btn-brass">See the signals</span></div>
+        </div>
+      </a>
+    </div>
+    <p class="trustline">Every plan has a 7-day free trial. <a href="../products/own-account.html">How your keys stay safe</a> &middot; <a href="https://engine.soomariostrategies.com/auth/whop/login?next=/home">Log in</a></p>
   </section>
 
   <!-- ═══ PROOF ═══ -->
-  <section class="wrap" style="padding-top:2rem;">
+  <section class="wrap" style="padding-top:3rem;">
     <div class="proof">
-      <div><b>Nov 2025</b><span>Hype Bot live; every signal on a public ledger since</span></div>
-      <div><b>+116%</b><span>Hype Bot live record at 1x, after 0.12% fees a trade</span></div>
-      <div><b>0</b><span>withdrawal rights: keys can trade, never move your money</span></div>
-      <div><b>5</b><span>exchanges: Hyperliquid, Bybit, Binance, OKX, Pacifica</span></div>
+      <div class="cell"><b>Nov 2025</b><span>Hype Bot live; every signal on a public ledger since</span></div>
+      <div class="cell"><b>+116%</b><span>Hype Bot live record at 1x, after 0.12% fees a trade</span></div>
+      <div class="cell"><b>0</b><span>withdrawal rights: keys can trade, never move your money</span></div>
+      <div class="cell"><b>5</b><span>exchanges: Hyperliquid, Bybit, Binance, OKX, Pacifica</span></div>
     </div>
   </section>
 
   <!-- ═══ HOW IT WORKS ═══ -->
-  <section class="wrap">
+  <section class="wrap" style="background:#110a1b;">
     <h2 class="h2">From signup to first trade in about ten minutes</h2>
     <div class="how">
       <ol>
@@ -191,22 +232,9 @@
         <li><div><h3>Watch it trade from your Home screen</h3><p>Balance, open positions and every closed trade, on your phone or desktop. Pause it with one button.</p></div></li>
       </ol>
       <figure>
-        <img src="../assets/world/engine-home.jpg" alt="The Soomario engine's Home screen: account balance, open positions and the last closed trades" loading="lazy">
+        <img src="../assets/world/engine-home.jpg" alt="The Soomario engine's Home screen: account balance, open positions and the last closed trades" loading="lazy" width="594" height="416">
         <figcaption>The engine's Home screen (demo account)</figcaption>
       </figure>
-    </div>
-  </section>
-
-  <!-- ═══ FOUNDER NOTE ═══ -->
-  <section class="wrap" style="background:#0b0812;">
-    <div class="note">
-      <img src="../soomario-logo-128.png" alt="">
-      <div>
-        <span class="draft">DRAFT &middot; REPLACE WITH YOUR OWN WORDS AND PHOTO</span>
-        <p>I built these bots to trade my own money first. Every rule was tested on years of data, the losing coins included, before a cent of anyone else's followed it, and every trade they take is published, the bad ones too.</p>
-        <p>If a number on this site ever looks too good, ask me where it comes from. You will get the trade list.</p>
-        <div class="sig">&mdash; Founder, Soomario Strategies</div>
-      </div>
     </div>
   </section>
 
@@ -223,43 +251,14 @@
   </section>
 
   <script>
-  // The light paths: from the portals inside the ring down to each island,
-  // redrawn when the layout changes. Hidden on phones (cards stack there).
+  // The crest's gear turns a little as you scroll, on top of its slow spin.
   (function () {
-    var gate = document.getElementById('gate'), svg = document.getElementById('vias'), ring = document.getElementById('ring');
-    var NS = 'http://www.w3.org/2000/svg';
-    function draw() {
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
-      if (window.innerWidth <= 860) return;
-      var g = gate.getBoundingClientRect(), r = ring.getBoundingClientRect();
-      var isles = gate.querySelectorAll('[data-via]');
-      var defs = document.createElementNS(NS, 'defs');
-      svg.appendChild(defs);
-      isles.forEach(function (el, i) {
-        var card = el.querySelector('.isle__card').getBoundingClientRect();
-        var art = el.querySelector('.isle__art').getBoundingClientRect();
-        var c = getComputedStyle(el).getPropertyValue('--c').trim() || '#d4a843';
-        var col = getComputedStyle(document.documentElement).getPropertyValue(c.replace(/var\(|\)/g, '')).trim() || c;
-        var sx = r.left - g.left + r.width * (0.40 + i * 0.10), sy = r.top - g.top + r.height * 0.50;
-        var ex = card.left - g.left + card.width / 2, ey = art.top - g.top + art.height * 0.55;
-        var dy = ey - sy;
-        var d = 'M' + sx + ',' + sy + ' C' + sx + ',' + (sy + dy * 0.55) + ' ' + ex + ',' + (ey - dy * 0.6) + ' ' + ex + ',' + ey;
-        var f = document.createElementNS(NS, 'filter');
-        f.setAttribute('id', 'glow' + i); f.setAttribute('x', '-50%'); f.setAttribute('y', '-50%'); f.setAttribute('width', '200%'); f.setAttribute('height', '200%');
-        f.innerHTML = '<feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>';
-        defs.appendChild(f);
-        [['via-base', 0], ['via-flow', 1]].forEach(function (k) {
-          var p = document.createElementNS(NS, 'path');
-          p.setAttribute('d', d); p.setAttribute('class', k[0]); p.setAttribute('stroke', col);
-          p.setAttribute('filter', 'url(#glow' + i + ')');
-          if (k[1]) p.style.animationDelay = (-i * 1.4) + 's';
-          svg.appendChild(p);
-        });
-      });
-    }
-    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 120); });
-    window.addEventListener('load', draw);
-    draw();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var g = document.getElementById('gearturn'), raf = 0;
+    window.addEventListener('scroll', function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () { raf = 0; g.style.setProperty('--turn', (window.scrollY * 0.12) + 'deg'); });
+    }, { passive: true });
   })();
   </script>
   <script src="../components.js"></script>
