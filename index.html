@@ -87,6 +87,14 @@
     .hero__vid { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
     .hero__vid.is-on { opacity: 1; }
     @keyframes drift { from { transform: scale(1.02); } to { transform: scale(1.09) translateY(-1%); } }
+    /* On desktop the hall keeps its own shape (1472x800) at the top of the hero and fades out,
+       instead of being stretched to the full height of the cards, which blew it up ~2x. */
+    @media (min-width: 1201px) {
+      .hero__bg, .hero__vid { bottom: auto; height: min(100%, 54.35vw);
+        -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent);
+                mask-image: linear-gradient(180deg, #000 70%, transparent); }
+      .hero__bg img { animation: none; }
+    }
     .hero::after { /* keep the cards readable and melt into the page */
       content: ""; position: absolute; inset: 0; z-index: -1;
       background: radial-gradient(ellipse 42% 30% at 50% 24%, rgba(18,10,30,.55), transparent 75%),
