@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Marcellus&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="../assets/home/hall-wide.webp" media="(min-width: 700px)">
+  <link rel="preload" as="image" href="../assets/home/hall-loop-poster.webp" media="(min-width: 1201px)">
   <link rel="preload" as="image" href="../assets/home/hall-tall.webp" media="(max-width: 699px)">
   <style>
     /* Built from the Gemini / ChatGPT / Grok direction (marketing/design_inputs):
@@ -69,8 +69,10 @@
     /* ── Hero: the hall and the three cards ───────────── */
     .hero { position: relative; isolation: isolate; overflow: hidden; padding-top: calc(118px + env(safe-area-inset-top, 0px)); padding-bottom: 72px; }
     .hero__bg { position: absolute; inset: 0; z-index: -2; }
-    .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform-origin: 50% 35%;
-      animation: drift 48s ease-in-out infinite alternate; }
+    .hero__bg img, .hero__vid { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+    .hero__bg img { transform-origin: 50% 35%; animation: drift 48s ease-in-out infinite alternate; }
+    .hero__vid { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
+    .hero__vid.is-on { opacity: 1; }
     @keyframes drift { from { transform: scale(1.02); } to { transform: scale(1.09) translateY(-1%); } }
     .hero::after { /* keep the cards readable and melt into the page */
       content: ""; position: absolute; inset: 0; z-index: -1;
@@ -183,6 +185,9 @@
     @media (max-width: 820px) {
       .bots { grid-template-columns: minmax(0, 1fr); gap: 104px; max-width: 520px; margin-inline: auto; margin-top: 120px; }
       .bot__what { min-height: 0; }
+      /* the cards stack, so the hero gets tall: show the whole picture at the top and fade it out */
+      .hero__bg { bottom: auto; -webkit-mask: linear-gradient(180deg, #000 62%, transparent 99%); mask: linear-gradient(180deg, #000 62%, transparent 99%); }
+      .hero__bg img { height: auto; }
       .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .proof > div:nth-child(3) { border-left: 0; }
       .proof > div:nth-child(n+3) { border-top: 1px solid color-mix(in srgb, var(--brass) 25%, transparent); }
@@ -233,8 +238,10 @@
     <picture class="hero__bg" aria-hidden="true">
       <source media="(max-width: 699px)" srcset="../assets/home/hall-tall.webp">
       <source media="(max-width: 1200px)" srcset="../assets/home/hall-wide-1024.webp">
-      <img src="../assets/home/hall-wide.webp" alt="" width="1792" height="1008" fetchpriority="high">
+      <source media="(prefers-reduced-motion: reduce)" srcset="../assets/home/hall-wide.webp">
+      <img src="../assets/home/hall-loop-poster.webp" alt="" width="1472" height="800" fetchpriority="high">
     </picture>
+    <video class="hero__vid" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
 
     <div class="wrap">
       <div class="hero__head">
@@ -367,6 +374,23 @@
 </footer>
 
 <script>
+  // The hall moves on desktop only: not on phones, Save-Data, or for people who asked for less motion.
+  (function () {
+    var v = document.querySelector('.hero__vid');
+    var conn = navigator.connection || {};
+    if (!v || !matchMedia('(min-width: 1201px)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches || conn.saveData) return;
+    [['../assets/home/hall-loop.webm', 'video/webm'], ['../assets/home/hall-loop.mp4', 'video/mp4']].forEach(function (s) {
+      var el = document.createElement('source'); el.src = s[0]; el.type = s[1]; v.appendChild(el);
+    });
+    v.addEventListener('playing', function () { v.classList.add('is-on'); }, { once: true });
+    v.load();
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+    // pause while the hero is scrolled out of view
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { var q = v.play(); if (q && q.catch) q.catch(function () {}); } else v.pause();
+    }).observe(document.querySelector('.hero'));
+  })();
+
   // Accumulator's card shows its live model-portfolio return when the dashboard answers;
   // otherwise it keeps "14 assets".
   fetch('https://accumulator.soomariostrategies.com/api/portfolio_value?group=mag14&t=' + Date.now(), { cache: 'no-store' })
