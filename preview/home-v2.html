@@ -103,16 +103,12 @@
     .bot--tide::before { animation-delay: -2.7s; } .bot--acc::before { animation-delay: -5.3s; }
     @keyframes bifrost { to { --a: 360deg; } }
 
-    .seal { position: absolute; top: -78px; left: 50%; width: 156px; height: 156px; margin-left: -78px; }
-    .seal__ring, .seal__wax { position: absolute; inset: 0; border-radius: 50%; }
-    .seal__ring { background: center / cover no-repeat; animation: turn 90s linear infinite;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.6)); }
-    .seal__wax { inset: 19%; background: center / 162% no-repeat; box-shadow: 0 4px 10px rgba(0,0,0,.45); }
-    .bot:hover .seal__ring { animation-duration: 12s; }
+    .seal { position: absolute; top: -80px; left: 50%; width: 160px; height: 160px; margin-left: -80px;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.6)); }
+    .seal__ring, .seal__core { position: absolute; inset: 0; background: center / contain no-repeat; }
+    .seal__ring { animation: turn 70s linear infinite; }   /* only the outer teeth turn; the wax stays still */
+    .bot:hover .seal__ring { animation-duration: 9s; }
     @keyframes turn { to { transform: rotate(360deg); } }
-    .seal--plain .seal__wax { display: none; }
-    .seal--plain .seal__ring { animation: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 60%, transparent), 0 12px 24px rgba(0,0,0,.6); }
-
     .bot__num { font: 600 14px/1 var(--caps); letter-spacing: .3em; color: var(--c); }
     .bot__name { font: 400 34px/1.1 var(--serif); margin: 10px 0 0; color: #fff7e6; }
     .bot__tag { display: inline-block; margin: 12px auto 0; font: 600 13px/1 var(--sans); letter-spacing: .02em; color: #0d2a26;
@@ -244,7 +240,7 @@
 
       <div class="bots" id="bots">
         <article class="bot bot--hype">
-          <div class="seal seal--plain" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-hype.webp)"></div></div>
+          <div class="seal" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-hype-teeth.webp)"></div><div class="seal__core" style="background-image:url(../assets/home/seal-hype-core.webp)"></div></div>
           <div class="bot__num">I</div>
           <h2 class="bot__name">Hype Bot</h2>
           <p class="bot__what">Trades HYPE long and short, one position at a time, on your own exchange account.</p>
@@ -263,7 +259,7 @@
         </article>
 
         <article class="bot bot--tide">
-          <div class="seal seal--plain" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-tide.webp)"></div></div>
+          <div class="seal" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-tide-teeth.webp)"></div><div class="seal__core" style="background-image:url(../assets/home/seal-tide-core.webp)"></div></div>
           <div class="bot__num">II</div>
           <h2 class="bot__name">Tide</h2>
           <span class="bot__tag">New · first 10 members: 3 months free</span>
@@ -283,7 +279,7 @@
         </article>
 
         <article class="bot bot--acc">
-          <div class="seal seal--plain" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-acc.webp)"></div></div>
+          <div class="seal" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-acc-teeth.webp)"></div><div class="seal__core" style="background-image:url(../assets/home/seal-acc-core.webp)"></div></div>
           <div class="bot__num">III</div>
           <h2 class="bot__name">Accumulator</h2>
           <p class="bot__what">Buy-the-dip signals for 14 stocks and coins, sent to Telegram. No exchange account needed.</p>
