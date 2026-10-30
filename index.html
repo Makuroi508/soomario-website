@@ -26,6 +26,18 @@
 
   <link rel="canonical" href="https://soomariostrategies.com/">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <style>
+    .pick3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.25rem; max-width:1080px; margin:0 auto; }
+    .pick { display:flex; flex-direction:column; gap:0.6rem; text-decoration:none; color:inherit; transition:transform .15s, border-color .15s; }
+    .pick:hover { transform:translateY(-2px); border-color:rgba(201,169,97,0.5); }
+    .pick--hot { border-color:rgba(74,222,128,0.4); }
+    .pick__top { display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap; }
+    .pick__price { font-family:var(--font-heading); color:var(--gold); font-size:1.25rem; } .pick__price small { font-size:0.75rem; color:var(--text-muted); }
+    .pick__name { font-family:var(--font-heading); font-size:1.5rem; color:var(--text-primary); }
+    .pick__what { color:var(--text-secondary); font-size:0.95rem; line-height:1.5; }
+    .pick__proof { color:#4ade80; font-size:0.88rem; line-height:1.45; }
+    .pick__go { margin-top:auto; color:var(--gold); font-size:0.9rem; font-weight:600; }
+  </style>
 </head>
 <body>
 
@@ -75,18 +87,38 @@
   <!-- ═══════════════════════════════════════════════════════ -->
   <section class="section" id="engine" style="padding-top:2.5rem;padding-bottom:2.5rem;">
     <div class="container">
-      <div class="card" style="max-width:980px;margin:0 auto;border-color:rgba(201,169,97,0.35);display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;justify-content:space-between;">
-        <div style="flex:1 1 380px;">
-          <div class="section-label" style="margin-bottom:0.5rem;">SOOMARIO ENGINE &middot; YOUR OWN ACCOUNT</div>
-          <h2 style="font-family:var(--font-heading);font-size:1.5rem;color:var(--text-primary);margin:0 0 0.5rem;line-height:1.25;">Run the Hype Bot or Libration on your exchange</h2>
-          <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.6;margin:0;">Connect a trade-only key from Hyperliquid, Bybit, Binance, OKX or Pacifica and the engine trades every signal on your account. You choose the allocation and the leverage. From $29/mo, 7 days free, no profit share.</p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:0.6rem;flex:1 1 220px;max-width:280px;">
-          <a href="start.html" class="btn btn--primary" style="text-align:center;">Get started &mdash; 7 days free</a>
-          <a href="https://engine.soomariostrategies.com/auth/whop/login?next=/dashboard" class="btn btn--outline" style="text-align:center;">Log in to the Engine</a>
-          <a href="products/own-account.html" style="font-size:0.85rem;color:var(--text-muted);text-align:center;">How it works &rarr;</a>
-        </div>
+      <div class="text-center" style="margin-bottom:1.75rem;">
+        <div class="section-label">PICK YOUR BOT</div>
+        <h2 class="section-title" style="font-size:clamp(1.6rem,3.5vw,2.2rem);"><span class="gradient-text">Three ways to start</span></h2>
+        <p class="section-subtitle" style="margin:0.5rem auto 0;max-width:620px;">Every trade published. Your money stays on your own account. 7 days free, cancel any time.</p>
       </div>
+      <div class="pick3">
+        <a href="products/hype-bot.html" class="card pick">
+          <div class="pick__top"><span class="badge badge--live">LIVE</span><span class="pick__price">$49<small>/mo</small></span></div>
+          <div class="pick__name">Hype Bot</div>
+          <div class="pick__what">Trades HYPE long and short on your exchange account</div>
+          <div class="pick__proof">+53% while HYPE fell 66% (Sep 2025 &ndash; Jan 2026)</div>
+          <span class="pick__go">See the record &rarr;</span>
+        </a>
+        <a href="products/tide.html" class="card pick pick--hot">
+          <div class="pick__top"><span class="badge badge--new">BETA</span><span class="pick__price">from $19<small>/mo</small></span></div>
+          <div class="pick__name">Tide</div>
+          <div class="pick__what">Buys dips in steps across the top coins and 17 large stocks, sells the bounce</div>
+          <div class="pick__proof">+41.7% a year in a backtest without survivorship bias. First 10 members: 3 months free</div>
+          <span class="pick__go">How Tide works &rarr;</span>
+        </a>
+        <a href="products/accumulator.html" class="card pick">
+          <div class="pick__top"><span class="badge badge--live">LIVE</span><span class="pick__price">$7<small>/mo</small></span></div>
+          <div class="pick__name">Accumulator</div>
+          <div class="pick__what">Buy-the-dip signals for 14 stocks and coins, sent to Telegram. No exchange needed</div>
+          <div class="pick__proof">Live model portfolio since Feb 2026, below</div>
+          <span class="pick__go">See the signals &rarr;</span>
+        </a>
+      </div>
+      <p class="text-center" style="margin-top:1.25rem;font-size:0.9rem;color:var(--text-muted);">
+        Already a member? <a href="https://engine.soomariostrategies.com/auth/whop/login?next=/home" style="color:var(--gold);">Log in to the Engine</a>
+        &middot; <a href="products/own-account.html" style="color:var(--gold);">How your keys stay safe</a>
+      </p>
     </div>
   </section>
 
@@ -226,7 +258,7 @@
       <div class="text-center" style="margin-bottom:2.5rem;">
         <div class="section-label">FOR LARGER DEPOSITS</div>
         <h2 class="section-title"><span class="gradient-text">Strategies</span></h2>
-        <p class="section-subtitle" style="margin:0 auto;">Hands-off automated strategies on Hyperliquid vaults, Binance and Solana. Profit share only on the live vaults — no monthly fees, no lockups. Or run the Hype Bot and Libration on your own exchange account for a flat monthly fee.</p>
+        <p class="section-subtitle" style="margin:0 auto;">Hands-off automated strategies on Hyperliquid vaults, Binance and Solana. Profit share only on the live vaults — no monthly fees, no lockups. Or run the Hype Bot, Tide or Libration on your own exchange account for a flat monthly fee.</p>
       </div>
 
       <div class="strategies-grid">
@@ -266,6 +298,19 @@
           <p class="strat-card__pitch">A single-asset swing engine on HYPE, driven by a proprietary momentum signal. Long or short, one position at a time, a tight trailing take-profit and a 10% hard stop resting on the exchange. Every trade published.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">$49/mo on your account</span>
+            <span class="strat-card__link">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="products/tide.html" class="strat-card" style="text-decoration:none;border-color:rgba(74,222,128,0.35);">
+          <div class="strat-card__head">
+            <div class="strat-card__name">Tide</div>
+            <span class="strat-card__badge strat-card__badge--live">BETA</span>
+          </div>
+          <div class="strat-card__tagline">Dip-buying bot &middot; coins + stocks</div>
+          <p class="strat-card__pitch">Buys dips in steps across the month's most-traded coins and 17 large stocks, and sells each one on the bounce. Up to 20 small ladders at once on your own Hyperliquid account. First 10 members: 3 months free.</p>
+          <div class="strat-card__footer">
+            <span class="strat-card__fee">From $19/mo on your account</span>
             <span class="strat-card__link">Learn more →</span>
           </div>
         </a>
@@ -315,7 +360,7 @@
             <div class="strat-card__name">Your Own Account</div>
             <span class="strat-card__badge strat-card__badge--live">NEW</span>
           </div>
-          <div class="strat-card__tagline">Hype Bot &amp; Libration, your exchange, your keys</div>
+          <div class="strat-card__tagline">Hype Bot, Tide &amp; Libration, your exchange, your keys</div>
           <p class="strat-card__pitch">Subscribe on Whop, paste a trade-only API key from Hyperliquid, Bybit, Binance, OKX or Pacifica, and the Soomario engine runs the strategy on your balance. No vault, no copy-trading leader, no profit share. Cancel any time.</p>
           <div class="strat-card__footer">
             <span class="strat-card__fee">From $29/mo · 0% profit share</span>

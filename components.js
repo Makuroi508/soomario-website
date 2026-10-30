@@ -96,13 +96,14 @@
           <div class="nav-dropdown">
             <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('products') ? 'active' : ''}">Products</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
-              <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/hype-bot.html" class="nav-dropdown__item">Hype Bot <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
-              <a href="${depth}products/own-account.html" class="nav-dropdown__item">Your Own Account (Engine) <span class="badge badge--new">NEW</span></a>
+              <a href="${depth}products/tide.html" class="nav-dropdown__item">Tide <span class="badge badge--new">BETA</span></a>
+              <a href="${depth}products/accumulator.html" class="nav-dropdown__item">Accumulator <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/own-account.html" class="nav-dropdown__item">How the engine works</a>
               <div class="nav-dropdown__divider"></div>
+              <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite <span class="badge badge--live">LIVE</span></a>
+              <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion <span class="badge badge--live">LIVE</span></a>
               <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation <span class="badge badge--live">LIVE</span></a>
             </div></div>
           </div>
@@ -174,12 +175,13 @@
       <div class="mobile-menu__group">
         <div class="mobile-menu__group-title">Products</div>
         <div class="mobile-menu__links">
-          <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/hype-bot.html" class="mobile-menu__link">Hype Bot <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/tide.html" class="mobile-menu__link">Tide <span class="badge badge--new">BETA</span></a>
+          <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/own-account.html" class="mobile-menu__link">How the engine works</a>
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration <span class="badge badge--live">LIVE</span></a>
-          <a href="${depth}products/own-account.html" class="mobile-menu__link">Your Own Account (Engine) <span class="badge badge--new">NEW</span></a>
+          <a href="${depth}products/elite.html" class="mobile-menu__link">Elite <span class="badge badge--live">LIVE</span></a>
+          <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion <span class="badge badge--live">LIVE</span></a>
           <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation <span class="badge badge--live">LIVE</span></a>
         </div>
       </div>
