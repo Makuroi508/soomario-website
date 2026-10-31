@@ -16,8 +16,9 @@
   <title>How It Works - Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="product.css">
   <link rel="stylesheet" href="site-chrome.css">
   <link rel="canonical" href="https://soomariostrategies.com/how-it-works.html">
   <style>
@@ -41,10 +42,15 @@
     .tier-flag { font-family:var(--font-display); font-size:0.65rem; letter-spacing:0.06em; padding:0.2rem 0.55rem; border-radius:9999px; color:var(--bg-page); }
   </style>
 </head>
-<body>
+<body class="pp">
 
   <!-- HERO -->
-  <section class="section" style="padding-top:3rem;">
+  <section class="section phero-wrap">
+    <picture class="phero__bg" aria-hidden="true">
+      <source media="(max-width: 699px)" srcset="assets/home/hall-tall.webp">
+      <source media="(max-width: 1200px)" srcset="assets/home/hall-wide-1024.webp">
+      <img src="assets/home/hall-wide.webp" alt="" fetchpriority="high">
+    </picture>
     <div class="container container--narrow text-center">
       <div class="section-label">METHODOLOGY &amp; PHILOSOPHY</div>
       <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);"><span class="gradient-text">How It Works</span></h1>
