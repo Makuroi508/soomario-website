@@ -15,7 +15,6 @@
     whop: {
       accumulator: 'https://whop.com/soomario-strategies/soomario-accumulator/',
       maxpain: 'https://whop.com/soomario-strategies/',
-      elite: 'https://whop.com/soomario-strategies/',
       hype: 'https://whop.com/soomario-strategies/hype-bot',
       libration: 'https://whop.com/soomario-strategies/libration-strat',
     },
@@ -29,7 +28,6 @@
     dashboards: {
       accumulator: 'https://accumulator.soomariostrategies.com/dashboard',
       accumulatorLogin: 'https://accumulator.soomariostrategies.com/dashboard',
-      elite: getPagePath('dashboards/elite.html'),
     },
     ga4: '' // Add GA4 Measurement ID here when ready, e.g. 'G-XXXXXXXXXX'
   };
@@ -58,7 +56,6 @@
   function resolvePaths() {
     const depth = getDepth();
     SITE.logo = depth + 'soomario-logo-128.png';
-    SITE.dashboards.elite = depth + 'dashboards/elite.html';
   }
 
   /* ── Detect Active Page ── */
@@ -104,7 +101,6 @@
               <a href="${depth}tools/compare.html" class="nav-dropdown__item">Compare the bots</a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}aureus/" class="nav-dropdown__item">Aureus vault</a>
-              <a href="${depth}products/elite.html" class="nav-dropdown__item">Elite</a>
               <a href="${depth}products/aphelion.html" class="nav-dropdown__item">Aphelion</a>
               <a href="${depth}products/rotation.html" class="nav-dropdown__item">Rotation</a>
               <a href="${depth}products/libration.html" class="nav-dropdown__item">Libration</a>
@@ -118,7 +114,6 @@
               <a href="${depth}dashboards/tide.html" class="nav-dropdown__item">Tide</a>
               <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator</a>
               <div class="nav-dropdown__divider"></div>
-              <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite</a>
               <a href="https://aphelion.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Aphelion</a>
               <a href="https://rotation.soomariostrategies.com/" class="nav-dropdown__item" target="_blank">Rotation</a>
               <a href="https://libration.soomariostrategies.com" class="nav-dropdown__item" target="_blank">Libration</a>
@@ -183,7 +178,6 @@
         <div class="mobile-menu__group-title">Vaults &amp; more</div>
         <div class="mobile-menu__links">
           <a href="${depth}aureus/" class="mobile-menu__link">Aureus vault</a>
-          <a href="${depth}products/elite.html" class="mobile-menu__link">Elite</a>
           <a href="${depth}products/aphelion.html" class="mobile-menu__link">Aphelion</a>
           <a href="${depth}products/rotation.html" class="mobile-menu__link">Rotation</a>
           <a href="${depth}products/libration.html" class="mobile-menu__link">Libration</a>
@@ -196,7 +190,6 @@
           <a href="${depth}dashboards/hype.html" class="mobile-menu__link">Hype Bot</a>
           <a href="${depth}dashboards/tide.html" class="mobile-menu__link">Tide</a>
           <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
-          <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
           <a href="https://aphelion.soomariostrategies.com" class="mobile-menu__link" target="_blank">Aphelion</a>
           <a href="https://rotation.soomariostrategies.com/" class="mobile-menu__link" target="_blank">Rotation</a>
           <a href="https://libration.soomariostrategies.com" class="mobile-menu__link" target="_blank">Libration</a>
@@ -263,7 +256,6 @@
             <ul class="site-footer__links">
               <li><a href="${depth}products/accumulator.html">Accumulator — $7/mo</a></li>
               <li><a href="${depth}products/aphelion.html">Aphelion</a></li>
-              <li><a href="${depth}products/elite.html">Elite</a></li>
               <li><a href="${depth}products/hype-bot.html">Hype Bot</a></li>
               <li><a href="${depth}products/libration.html">Libration</a></li>
               <li><a href="${depth}products/own-account.html">Your Own Account — from $29/mo</a></li>

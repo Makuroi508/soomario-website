@@ -2,165 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="Soomario Elite — a discretionary Hyperliquid vault managed by the founder, with small automated positions alongside. 10% profit share, 1-day lockup, open to deposits.">
-  <meta property="og:title" content="Soomario Elite — Founder-Managed Hyperliquid Vault">
-  <meta property="og:description" content="A discretionary Hyperliquid vault managed by Soomario's founder, with small automated positions alongside. Live figures on the dashboard.">
-  <title>Soomario Elite — Founder-Managed Vault | Soomario Strategies</title>
+  <meta name="theme-color" content="#150c22">
+  <title>Elite — no longer offered | Soomario Strategies</title>
+  <meta name="description" content="Elite is closed to new deposits and is no longer offered.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  
-  <link rel="canonical" href="https://soomariostrategies.com/products/elite.html">
+  <link rel="stylesheet" href="../product.css">
 </head>
-<body>
+<body class="pp">
 
-  <!-- ═══ 1. HERO ═══ -->
-  <section class="section" style="padding-top:3rem;">
-    <div class="container">
-      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID VAULT</span>
-      </div>
-      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
-        <span class="gradient-text">Managed by the founder.</span><br>
-        <span style="color:var(--text-primary);">On-chain, in the open.</span>
-      </h1>
-      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        Elite is a discretionary Hyperliquid vault managed by Soomario's founder, who trades it by hand on the vault's behalf, with small automated positions running alongside. Deposits stay in Hyperliquid's own vault contract, and every position and trade is public.
-      </p>
-
-      <div class="metrics" style="margin:2rem 0;max-width:820px;">
-        <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Profit share</div></div>
-        <div class="metric"><div class="metric__value gradient-text">1 day</div><div class="metric__label">Lockup after each deposit</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Open</div><div class="metric__label">To new deposits</div></div>
-        <div class="metric"><div class="metric__value gradient-text">USDC</div><div class="metric__label">Deposit currency</div></div>
-      </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
-        <a href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
-        <a href="../dashboards/elite.html" class="btn btn--outline btn--lg">View Live Dashboard →</a>
-      </div>
-
-      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;font-family:var(--font-mono);">
-        Vault: <a href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank" rel="noopener" style="color:var(--gold);">0x8bd0…0537</a> · self-custody, on-chain
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 2. HOW IT IS RUN ═══ -->
-  <section class="section section--alt">
-    <div class="container container--narrow text-center">
-      <div class="section-label">HOW IT IS RUN</div>
-      <h2 class="section-title"><span class="gradient-text">A person makes the calls.</span><br>Automation runs alongside.</h2>
-      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        The founder decides what the vault holds, how large each position is and how much leverage it uses, and he keeps his own money in the vault alongside depositors. A few small automated positions run next to the discretionary book. Markets and sizing change with his judgement, so the vault does not follow a fixed recipe — the live dashboard shows exactly what it holds and how it has done.
+  <header class="phero phero--dash">
+    <picture class="phero__bg" aria-hidden="true">
+      <source media="(max-width: 699px)" srcset="../assets/home/hall-tall.webp">
+      <source media="(max-width: 1200px)" srcset="../assets/home/hall-wide-1024.webp">
+      <img src="../assets/home/hall-wide.webp" alt="">
+    </picture>
+    <div class="container phero__in">
+      <div class="phero__num">Elite</div>
+      <h1>Elite is no longer offered</h1>
+      <p class="phero__sub">
+        Elite, the founder-managed Hyperliquid vault, is closed to new deposits and is no longer offered as a service.
       </p>
     </div>
-  </section>
+  </header>
 
-  <!-- ═══ 3. WHAT YOU GET ═══ -->
   <section class="section">
     <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">WHAT YOU GET</div>
-        <h2 class="section-title"><span class="gradient-text">Hyperliquid vault.</span><br>10% profit share. Self-custody.</h2>
+      <div class="dash-head">
+        <div class="section-label">What we run now</div>
+        <h2 class="section-title">Three bots, every trade published</h2>
       </div>
-
-      <div class="grid-3">
-        <div class="card">
-          <div class="card__title">Your share, pro rata</div>
-          <p class="card__text">Your deposit owns a slice of the vault. Gains and losses are shared in proportion to each depositor's stake, the manager's own included.</p>
-        </div>
-        <div class="card">
-          <div class="card__title">On-chain transparency</div>
-          <p class="card__text">Every position, trade and realized P&amp;L is visible on Hyperliquid's vault page. The <a href="../dashboards/elite.html" style="color:var(--gold);">live dashboard</a> shows vault value, time-weighted returns, drawdown, open positions and recent trades.</p>
-        </div>
-        <div class="card">
-          <div class="card__title">Simple terms</div>
-          <p class="card__text">10% of profits, only when you profit. No monthly charges, deposit fees or withdrawal fees. Each deposit is locked for 1 day, after which you can withdraw at any time.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 4. HONEST LIMITS ═══ -->
-  <section class="section section--alt">
-    <div class="container container--narrow">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">HONEST LIMITS</div>
-        <h2 class="section-title"><span class="gradient-text">What Elite isn't</span></h2>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Discretionary, not systematic</div>
-          <p class="card__text">Most of the vault is traded by hand. Results depend on one person's judgement, and no backtest describes what the vault will do.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Leveraged perpetuals</div>
-          <p class="card__text">The vault trades leveraged perpetual futures and can hold concentrated positions. Losses are amplified and can be large and fast. Check the drawdown on the live dashboard before you deposit.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Not a balanced portfolio</div>
-          <p class="card__text">Markets, direction and size change with the manager's view. Elite is not a hedge, an index or a market-neutral product.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Past results don't carry forward</div>
-          <p class="card__text">The dashboard documents what the vault has done, not what it will do.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 5. FINAL CTA ═══ -->
-  <section class="section">
-    <div class="container container--narrow text-center">
-      <div class="section-label">DEPOSIT INTO THE VAULT</div>
-      <h2 class="section-title"><span class="gradient-text">10% profit share.</span><br>Self-custody, on-chain.</h2>
-      <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
-        Deposit USDC into the Hyperliquid vault. Each deposit is locked for 1 day; after that, withdraw any time. Fees only on profit.
-      </p>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
-        <a href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault →</a>
-        <a href="../dashboards/elite.html" class="btn btn--outline btn--lg">View Live Dashboard →</a>
-      </div>
-
-      <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);max-width:520px;margin:1rem auto 0;line-height:1.6;word-break:break-all;">
-        <a href="https://app.hyperliquid.xyz/vaults/0x8bd03b8a06612cdb83ebee91e901dae9203ef537" target="_blank" rel="noopener" style="color:var(--gold);">0x8bd03b8a06612cdb83ebee91e901dae9203ef537</a>
-      </div>
-
-      <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
-        Elite trades leveraged perpetual futures, which carries substantial risk of loss. Past performance does not guarantee future results.
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 6. RELATED ═══ -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
-      <div class="grid-3">
-        <a href="../aureus/" class="card" style="text-decoration:none;">
-          <div class="card__title">Aureus →</div>
-          <p class="card__text">Tokenized strategy fund on Arbitrum. Deposit USDC, earn bi-weekly distributions from Soomario Strategies — Elite included. 80% of every profitable epoch to stakers.</p>
-        </a>
-        <a href="hype-bot.html" class="card" style="text-decoration:none;">
+      <div class="pp-related">
+        <a href="../products/hype-bot.html" class="card r-hype">
           <div class="card__title">Hype Bot &rarr;</div>
-          <p class="card__text">One coin, one position at a time: a proprietary momentum swing on HYPE, run by the Soomario engine on your own exchange account. $49/mo, 7 days free.</p>
+          <p class="card__text">Trades HYPE long and short on your own exchange account, with a 10% stop resting on every trade. $49/mo, 7 days free.</p>
         </a>
-        <a href="libration.html" class="card" style="text-decoration:none;">
-          <div class="card__title">Libration &rarr;</div>
-          <p class="card__text">A momentum swing engine across six volatile perpetuals, one position per coin. Hyperliquid vault, or your own exchange account for $29/mo.</p>
+        <a href="../products/tide.html" class="card r-tide">
+          <div class="card__title">Tide &rarr;</div>
+          <p class="card__text">Buys dips in steps across the top coins and 17 large stocks and sells the bounce, on your own Hyperliquid account. From $19/mo.</p>
+        </a>
+        <a href="../products/accumulator.html" class="card r-acc">
+          <div class="card__title">Accumulator &rarr;</div>
+          <p class="card__text">Buy-the-dip signals for 14 stocks and coins, sent to Telegram. No exchange account needed. $7/mo.</p>
         </a>
       </div>
     </div>
