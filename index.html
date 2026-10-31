@@ -260,13 +260,13 @@
           <div class="bot__num">I</div>
           <h2 class="bot__name">Hype Bot</h2>
           <p class="bot__what">Trades HYPE long and short, one position at a time, on your own exchange account.</p>
-          <div class="bot__big">+53%</div>
-          <div class="bot__cap">while HYPE fell 66%, Sep 2025 – Jan 2026</div>
+          <div class="bot__big" id="hypeBig">+105%</div>
+          <div class="bot__cap">after fees since going live in November 2025, at 1x</div>
           <div class="rule"></div>
           <ul class="facts">
-            <li>138 live trades published since November 2025</li>
+            <li>+53% while HYPE fell 66%, Sep 2025 – Jan 2026</li>
+            <li id="hypeN">147 live trades published, wins and losses</li>
             <li>10% stop resting on the exchange, every trade</li>
-            <li>Hyperliquid, Bybit, Binance, OKX or Pacifica</li>
           </ul>
           <div class="bot__foot">
             <div class="price">$49<small>/mo</small></div>
@@ -324,7 +324,7 @@
       <h2>Nothing hidden, nothing held</h2>
       <div class="proof">
         <div><b>Nov 2025</b><span>Hype Bot live; every signal on a public ledger since</span></div>
-        <div><b>+185%</b><span>Hype Bot signal record at 1x, before fees (about +120–140% after fees, depending on the exchange)</span></div>
+        <div><b id="hypeBand">+105%</b><span>Hype Bot since going live, at 1x after fees, from the public record of every trade</span></div>
         <div><b>0</b><span>withdrawal rights. Keys can trade, never move your money</span></div>
         <div><b>5</b><span>exchanges: Hyperliquid, Bybit, Binance, OKX, Pacifica</span></div>
       </div>
@@ -394,6 +394,39 @@
       document.getElementById('accCap').textContent = 'model portfolio of 14 assets, live since 9 Feb 2026';
     })
     .catch(function () {});
+</script>
+<script>
+  // Hype Bot's card and the record band show its return since going live, after fees,
+  // worked out exactly as the Hype dashboard does: the published record, then every
+  // trade the engine has closed since, from its public feed. Otherwise they keep the
+  // figure written above.
+  (function () {
+    var nocache = { cache: 'no-store' };
+    fetch('dashboards/hype-history.json?t=' + Date.now(), nocache)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (h) {
+        if (!h || !h.live || !h.live.agg || !h.trades || !h.trades.length) return;
+        return fetch('https://engine.soomariostrategies.com/public/reference-trades.json', nocache)
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .catch(function () { return null; })
+          .then(function (f) {
+            var idx = h.live.agg.idx, n = h.live.n, fee = h.commission_pct,
+                lastC = h.trades[h.trades.length - 1].c;
+            ((f && f.trades) || []).forEach(function (t) {
+              if (!(t.o && t.c && t.ein > 0 && t.exi > 0 && t.o > lastC)) return;
+              var g = t.side === 'long' ? t.exi / t.ein - 1 : (t.ein - t.exi) / t.ein;
+              idx *= 1 + (g * 100 - fee) / 100; n++;
+            });
+            var pct = (idx - 1) * 100;
+            if (!isFinite(pct)) return;
+            var s = (pct >= 0 ? '+' : '−') + Math.round(Math.abs(pct)) + '%';
+            document.getElementById('hypeBig').textContent = s;
+            document.getElementById('hypeBand').textContent = s;
+            document.getElementById('hypeN').textContent = n + ' live trades published, wins and losses';
+          });
+      })
+      .catch(function () {});
+  })();
 </script>
 <script src="components.js"></script>
 </body>
