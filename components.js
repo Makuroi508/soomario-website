@@ -115,6 +115,7 @@
             <span class="site-nav__link nav-dropdown__trigger">Dashboards</span>
             <div class="nav-dropdown__menu"><div class="nav-dropdown__menu-inner">
               <a href="${depth}dashboards/hype.html" class="nav-dropdown__item">Hype Bot</a>
+              <a href="${depth}dashboards/tide.html" class="nav-dropdown__item">Tide</a>
               <a href="${SITE.dashboards.accumulator}" class="nav-dropdown__item" target="_blank">Accumulator</a>
               <div class="nav-dropdown__divider"></div>
               <a href="${depth}dashboards/elite.html" class="nav-dropdown__item">Elite</a>
@@ -193,6 +194,7 @@
         <div class="mobile-menu__group-title">Dashboards</div>
         <div class="mobile-menu__links">
           <a href="${depth}dashboards/hype.html" class="mobile-menu__link">Hype Bot</a>
+          <a href="${depth}dashboards/tide.html" class="mobile-menu__link">Tide</a>
           <a href="${SITE.dashboards.accumulator}" class="mobile-menu__link" target="_blank">Accumulator</a>
           <a href="${depth}dashboards/elite.html" class="mobile-menu__link">Elite</a>
           <a href="https://aphelion.soomariostrategies.com" class="mobile-menu__link" target="_blank">Aphelion</a>

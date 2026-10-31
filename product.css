@@ -124,6 +124,7 @@
 
 .gc-bar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .seg { display: inline-flex; border: 1px solid rgba(207, 168, 81, .35); border-radius: 10px; overflow: hidden; background: rgba(21, 12, 34, .6); }
+.seg[hidden] { display: none; }
 .seg button { font: 600 15px/1 var(--sans); color: var(--ink-2); background: none; border: 0; padding: 11px 16px; cursor: pointer; }
 .seg button + button { border-left: 1px solid rgba(207, 168, 81, .2); }
 .seg button[aria-pressed="true"] { color: #1a1028; background: linear-gradient(180deg, #f3e2b2, var(--brass) 60%, #b18a3c); }

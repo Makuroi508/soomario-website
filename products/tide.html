@@ -121,7 +121,7 @@
           <tbody>
             <tr><td>Hyperliquid coins + stocks<br><span class="muted" style="font-size:0.8rem">Nov 2023 &ndash; Oct 2026 &middot; what members run</span></td><td class="up">+41.7%</td><td class="down">&minus;22.1%</td><td class="down">&minus;5.4%</td><td>1,946</td><td>2</td></tr>
             <tr><td>Coins only<br><span class="muted" style="font-size:0.8rem">Dec 2020 &ndash; Oct 2026 &middot; through the 2022 crash</span></td><td class="up">+43.7%</td><td class="down">&minus;29.7%</td><td class="down">&minus;11.7%</td><td>3,687</td><td>10</td></tr>
-            <tr><td>Live, our own account<br><span class="muted" style="font-size:0.8rem">since 8 Oct 2026</span></td><td class="up">+1.95% so far</td><td class="down">&minus;2.4%</td><td>&mdash;</td><td>76</td><td>0</td></tr>
+            <tr><td>Live, our own account<br><span class="muted" style="font-size:0.8rem">since 8 Oct 2026 &middot; <a href="../dashboards/tide.html" style="color:var(--gold);">live record</a></span></td><td id="lvRet"><a href="../dashboards/tide.html" style="color:var(--gold);">see live</a></td><td class="down" id="lvDD">&mdash;</td><td>&mdash;</td><td id="lvN">&mdash;</td><td id="lvStops">&mdash;</td></tr>
           </tbody>
         </table>
       </div>
@@ -239,6 +239,21 @@
     </div>
   </section>
 
+  <script>
+    // the live row reads Tide's public figures, as the live record page does; open ladders are priced at the market
+    fetch('https://soomario-dca-production.up.railway.app/api/performance', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        var m = d && d.metrics; if (!m || m.return_pct == null) return;
+        var f = function (v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2) + '%'; };
+        var r = document.getElementById('lvRet');
+        r.textContent = f(m.return_pct) + ' so far'; r.className = m.return_pct >= 0 ? 'up' : 'down';
+        document.getElementById('lvDD').textContent = f(m.max_dd_pct);
+        document.getElementById('lvN').textContent = m.trades;
+        document.getElementById('lvStops').textContent = m.stops;
+      })
+      .catch(function () {});
+  </script>
   <script src="../components.js"></script>
 </body>
 </html>
