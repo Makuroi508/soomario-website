@@ -22,47 +22,45 @@
   <title>Soomario Hype Bot — Momentum Swing on HYPE | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../product.css">
 </head>
-<body>
+<body class="pp pp--hype">
 
   <!-- ═══ HERO ═══ -->
-  <section class="section" style="padding-top:4rem;">
-    <div class="container">
-      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPE &middot; LONG &amp; SHORT &middot; ONE POSITION</span>
-      </div>
-      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
-        <span class="gradient-text">One asset.</span><br>
-        <span style="color:var(--text-primary);">One rule. No discretion.</span>
-      </h1>
-      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        The Hype Bot trades a single market on a single proprietary momentum signal. It goes long when
-        momentum turns up and short when it rolls over &mdash; then gets out of the way and lets a trailing
-        take-profit decide when the trade is over.
+  <header class="phero">
+    <picture class="phero__bg" aria-hidden="true">
+      <source media="(max-width: 699px)" srcset="../assets/home/hall-tall.webp">
+      <source media="(max-width: 1200px)" srcset="../assets/home/hall-wide-1024.webp">
+      <img src="../assets/home/hall-wide.webp" alt="" fetchpriority="high">
+    </picture>
+    <div class="container phero__in">
+      <div class="seal" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-hype-teeth.webp)"></div><div class="seal__core" style="background-image:url(../assets/home/seal-hype-core.webp)"></div></div>
+      <div class="phero__num">I · Hype Bot</div>
+      <h1>One coin, long and short, every trade published</h1>
+      <p class="phero__sub">
+        Hype Bot trades HYPE in both directions, one position at a time, on your own exchange account.
+        Since it went live in November 2025 it has made <strong data-hype="ret">+105%</strong> after fees,
+        through a 66% fall in HYPE along the way. Every trade is on the public record, the losing ones too.
       </p>
-
-      <div class="metrics" style="margin:2rem 0;max-width:820px;">
-        <div class="metric"><div class="metric__value gradient-text">1</div><div class="metric__label">Asset &middot; HYPE</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Both</div><div class="metric__label">Long and short</div></div>
-        <div class="metric"><div class="metric__value gradient-text">All</div><div class="metric__label">Trades published</div></div>
-        <div class="metric"><div class="metric__value gradient-text">10%</div><div class="metric__label">Hard stop</div></div>
+      <div class="phero__stats">
+        <div><b data-hype="ret">+105%</b><span>since going live, after fees, at 1x</span></div>
+        <div><b>+53%</b><span>while HYPE fell 66%, Sep 2025 – Jan 2026</span></div>
+        <div><b data-hype="n">147</b><span>live trades published, wins and losses</span></div>
+        <div><b>10%</b><span>stop resting on the exchange, every trade</span></div>
       </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
-        <a href="../dashboards/hype.html" class="btn btn--primary btn--lg">View the record &rarr;</a>
-        <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--outline btn--lg">Try it free for 7 days &rarr;</a>
+      <div class="phero__cta">
+        <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Start the 7-day free trial &rarr;</a>
+        <a href="../dashboards/hype.html" class="btn btn--outline btn--lg">See every trade &rarr;</a>
       </div>
-
-      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;">
-        The engine trades every signal on its own Bybit HYPE account and publishes the fills. Subscribers run the same engine on their own Hyperliquid, Bybit, Binance, OKX
-        or Pacifica account with a trade-only key &mdash; <a href="own-account.html" style="color:var(--gold);">how that works</a>,
-        or <a href="../tools/hype-calculator.html" style="color:var(--gold);">replay every trade since December 2024 on your own numbers</a>.
-      </div>
+      <p class="phero__note">
+        $49 a month after the trial, flat, no profit share. Runs on Hyperliquid, Bybit, Binance, OKX or Pacifica
+        with a trade-only key (<a href="own-account.html">how your keys stay safe</a>), or
+        <a href="../tools/hype-calculator.html">replay every trade on your own numbers</a>.
+      </p>
     </div>
-  </section>
+  </header>
 
   <!-- ═══ THE EDGE ═══ -->
   <section class="section section--alt">
@@ -218,8 +216,8 @@
       </p>
 
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
-        <a href="../dashboards/hype.html" class="btn btn--primary btn--lg">Open the record &rarr;</a>
-        <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--outline btn--lg">Try it free for 7 days &rarr;</a>
+        <a href="https://whop.com/soomario-strategies/hype-bot" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Try it free for 7 days &rarr;</a>
+        <a href="../dashboards/hype.html" class="btn btn--outline btn--lg">Open the record &rarr;</a>
         <a href="https://discord.com/invite/gzpyCd3v7g" target="_blank" rel="noopener" class="btn btn--ghost btn--lg">Join Discord</a>
       </div>
 
@@ -236,16 +234,16 @@
       <div class="text-center" style="margin-bottom:2rem;">
         <div class="section-label">RELATED STRATEGIES</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
-        <a href="tide.html" class="card" style="text-decoration:none;border-color:rgba(74,222,128,0.35);">
+      <div class="pp-related">
+        <a href="tide.html" class="card r-tide">
           <div class="card__title">Tide &rarr; <span class="badge badge--new" style="font-size:0.6rem;">BETA</span></div>
           <p class="card__text">The opposite shape: buys dips in steps across the top coins and 17 large stocks and sells the bounce. Runs next to the Hype Bot on its own account. From $19/mo, first 10 members get 3 months free.</p>
         </a>
-        <a href="accumulator.html" class="card" style="text-decoration:none;">
+        <a href="accumulator.html" class="card r-acc">
           <div class="card__title">Accumulator &rarr;</div>
           <p class="card__text">No exchange account needed: buy-the-dip signals for 14 stocks and coins, sent to Telegram, for long-term investing. $7/mo.</p>
         </a>
-        <a href="libration.html" class="card" style="text-decoration:none;">
+        <a href="libration.html" class="card">
           <div class="card__title">Libration &rarr;</div>
           <p class="card__text">The same kind of swing engine across a basket of volatile coins, one position per coin.</p>
         </a>
@@ -253,6 +251,7 @@
     </div>
   </section>
 
+  <script src="../hype-live.js"></script>
   <script src="../components.js"></script>
 </body>
 </html>

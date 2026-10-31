@@ -1,0 +1,128 @@
+/* Product pages (Hype Bot, Tide, Accumulator) in the homepage's look: the hall, enamel
+   cards in brass frames, the bot's seal and colour, Marcellus headings in sentence case.
+   Loaded after styles.css; it re-points that file's tokens and restyles its components,
+   so the page markup keeps working. The body carries .pp and the bot: .pp--hype,
+   .pp--tide or .pp--acc. */
+
+.pp {
+  --enamel: #150c22; --enamel-2: #1d1230; --enamel-3: #2a1840;
+  --ink: #f5f0e6; --ink-2: #d9cfbd; --ink-3: #a89a84;
+  --brass: #cfa851; --brass-hi: #ecd9a6; --brass-lo: #8a6d2f;
+  --serif: "Marcellus", "Cinzel", Georgia, serif;
+  --caps: "Cinzel", "Marcellus", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --c: var(--brass);
+
+  /* styles.css tokens, re-pointed */
+  --gold: var(--brass); --gold-light: var(--brass-hi); --gold-dim: var(--brass-lo); --text-gold: var(--brass);
+  --bg-page: var(--enamel); --bg-surface: var(--enamel-2);
+  --bg-card: rgba(29, 18, 48, .62); --bg-card-hover: rgba(36, 22, 58, .72);
+  --text-primary: var(--ink); --text-secondary: var(--ink-2); --text-muted: var(--ink-3);
+  --border-subtle: rgba(207, 168, 81, .14); --border-default: rgba(207, 168, 81, .3); --border-strong: rgba(207, 168, 81, .55);
+  --font-heading: var(--serif); --font-display: var(--sans); --font-serif: var(--serif);
+
+  background: var(--enamel); color: var(--ink);
+  font: 400 18px/1.6 var(--sans); -webkit-font-smoothing: antialiased;
+}
+.pp--hype { --c: #b79cff; } .pp--tide { --c: #3ee0c8; } .pp--acc { --c: #f0c35a; }
+
+/* ── Type ─────────────────────────────────────────── */
+.pp .section-label { font: 600 14px/1 var(--caps); letter-spacing: .3em; color: var(--brass); }
+.pp .section-title { font: 400 clamp(32px, 3.4vw, 46px)/1.15 var(--serif); letter-spacing: 0; color: #fff7e6; text-wrap: balance; }
+.pp .section-title .gradient-text { background: none; -webkit-text-fill-color: currentColor; color: inherit; }
+.pp .section-subtitle { font-size: clamp(17px, 1.4vw, 19px); color: var(--ink-2); }
+.pp .card__title { font: 400 23px/1.25 var(--serif); color: #fff7e6; letter-spacing: 0; }
+.pp .card__text { font-size: 16.5px; line-height: 1.65; color: var(--ink-2); }
+.pp p strong, .pp .card__text strong { color: var(--ink); }
+.pp a:not([class]) { color: var(--brass-hi); text-underline-offset: 3px; }
+.pp .section p { font-size: 17px; }
+
+/* ── Sections ─────────────────────────────────────── */
+.pp .section { padding: clamp(64px, 8vw, 96px) 0; }
+.pp .section--alt { background: linear-gradient(180deg, rgba(29, 18, 48, .55), rgba(29, 18, 48, .25)); border-block: 1px solid rgba(207, 168, 81, .12); }
+.pp .container { max-width: 1240px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.pp .container--narrow { max-width: 860px; }
+
+/* ── Cards: enamel in a brass frame, with the engraved inner line ── */
+.pp .card { position: relative; border-radius: 18px; padding: 28px 30px; background: var(--bg-card);
+  border: 1px solid var(--border-default); box-shadow: 0 18px 40px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 235, 190, .1); }
+.pp .card::after { content: ""; position: absolute; inset: 7px; border-radius: 12px; pointer-events: none;
+  border: 1px solid rgba(207, 168, 81, .13); }
+.pp .card:hover { transform: none; background: var(--bg-card-hover); border-color: var(--border-strong); box-shadow: 0 22px 46px rgba(0, 0, 0, .38), inset 0 1px 0 rgba(255, 235, 190, .14); }
+.pp a.card:hover { transform: translateY(-2px); }
+
+/* ── Buttons: brass for the next step, the bot's colour for the second ── */
+.pp .btn { font: 600 16px/1 var(--sans); letter-spacing: 0; text-transform: none; border-radius: 10px; }
+.pp .btn--lg { font-size: 17px; padding: 18px 28px; min-height: 0; }
+.pp .btn--primary { color: #1a1028; border: 1px solid #f6e7bd; background: linear-gradient(180deg, #f3e2b2, var(--brass) 55%, #b18a3c);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.pp .btn--primary:hover { filter: brightness(1.07); background-position: 0 0; box-shadow: 0 8px 22px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.pp .btn--outline { color: #fff; border: 1px solid var(--c); background: color-mix(in srgb, var(--c) 22%, rgba(20, 12, 32, .9));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--c) 28%, transparent); }
+.pp .btn--outline:hover { color: #fff; background: color-mix(in srgb, var(--c) 40%, rgba(20, 12, 32, .9)); }
+.pp .btn--ghost { color: var(--ink-2); border: 1px solid rgba(207, 168, 81, .3); }
+.pp .btn--ghost:hover { color: var(--brass-hi); border-color: var(--brass); }
+
+/* ── Small parts ──────────────────────────────────── */
+.pp .badge { font: 600 12px/1 var(--sans); letter-spacing: .06em; border-radius: 999px; }
+.pp .metric { background: rgba(29, 18, 48, .62); border: 1px solid var(--border-default); border-radius: 14px; }
+.pp .metric__value, .pp .metric__value.gradient-text { font: 400 clamp(30px, 3vw, 40px)/1.05 var(--serif); background: none;
+  -webkit-text-fill-color: currentColor; color: color-mix(in srgb, var(--c) 55%, #fff6e0); }
+.pp .metric__label { font: 500 14px/1.35 var(--sans); letter-spacing: .02em; text-transform: none; color: var(--ink-2); }
+
+/* ── Hero: the hall, the seal, the headline, the numbers ───────────── */
+.phero { position: relative; isolation: isolate; overflow: hidden; margin-top: -72px; text-align: center;
+  padding: calc(150px + env(safe-area-inset-top, 0px)) 0 clamp(64px, 7vw, 92px); }
+.phero__bg { position: absolute; inset: 0 0 auto 0; z-index: -2; height: min(100%, 54.35vw);
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent); mask-image: linear-gradient(180deg, #000 55%, transparent); }
+.phero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.phero::after { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: radial-gradient(ellipse 46% 42% at 50% 34%, rgba(18, 10, 30, .78), rgba(18, 10, 30, .35) 70%, transparent),
+              linear-gradient(180deg, rgba(18, 10, 30, .55), rgba(21, 12, 34, .45) 40%, var(--enamel) 88%); }
+.phero__in { max-width: 980px; margin: 0 auto; }
+.phero .seal { position: relative; width: 150px; height: 150px; margin: 0 auto; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .6)); }
+.phero .seal__ring, .phero .seal__core { position: absolute; inset: 0; background: center / contain no-repeat; }
+.phero .seal__ring { animation: pp-turn 70s linear infinite; }
+@keyframes pp-turn { to { transform: rotate(360deg); } }
+.phero__num { margin-top: 18px; font: 600 14px/1 var(--caps); letter-spacing: .3em; color: var(--c); }
+.phero h1 { margin: 16px auto 0; max-width: 20ch; font: 400 clamp(38px, 4.8vw, 66px)/1.08 var(--serif); color: #fff7e6; text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(10, 5, 18, .85), 0 1px 2px rgba(0, 0, 0, .6); }
+.phero__sub { margin: 20px auto 0; max-width: 60ch; font-size: clamp(17px, 1.45vw, 20px); color: #efe6d6; text-wrap: pretty;
+  text-shadow: 0 1px 14px rgba(10, 5, 18, .95); }
+.phero__stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 40px auto 0; max-width: 980px; text-align: center;
+  border: 1px solid rgba(207, 168, 81, .45); border-radius: 18px; background: rgba(21, 12, 34, .72);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 24px 50px rgba(0, 0, 0, .4); }
+.phero__stats > div { padding: 24px 18px; min-width: 0; }
+.phero__stats > div + div { border-left: 1px solid rgba(207, 168, 81, .22); }
+.phero__stats b { display: block; font: 400 clamp(32px, 3.2vw, 44px)/1 var(--serif); color: color-mix(in srgb, var(--c) 55%, #fff6e0);
+  text-shadow: 0 0 24px color-mix(in srgb, var(--c) 40%, transparent); }
+.phero__stats span { display: block; margin-top: 10px; font-size: 15px; line-height: 1.4; color: var(--ink-2); }
+.phero__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 34px; }
+.phero__note { margin: 20px auto 0; max-width: 62ch; font-size: 15.5px; color: var(--ink-3); }
+.phero__note a { color: var(--brass-hi); }
+.phero .beta { margin: 28px auto 0; text-align: left; }
+
+/* ── Related: the other bots as small seal cards ─── */
+.pp-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+.pp-related .card { --c: var(--brass); display: flex; flex-direction: column; gap: 6px; text-decoration: none; }
+.pp-related .card.r-hype { --c: #b79cff; } .pp-related .card.r-tide { --c: #3ee0c8; } .pp-related .card.r-acc { --c: #f0c35a; }
+.pp-related .card .card__title { color: color-mix(in srgb, var(--c) 45%, #fff7e6); }
+
+@media (max-width: 860px) {
+  .phero { padding-top: calc(118px + env(safe-area-inset-top, 0px)); }
+  .phero__bg { height: 100%; }
+  .phero__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .phero__stats > div:nth-child(3) { border-left: 0; }
+  .phero__stats > div:nth-child(n+3) { border-top: 1px solid rgba(207, 168, 81, .22); }
+}
+@media (max-width: 560px) {
+  .pp { font-size: 17px; }
+  .phero .seal { width: 120px; height: 120px; }
+  .phero__stats > div { padding: 18px 12px; }
+  .phero__stats span { font-size: 14px; }
+  .phero__cta .btn { width: 100%; }
+  .pp .card { padding: 24px 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phero .seal__ring { animation: none; }
+}
