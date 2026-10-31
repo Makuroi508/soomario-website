@@ -22,9 +22,9 @@
   <title>Tide Calculator — Replay Every Ladder on Your Numbers | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <link rel="stylesheet" href="../product.css">
   <style>
     .hc-grid { display:grid; grid-template-columns: 340px 1fr; gap:1.5rem; align-items:start; }
     .hc-grid > * { min-width: 0; }
@@ -62,6 +62,32 @@
     .hc-details[open] summary::after { content:'\2013'; color:var(--gold); }
     .hc-details > div { padding:0 1rem 1rem; }
     .hc-scroll, #hc-years { overflow-x:auto; }
+
+    /* the new look (product.css tokens) */
+    .pp .hc-form { padding: 26px 24px; }
+    .pp .hc-form label { font: 600 12.5px/1.3 var(--caps); letter-spacing: .16em; text-transform: uppercase; color: var(--brass); margin: 22px 0 8px; }
+    .pp .hc-form label:first-child { margin-top: 0; }
+    .pp .hc-form input, .pp .hc-form select { font: 500 16.5px/1.2 var(--sans); padding: 12px 14px; border-radius: 10px;
+      background: rgba(21,12,34,.7); border: 1px solid rgba(207,168,81,.3); color: var(--ink); }
+    .pp .hc-form input:focus, .pp .hc-form select:focus { border-color: var(--brass); box-shadow: 0 0 0 3px rgba(207,168,81,.15); }
+    .pp .hc-form .hint { font-size: 14px; line-height: 1.55; color: var(--ink-3); margin-top: 8px; }
+    .pp .hc-kpis { gap: 14px; margin-bottom: 18px; }
+    .pp .hc-kpi { position: relative; border-radius: 14px; padding: 16px 16px 14px; background: rgba(29,18,48,.62); border: 1px solid var(--border-default); }
+    .pp .hc-kpi__v { font: 400 clamp(24px, 2.2vw, 30px)/1.1 var(--serif); color: color-mix(in srgb, var(--c) 55%, #fff6e0); }
+    .pp .hc-kpi__v.up { color: #6ee7a0; } .pp .hc-kpi__v.down { color: #fca5a5; } .pp .hc-kpi__v.gold { color: var(--brass-hi); }
+    .pp .hc-kpi__l { font: 500 13px/1.35 var(--sans); letter-spacing: .02em; text-transform: none; color: var(--ink-2); margin-top: 8px; }
+    .pp .hc-toggle { font-size: 15px; color: var(--ink-2); margin-top: 12px; }
+    .pp .hc-toggle label { font-size: 15px !important; }
+    .pp .hc-note, .pp .hc-warn { border-radius: 14px; padding: 16px 18px; font-size: 15.5px; line-height: 1.65; }
+    .pp .hc-note { border-color: rgba(207,168,81,.3); background: rgba(207,168,81,.06); color: var(--ink-2); }
+    .pp .hc-details { border-radius: 14px; background: rgba(29,18,48,.55); }
+    .pp .hc-details summary { font: 400 20px/1.3 var(--serif); color: #fff7e6; padding: 16px 18px; }
+    .pp table.hc-table { font: 400 14.5px/1.4 var(--sans); font-variant-numeric: tabular-nums; }
+    .pp .hc-table th { font: 600 12px/1 var(--caps); letter-spacing: .14em; color: var(--brass); }
+    .pp .hc-table td { color: var(--ink-2); }
+    .pp .hc-table .up { color: #4ade80; } .pp .hc-table .down { color: #f87171; }
+    .pp .hc-grid { grid-template-columns: 360px minmax(0, 1fr); gap: 26px; }
+    @media (max-width: 900px) { .pp .hc-grid { grid-template-columns: minmax(0, 1fr); } }
     .hc-plans { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-top:1rem; }
     @media (max-width: 600px) { .hc-plans { grid-template-columns:1fr; } }
     .hc-plan { border:1px solid var(--border-default); border-radius:var(--radius-lg); padding:0.9rem 1rem; background:var(--bg-card); }
@@ -74,27 +100,23 @@
     .tag.time { background:rgba(255,255,255,0.06); color:var(--text-muted); }
   </style>
 </head>
-<body>
+<body class="pp pp--tide">
 
   <!-- ═══ HERO ═══ -->
-  <section class="section" style="padding-top:4rem;padding-bottom:1.5rem;">
-    <div class="container">
-      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-n">LADDERS</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;" id="hc-badge-range">TIDE</span>
-      </div>
-      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.5rem);margin-bottom:1rem;max-width:820px;">
-        <span class="gradient-text">Replay every ladder</span><br>
-        <span style="color:var(--text-primary);">on your own numbers.</span>
-      </h1>
-      <p style="font-size:1.15rem;color:var(--text-secondary);max-width:720px;line-height:1.55;margin-bottom:0.5rem;">
-        Tide buys dips in steps across the most-traded coins and a list of large stocks, and sells each one on the bounce.
-        Here every ladder it took in the backtest, stops included, is replayed on the account you would connect:
-        your starting amount, your plan, and how much of the profit you keep in. The subscription comes off every month,
-        so the number at the end is what you would actually have kept. Nothing here is a projection; it is the past, re-sized.
-      </p>
+  <header class="phero phero--dash">
+    <picture class="phero__bg" aria-hidden="true">
+      <source media="(max-width: 699px)" srcset="../assets/home/hall-tall.webp">
+      <source media="(max-width: 1200px)" srcset="../assets/home/hall-wide-1024.webp">
+      <img src="../assets/home/hall-wide.webp" alt="" fetchpriority="high">
+    </picture>
+    <div class="container phero__in">
+      <div class="seal" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-tide-teeth.webp)"></div><div class="seal__core" style="background-image:url(../assets/home/seal-tide-core.webp)"></div></div>
+      <div class="phero__num">II · Tide · Calculator</div>
+      <h1>Replay every ladder on your own numbers</h1>
+      <p class="phero__sub">Every ladder Tide took in the backtest, stops included, replayed on the account you would connect: your starting amount, your plan and how much profit you keep in. The subscription comes off every month, so the end figure is what you would have kept. It is the past, re-sized, not a projection.</p>
+      <p class="phero__note"><span id="hc-badge-n"></span> · <span id="hc-badge-range"></span></p>
     </div>
-  </section>
+  </header>
 
   <!-- ═══ CALCULATOR ═══ -->
   <section class="section" style="padding-top:1rem;">
@@ -134,8 +156,8 @@
 
         <div>
           <div class="hc-kpis" id="hc-kpis"></div>
-          <div class="hc-chart"><canvas id="hc-canvas"></canvas></div>
-          <div class="hc-toggle"><input type="checkbox" id="hc-log"><label for="hc-log" style="margin:0;text-transform:none;letter-spacing:0;font-size:0.8rem;">Logarithmic scale</label></div>
+          <div class="card gc-card"><div class="gc" id="hc-growth"></div></div>
+          <div class="hc-toggle"><input type="checkbox" id="hc-log"><label for="hc-log" style="margin:0;text-transform:none;letter-spacing:0;font-family:var(--sans);color:var(--ink-2);">Logarithmic scale (for large growth)</label></div>
           <div class="hc-plans" id="hc-plans"></div>
           <div id="hc-warn"></div>
           <div id="hc-ref" class="hc-note"></div>
@@ -199,6 +221,7 @@
     </div>
   </section>
 
+  <script src="../growth-chart.js"></script>
   <script>
   (function () {
     var PLANS = { starter: { fee: 19, cap: 2500, name: 'Tide Starter' }, full: { fee: 49, cap: null, name: 'Tide' },
@@ -349,22 +372,11 @@
       });
       $('hc-years').innerHTML = ys.length ? '<table class="hc-table"><thead><tr><th>Year</th><th>Ladders</th><th>Stops</th><th>P&amp;L</th><th>Fees</th><th>Return</th><th>Wealth</th></tr></thead><tbody>' + yr + '</tbody></table>' : '';
 
-      var labels = r.pts.map(function (p) { return p.t.slice(0, 10); });
-      var data = r.pts.map(function (p) { return Math.round(p.e * 100) / 100; });
-      var log = $('hc-log').checked;
-      if (chart) chart.destroy();
-      chart = new Chart($('hc-canvas').getContext('2d'), {
-        type: 'line',
-        data: { labels: labels, datasets: [{ data: data, borderColor: '#c9a961', backgroundColor: 'rgba(201,169,97,0.12)', fill: true, borderWidth: 1.6, pointRadius: 0, tension: 0.15 }] },
-        options: {
-          responsive: true, maintainAspectRatio: false, animation: false,
-          plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (c) { return fmtUsd(c.parsed.y); } } } },
-          scales: {
-            x: { ticks: { color: '#8a8598', maxTicksLimit: 8, maxRotation: 0 }, grid: { color: 'rgba(255,255,255,0.04)' } },
-            y: { type: log ? 'logarithmic' : 'linear', ticks: { color: '#8a8598', callback: function (v) { return fmtUsd(v); } }, grid: { color: 'rgba(255,255,255,0.06)' } }
-          }
-        }
-      });
+      // the balance on the site's growth chart: dollars on the starting amount
+      var LIVE_FROM = Date.parse(st.to + 'T23:59:59Z') / 1000;
+      var gpts = r.pts.map(function (p) { var s = Date.parse(p.t + ':00Z') / 1000; return { t: s, v: p.e, phase: s < LIVE_FROM ? 'backtest' : 'live' }; });
+      var go = { points: gpts, measure: 'usd', start: start, liveFrom: LIVE_FROM, log: $('hc-log').checked, label: 'Balance replayed on your numbers' };
+      if (chart) chart.update(go); else chart = GrowthChart($('hc-growth'), go);
       $('hc-badge-n').textContent = (st.ladders + nLive).toLocaleString('en-US') + ' LADDERS';
       $('hc-badge-range').textContent = 'TIDE · ' + fmtMonth(st.from.slice(0, 7)).toUpperCase() + ' → ' + fmtMonth(tr[tr.length - 1].c.slice(0, 7)).toUpperCase();
     }
@@ -377,7 +389,7 @@
       });
       $('hc-live-title').textContent = 'Live ladders · ' + lv.trades.length + ' closed since ' + fmtDay(lv.since);
       $('hc-live').innerHTML = '<p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.5rem;">Every ladder the live bot has closed on our own account (Binance, since ' + fmtDay(lv.since) +
-        '): ' + fmtPct(lv.return_pct, 2) + ' so far, worst dip ' + lv.max_dd_pct + '%, ' + lv.stops + ' stops. Too short to judge; it is here so the backtest can be checked against it as it grows.</p>' +
+        '), as published on ' + fmtDay(D.generated.slice(0, 10)) + '. Too short to judge; it is here so the backtest can be checked against it as it grows. The live record, open ladders priced at the market, is on <a href="../dashboards/tide.html" style="color:var(--brass-hi)">the Tide dashboard</a>.</p>' +
         '<table class="hc-table"><thead><tr><th>Closed (UTC)</th><th>Market</th><th>Ended</th><th>On its budget</th><th>On the account</th></tr></thead><tbody>' + rows + '</tbody></table>';
     }
 
