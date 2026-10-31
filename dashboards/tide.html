@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#150c22">
+  <title>Tide record — every ladder, live | Soomario Strategies</title>
+  <meta name="description" content="Tide's live record on our own account, open ladders priced at the market, next to the 2023–2026 backtest it came from. Every ladder published.">
+  <link rel="canonical" href="https://soomariostrategies.com/dashboards/tide.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../product.css">
+</head>
+<body class="pp pp--tide">
+
+  <header class="phero phero--dash">
+    <picture class="phero__bg" aria-hidden="true">
+      <source media="(max-width: 699px)" srcset="../assets/home/hall-tall.webp">
+      <source media="(max-width: 1200px)" srcset="../assets/home/hall-wide-1024.webp">
+      <img src="../assets/home/hall-wide.webp" alt="" fetchpriority="high">
+    </picture>
+    <div class="container phero__in">
+      <div class="seal" aria-hidden="true"><div class="seal__ring" style="background-image:url(../assets/home/seal-tide-teeth.webp)"></div><div class="seal__core" style="background-image:url(../assets/home/seal-tide-core.webp)"></div></div>
+      <div class="phero__num">II · Tide · The record</div>
+      <h1>Every ladder, live</h1>
+      <p class="phero__sub">
+        Tide on our own account since 8 October 2026, with the ladders still open priced at the market, next to
+        the backtest it came from. The live figures update every few minutes.
+      </p>
+      <div class="phero__stats">
+        <div><b id="sRet">—</b><span>live return so far, open ladders included</span></div>
+        <div><b id="sN">—</b><span>ladders closed</span></div>
+        <div><b id="sStops">—</b><span>stops hit</span></div>
+        <div><b id="sDD">—</b><span>deepest live drawdown</span></div>
+      </div>
+      <p class="phero__note" id="asOf"></p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="dash-head">
+        <div class="section-label">Live vs backtest</div>
+        <h2 class="section-title">The live record next to the test it came from</h2>
+        <p>Big figures are live; the line under each is the backtest on Hyperliquid's coins and stocks, Nov 2023 to Oct 2026, after fees and funding.</p>
+      </div>
+      <div class="lvb" id="lvb"></div>
+      <p class="dash-note" id="lvbNote"></p>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="growth">
+    <div class="container">
+      <div class="dash-head">
+        <div class="section-label">Growth</div>
+        <h2 class="section-title">How the strategy has done</h2>
+      </div>
+      <div class="gc-bar">
+        <span class="seg" role="group" aria-label="Record">
+          <button type="button" data-view="live" aria-pressed="true">Live since 8 Oct</button>
+          <button type="button" data-view="bt" aria-pressed="false">Backtest 2023–2026</button>
+        </span>
+        <span class="seg" role="group" aria-label="Range" id="rangeSeg">
+          <button type="button" data-range="7" aria-pressed="false">1W</button>
+          <button type="button" data-range="30" aria-pressed="false">1M</button>
+          <button type="button" data-range="all" aria-pressed="true">All</button>
+        </span>
+      </div>
+      <div class="card gc-card"><div class="gc" id="chart"><div class="gc-empty">Loading the record…</div></div></div>
+      <div class="gc-legend">
+        <span><i></i><span id="lgLine">live account, every 15 minutes</span></span>
+        <span><i class="hw"></i>previous high</span><span><i class="dd"></i>drawdown, below the previous high</span>
+      </div>
+      <p class="dash-note" id="chartNote">
+        The live line is the account's growth with the open ladders priced at the market, so it dips while Tide is
+        buying a falling market and recovers when the ladders sell into the bounce.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="dash-head">
+        <div class="section-label">Ladders</div>
+        <h2 class="section-title">The latest closed ladders</h2>
+      </div>
+      <div class="tt-wrap"><table class="tt">
+        <thead><tr><th>Closed (UTC)</th><th>Market</th><th>Held</th><th>Rungs bought</th><th>Exit</th><th>On the ladder</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="6" style="text-align:center">Loading…</td></tr></tbody>
+      </table></div>
+      <div class="dash-links">
+        <span id="trCount"></span>
+        <a href="tide-trades.json">Every backtest ladder (JSON)</a>
+        <a href="../tools/tide-calculator.html">Replay them on your own numbers</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="dash-head">
+        <div class="section-label">How to read this</div>
+        <h2 class="section-title">Live and backtest, labelled</h2>
+      </div>
+      <div class="card method">
+        <p><b>Live</b> is Tide on our own account since 8 October 2026: every ladder it opens, at the prices it filled,
+          after fees and funding. The return counts the ladders still open at today's price, so it moves with the market
+          between sells. Its growth is each step's profit or loss divided by the capital Tide was sizing from at the time,
+          so deposits do not count as gains.</p>
+        <p><b>The backtest</b> runs the same rules over the coins and large stocks Hyperliquid lists, November 2023 to October 2026,
+          after fees and funding, with the coins that later collapsed left in. It picks each month's markets by trading volume,
+          as the live bot does. Its chart uses month-end values, so its drawdown there looks shallower than the
+          −22% the full record reached between month ends.</p>
+        <p>Neither is your account's result: your size and timing decide that. Past performance does not guarantee future results.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow text-center">
+      <h2 class="section-title">Run Tide on your own account</h2>
+      <p class="section-subtitle" style="margin:14px auto 30px;">Up to 20 small dip-buying ladders at once on your Hyperliquid account. From $19 a month; the first 10 members get 3 months free with code TIDEBETA.</p>
+      <div class="phero__cta" style="margin-top:0">
+        <a href="https://whop.com/soomario-strategies/tide-bot" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Start Tide &rarr;</a>
+        <a href="../products/tide.html" class="btn btn--outline btn--lg">How Tide works &rarr;</a>
+      </div>
+      <p style="margin-top:22px;font-size:14.5px;color:var(--ink-3);">Tide trades perpetual futures, which can lose money. Past performance does not guarantee future results.</p>
+    </div>
+  </section>
+
+<script src="../growth-chart.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  // Tide's own dashboard serves these to the public; the site shows them as percentages only.
+  var LIVE = 'https://soomario-dca-production.up.railway.app';
+  var nocache = { cache: 'no-store' };
+  var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function pct(v, d) { return v == null || !isFinite(v) ? '—' : (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d == null ? 1 : d) + '%'; }
+  function utc(t) { var d = new Date(t * 1000); return d.toISOString().slice(0, 16).replace('T', ' '); }
+  function getJson(u) { return fetch(u, nocache).then(function (r) { if (!r.ok) throw r.status; return r.json(); }); }
+
+  var state = { view: 'live', range: 'all' }, chart = null, liveCurve = null, btCurve = null;
+
+  function draw() {
+    var pts = state.view === 'live' ? liveCurve : btCurve;
+    $('rangeSeg').hidden = state.view !== 'live';
+    $('lgLine').textContent = state.view === 'live' ? 'live account, every 15 minutes' : 'backtest, month-end values';
+    if (!pts) { $('chart').innerHTML = '<div class="gc-empty">' + (state.view === 'live' ? 'The live record could not be reached just now. Try refreshing.' : 'Loading…') + '</div>'; chart = null; return; }
+    if (state.view === 'live' && state.range !== 'all') {
+      var lo = pts[pts.length - 1].t - (+state.range) * 86400, i = pts.findIndex(function (p) { return p.t >= lo; });
+      pts = pts.slice(Math.max(0, i - 1));
+    }
+    var o = { points: pts, measure: 'ret', label: 'Tide growth chart' };
+    if (chart && $('chart').querySelector('svg')) chart.update(o); else { $('chart').innerHTML = ''; chart = GrowthChart($('chart'), o); }
+  }
+  document.querySelectorAll('.gc-bar button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var key = b.dataset.view ? 'view' : 'range';
+      state[key] = b.dataset[key];
+      b.parentNode.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      draw();
+    });
+  });
+
+  function cards(m, bt, liveDays) {
+    var card = function (k, lv, b, help) {
+      return '<div class="card"><div class="lvb__k">' + k + '</div><div class="lvb__v">' + lv + '</div>' +
+        '<div class="lvb__b">backtest <b>' + b + '</b></div><div class="lvb__h">' + help + '</div></div>';
+    };
+    var warm = liveDays < 90;
+    $('lvb').innerHTML =
+      card('A year', warm ? 'Warming up' : pct(m.cagr_pct), pct(bt.cagr), warm ? 'A yearly figure needs at least 90 days; ' + Math.floor(liveDays) + ' so far.' : 'Live return, annualized.') +
+      card('Deepest drawdown', pct(m.max_dd_pct), pct(bt.max_dd), 'The furthest below a previous high, open ladders included.') +
+      card('Closed in profit', m.trades ? Math.round(m.win_rate) + '%' : '—', bt.win_rate + '%', 'Share of closed ladders that sold above their cost.') +
+      card('Stops hit', String(m.stops), bt.stops + ' in ' + bt.ladders.toLocaleString('en-US'), 'Ladders closed by their stop after a dip that kept falling.');
+    $('lvbNote').textContent = warm
+      ? Math.floor(liveDays) + ' days live is a small sample: treat the live figures as early, and the backtest as what the rules have done over three years.'
+      : '';
+  }
+
+  function trades(list) {
+    var rows = list.slice().sort(function (a, b) { return b.closed_at - a.closed_at; }).slice(0, 40).map(function (t) {
+      var gain = t.peak_notional > 0 ? t.pnl / t.peak_notional * 100 : null;
+      var hold = t.hold_days < 1 ? Math.round(t.hold_days * 24) + ' h' : t.hold_days.toFixed(1) + ' d';
+      var exit = /stop/i.test(t.reason) ? 'stop' : /take/i.test(t.reason) ? 'take-profit' : t.reason;
+      return '<tr><td>' + utc(t.closed_at) + '</td><td>' + t.symbol + '</td><td>' + hold + '</td>' +
+        '<td>' + t.rungs_filled + ' of ' + t.rungs_total + '</td><td>' + exit + '</td>' +
+        '<td class="' + (gain >= 0 ? 'up' : 'down') + '">' + pct(gain, 2) + '</td></tr>';
+    }).join('');
+    $('rows').innerHTML = rows || '<tr><td colspan="6" style="text-align:center">No ladder has closed yet.</td></tr>';
+    $('trCount').textContent = 'Latest ' + Math.min(40, list.length) + ' of ' + list.length + ' closed ladders';
+  }
+
+  // the published backtest file: the card figures and the month-end curve
+  var file = getJson('tide-trades.json?t=' + Date.now()).then(function (d) {
+    var b = d.books.hl, x = 1, t0 = Date.parse(b.stats.from + 'T00:00:00Z') / 1000;
+    btCurve = [{ t: t0, v: 1, phase: 'backtest' }];
+    b.months.forEach(function (m) {
+      x *= 1 + m.r / 100;
+      var p = m.m.split('-'), end = Date.UTC(+p[0], +p[1], 1) / 1000 - 1;     // last second of the month
+      btCurve.push({ t: Math.min(end, Date.parse(b.stats.to + 'T23:59:59Z') / 1000), v: x, phase: 'backtest' });
+    });
+    return d;
+  });
+
+  Promise.all([file, getJson(LIVE + '/api/performance').catch(function () { return null; }), getJson(LIVE + '/api/trades').catch(function () { return null; })])
+    .then(function (r) {
+      var d = r[0], P = r[1], T = r[2], bt = d.books.hl.stats;
+      if (P && P.curve && P.metrics) {
+        var m = P.metrics;
+        liveCurve = P.curve.map(function (c) { return { t: c.t, v: 1 + c.ret / 100, phase: 'live' }; });
+        $('sRet').textContent = pct(m.return_pct, 2);
+        $('sN').textContent = m.trades;
+        $('sStops').textContent = m.stops;
+        $('sDD').textContent = pct(m.max_dd_pct, 1);
+        $('asOf').textContent = 'Live as of ' + utc(P.curve[P.curve.length - 1].t) + ' UTC · ' + Math.floor(m.days) + ' days · open ladders priced at the market';
+        cards(m, bt, m.days);
+      } else {
+        // the live service is out of reach: the last published snapshot, labelled as such
+        var L = d.live;
+        $('sRet').textContent = pct(L.return_pct, 2);
+        $('sN').textContent = L.trades.length;
+        $('sStops').textContent = L.stops;
+        $('sDD').textContent = pct(L.max_dd_pct, 1);
+        $('asOf').textContent = 'The live feed is out of reach; these are the snapshot of ' + d.generated.replace('T', ' ') + ' UTC.';
+        cards({ cagr_pct: null, max_dd_pct: L.max_dd_pct, trades: L.trades.length, win_rate: 100 * L.trades.filter(function (t) { return t.r > 0; }).length / Math.max(1, L.trades.length), stops: L.stops }, bt, L.days);
+        state.view = 'bt';
+        document.querySelectorAll('[data-view]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.view === 'bt')); });
+      }
+      if (T && T.trades) trades(T.trades);
+      else $('rows').innerHTML = '<tr><td colspan="6" style="text-align:center">The live ladders could not be reached just now.</td></tr>';
+      draw();
+    })
+    .catch(function () { $('chart').innerHTML = '<div class="gc-empty">The record could not be loaded. Try refreshing.</div>'; });
+})();
+</script>
+<script src="../components.js"></script>
+</body>
+</html>
