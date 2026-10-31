@@ -45,16 +45,32 @@
 
     var lo = Math.min(zero, Math.min.apply(null, ys)), hi = Math.max(zero, Math.max.apply(null, hwY));
     if (hi - lo < 1e-9) { hi += 1; lo -= 1; }
-    // the axis hugs the data with a small margin; gridlines are the round values inside it
-    var pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
-    var step = niceStep(hi - lo, phone ? 3 : 5);
+    // the axis hugs the data with a small margin; gridlines are the round values inside it.
+    // A log axis (dollars only) shows a balance that grew many times over without the
+    // early years flattening into the floor.
+    var logY = !!o.log && usd && lo > 0, ticks = [], step = 1;
+    if (logY) {
+      var L0 = Math.log10(lo), L1 = Math.log10(hi), lp = Math.max(0.02, (L1 - L0) * 0.06);
+      lo = Math.pow(10, L0 - lp); hi = Math.pow(10, L1 + lp);
+      for (var k = Math.floor(L0 - lp); k <= Math.ceil(L1 + lp); k++) {
+        [1, 2, 5].forEach(function (m) { var v = m * Math.pow(10, k); if (v >= lo && v <= hi) ticks.push(v); });
+      }
+      var pow10 = ticks.filter(function (v) { var l = Math.log10(v); return Math.abs(l - Math.round(l)) < 1e-9; });
+      if (ticks.length > (phone ? 5 : 8) && pow10.length >= 2) ticks = pow10;
+    } else {
+      var pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
+      step = niceStep(hi - lo, phone ? 3 : 5);
+      for (var tv = Math.ceil(lo / step) * step; tv <= hi + step * 1e-6; tv += step) ticks.push(tv);
+    }
     var label = function (v) { return usd ? fmtUsd(v) : (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(step < 1 ? 1 : 0) + '%'; };
 
     // labels sit at the right on desktop, inside the plot on a phone
     var padL = phone ? 4 : 8, padR = phone ? 4 : 74, padT = 12;
     var t0 = pts[0].t, t1 = pts[pts.length - 1].t;
     var X = function (t) { return padL + (t - t0) / Math.max(1, t1 - t0) * (W - padL - padR); };
-    var Y = function (v) { return padT + (hi - v) / (hi - lo) * (H - padT); };
+    var Y = logY
+      ? function (v) { return padT + (Math.log10(hi) - Math.log10(Math.max(v, lo))) / (Math.log10(hi) - Math.log10(lo)) * (H - padT); }
+      : function (v) { return padT + (hi - v) / (hi - lo) * (H - padT); };
     var ddLo = Math.min(-1, Math.min.apply(null, dd));
     var DY = function (v) { return H + gap + (v / ddLo) * DH; };
     var total = H + gap + DH + axis;
@@ -66,15 +82,17 @@
       s += '<rect x="' + padL + '" y="' + padT + '" width="' + (liveX - padL) + '" height="' + (H + gap + DH - padT) + '" fill="var(--ink-3)" opacity=".06"/>';
       s += '<text x="' + (padL + 8) + '" y="' + (padT + fs + 4) + '" fill="var(--ink-3)" font-size="' + (fs - 1) + '" letter-spacing=".12em">BACKTEST</text>';
       s += '<line x1="' + liveX + '" x2="' + liveX + '" y1="' + padT + '" y2="' + (H + gap + DH) + '" stroke="var(--c)" stroke-opacity=".7" stroke-dasharray="4 4"/>';
-      s += '<text x="' + (liveX + 8) + '" y="' + (padT + fs + 4) + '" fill="var(--c)" font-size="' + (fs - 1) + '" letter-spacing=".12em">LIVE →</text>';
+      s += (W - padR) - liveX > 80
+        ? '<text x="' + (liveX + 8) + '" y="' + (padT + fs + 4) + '" fill="var(--c)" font-size="' + (fs - 1) + '" letter-spacing=".12em">LIVE →</text>'
+        : '<text x="' + (W - padR - 3) + '" y="' + (padT + fs + 4) + '" text-anchor="end" fill="var(--c)" font-size="' + (fs - 1) + '" letter-spacing=".08em">LIVE</text>';   // a narrow live stretch: keep the word inside the plot
     }
     // gridlines and labels
-    for (var v = Math.ceil(lo / step) * step; v <= hi + step * 1e-6; v += step) {
+    ticks.forEach(function (v) {
       var y = Y(v).toFixed(1);
       s += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + y + '" y2="' + y + '" stroke="var(--ink-3)" stroke-opacity=".14"/>';
       if (phone) { if (Y(v) - 5 > padT + fs) s +='<text x="' + (padL + 4) + '" y="' + (Y(v) - 5).toFixed(1) + '" fill="var(--ink-3)" font-size="' + fs + '">' + label(v) + '</text>'; }
       else s += '<text x="' + (W - padR + 10) + '" y="' + (Y(v) + 4).toFixed(1) + '" fill="var(--ink-3)" font-size="' + fs + '">' + label(v) + '</text>';
-    }
+    });
     s += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + Y(zero).toFixed(1) + '" y2="' + Y(zero).toFixed(1) + '" stroke="var(--ink-2)" stroke-opacity=".45" stroke-dasharray="3 4"/>';
 
     var path = function (vals, from, to) {
