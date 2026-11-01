@@ -255,8 +255,7 @@
     // about 0.03%; a centralised exchange runs nearer 0.17%. The backtest's own
     // 0.20% is kept as an option because it is what the published curve uses.
     var FEE = 0.0012;
-    var LIVE_URL = 'https://engine.soomariostrategies.com/public/reference-trades.json';
-    var trades = null, chart = null, mchart = null, last = null, live = null, backtestEnd = null;
+    var trades = null, chart = null, mchart = null, last = null, ref = '';
     var $ = function (id) { return document.getElementById(id); };
     var fmtUsd = function (v) { return (v < 0 ? '-' : '') + '$' + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); };
     var fmtPct = function (v, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + '%'; };
@@ -424,12 +423,7 @@
       if (r.ruined) warn += '<div class="hc-warn"><strong>The account was wiped out</strong> before the end of the record.</div>';
       $('hc-warn').innerHTML = warn;
 
-      var liveNote = '';
-      if (live && live.n > 0) liveNote = ' <strong style="color:#4ade80">+' + live.n + ' trade' + (live.n > 1 ? 's' : '') + '</strong> taken by the engine on our own account since then (' + live.mode + ', updated ' + live.updated.slice(0, 16).replace('T', ' ') + ' UTC) are appended automatically.';
-      else if (live && live.n === 0) liveNote = ' The engine has not closed a trade since then; new ones are appended automatically.';
-      var nFile = trades.length - (live ? live.n : 0);
-      var nEng = trades.filter(function (t) { return t.src === 'engine'; }).length;
-      $('hc-ref').innerHTML = 'Reference: this page replays <strong style="color:var(--gold)">' + nFile + ' trades</strong> — 157 from the TradingView strategy tester up to Nov 5, 2025, then 126 signals as they were actually published to subscribers, at the price each carried' + (nEng ? ', then ' + nEng + ' fills from the engine\'s own Bybit HYPE account from Sep 23, 2026' : '') + '. All of them are charged the same 0.12% round trip, the cost measured on our own Hyperliquid account. Those 126 published signals compound to <strong>+127.7% before costs</strong> and <strong style="color:var(--gold)">+95.9% after them</strong> — and their win rate falls from 92.9% to 81.0%, because 15 of them won less than the round trip cost. That gap between the gross figure and the net one is the whole reason this page exists.' + liveNote;
+      $('hc-ref').innerHTML = ref;
 
       // yearly table (wealth = account + withdrawn)
       var ys = Object.keys(r.years).sort(), rows = '';
@@ -461,24 +455,32 @@
       $('hc-from').max = lastT.slice(0, 10);
     }
 
-    // The backtest is the fixed history; the engine's own book supplies every
-    // trade closed after it, so the calculator keeps up on its own.
-    function mergeLive(d) {
-      var added = (d.trades || []).filter(function (t) {
-        return t.o && t.c && t.ein > 0 && t.exi > 0 && t.o > backtestEnd;
-      }).map(function (t) { return { o: t.o, c: t.c, side: t.side, ein: t.ein, exi: t.exi, live: true }; });
-      trades = trades.concat(added);
-      live = { n: added.length, mode: d.mode || 'LIVE', updated: d.updated || '' };
+    // What the published signals made before and after the round trip, worked out from
+    // the file (rebuilt once a month from the master signal list).
+    function reference(d) {
+      var bt = trades.filter(function (t) { return t.phase === 'backtest'; }), lv = trades.filter(function (t) { return t.phase === 'live'; });
+      var g = 1, n = 1, wg = 0, wn = 0, fee = d.commission_pct;
+      lv.forEach(function (t) {
+        var x = (t.side === 'long' ? t.exi / t.ein - 1 : (t.ein - t.exi) / t.ein) * 100;
+        g *= 1 + x / 100; n *= 1 + (x - fee) / 100;
+        if (x > 0) wg++; if (x - fee > 0) wn++;
+      });
+      var d0 = function (s) { return MONTHS[parseInt(s.slice(5, 7), 10) - 1] + ' ' + parseInt(s.slice(8, 10), 10) + ', ' + s.slice(0, 4); };
+      return 'Reference: this page replays <strong style="color:var(--gold)">' + trades.length + ' trades</strong> — ' + bt.length +
+        ' from the TradingView strategy tester up to ' + d0(bt[bt.length - 1].c) + ', then ' + lv.length +
+        ' signals as they were actually published to subscribers, at the price each carried, to ' + d0(lv[lv.length - 1].c) +
+        ' (the list is added to once a month). All of them are charged the same ' + fee + '% round trip, the cost measured on our own Hyperliquid account. Those ' + lv.length +
+        ' published signals compound to <strong>' + fmtPct((g - 1) * 100, 1) + ' before costs</strong> and <strong style="color:var(--gold)">' + fmtPct((n - 1) * 100, 1) +
+        ' after them</strong> — and their win rate falls from ' + (wg / lv.length * 100).toFixed(1) + '% to ' + (wn / lv.length * 100).toFixed(1) + '%, because ' + (wg - wn) +
+        ' of them won less than the round trip cost. That gap between the gross figure and the net one is the whole reason this page exists.';
     }
 
     fetch('../dashboards/hype-trades.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        trades = d.trades; backtestEnd = trades[trades.length - 1].c;
+        trades = d.trades; ref = reference(d);
         updateBadges(); render();
-        return fetch(LIVE_URL, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; });
       })
-      .then(function (d) { if (d) { mergeLive(d); updateBadges(); render(); } })
       .catch(function (e) { if (!trades) $('hc-kpis').innerHTML = '<div class="hc-warn">Could not load the trade list (' + e + ').</div>'; });
   })();
   </script>
