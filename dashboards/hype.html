@@ -36,8 +36,8 @@
         each charged 0.12% a round trip. New trades are added as they close.
       </p>
       <div class="phero__stats">
-        <div><b data-hype="ret">+105%</b><span>since going live, after fees, at 1x</span></div>
-        <div><b data-hype="n">147</b><span>live trades</span></div>
+        <div><b data-hype="ret">+115.5%</b><span>since going live, after fees, at 1x</span></div>
+        <div><b data-hype="n">151</b><span>live trades</span></div>
         <div><b id="sWin">81%</b><span>of live trades closed in profit</span></div>
         <div><b id="sDD">−14%</b><span>deepest live drawdown</span></div>
       </div>
@@ -108,7 +108,7 @@
     <div class="container">
       <div class="dash-head">
         <div class="section-label">How to read this</div>
-        <h2 class="section-title">Three sources, labelled</h2>
+        <h2 class="section-title">Two sources, labelled</h2>
       </div>
       <div class="card method" id="method"></div>
     </div>
@@ -131,7 +131,6 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  var FEED = 'https://engine.soomariostrategies.com/public/reference-trades.json';
   var nocache = { cache: 'no-store' };
   var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   function pct(v, d) { return v == null || !isFinite(v) ? '—' : (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d == null ? 1 : d) + '%'; }
@@ -139,20 +138,10 @@
   function secs(s) { return Date.parse(s.length > 10 ? s + ':00Z' : s + 'T00:00:00Z') / 1000; }
 
   // Each point of the published curve closes one trade, so a trade's net return is the
-  // step between two points. Trades the engine has closed since the file was built come
-  // from its public feed, charged the same round trip (as on the homepage and calculator).
-  function build(h, f) {
+  // step between two points. The file is rebuilt once a month from the master signal list.
+  function build(h) {
     var pts = h.curve.map(function (p) { return { t: secs(p.d), v: p.v, phase: p.phase }; });
-    var trades = (h.trades || []).slice(), lastC = trades.length ? trades[trades.length - 1].c : '';
-    var fee = h.commission_pct, v = pts[pts.length - 1].v;
-    ((f && f.trades) || []).forEach(function (t) {
-      if (!(t.o && t.c && t.ein > 0 && t.exi > 0 && t.o > lastC)) return;
-      var g = (t.side === 'long' ? t.exi / t.ein - 1 : (t.ein - t.exi) / t.ein) * 100 - fee;
-      v *= 1 + g / 100;
-      pts.push({ t: secs(t.c), v: v, phase: 'live' });
-      trades.push({ o: t.o, c: t.c, side: t.side, ein: t.ein, exi: Math.round(t.exi * 1000) / 1000, ret: Math.round(g * 100) / 100, phase: 'live', src: 'engine' });
-    });
-    return { pts: pts, trades: trades };
+    return { pts: pts, trades: (h.trades || []).slice() };
   }
   function stats(pts, phase) {
     var r = [], peak = 0, idx = 1, mdd = 0;
@@ -190,7 +179,7 @@
     var rows = built.trades.slice().reverse().slice(0, 40).map(function (t) {
       return '<tr><td>' + t.c.replace('T', ' ') + '</td><td><span class="side ' + t.side + '">' + t.side + '</span></td>' +
         '<td>' + t.ein + '</td><td>' + t.exi + '</td><td class="' + (t.ret >= 0 ? 'up' : 'down') + '">' + pct(t.ret, 2) + '</td>' +
-        '<td class="ph-' + t.phase + '">' + (t.src === 'engine' ? 'engine fill' : t.phase === 'live' ? 'published signal' : 'backtest') + '</td></tr>';
+        '<td class="ph-' + t.phase + '">' + (t.phase === 'live' ? 'published signal' : 'backtest') + '</td></tr>';
     }).join('');
     $('rows').innerHTML = rows;
     $('trCount').textContent = 'Latest 40 of ' + (L.n + B.n) + ' trades';
@@ -198,9 +187,9 @@
     $('method').innerHTML =
       '<p><b>Before 6 November 2025: the backtest.</b> The TradingView strategy tester on Bybit HYPEUSDT.P, before the strategy published anything. ' +
       'The tester samples only a few dozen prices per bar; at full one-minute resolution the same rules made about +0.52% a trade, so read this part as the optimistic end of the range.</p>' +
-      '<p><b>From ' + longDate(h.go_live) + ': the signals as published</b> to subscribers, at the price each signal carried, rebuilt from the signal log.' +
-      (h.engine_from ? ' <b>From ' + longDate(h.engine_from) + ': the engine’s own fills</b> on its Bybit HYPE account, the account that trades every signal, added here as each trade closes.' : '') + '</p>' +
-      '<p>All three are charged ' + h.commission_pct + '% a round trip, the cost measured on our own Hyperliquid account (fees plus execution). ' +
+      '<p><b>From ' + longDate(h.go_live) + ': the signals as published</b> to subscribers, at the price each signal carried. ' +
+      'This part is rebuilt once a month from the signal list; the latest trade here closed ' + longDate(h.live.to) + '.</p>' +
+      '<p>Both are charged ' + h.commission_pct + '% a round trip, the cost measured on our own Hyperliquid account (fees plus execution). ' +
       'None of it is your account’s result: your exchange, size, leverage and timing decide that. Past performance does not guarantee future results.</p>';
 
     var liveFrom = secs(h.go_live), state = { measure: 'ret', range: 'live' };
@@ -231,8 +220,7 @@
   fetch('hype-history.json?t=' + Date.now(), nocache)
     .then(function (r) { return r.json(); })
     .then(function (h) {
-      return fetch(FEED, nocache).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
-        .then(function (f) { render(h, build(h, f)); });
+      render(h, build(h));
     })
     .catch(function () { $('chart').innerHTML = '<div class="gc-empty">The record could not be loaded. Try refreshing.</div>'; });
 })();
