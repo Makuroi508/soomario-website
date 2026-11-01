@@ -172,10 +172,19 @@
       </div>
       <ol class="setup">
         <li><strong>Give Tide an account of its own.</strong> It sizes from the whole balance and trades most coins, so it cannot share with another bot. A Hyperliquid sub-account works, or a new wallet. Switch it to <em>Unified account</em> so it can trade the stocks too.</li>
-        <li><strong>Subscribe on Whop</strong> and pick your plan.</li>
+        <li><strong>Subscribe on Whop</strong> and pick your plan, or pay in USDC on the engine for 1, 3 or 12 months.</li>
         <li><strong>Create an API wallet</strong> at app.hyperliquid.xyz/API. It can trade but can never withdraw, and you can revoke it there at any time.</li>
         <li><strong>Connect it on the Soomario engine</strong> and pick Tide. On a sub-account, the engine offers it straight from your main wallet's card, no new key needed.</li>
       </ol>
+      <div class="card" style="margin-top:1.75rem;">
+        <div class="card__title">What to expect once it's running</div>
+        <ul class="setup" style="list-style:disc;margin-top:0.6rem;">
+          <li><strong>Sizing is automatic.</strong> There is no leverage or size to set: up to 20 ladders at a time, at most 10x of the balance in all. Your plan sets how much it sizes from: Tide Starter up to $2,500, Tide all of it.</li>
+          <li><strong>A quiet start is normal.</strong> Tide only buys when a market dips, so the first ladder can take a day or more.</li>
+          <li><strong>$1,000 or more works best.</strong> Below that, the first buy of a ladder is smaller than Hyperliquid's $10 minimum and gets rounded up to it.</li>
+          <li><strong>Stocks show on Hyperliquid's stock market.</strong> A ladder in a stock (PLTR, NVDA and the like) shows on Hyperliquid's xyz market, not the main one. Every ladder rests its next buys, a take-profit and a stop on the exchange.</li>
+        </ul>
+      </div>
       <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-top:1rem;">If you pause or your plan lapses, Tide opens no new ladders but keeps managing the open ones until each reaches its target or its stop. <a href="own-account.html" style="color:var(--gold);">How the engine holds keys &rarr;</a></p>
     </div>
   </section>
