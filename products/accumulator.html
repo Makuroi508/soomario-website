@@ -140,9 +140,50 @@
 
       <div class="text-center" style="margin-top:1.5rem;">
         <a href="https://accumulator.soomariostrategies.com/dashboard" target="_blank" class="btn btn--outline">View the live dashboard →</a>
-        <a href="../accumulator-live.html#budget" class="btn btn--ghost">Scale it to your budget →</a>
+        <a href="#budget" class="btn btn--ghost">Scale it to your budget →</a>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ═══ 2b. BUDGET SCALER ═══ -->
+  <section class="scaler" id="budget">
+    <div class="scaler__inner">
+      <h2 class="scaler__headline"><span class="gradient-text">What about your budget?</span></h2>
+      <p class="scaler__lede">Same signals. Same trades. Same prices. Scaled to what you'd actually invest.</p>
+
+      <div class="scaler__card">
+        <div class="scaler__input-row">
+          <span class="scaler__input-lbl">Monthly Budget</span>
+          <span class="scaler__budget" id="slBudget">$1,500</span>
+        </div>
+        <input type="range" min="50" max="5000" step="50" value="1500" class="scaler__slider" id="slRange" aria-label="Monthly budget">
+        <div class="scaler__slider-scale">
+          <span>$50</span>
+          <span>$2,500</span>
+          <span>$5,000</span>
+        </div>
+
+        <div class="scaler__outputs">
+          <div class="scaler__out">
+            <div class="scaler__out-lbl">Your P&amp;L would be</div>
+            <div class="scaler__out-val sc-skel" id="slPnl" style="height:40px;">&nbsp;</div>
+            <div class="scaler__out-sub" id="slPnlSub"></div>
+          </div>
+          <div class="scaler__out">
+            <div class="scaler__out-lbl">Portfolio worth today</div>
+            <div class="scaler__out-val sc-skel" id="slValue" style="height:40px;color:var(--gold);">&nbsp;</div>
+            <div class="scaler__out-sub" id="slValueSub"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scaler__cta">
+        <a href="https://whop.com/soomario-strategies/soomario-accumulator/" target="_blank" class="btn btn--primary btn--lg">Get these signals — 7 days free →</a>
+      </div>
+      <p class="scaler__disclaimer">
+        Values scale linearly from the live $1,500/month model. Past performance doesn't guarantee future results — but these are real signals, real prices, and real timestamps since Feb 9, 2026.
+      </p>
     </div>
   </section>
 
@@ -671,6 +712,34 @@
       if(emptyEl) emptyEl.style.display = 'none';
     }
 
+    // ───── BUDGET SCALER ─────
+    // Dollar figures are not public, so this models the outcome instead of scaling
+    // reported dollars: contributions at the chosen budget over the elapsed window,
+    // grown by the live return on contributed capital.
+    var liveData = null;
+    var INCEPTION = new Date('2026-02-09T00:00:00Z');
+    function renderScaler(){
+      var budget = parseInt(document.getElementById('slRange').value, 10);
+      document.getElementById('slBudget').textContent = '$' + budget.toLocaleString();
+      if(!liveData) return;
+      var months = Math.max(1, (Date.now() - INCEPTION.getTime()) / (1000 * 60 * 60 * 24 * 30.44));
+      var m = liveData.metrics || {};
+      var pctReturn = m.return_on_contributed_pct != null ? m.return_on_contributed_pct : (liveData.total_pnl_pct || 0);
+      if (pctReturn <= -99.9 && m.twr_pct != null) pctReturn = m.twr_pct;   // feed glitch: a -100% that is not a loss
+      var contributed = budget * months;
+      var pnl = contributed * (pctReturn / 100);
+      var pnlEl = document.getElementById('slPnl');
+      removeSkel(pnlEl);
+      pnlEl.textContent = fmtSigned$(pnl);
+      pnlEl.classList.toggle('is-loss', pnl < 0);
+      document.getElementById('slPnlSub').textContent = fmtPct(pctReturn, 1) + ' return · modelled';
+      var valEl = document.getElementById('slValue');
+      removeSkel(valEl);
+      valEl.textContent = fmtInt(contributed + pnl);
+      document.getElementById('slValueSub').textContent = 'from ' + fmtInt(contributed) + ' contributed';
+    }
+    document.getElementById('slRange').addEventListener('input', renderScaler);
+
     // ───── MAIN FETCH + ORCHESTRATE ─────
     function load(){
       fetch(API)
@@ -680,6 +749,8 @@
           renderShowcase(data);
           renderChart(data);
           renderAssetBreakdown(data);
+          liveData = data;
+          renderScaler();
         })
         .catch(function(err){
           console.warn('accumulator live fetch failed', err);
