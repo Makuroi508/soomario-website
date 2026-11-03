@@ -330,6 +330,17 @@
     window.gtag = gtag;
   }
 
+  /* ── Support chat box (support-chat.js): the "Ask a question" button,
+     shown only while the engine's assistant is on ── */
+  function loadSupportChat() {
+    if (document.querySelector('script[data-smr-chat]')) return;
+    var s = document.createElement('script');
+    s.src = getAssetPath('support-chat.js');
+    s.defer = true;
+    s.setAttribute('data-smr-chat', '');
+    document.body.appendChild(s);
+  }
+
   /* ── Init ── */
   function init() {
     resolvePaths();
@@ -338,6 +349,7 @@
     buildFooter();
     initFAQ();
     initGA();
+    loadSupportChat();
   }
 
   if (document.readyState === 'loading') {
