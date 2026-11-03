@@ -93,7 +93,7 @@
         </div>
         <div class="card">
           <div class="card__title">Layered protection</div>
-          <p class="card__text">Every position gets a hard, exchange-resting protective stop the instant it opens, plus a tight trailing stop that ratchets in the favorable direction only. On the vault the trail is run by the strategy's chart and executed within about two minutes of its exit alert. Accounts run through the engine also stop opening new positions after a 5% down day; the vault itself runs without a daily halt.</p>
+          <p class="card__text">Every position gets a hard, exchange-resting protective stop the instant it opens, plus a tight trailing stop that ratchets in the favorable direction only. On the vault the trail is run by the strategy's chart and executed within about two minutes of its exit alert. Neither the vault nor accounts run through the engine stop for a bad day; engine-run accounts carry one catastrophe floor: if the account falls 60% below its starting balance, the engine closes its positions and stops until it has been reviewed.</p>
         </div>
         <div class="card">
           <div class="card__title">On-chain, self-custody</div>
@@ -143,7 +143,7 @@
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
           <div class="card__title" style="color:var(--gold);">A shared, leveraged book</div>
-          <p class="card__text">All positions run from one account. In a synchronized market selloff, many correlated positions can stop out in the same session. The vault has no daily-drawdown halt; on accounts that have one it caps new risk-taking, but it does not stop losses accruing on positions already open.</p>
+          <p class="card__text">All positions run from one account. In a synchronized market selloff, many correlated positions can stop out in the same session. There is no daily-drawdown halt: the hard stops are what cap each loss, and a bad day can hit several of them at once.</p>
         </div>
         <div class="card">
           <div class="card__title" style="color:var(--gold);">The universe is a deployment choice</div>
@@ -187,7 +187,7 @@
         <p class="card__text" style="margin-bottom:1.25rem;">
           Not on Hyperliquid, or would rather keep the whole profit? Subscribe, connect a trade-only key from
           Hyperliquid, Bybit, Binance, OKX or Pacifica, and the engine runs the same eight-coin book on your
-          balance: your allocation split equally across the coins, exchange-resting hard stops, a daily drawdown halt. Flat fee, no profit share.
+          balance: your allocation split equally across the coins, exchange-resting hard stops, and a 60% catastrophe floor. Flat fee, no profit share.
         </p>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="https://whop.com/soomario-strategies/libration-strat" target="_blank" rel="noopener" class="btn btn--primary">Start the 7-day free trial &rarr;</a>

@@ -266,8 +266,8 @@
           <p class="card__text">Each entry is sized on your allocated share of the balance your exchange reports right then. Top up and the next trade is bigger; withdraw and it is smaller. The dashboard shows the next entry size so there is no guessing.</p>
         </div>
         <div class="card">
-          <div class="card__title">Daily drawdown halt</div>
-          <p class="card__text">Down 5% on the day and the engine stops opening new positions until the UTC reset. Open trades keep their stops. Deposits are recognised, so a top-up never counts as a gain and a withdrawal never as a loss.</p>
+          <div class="card__title">One catastrophe floor</div>
+          <p class="card__text">There is no daily halt: every trade's hard stop caps its loss. If the account ever falls 60% below its starting balance, the engine closes its positions and stops until it has been reviewed. Deposits are recognised, so a top-up never counts as a gain and a withdrawal never as a loss.</p>
         </div>
         <div class="card">
           <div class="card__title">Pause, replace, revoke</div>
@@ -366,7 +366,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-question">What happens if I deposit or withdraw?</button>
-        <div class="faq-answer"><p>Sizing follows your live balance, so the next entry reflects it immediately. While the account is flat the engine also recognises the flow in its ledger, so returns since inception stay honest and the daily drawdown guard measures against what is actually in the account.</p></div>
+        <div class="faq-answer"><p>Sizing follows your live balance, so the next entry reflects it immediately. While the account is flat the engine also recognises the flow in its ledger, so returns since inception stay honest and the catastrophe floor measures against what is actually in the account.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question">How do I stop?</button>
