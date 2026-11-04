@@ -2,7 +2,7 @@
    cards in brass frames, the bot's seal and colour, Marcellus headings in sentence case.
    Loaded after styles.css; it re-points that file's tokens and restyles its components,
    so the page markup keeps working. The body carries .pp and the bot: .pp--hype,
-   .pp--tide or .pp--acc. */
+   .pp--tide, .pp--acc or .pp--alts (Soomario Alts, on Foxify). */
 
 .pp {
   --enamel: #150c22; --enamel-2: #1d1230; --enamel-3: #2a1840;
@@ -24,7 +24,7 @@
   background: var(--enamel); color: var(--ink);
   font: 400 18px/1.6 var(--sans); -webkit-font-smoothing: antialiased;
 }
-.pp--hype { --c: #b79cff; } .pp--tide { --c: #3ee0c8; } .pp--acc { --c: #f0c35a; }
+.pp--hype { --c: #b79cff; } .pp--tide { --c: #3ee0c8; } .pp--acc { --c: #f0c35a; } .pp--alts { --c: #f26473; }
 
 /* ── Type ─────────────────────────────────────────── */
 .pp .section-label { font: 600 14px/1 var(--caps); letter-spacing: .3em; color: var(--brass); }
