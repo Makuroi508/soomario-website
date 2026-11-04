@@ -93,6 +93,7 @@
           <a href="${depth}products/hype-bot.html" class="site-nav__link ${isActivePath('products/hype-bot.html') ? 'active' : ''}">Hype Bot</a>
           <a href="${depth}products/tide.html" class="site-nav__link ${isActivePath('products/tide.html') ? 'active' : ''}">Tide<small>BETA</small></a>
           <a href="${depth}products/accumulator.html" class="site-nav__link ${isActivePath('products/accumulator.html') ? 'active' : ''}">Accumulator</a>
+          <a href="${depth}products/soomario-alts.html" class="site-nav__link ${isActivePath('products/soomario-alts.html') ? 'active' : ''}">Soomario Alts</a>
 
           <div class="nav-dropdown">
             <span class="site-nav__link nav-dropdown__trigger ${isActiveSection('aureus') ? 'active' : ''}">More</span>
@@ -169,6 +170,7 @@
           <a href="${depth}products/hype-bot.html" class="mobile-menu__link">Hype Bot</a>
           <a href="${depth}products/tide.html" class="mobile-menu__link">Tide <span class="badge badge--new">BETA</span></a>
           <a href="${depth}products/accumulator.html" class="mobile-menu__link">Accumulator</a>
+          <a href="${depth}products/soomario-alts.html" class="mobile-menu__link">Soomario Alts <span class="badge badge--new">FOXIFY</span></a>
           <a href="${depth}products/own-account.html" class="mobile-menu__link">How the engine works</a>
           <a href="${depth}tools/compare.html" class="mobile-menu__link">Compare the bots</a>
         </div>
@@ -261,6 +263,7 @@
               <li><a href="${depth}products/own-account.html">Your Own Account — from $29/mo</a></li>
               <li><a href="${depth}aureus/">Aureus</a></li>
               <li><a href="${depth}products/rotation.html">Rotation</a></li>
+              <li><a href="${depth}products/soomario-alts.html">Soomario Alts — on Foxify</a></li>
             </ul>
           </div>
 
