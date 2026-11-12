@@ -120,6 +120,13 @@
           <label for="hc-start">Starting amount (USD)</label>
           <input id="hc-start" type="number" min="10" step="100" value="10000" inputmode="decimal">
 
+          <label for="hc-sub">Subscription</label>
+          <select id="hc-sub">
+            <option value="49" selected>Hype Bot &mdash; $49 a month, taken off</option>
+            <option value="0">None &mdash; the strategy alone, to compare</option>
+          </select>
+          <div class="hint" id="hc-sub-hint">$49 a month is $588 a year: 58.8% of $1,000, 29.4% of $2,000, 19.6% of $3,000, 11.8% of $5,000, 5.9% of $10,000. We recommend at least $3,000. It comes off the account at the start of every month from the start date, like a withdrawal.</div>
+
           <label for="hc-lev">Leverage</label>
           <select id="hc-lev">
             <option value="1">1x</option>
@@ -287,14 +294,37 @@
       return (x >>> 0) / 4294967296;
     }
 
-    function simulate(tr, start, size, lev, comp, freq, from, fullUntil, fee, fillRate) {
+    // The subscription (sub dollars a month) comes off the account at the start of
+    // every calendar month from the start date's month to the last trade's, months
+    // without a trade included, the way the Tide calculator charges it.
+    function nextMonth(ym) { var y = +ym.slice(0, 4), m = +ym.slice(5, 7) + 1; if (m > 12) { m = 1; y++; } return y + '-' + (m < 10 ? '0' : '') + m; }
+
+    function simulate(tr, start, size, lev, comp, freq, from, fullUntil, fee, fillRate, sub) {
       var A = start, W = 0, lastA = start;
       var peak = start, maxDD = 0, liq = 0, wins = 0, n = 0, best = null, worst = null, ruined = false;
       var pts = [{ t: from, e: start }], years = {}, months = {}, order = [];
-      var skipped = 0;
+      var skipped = 0, subPaid = 0, paidTo = null;
+      function monthRow(m) {
+        if (!months[m]) { months[m] = { n: 0, pnl: 0, sub: 0, withdrawn: 0, wins: 0, endA: A, endW: W }; order.push(m); }
+        return months[m];
+      }
+      function yearRow(y) { return (years[y] = years[y] || { n: 0, pnl: 0, sub: 0, startEq: A + W, endEq: A + W, wins: 0 }); }
       for (var i = 0; i < tr.length; i++) {
         var t = tr[i];
         if (t.o < from) continue;
+        if (sub) {                                      // charge every month up to this trade's
+          var tm = t.o.slice(0, 7);
+          var m0 = paidTo ? nextMonth(paidTo) : from.slice(0, 7);
+          while (m0 <= tm && !ruined) {
+            var yr = yearRow(m0.slice(0, 4)), mr = monthRow(m0);
+            var c = Math.min(sub, Math.max(0, A));
+            A -= c; subPaid += c; mr.sub += c; yr.sub += c;   // paid out of the period's profit before it is split
+            mr.endA = A; yr.endEq = A + W;
+            if (A <= 0) ruined = true;
+            paidTo = m0; m0 = nextMonth(m0);
+          }
+          if (ruined) break;
+        }
         if (fillRate < 1 && score(i) >= fillRate) { skipped++; continue; }   // never reached the account
         if (A <= 0) { ruined = true; break; }
         var move = (t.side === 'long' ? 1 : -1) * (t.exi / t.ein - 1);
@@ -306,9 +336,9 @@
         if (best === null || pnl > best) best = pnl;
         if (worst === null || pnl < worst) worst = pnl;
         var m = t.c.slice(0, 7), y = t.c.slice(0, 4);
-        if (!months[m]) { months[m] = { n: 0, pnl: 0, withdrawn: 0, wins: 0, endA: A, endW: W }; order.push(m); }
+        if (!years[y]) { yearRow(y); years[y].startEq = A - pnl + W; }
+        monthRow(m);
         months[m].n++; months[m].pnl += pnl; if (pnl > 0) months[m].wins++;
-        years[y] = years[y] || { n: 0, pnl: 0, startEq: A - pnl + W, endEq: A + W, wins: 0 };
         years[y].n++; years[y].pnl += pnl; if (pnl > 0) years[y].wins++;
         // settlement at the end of the period: this trade is the period's last one
         var next = tr[i + 1];
@@ -330,8 +360,8 @@
         pts.push({ t: t.c, e: wealth });
       }
       return { account: A, withdrawn: W, end: A + W, pts: pts, maxDD: maxDD, liq: liq, wins: wins, n: n,
-               best: best, worst: worst, years: years, months: months, order: order, ruined: ruined,
-               skipped: skipped };
+               best: best, worst: worst, years: years, months: months, order: order.sort(), ruined: ruined,
+               skipped: skipped, subPaid: subPaid };
     }
 
     function isoWeek(iso) {
@@ -345,22 +375,22 @@
 
     function renderMonthly(r) {
       var labels = r.order.map(fmtMonth);
-      var re = r.order.map(function (m) { return Math.round(r.months[m].pnl - r.months[m].withdrawn); });
+      var re = r.order.map(function (m) { return Math.round(r.months[m].pnl - r.months[m].sub - r.months[m].withdrawn); });
       var wd = r.order.map(function (m) { return Math.round(r.months[m].withdrawn); });
-      var rows = '', sumP = 0, sumR = 0, sumW = 0, sumN = 0;
+      var rows = '', sumP = 0, sumR = 0, sumW = 0, sumN = 0, sumS = 0;
       r.order.forEach(function (m) {
-        var v = r.months[m], rein = v.pnl - v.withdrawn;
-        sumP += v.pnl; sumR += rein; sumW += v.withdrawn; sumN += v.n;
+        var v = r.months[m], rein = v.pnl - v.sub - v.withdrawn;
+        sumP += v.pnl; sumR += rein; sumW += v.withdrawn; sumN += v.n; sumS += v.sub;
         rows += '<tr><td>' + fmtMonth(m) + '</td><td>' + v.n + '</td><td class="' + (v.pnl >= 0 ? 'up' : 'down') + '">' + fmtUsd(v.pnl) +
-          '</td><td class="' + (rein >= 0 ? 'up' : 'down') + '">' + fmtUsd(rein) + '</td><td class="' + (v.withdrawn > 0 ? 'up' : '') + '">' + fmtUsd(v.withdrawn) +
+          '</td><td>' + (v.sub ? fmtUsd(-v.sub) : '') + '</td><td class="' + (rein >= 0 ? 'up' : 'down') + '">' + fmtUsd(rein) + '</td><td class="' + (v.withdrawn > 0 ? 'up' : '') + '">' + fmtUsd(v.withdrawn) +
           '</td><td>' + fmtUsd(v.endA) + '</td><td>' + fmtUsd(v.endW) + '</td></tr>';
       });
       rows += '<tr class="total"><td>Total</td><td>' + sumN + '</td><td class="' + (sumP >= 0 ? 'up' : 'down') + '">' + fmtUsd(sumP) +
-        '</td><td class="' + (sumR >= 0 ? 'up' : 'down') + '">' + fmtUsd(sumR) + '</td><td class="up">' + fmtUsd(sumW) +
+        '</td><td>' + (sumS ? fmtUsd(-sumS) : '') + '</td><td class="' + (sumR >= 0 ? 'up' : 'down') + '">' + fmtUsd(sumR) + '</td><td class="up">' + fmtUsd(sumW) +
         '</td><td>' + fmtUsd(r.account) + '</td><td>' + fmtUsd(r.withdrawn) + '</td></tr>';
       $('hc-months').innerHTML = r.order.length
-        ? '<table class="hc-table"><thead><tr><th>Month</th><th>Trades</th><th>P&amp;L</th><th>Kept in the account</th><th>Withdrawn</th><th>Account</th><th>Withdrawn so far</th></tr></thead><tbody>' + rows + '</tbody></table>' +
-          '<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.5;">Each period is settled at its end: the compounded share of its profit is kept in the account, the rest is withdrawn and booked to that month. A losing month withdraws nothing and shows the loss under Kept. This month\'s P&amp;L minus what it withdrew is what it left in the account. Ending wealth = account ' + fmtUsd(r.account) + ' + withdrawn ' + fmtUsd(r.withdrawn) + ' = <strong style="color:var(--gold)">' + fmtUsd(r.end) + '</strong>.</p>'
+        ? '<table class="hc-table"><thead><tr><th>Month</th><th>Trades</th><th>P&amp;L</th><th>Subscription</th><th>Kept in the account</th><th>Withdrawn</th><th>Account</th><th>Withdrawn so far</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+          '<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.5;">Each period is settled at its end: the compounded share of its profit is kept in the account, the rest is withdrawn and booked to that month. A losing month withdraws nothing and shows the loss under Kept. This month\'s P&amp;L minus the subscription and what it withdrew is what it left in the account. Ending wealth = account ' + fmtUsd(r.account) + ' + withdrawn ' + fmtUsd(r.withdrawn) + ' = <strong style="color:var(--gold)">' + fmtUsd(r.end) + '</strong>.</p>'
         : '';
       if (!$('hc-details').open) return;            // draw the chart when the block is open (Chart.js needs a size)
       if (mchart) mchart.destroy();
@@ -402,12 +432,14 @@
       var fee = parseFloat($('hc-venue').value) / 100;
       var fillRate = Math.min(100, Math.max(50, parseFloat($('hc-fillrate').value) || 100)) / 100;
       $('hc-venue-hint').textContent = VENUE_NOTE[$('hc-venue').value] || '';
-      var r = simulate(trades, start, size / 100, lev, comp, freq, from, fullUntil, fee, fillRate);
+      var sub = parseFloat($('hc-sub').value) || 0;
+      var r = simulate(trades, start, size / 100, lev, comp, freq, from, fullUntil, fee, fillRate, sub);
       last = r;
       var ret = (r.end / start - 1) * 100;
       $('hc-kpis').innerHTML =
         kpi(fmtUsd(r.end), 'Ending wealth · account + withdrawn', ret >= 0 ? 'up' : 'down') +
-        kpi(fmtPct(ret, 1), 'Return on ' + fmtUsd(start), ret >= 0 ? 'up' : 'down') +
+        kpi(fmtPct(ret, 1), 'Return on ' + fmtUsd(start) + (sub ? ' after the subscription' : ''), ret >= 0 ? 'up' : 'down') +
+        kpi(sub ? fmtUsd(r.subPaid) : '—', sub ? 'Subscription paid ($' + sub + ' a month)' : 'No subscription', 'gold') +
         kpi(fmtUsd(r.account), 'Left in the account', 'gold') +
         kpi(fmtUsd(r.withdrawn), 'Withdrawn over the period', r.withdrawn > 0 ? 'up' : '') +
         kpi('-' + r.maxDD.toFixed(1) + '%', 'Max drawdown on wealth', 'down') +
@@ -417,10 +449,11 @@
             r.n + ' trades' + (r.skipped ? ' · ' + r.skipped + ' missed' : '') + ' · win rate', 'gold');
 
       var warn = '';
+      if (sub && start < 3000) warn += '<div class="hc-warn"><strong>Under $3,000:</strong> the $588 a year is ' + (588 / start * 100).toFixed(1) + '% of ' + fmtUsd(start) + ', taken whatever the bot makes. We recommend at least $3,000 for the $49 plan.</div>';
       if (size > 100) warn += '<div class="hc-warn"><strong>' + Math.round(size) + '% exposure</strong> (' + marginPct + '% margin × ' + lev + 'x): you are trading more than the account holds. Every trade in the record, the losing ones included, is multiplied by ' + (size / 100).toFixed(2) + ': the 10% hard stop costs ' + (size / 10).toFixed(0) + '% of the account in one trade. Three stops in a row would cost ' + Math.min(100, size * 3 / 10).toFixed(0) + '%.</div>';
       if (lev >= 3) warn += '<div class="hc-warn"><strong>3x:</strong> liquidation sits about 33% away from the entry instead of the whole account at 1x. The hard stop rests inside that, but a gap through it fills wherever the market is.</div>';
       if (r.liq) warn += '<div class="hc-warn"><strong>' + r.liq + ' trade' + (r.liq > 1 ? 's' : '') + ' would have been liquidated</strong> at this leverage: the loss exceeded the trade\'s isolated margin.</div>';
-      if (r.ruined) warn += '<div class="hc-warn"><strong>The account was wiped out</strong> before the end of the record.</div>';
+      if (r.ruined) warn += '<div class="hc-warn"><strong>The account was wiped out</strong> before the end of the record' + (r.subPaid ? ', the subscription included' : '') + '.</div>';
       $('hc-warn').innerHTML = warn;
 
       $('hc-ref').innerHTML = ref;
@@ -428,10 +461,10 @@
       // yearly table (wealth = account + withdrawn)
       var ys = Object.keys(r.years).sort(), rows = '';
       ys.forEach(function (y) {
-        var v = r.years[y], pct = v.startEq > 0 ? v.pnl / v.startEq * 100 : 0;
-        rows += '<tr><td>' + y + '</td><td>' + v.n + '</td><td>' + (v.wins / v.n * 100).toFixed(0) + '%</td><td class="' + (v.pnl >= 0 ? 'up' : 'down') + '">' + fmtUsd(v.pnl) + '</td><td class="' + (pct >= 0 ? 'up' : 'down') + '">' + fmtPct(pct, 1) + '</td><td>' + fmtUsd(v.endEq) + '</td></tr>';
+        var v = r.years[y], pct = v.startEq > 0 ? (v.pnl - v.sub) / v.startEq * 100 : 0;
+        rows += '<tr><td>' + y + '</td><td>' + v.n + '</td><td>' + (v.n ? (v.wins / v.n * 100).toFixed(0) + '%' : '—') + '</td><td class="' + (v.pnl >= 0 ? 'up' : 'down') + '">' + fmtUsd(v.pnl) + '</td><td>' + (v.sub ? fmtUsd(-v.sub) : '') + '</td><td class="' + (pct >= 0 ? 'up' : 'down') + '">' + fmtPct(pct, 1) + '</td><td>' + fmtUsd(v.endEq) + '</td></tr>';
       });
-      $('hc-years').innerHTML = ys.length ? '<table class="hc-table"><thead><tr><th>Year</th><th>Trades</th><th>Win</th><th>P&amp;L</th><th>Return</th><th>Wealth</th></tr></thead><tbody>' + rows + '</tbody></table>' : '';
+      $('hc-years').innerHTML = ys.length ? '<table class="hc-table"><thead><tr><th>Year</th><th>Trades</th><th>Win</th><th>P&amp;L</th><th>Subscription</th><th>Return</th><th>Wealth</th></tr></thead><tbody>' + rows + '</tbody></table>' : '';
 
       renderMonthly(r);
 
@@ -442,7 +475,7 @@
       if (chart) chart.update(go); else chart = GrowthChart($('hc-growth'), go);
     }
 
-    ['hc-start', 'hc-lev', 'hc-size', 'hc-venue', 'hc-fillrate', 'hc-full-months', 'hc-comp',
+    ['hc-start', 'hc-sub', 'hc-lev', 'hc-size', 'hc-venue', 'hc-fillrate', 'hc-full-months', 'hc-comp',
      'hc-freq', 'hc-from', 'hc-log'].forEach(function (id) {
       $(id).addEventListener('input', render); $(id).addEventListener('change', render);
     });

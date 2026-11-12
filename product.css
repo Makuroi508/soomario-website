@@ -196,3 +196,17 @@
 @media (prefers-reduced-motion: reduce) {
   .phero .seal__ring { animation: none; }
 }
+
+/* ── What the $49 fee costs at each account size (pages that sell a $49 plan) ── */
+.feecost { max-width: 560px; margin: 1.75rem auto 0; padding: 18px 20px; border: 1px solid var(--border-default);
+  border-radius: 14px; background: var(--bg-card); text-align: left; }
+.feecost__t { font: 400 20px/1.3 var(--serif); color: #fff7e6; margin: 0 0 10px; }
+.feecost table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+.feecost th, .feecost td { padding: 7px 4px; border-bottom: 1px solid var(--border-subtle); text-align: right; }
+.feecost th { font: 600 12px/1.3 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.feecost th:first-child, .feecost td:first-child { text-align: left; }
+.feecost td { font-family: var(--font-mono, monospace); color: var(--ink); }
+.feecost tr.min td { color: var(--brass-hi); }
+.pp .feecost p, .feecost p { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 10px 0 0; }
+.feecost p strong { color: var(--ink); }
+@media (max-width: 400px) { .feecost { padding: 14px 14px; } .feecost table { font-size: 14.5px; } }
