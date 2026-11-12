@@ -160,6 +160,18 @@
     .under { text-align: center; margin-top: 34px; font-size: 17px; color: var(--ink-2); }
     .under a { color: var(--brass-hi); text-underline-offset: 4px; }
     .under span { color: var(--brass-lo); margin: 0 10px; }
+    .feecost { max-width: 600px; margin: 34px auto 0; padding: 20px 24px; border-radius: 14px; text-align: left;
+      border: 1px solid color-mix(in srgb, var(--brass) 30%, transparent); background: rgba(29,18,48,.55); }
+    .feecost h3 { font: 400 21px/1.3 var(--serif); color: #fff7e6; margin: 0 0 10px; }
+    .feecost table { width: 100%; border-collapse: collapse; font-size: 16px; }
+    .feecost th, .feecost td { padding: 7px 4px; text-align: right; border-bottom: 1px solid color-mix(in srgb, var(--brass) 14%, transparent); }
+    .feecost th { font: 600 12px/1.3 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+    .feecost th:first-child, .feecost td:first-child { text-align: left; }
+    .feecost td { color: var(--ink); font-variant-numeric: tabular-nums; }
+    .feecost tr.min td { color: var(--brass-hi); }
+    .feecost p { margin: 10px 0 0; font-size: 15.5px; color: var(--ink-2); }
+    .feecost p strong { color: var(--ink); }
+    @media (max-width: 400px) { .feecost { padding: 16px 14px; } .feecost table { font-size: 15px; } }
 
     /* ── Sections ───────────────────────────────────── */
     section.band { padding-block: 96px; }
@@ -315,6 +327,22 @@
       </div>
 
       <p class="under">Every plan has a 7-day free trial.<span>◆</span><a href="products/own-account.html">How your keys stay safe</a><span>◆</span><a href="https://engine.soomariostrategies.com/auth/whop/login?next=/home">Log in</a></p>
+
+      <div class="feecost">
+        <h3>What a $49 plan costs at your account size</h3>
+        <table>
+          <thead><tr><th>Account</th><th>$588 a year is</th></tr></thead>
+          <tbody>
+            <tr><td>$1,000</td><td>58.8%</td></tr>
+            <tr><td>$2,000</td><td>29.4%</td></tr>
+            <tr class="min"><td>$3,000</td><td>19.6%</td></tr>
+            <tr><td>$5,000</td><td>11.8%</td></tr>
+            <tr><td>$10,000</td><td>5.9%</td></tr>
+          </tbody>
+        </table>
+        <p>$49 a month is $588 a year, paid whatever the bot makes. We recommend at least <strong>$3,000</strong> for the $49 plans. Under $3,000, Tide Starter ($19 a month) sizes up to $2,500.</p>
+        <p>After the $588 yearly fee: Hype Bot&rsquo;s first year live (+115.5% at 1x) is <strong>+95.9% on $3,000</strong> and <strong>+109.6% on $10,000</strong>. Tide&rsquo;s backtest year (+41.7%) is <strong>+22.1% on $3,000</strong> and <strong>+35.8% on $10,000</strong>. Past results, not a forecast.</p>
+      </div>
     </div>
   </section>
 
@@ -356,7 +384,7 @@
       <div class="faq">
         <details><summary>Do you ever hold my money?</summary><p>No. The bots trade on your own exchange account through a key that can trade but cannot withdraw. Accumulator does not touch an account at all: it sends signals to Telegram.</p></details>
         <details><summary>Which bot should I pick?</summary><p>Hype Bot if you want one coin, long and short, at full size. Tide if you want many small dip-buying positions across coins and stocks. Accumulator if you invest for the long term and place your own orders.</p></details>
-        <details><summary>What does it cost?</summary><p>Hype Bot $49 a month. Tide $19 (sizes up to $2,500) or $49. Accumulator $7. All with a 7-day free trial and no profit share.</p></details>
+        <details><summary>What does it cost?</summary><p>Hype Bot $49 a month. Tide $19 (sizes up to $2,500) or $49. Accumulator $7. All with a 7-day free trial and no profit share. $49 a month is $588 a year: 58.8% of a $1,000 account, 29.4% of $2,000, 19.6% of $3,000, 11.8% of $5,000 and 5.9% of $10,000. We recommend at least $3,000 for the $49 plans; under that, Tide Starter.</p></details>
         <details><summary>Can I lose money?</summary><p>Yes. Hype Bot and Tide trade leveraged perpetual futures, and every bot has losing trades and losing months. Each product page lists its worst drop and how its losses happen, and every trade is published so you can check.</p></details>
         <details><summary>How fast can I start?</summary><p>About ten minutes: subscribe, connect a trade-only key, pick the bot. Accumulator is faster: subscribe and join the Telegram channel.</p></details>
       </div>
