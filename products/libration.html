@@ -2,221 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="Soomario Libration — a momentum swing engine trading a basket of volatile crypto perps from one self-custody Hyperliquid vault, one position per coin with a tight trailing stop.">
-  <meta property="og:title" content="Soomario Libration — Multi-Coin Swing Vault">
-  <meta property="og:description" content="A disciplined swing engine that buys statistically oversold volatility and rides the recovery. Live Hyperliquid vault, self-custody, on-chain.">
-  <title>Soomario Libration — Multi-Coin Swing Vault | Soomario Strategies</title>
+  <meta name="theme-color" content="#150c22">
+  <title>Libration — no longer offered | Soomario Strategies</title>
+  <meta name="description" content="Libration, the multi-coin swing strategy, has ended and is no longer offered.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../product.css">
-
-  <link rel="canonical" href="https://soomariostrategies.com/products/libration.html">
 </head>
 <body class="pp">
 
-  <!-- === 1. HERO === -->
-  <section class="section phero-wrap">
+  <header class="phero phero--dash">
     <picture class="phero__bg" aria-hidden="true">
       <source media="(max-width: 699px)" srcset="../assets/home/hall-tall.webp">
       <source media="(max-width: 1200px)" srcset="../assets/home/hall-wide-1024.webp">
-      <img src="../assets/home/hall-wide.webp" alt="" fetchpriority="high">
+      <img src="../assets/home/hall-wide.webp" alt="">
     </picture>
-    <div class="container">
-      <div style="margin-bottom:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span class="badge badge--live" style="font-size:0.7rem;padding:0.3rem 0.7rem;">LIVE</span>
-        <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;padding:0.3rem 0.7rem;">HYPERLIQUID VAULT</span>
-      </div>
-      <h1 class="section-title" style="font-size:clamp(2.25rem,5.5vw,3.75rem);margin-bottom:1rem;max-width:820px;">
-        <span class="gradient-text">Buy oversold.</span><br>
-        <span style="color:var(--text-primary);">Ride the recovery.</span>
-      </h1>
-      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:680px;line-height:1.55;margin-bottom:2rem;">
-        A disciplined swing engine across eight volatile crypto perpetuals: HYPE, TAO, FARTCOIN, CC, AVAX, PENGU, SUI and XMR, with HYPE, the most proven, at the largest share. One position per coin, harvested with a tight trailing take-profit, with a hard stop resting on the exchange. Now running as a self-custody Hyperliquid vault.
-      </p>
-
-      <div class="metrics" style="margin:2rem 0;max-width:820px;">
-        <div class="metric"><div class="metric__value gradient-text">6</div><div class="metric__label">Coins</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Swing</div><div class="metric__label">Momentum signal</div></div>
-        <div class="metric"><div class="metric__value gradient-text">1</div><div class="metric__label">Position per coin</div></div>
-        <div class="metric"><div class="metric__value gradient-text">Both</div><div class="metric__label">Long and short</div></div>
-      </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
-        <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault &rarr;</a>
-        <a href="https://libration.soomariostrategies.com" target="_blank" rel="noopener" class="btn btn--outline btn--lg">View Live Dashboard &rarr;</a>
-      </div>
-
-      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;font-family:var(--font-mono);">
-        Vault: <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" rel="noopener" style="color:var(--gold);">0x843e&hellip;1b93</a> · self-custody, on-chain
-      </div>
-      <div style="font-size:0.85rem;color:var(--text-muted);max-width:620px;line-height:1.6;margin-top:0.75rem;">
-        Prefer your own exchange account? Run Libration on Hyperliquid, Bybit, Binance, OKX or Pacifica for
-        <a href="https://whop.com/soomario-strategies/libration-strat" target="_blank" rel="noopener" style="color:var(--gold);">$29/mo after a 7-day free trial, no profit share</a>
-        &mdash; <a href="own-account.html" style="color:var(--gold);">how it works</a>.
-      </div>
-    </div>
-  </section>
-
-  <!-- === 2. THE EDGE === -->
-  <section class="section section--alt">
-    <div class="container container--narrow text-center">
-      <div class="section-label">THE EDGE</div>
-      <h2 class="section-title"><span class="gradient-text">Volatility overreacts.</span><br>Libration is built to be patient.</h2>
-      <p style="color:var(--text-secondary);font-size:1.08rem;line-height:1.75;margin:1.5rem auto 0;max-width:640px;">
-        Volatile perpetual markets spend a lot of time overreacting. A sharp, panicked flush frequently overshoots fair value and snaps back; a blow-off in strength frequently exhausts and rolls over. Libration expresses a single frozen thesis — statistically oversold and exhausted conditions tend to mean-revert. It waits for that condition to appear on a completed bar, takes one position in the indicated direction, and lets a trailing take-profit harvest the move. The exact signal and exit settings are private; every trade is visible on-chain.
+    <div class="container phero__in">
+      <div class="phero__num">Libration</div>
+      <h1>Libration is no longer offered</h1>
+      <p class="phero__sub">
+        Libration, the multi-coin swing strategy, has ended and is no longer offered.
       </p>
     </div>
-  </section>
+  </header>
 
-  <!-- === 3. WHAT YOU GET === -->
   <section class="section">
     <div class="container">
-      <div class="text-center" style="margin-bottom:2.5rem;">
-        <div class="section-label">WHAT YOU GET</div>
-        <h2 class="section-title"><span class="gradient-text">Hyperliquid vault.</span><br>One shared book. Self-custody.</h2>
+      <div class="dash-head">
+        <div class="section-label">What we run now</div>
+        <h2 class="section-title">Three bots, every trade published</h2>
       </div>
-
-      <div class="grid-3">
-        <div class="card">
-          <div class="card__title">Broad volatile basket</div>
-          <p class="card__text">Libration trades eight high-volatility perpetual markets (HYPE, TAO, FARTCOIN, CC, AVAX, PENGU, SUI and XMR), going long when momentum turns up and short when it rolls over. It is directional and opportunistic across the whole basket: HYPE carries the largest share, and each of the other seven a smaller one, so a stop on any single alt costs the account little.</p>
-        </div>
-        <div class="card">
-          <div class="card__title">Layered protection</div>
-          <p class="card__text">Every position gets a hard, exchange-resting protective stop the instant it opens, plus a tight trailing stop that ratchets in the favorable direction only. On the vault the trail is run by the strategy's chart and executed within about two minutes of its exit alert. Neither the vault nor accounts run through the engine stop for a bad day; engine-run accounts carry one catastrophe floor: if the account falls 60% below its starting balance, the engine closes its positions and stops until it has been reviewed.</p>
-        </div>
-        <div class="card">
-          <div class="card__title">On-chain, self-custody</div>
-          <p class="card__text">The whole book runs from one shared Hyperliquid vault under isolated margin per position. Funds stay on-chain in the vault contract; the bot holds only an API signing key with trading permissions, never withdrawal control.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- === 4. HOW IT WORKS === -->
-  <section class="section section--alt">
-    <div class="container container--narrow">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">HOW IT WORKS</div>
-        <h2 class="section-title"><span class="gradient-text">Mechanical, narrow, rule-bound</span></h2>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="card">
-          <div class="card__title">Completed bars only</div>
-          <p class="card__text">Entries are evaluated exclusively on completed bars, never on a partially formed one. A dedicated guard ensures each bar is evaluated exactly once, so a single condition can never fire an entry twice, and live behavior stays faithful to how the strategy was validated.</p>
-        </div>
-        <div class="card">
-          <div class="card__title">One position per coin</div>
-          <p class="card__text">On a valid signal Libration opens a single position — long on an oversold-reversal, short on an exhaustion setup — and will not add to it. No pyramiding, no averaging down. The position lives until its exit logic closes it.</p>
-        </div>
-        <div class="card">
-          <div class="card__title">Sizing that compounds with the book</div>
-          <p class="card__text">Position size is a fixed fraction of current account equity, the same for every coin, recomputed at entry off live equity. Sizing scales up as the account grows and down as it shrinks, with no manual intervention.</p>
-        </div>
-        <div class="card">
-          <div class="card__title">Exchange-is-truth reconciliation</div>
-          <p class="card__text">Libration treats the exchange as the source of truth for what is open. It only records a position as closed on confirmed data, re-adopts and re-protects any position it finds untracked, and escalates an unresolvable divergence to a human rather than guessing.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- === 5. HONEST LIMITS === -->
-  <section class="section">
-    <div class="container container--narrow">
-      <div class="text-center" style="margin-bottom:2rem;">
-        <div class="section-label">HONEST LIMITS</div>
-        <h2 class="section-title"><span class="gradient-text">What Libration isn't</span></h2>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">A shared, leveraged book</div>
-          <p class="card__text">All positions run from one account. In a synchronized market selloff, many correlated positions can stop out in the same session. There is no daily-drawdown halt: the hard stops are what cap each loss, and a bad day can hit several of them at once.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">The universe is a deployment choice</div>
-          <p class="card__text">Libration trades a basket of volatile perpetual markets. The exact roster is set at deployment time and can change, so any specific count describes a particular deployment, not a fixed feature of the strategy. The live dashboard always shows what is currently open.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">Exits depend on the chart's alerts</div>
-          <p class="card__text">Entries and trailing exits come from the strategy's TradingView alerts and are executed within about two minutes. If the alerts stop, open positions are protected only by their hard stops on the exchange, and a very fast gap can fill a stop at a worse level than intended.</p>
-        </div>
-        <div class="card">
-          <div class="card__title" style="color:var(--gold);">A young live record</div>
-          <p class="card__text">The vault runs Libration live at 3x leverage, and its results are shown as they happen on the <a href="https://libration.soomariostrategies.com" target="_blank" rel="noopener" style="color:var(--gold);">live dashboard</a>, fees and slippage included. The live record is still short: treat it as evidence that execution holds up, not as a forecast of future returns.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- === 6. FINAL CTA === -->
-  <section id="deposit" class="section section--alt">
-    <div class="container container--narrow text-center">
-      <div class="section-label">DEPOSIT INTO THE VAULT</div>
-      <h2 class="section-title"><span class="gradient-text">Self-custody, on-chain.</span><br>The bot trades for you.</h2>
-      <p class="section-subtitle" style="margin:1rem auto 2.5rem;max-width:560px;">
-        Deposit USDC into the Hyperliquid vault. Libration runs the swing engine across the basket. Withdraw any time — funds remain in the on-chain vault contract.
-      </p>
-
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;">
-        <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Deposit into Vault &rarr;</a>
-        <a href="https://libration.soomariostrategies.com" target="_blank" rel="noopener" class="btn btn--outline btn--lg">View Live Dashboard &rarr;</a>
-      </div>
-
-      <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted);max-width:520px;margin:1rem auto 0;line-height:1.6;">
-        <a href="https://app.hyperliquid.xyz/vaults/0x843e160b4e7c453b38b14ac085a976db448d1b93" target="_blank" rel="noopener" style="color:var(--gold);">0x843e&hellip;1b93</a> · Soomario Libration vault
-      </div>
-
-      <div class="card" style="max-width:640px;margin:2.5rem auto 0;text-align:left;border-color:rgba(201,169,97,0.35);">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:0.6rem;margin-bottom:0.75rem;flex-wrap:wrap;">
-          <div class="card__title" style="margin:0;">Or run it on your own account</div>
-          <span style="font-family:var(--font-heading);font-size:1.3rem;color:var(--gold);">$29<span style="font-size:0.8rem;color:var(--text-muted);"> / month</span></span>
-        </div>
-        <p class="card__text" style="margin-bottom:1.25rem;">
-          Not on Hyperliquid, or would rather keep the whole profit? Subscribe, connect a trade-only key from
-          Hyperliquid, Bybit, Binance, OKX or Pacifica, and the engine runs the same eight-coin book on your
-          balance: your allocation split equally across the coins, exchange-resting hard stops, and a 60% catastrophe floor. Flat fee, no profit share.
-        </p>
-        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="https://whop.com/soomario-strategies/libration-strat" target="_blank" rel="noopener" class="btn btn--primary">Start the 7-day free trial &rarr;</a>
-          <a href="own-account.html" class="btn btn--ghost">How it works &rarr;</a>
-        </div>
-      </div>
-
-      <div style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);max-width:540px;margin-left:auto;margin-right:auto;line-height:1.6;">
-        Libration trades leveraged perpetual futures, which carries substantial risk of loss. It is in a live validation phase; performance figures are withheld pending completion. Past performance does not guarantee future results.
-      </div>
-    </div>
-  </section>
-
-  <!-- === 7. RELATED === -->
-  <section class="section">
-    <div class="container">
-      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">RELATED STRATEGIES</div></div>
-      <div class="grid-3">
-        <a href="hype-bot.html" class="card" style="text-decoration:none;">
+      <div class="pp-related">
+        <a href="../products/hype-bot.html" class="card r-hype">
           <div class="card__title">Hype Bot &rarr;</div>
-          <p class="card__text">Trades HYPE long and short on your own exchange account, with a 10% stop resting on every trade. Every trade published. $49/mo, 7 days free.</p>
+          <p class="card__text">Trades HYPE long and short on your own exchange account, with a 10% stop resting on every trade. $49/mo, 7 days free.</p>
         </a>
-        <a href="aphelion.html" class="card" style="text-decoration:none;">
-          <div class="card__title">Aphelion &rarr;</div>
-          <p class="card__text">Libration's sibling — it reuses parts of Aphelion's infrastructure. A related systematic engine from the Soomario suite.</p>
+        <a href="../products/tide.html" class="card r-tide">
+          <div class="card__title">Tide &rarr;</div>
+          <p class="card__text">Buys dips in steps across the top coins and 17 large stocks and sells the bounce, on your own Hyperliquid account. From $19/mo.</p>
         </a>
-        <a href="../aureus/" class="card" style="text-decoration:none;">
-          <div class="card__title">Aureus &rarr;</div>
-          <p class="card__text">Tokenized strategy fund on Arbitrum. Deposit USDC, earn bi-weekly distributions from Soomario Strategies. 80% of every profitable epoch to stakers.</p>
+        <a href="../products/accumulator.html" class="card r-acc">
+          <div class="card__title">Accumulator &rarr;</div>
+          <p class="card__text">Buy-the-dip signals for 14 stocks and coins, sent to Telegram. No exchange account needed. $7/mo.</p>
         </a>
       </div>
     </div>

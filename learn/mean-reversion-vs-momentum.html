@@ -88,25 +88,24 @@
       <p>One of the most common mistakes in evaluating strategies is using win rate as a quality metric. A 90% win rate sounds great until you realise that mean-reversion strategies <em>structurally</em> have high win rates and that the 10% of losing trades can be very large. A 35% win rate sounds bad until you realise that momentum strategies <em>structurally</em> have lower win rates and that the average win can be 4× the average loss.</p>
       <p>Win rate without context is uninformative. Always pair it with profit factor (the ratio of gross profit to gross loss). A 70% win-rate mean-reversion strategy with profit factor 1.4 is better than a 90% win-rate mean-reversion strategy with profit factor 1.05 — even though the headline win rate looks worse. See <a href="how-to-read-a-backtest.html" style="color:var(--gold);">How to Read a Backtest</a> for the full framework.</p>
 
-      <h2 class="gradient-text">Soomario's Mix</h2>
+      <h2 class="gradient-text">Where Soomario's Bots Sit</h2>
 
-      <h3>The Mean-Reversion Strategies</h3>
-      <p>Gladius, now retired, was the platform's mean-reversion strategy. It entered at the exhaustion of liquidation cascades — the point where forced flow has finished firing and price is positioned for a snap-back — with per-coin parameter tuning across 18 coins.</p>
-      <p><a href="../products/aphelion.html" style="color:var(--gold);">Aphelion</a> applies mean-reversion logic to a long-bias accumulator: it buys oversold conditions across 19 US large-cap and AI stocks and takes profit on part of a position only after a large run. Mean reversion in shape, but with directional bias toward accumulation.</p>
+      <h3>Mean Reversion: Tide and the Accumulator</h3>
+      <p><a href="../products/tide.html" style="color:var(--gold);">Tide</a> is mean reversion in its plainest form: it buys a market that has sold off hard, in steps, and sells the bounce. It has the classic shape: almost every ladder closes at a small profit, and the rare one that keeps falling ends at its stop for a much larger loss. The <a href="../products/accumulator.html" style="color:var(--gold);">Accumulator</a> leans the same way over a much longer horizon: it buys more of quality assets when they are sold off, and never sells.</p>
 
-      <h3>The Momentum Strategy</h3>
-      <p><a href="../products/libration.html" style="color:var(--gold);">Libration</a> and the <a href="../products/hype-bot.html" style="color:var(--gold);">Hype Bot</a> are the platform's momentum strategies. They take positions when a trend is establishing and try to stay in while it runs. Lower trade frequency, fewer winners, but the winners that run pay for everything else.</p>
+      <h3>Momentum: the Hype Bot</h3>
+      <p>The <a href="../products/hype-bot.html" style="color:var(--gold);">Hype Bot</a> enters on momentum, long or short, on one coin. Its payoff is not the textbook momentum shape, though: a tight trailing take-profit makes it win often and small and lose rarely but large, so read its win rate together with its losses.</p>
 
       <h3>The Third Shape: Volatility Harvesting</h3>
       <p>A covered-call strategy doesn't sit on either side of the mean-reversion-vs-momentum axis. It sells volatility — collecting option premium on the prediction that <em>implied</em> volatility exceeds <em>realised</em> volatility on average. This is a third structural bet, decoupled from both directional shapes, and it earns in regimes where neither mean reversion nor momentum is particularly profitable. See <a href="covered-calls.html" style="color:var(--gold);">Covered Calls Explained</a>.</p>
 
       <h2 class="gradient-text">How to Pick</h2>
-      <p>If you have a strong view that the market is in a sustained trend, momentum strategies (Libration, the Hype Bot) align with that view. If you have a view that the market is range-bound or that recent moves have been overdone, mean-reversion strategies (Aphelion) align with that view. If you do not have a strong directional view, hold both and let the regime decide which one earns.</p>
+      <p>If you have a strong view that the market is in a sustained trend, a momentum strategy (the Hype Bot) aligns with that view. If you have a view that the market is range-bound or that recent moves have been overdone, a mean-reversion strategy (Tide) aligns with that view. If you do not have a strong directional view, hold both and let the regime decide which one earns.</p>
       <p>Most allocators benefit from holding both shapes simultaneously, plus a volatility-harvesting allocation. Predicting regime turns is hard; structurally diversifying across opposing strategy shapes is straightforward. The cost of holding both is that some strategies are always underperforming; the benefit is that the portfolio's drawdowns are smaller and shorter than any single strategy's.</p>
 
       <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="../tools/compare.html" class="btn btn--primary btn--sm">Compare All Products →</a>
+          <a href="../tools/compare.html" class="btn btn--primary btn--sm">Compare the Bots →</a>
           <a href="how-to-read-a-backtest.html" class="btn btn--outline btn--sm">How to Read a Backtest</a>
           <a href="risk-management.html" class="btn btn--outline btn--sm">Risk Management</a>
         </div>

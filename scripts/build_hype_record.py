@@ -101,7 +101,10 @@ def main(master):
     curve, v = [{"d": trades[0]["o"][:10], "v": 100.0, "phase": "backtest"}], 100.0
     for t in trades:
         v *= 1 + (gross(t) - FEE) / 100
-        curve.append({"d": t["c"][:10], "v": round(v, 3), "phase": t["phase"]})
+        pt = {"d": t["c"][:10], "v": round(v, 3), "phase": t["phase"]}
+        if t["phase"] == "live":   # the month in KST, as the monthly reports count it
+            pt["mk"] = (datetime.fromisoformat(t["c"]) + KST).strftime("%Y-%m")
+        curve.append(pt)
     latest = [dict(t, ret=round(gross(t) - FEE, 2)) for t in trades[-60:]]
     (DASH / "hype-history.json").write_text(json.dumps({
         "symbol": "HYPE", "venue": VENUE, "strategy": STRATEGY, "commission_pct": FEE, "go_live": GO_LIVE,

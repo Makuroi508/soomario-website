@@ -130,14 +130,14 @@
           <label for="hc-lev">Leverage</label>
           <select id="hc-lev">
             <option value="1">1x</option>
-            <option value="2" selected>2x &mdash; the engine's default</option>
+            <option value="2" selected>2x</option>
             <option value="3">3x &mdash; maximum on the engine</option>
           </select>
           <div class="hint">Multiplies the margin below into exposure, so it scales every win and loss, and sets how close liquidation sits (about 100% &divide; leverage).</div>
 
           <label for="hc-size">Equity allocation (% of account, as margin)</label>
-          <input id="hc-size" type="number" min="5" max="90" step="5" value="45" inputmode="decimal">
-          <div class="hint" id="hc-size-hint">The engine's equity allocation: the share of the account each trade puts up as margin. Its default is 45% at 2x, which is 90% of the account per position.</div>
+          <input id="hc-size" type="number" min="5" max="90" step="5" value="50" inputmode="decimal">
+          <div class="hint" id="hc-size-hint">The engine's equity allocation: the share of the account each trade puts up as margin. It starts at the suggested 1x size: 50% at 2x, a position worth about the account.</div>
 
           <label for="hc-venue">Costs per round trip</label>
           <select id="hc-venue">
@@ -213,6 +213,22 @@
         <div class="section-label">BEFORE YOU TURN IT UP</div>
         <h2 class="section-title"><span class="gradient-text">What size and leverage do to this strategy</span></h2>
       </div>
+      <div class="feecost sizes" id="sizes">
+        <div class="feecost__t">Pick a size you can sit through</div>
+        <div class="sizes__wrap"><table>
+          <thead><tr><th>Size</th><th>One full stop-loss costs</th><th>Worst drop in the live record, scaled</th><th>Chance of a &minus;30% drop within a year</th><th>Chance of a &minus;50% drop within a year</th></tr></thead>
+          <tbody>
+            <tr><td>0.5x</td><td>&minus;5%</td><td>&asymp; &minus;7%</td><td>2%</td><td>~0%</td></tr>
+            <tr class="pick"><td>1x (suggested)</td><td>&minus;10%</td><td>&asymp; &minus;14%</td><td>44%</td><td>4%</td></tr>
+            <tr><td>1.5x</td><td>&minus;15%</td><td>&asymp; &minus;20%</td><td>86%</td><td>25%</td></tr>
+            <tr><td>2x</td><td>&minus;20%</td><td>&asymp; &minus;27%</td><td>99%</td><td>57%</td></tr>
+          </tbody>
+        </table></div>
+        <p>Size is the position as a multiple of your account: equity allocation &times; leverage. The suggested size is <strong>1x</strong>, a position worth about your balance (for example 50% of equity at 2x leverage). You can choose 0.5x, 1x, 1.5x or 2x; pick the one whose drops you can sit through.</p>
+        <p class="warn">At 2x a single full stop takes 20% of your account; in our model a 50% drop within a year is more likely than not.</p>
+        <p>The chances come from our planning model, which assumes the edge is half what the live record shows. They warn about losses; they are not a forecast of returns.</p>
+      </div>
+      <div style="height:1.75rem"></div>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card">
           <div class="card__title" style="color:var(--gold);">Exposure multiplies the losers too</div>
@@ -415,9 +431,9 @@
       if (!trades) return;
       var start = Math.max(10, parseFloat($('hc-start').value) || 10000);
       var lev = parseFloat($('hc-lev').value) || 1;
-      var marginPct = Math.min(90, Math.max(5, parseFloat($('hc-size').value) || 45));
+      var marginPct = Math.min(90, Math.max(5, parseFloat($('hc-size').value) || 50));
       var size = marginPct * lev;                      // exposure, % of account
-      $('hc-size-hint').textContent = 'What each trade puts up (5–90%). This setting: ' + marginPct + '% × ' + lev + 'x = ' + Math.round(size) + '% of the account per trade. The record is 100% (50% at 2x); the engine\'s default is 45% at 2x.';
+      $('hc-size-hint').textContent = 'What each trade puts up (5–90%). This setting: ' + marginPct + '% × ' + lev + 'x = ' + Math.round(size) + '% of the account per trade, a ' + +(size / 100).toFixed(2) + 'x size. We suggest 1x (50% at 2x), the same size as the record.';
       var comp = Math.min(100, Math.max(0, parseFloat($('hc-comp').value) || 0)) / 100;
       var freq = $('hc-freq').value;
       var fromDay = $('hc-from').value || '2024-12-10';

@@ -10,8 +10,8 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="Compare Soomario's 6 algorithmic trading products side by side. Strategy, risk level, price, platform, and performance metrics.">
-  <title>Compare Products — Side-by-Side | Soomario Strategies</title>
+  <meta name="description" content="Compare Soomario's three bots side by side: Hype Bot, Tide and Accumulator. Strategy, risk, price, platform and live record.">
+  <title>Compare the Bots — Hype Bot, Tide, Accumulator | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -43,14 +43,14 @@
     <div class="container">
       <div class="section-label">COMPARE</div>
       <h1 class="section-title" style="font-size:clamp(1.75rem,4vw,2.5rem);margin-bottom:0.5rem;">
-        <span class="gradient-text">Which Product is Right for You?</span>
+        <span class="gradient-text">Which bot is right for you?</span>
       </h1>
       <p style="font-size:1rem;color:var(--text-secondary);max-width:550px;margin-bottom:2rem;">
-        Select 2–3 products to compare side by side. Every metric, every detail, one view.
+        Hype Bot, Tide and Accumulator side by side. Tap a bot to hide or show it.
       </p>
 
       <!-- Product Selector -->
-      <p style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);margin-bottom:0.75rem;">TAP TO SELECT (2–3 PRODUCTS)</p>
+      <p style="font-family:var(--font-display);font-size:0.7rem;color:var(--text-muted);margin-bottom:0.75rem;">TAP TO SELECT (2–3 BOTS)</p>
       <div class="compare-row" id="productSelector"></div>
 
       <!-- Comparison Table -->
@@ -66,16 +66,16 @@
 
       <div style="display:grid;gap:1rem;margin-top:1.5rem;">
         <div class="card card--flat">
-          <div class="card__title">New to algo trading?</div>
-          <p class="card__text">Start with the <strong style="color:var(--gold);">Accumulator ($7/mo, 7-day free trial)</strong>. Zero leverage, familiar assets (stocks + crypto), full dashboard. Learn the system before committing more.</p>
+          <div class="card__title">Investing for the long term?</div>
+          <p class="card__text">Start with the <strong style="color:var(--gold);">Accumulator ($7/mo, 7-day free trial)</strong>. No leverage, no exchange account connected: buy-the-dip signals for 14 stocks and coins, and you place the orders.</p>
         </div>
         <div class="card card--flat">
-          <div class="card__title">Want hands-off trading?</div>
-          <p class="card__text">Deposit into a vault: <strong style="color:var(--gold);">Libration</strong> (automated). Or for a tokenized fund that diversifies across multiple strategies, deposit USDC into <strong style="color:var(--gold);">Aureus</strong>. All self-custody — your funds, your keys.</p>
+          <div class="card__title">Want it fully automated on your own account?</div>
+          <p class="card__text"><strong style="color:var(--gold);">Hype Bot ($49/mo)</strong> trades one coin, long and short, at the size you pick (we suggest 1x). <strong style="color:var(--gold);">Tide (from $19/mo)</strong> runs many small dip-buying ladders across coins and stocks and sizes itself. Your money stays on your exchange; the key can trade, never withdraw.</p>
         </div>
         <div class="card card--flat">
-          <div class="card__title">Want to diversify across strategies?</div>
-          <p class="card__text">Combine <strong style="color:var(--gold);">Accumulator</strong> (DCA signals) + a vault product (automated perps). Two different strategy types, two different risk profiles. Total: $46.99/mo.</p>
+          <div class="card__title">Want both shapes?</div>
+          <p class="card__text">The Hype Bot and Tide lose in different conditions. Run them on separate accounts: Tide needs one of its own, such as a Hyperliquid sub-account.</p>
         </div>
       </div>
     </div>
@@ -85,15 +85,12 @@
   <script>
   (function() {
     var products = [
-      { id:'accumulator', name:'Accumulator', status:'LIVE', price:'$7/mo (7-day free trial)', priceModel:'Subscription only', platform:'Telegram + Dashboard', strategy:'Smart DCA signals, sized up on oversold dips', assets:'14 (12 stocks + BTC, SOL)', leverage:'None (spot only)', risk:'Low', riskClass:'risk-low', winRate:'Model portfolio', maxDD:'N/A (spot)', sharpe:'—', profitFactor:'—', trades:'70+ buys since Jan 2026', delivery:'Telegram signals + member dashboard', selfCustody:'Yes — execute in your own brokerage', link:'../products/accumulator.html' },
-      { id:'aureus', name:'Aureus', status:'LIVE', price:'Tokenized fund · 80% to stakers', priceModel:'Mint AUR with USDC, bi-weekly distributions', platform:'Arbitrum One + Hyperliquid', strategy:'Multi-strategy fund — deploys capital across Libration, Elite (closed to new deposits, being moved into Libration), Aphelion, and provisionally Rotation', assets:'Variable (per underlying strategy)', leverage:'Per underlying strategy', risk:'Medium', riskClass:'risk-med', winRate:'Reports per epoch', maxDD:'Reports per epoch', sharpe:'Reports per epoch', profitFactor:'Reports per epoch', trades:'First epoch close Jun 5, 2026', delivery:'On-chain AUR token, USDC distributions', selfCustody:'Yes — hold your own AUR on Arbitrum', link:'../aureus/' },
-      { id:'hype', name:'Hype Bot', status:'LIVE', price:'$49/mo (7-day free trial)', priceModel:'Subscription · 0% profit share', platform:'Your account: Hyperliquid, Bybit, Binance, OKX, Pacifica', strategy:'Proprietary momentum swing on HYPE, long and short, one position at a time, tight trailing take-profit, 10% hard stop', assets:'HYPE', leverage:'1x–3x, your choice (default 2x)', risk:'Medium-High', riskClass:'risk-high', winRate:'84.7% (80.8% live)', maxDD:'−13.6% live, closed trades at 1x', sharpe:'—', profitFactor:'2.39 (2.31 live)', trades:'308 (157 backtest + 151 live)', delivery:'Soomario engine on your exchange account', selfCustody:'Yes — your account, trade-only key, no withdrawals', link:'../products/hype-bot.html' },
-      { id:'libration', name:'Libration', status:'LIVE', price:'$29/mo, or vault · 10% profit share', priceModel:'Subscription or vault', platform:'Hyperliquid vault, or your account on Hyperliquid, Bybit, Binance, OKX, Pacifica', strategy:'Momentum swing across eight volatile perpetuals, HYPE at the largest share, one position per coin, per-coin trailing take-profits and hard stops', assets:'8 coins: HYPE (largest share), TAO, FARTCOIN, CC, AVAX, PENGU, SUI, XMR', leverage:'3x (vault) · 1x–3x on your account', risk:'Medium-High', riskClass:'risk-high', winRate:'Live trading', maxDD:'Live trading', sharpe:'—', profitFactor:'Live trading', trades:'Live since Jun 2026', delivery:'Vault auto-trading, or the engine on your account', selfCustody:'Yes — vault withdraw anytime, or your own account', link:'../products/libration.html' },
-      { id:'aphelion', name:'Aphelion', status:'LIVE', price:'Binance copy trading · 10% profit share', priceModel:'Copy-trade — you keep custody, 10 USDT minimum', platform:'Binance USD-M futures', strategy:'Long-only accumulator of oversold US stocks — takes profit only after a large run, no stop-loss', assets:'19 US equity perps', leverage:'2x isolated', risk:'Very High', riskClass:'risk-high', winRate:'See Binance', maxDD:'−29.0% live (Binance, since May 12, 2026)', sharpe:'0.31 (Binance)', profitFactor:'—', trades:'Live on Binance since May 12, 2026', delivery:'Binance copy trading', selfCustody:'Yes — funds stay in your own Binance account', link:'../products/aphelion.html' },
-      { id:'rotation', name:'Rotation', status:'LIVE', price:'Not open to outside capital yet', priceModel:'Live dashboard only', platform:'Solana', strategy:'Long-only, unlevered rotation of tokenized US equities — Tesla core + five conviction-scored slots, spot via Jupiter', assets:'Tokenized US equities (xStocks / Ondo)', leverage:'None (spot)', risk:'Medium-High', riskClass:'risk-high', winRate:'Reported live', maxDD:'−7.3% live (since Sep 8, 2026)', sharpe:'Not asserted', profitFactor:'Reported live', trades:'Live wallet since Sep 8, 2026', delivery:'Self-custodied Solana wallet', selfCustody:'Yes — Solana wallet', link:'../products/rotation.html' },
+      { id:'hype', name:'Hype Bot', status:'LIVE', price:'$49/mo (7-day free trial)', priceModel:'Subscription · 0% profit share', platform:'Your account: Hyperliquid, Bybit, Binance, OKX, Pacifica', strategy:'Proprietary momentum swing on HYPE, long and short, one position at a time, tight trailing take-profit, 10% hard stop', assets:'HYPE', leverage:'Your choice of size: 0.5x, 1x (suggested), 1.5x or 2x. At 1x one full stop costs about 10% of the account', risk:'Medium-High', riskClass:'risk-high', liveRet:'+115.5% since Nov 2025, at 1x after costs', winRate:'80.8% live', maxDD:'−13.6% live, at 1x', trades:'151 live trades since Nov 2025, every one published', delivery:'Soomario engine on your exchange account', selfCustody:'Yes — your account, trade-only key, no withdrawals', link:'../products/hype-bot.html' },
+      { id:'tide', name:'Tide', status:'BETA', price:'From $19/mo (7-day free trial)', priceModel:'Subscription · 0% profit share · $19 sizes up to $2,500, $49 the whole account', platform:'Your own Hyperliquid account (an account of its own)', strategy:'Buys dips in steps across the month\'s most-traded coins and 17 large stocks, sells the bounce; a stop rests under every ladder', assets:'Top coins by volume + 17 large stocks', leverage:'Set by the bot: up to 20 small ladders, buys only', risk:'Medium-High', riskClass:'risk-high', liveRet:'Live since 8 Oct 2026: see the Tide record', winRate:'99.8% of 1,946 ladders (backtest)', maxDD:'−22.1% backtest; plan for about −37%', trades:'1,946 backtest ladders; live since 8 Oct 2026', delivery:'Soomario engine on your Hyperliquid account', selfCustody:'Yes — API wallet that can trade, never withdraw', link:'../products/tide.html' },
+      { id:'accumulator', name:'Accumulator', status:'LIVE', price:'$7/mo (7-day free trial)', priceModel:'Subscription only', platform:'Telegram + Dashboard', strategy:'Buy-the-dip signals, sized up on sharp sell-offs; you place the orders', assets:'14 (12 stocks + BTC, SOL)', leverage:'None (spot only)', risk:'Low-Medium', riskClass:'risk-med', liveRet:'Model portfolio since 9 Feb 2026: see the dashboard', winRate:'—', maxDD:'See the live dashboard', trades:'Every buy since 9 Feb 2026 on the public dashboard', delivery:'Telegram signals + member dashboard', selfCustody:'Yes — execute in your own brokerage', link:'../products/accumulator.html' },
     ];
 
-    var selected = ['accumulator','hype'];
+    var selected = ['hype','tide','accumulator'];
     var fields = [
       {key:'status',label:'Status'},
       {key:'price',label:'Price'},
@@ -103,10 +100,9 @@
       {key:'assets',label:'Assets'},
       {key:'leverage',label:'Leverage'},
       {key:'risk',label:'Risk Level',render:function(p){return '<span class="'+p.riskClass+'">'+p.risk+'</span>';}},
+      {key:'liveRet',label:'Live Return'},
       {key:'winRate',label:'Win Rate'},
       {key:'maxDD',label:'Max Drawdown'},
-      {key:'sharpe',label:'Sharpe Ratio'},
-      {key:'profitFactor',label:'Profit Factor'},
       {key:'trades',label:'Trades'},
       {key:'delivery',label:'Delivery'},
       {key:'selfCustody',label:'Self-Custody'}
@@ -117,7 +113,7 @@
       var sel = document.getElementById('productSelector');
       sel.innerHTML = products.map(function(p) {
         var isSel = selected.indexOf(p.id) !== -1;
-        var badge = p.status === 'LIVE' ? '<span class="badge badge--live">LIVE</span>' : '<span class="badge badge--soon">SOON</span>';
+        var badge = p.status === 'LIVE' ? '<span class="badge badge--live">LIVE</span>' : '<span class="badge badge--new">' + p.status + '</span>';
         return '<div class="card compare-card'+(isSel?' selected':'')+'" data-id="'+p.id+'" style="cursor:pointer;text-align:center;padding:1.25rem 1rem;" onclick="window._toggleProduct(\''+p.id+'\')">' +
           badge + '<div class="card__title" style="margin-top:0.5rem;">'+p.name+'</div>' +
           '<div style="font-family:var(--font-display);font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">'+p.price+'</div></div>';
@@ -174,6 +170,41 @@
     };
 
     render();
+
+    // the live figures, from the same public feeds the record pages read
+    function byId(id) { return products.filter(function (p) { return p.id === id; })[0]; }
+    function f1(x) { return (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1) + '%'; }
+    function get(u) { return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }
+    get('../dashboards/hype-history.json?t=' + Date.now()).then(function (h) {
+      if (!h || !h.live || !h.live.agg) return;
+      var p = byId('hype'), c = h.curve || [], idx = 1, peak = 1, mdd = 0;
+      for (var i = 1; i < c.length; i++) {
+        if (c[i].phase !== 'live') continue;
+        idx *= c[i].v / c[i - 1].v; peak = Math.max(peak, idx); mdd = Math.min(mdd, (idx / peak - 1) * 100);
+      }
+      p.liveRet = f1((h.live.agg.idx - 1) * 100) + ' since Nov 2025, at 1x after costs';
+      p.winRate = h.live.win + '% live';
+      p.maxDD = '−' + Math.abs(mdd).toFixed(1) + '% live, at 1x';
+      p.trades = h.live.n + ' live trades since Nov 2025, every one published';
+      render();
+    });
+    get('https://soomario-dca-production.up.railway.app/api/performance').then(function (d) {
+      var m = d && d.metrics; if (!m || typeof m.return_pct !== 'number') return;
+      var p = byId('tide');
+      p.liveRet = f1(m.return_pct) + ' live since 8 Oct 2026 (' + Math.floor(m.days) + ' days); backtest +41.7% a year';
+      p.maxDD = '−' + Math.abs(m.max_dd_pct).toFixed(1) + '% live so far; −22.1% backtest; plan for about −37%';
+      p.trades = m.trades + ' live ladders closed, ' + m.stops + ' stopped; 1,946 in the backtest';
+      render();
+    });
+    get('https://accumulator.soomariostrategies.com/api/portfolio_value?group=mag14&t=' + Date.now()).then(function (d) {
+      var m = d && d.metrics; if (!m || typeof m.twr_pct !== 'number') return;
+      var p = byId('accumulator'), c = m.return_on_contributed_pct;
+      p.liveRet = f1(m.twr_pct) + ' time-weighted' + (typeof c === 'number' && c > -99.9 ? '; your money ' + f1(c) : '') + ', since 9 Feb 2026';
+      if (typeof m.max_drawdown_pct === 'number') p.maxDD = '−' + Math.abs(m.max_drawdown_pct).toFixed(1) + '% live (model portfolio)';
+      var buys = m.total_buys != null ? m.total_buys : d.buy_count;
+      if (buys != null) p.trades = Number(buys).toLocaleString('en-US') + ' buys since 9 Feb 2026, all on the public dashboard';
+      render();
+    });
   })();
   </script>
 </body>
