@@ -411,7 +411,8 @@
       if (!P || !P.metrics || !T || !T.trades) return null;
       var m = P.metrics, trades = T.trades.filter(function (t) { return t.closed_at && typeof t.pnl === 'number'; }).map(function (t) {
         var share = t.sizing_base > 0 ? t.sizing_base * D.leverage / D.slots : t.reserve;
-        return { o: iso(t.opened_at), c: iso(t.closed_at), s: t.symbol, r: share > 0 ? t.pnl / share : 0,
+        var r = typeof t.ret_on_share === 'number' ? t.ret_on_share : share > 0 ? t.pnl / share : 0;
+        return { o: iso(t.opened_at), c: iso(t.closed_at), s: t.symbol, r: r,
                  x: /stop/i.test(t.reason) ? 'stop' : /take/i.test(t.reason) ? 'tp' : 'time' };
       }).sort(function (a, b) { return a.c < b.c ? -1 : a.c > b.c ? 1 : 0; });
       var since = P.curve && P.curve.length ? iso(P.curve[0].t).slice(0, 10) : D.live.since;

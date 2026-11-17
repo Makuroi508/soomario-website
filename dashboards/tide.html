@@ -189,6 +189,7 @@
 
   // how far down the ladder bought, in words: the number of steps stays private
   function depth(t) {
+    if (t.depth) return t.depth;            // the live feed sends the word; older rows had the counts
     var f = t.rungs_total > 0 ? t.rungs_filled / t.rungs_total : null;
     return f == null ? '—' : f < 0.4 ? 'shallow' : f < 0.75 ? 'partway' : 'deep';
   }
