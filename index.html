@@ -149,6 +149,7 @@
     .facts { list-style: none; padding: 0; margin: 0; text-align: left; display: grid; gap: 10px; font-size: 16px; color: var(--ink); }
     .facts li { position: relative; padding-left: 24px; }
     .facts li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 8px; height: 8px; background: var(--c); transform: rotate(45deg); box-shadow: 0 0 8px var(--c); }
+    .facts a { color: var(--brass-hi); text-underline-offset: 3px; }
     .bot__foot { margin-top: auto; padding-top: 26px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .price { font: 400 32px/1 var(--serif); color: #fff7e6; text-align: left; }
     .price small { font: 500 15px/1 var(--sans); color: var(--ink-3); margin-left: 3px; }
@@ -296,9 +297,9 @@
           <div class="bot__cap">a year, backtest with the losers left in</div>
           <div class="rule"></div>
           <ul class="facts">
+            <li id="tideLive">Live on our own account since 8 Oct 2026: <a href="dashboards/tide.html">see the live record</a></li>
             <li>1,946 ladders tested, 99.8% closed in profit</li>
             <li>Up to 20 small ladders at once, buys only</li>
-            <li>Every live ladder published next to the backtest</li>
           </ul>
           <div class="bot__foot">
             <div class="price"><em>from</em>$19<small>/mo</small></div>
@@ -383,9 +384,9 @@
       <h2>What people ask first</h2>
       <div class="faq">
         <details><summary>Do you ever hold my money?</summary><p>No. The bots trade on your own exchange account through a key that can trade but cannot withdraw. Accumulator does not touch an account at all: it sends signals to Telegram.</p></details>
-        <details><summary>Which bot should I pick?</summary><p>Hype Bot if you want one coin, long and short, at full size. Tide if you want many small dip-buying positions across coins and stocks. Accumulator if you invest for the long term and place your own orders.</p></details>
+        <details><summary>Which bot should I pick?</summary><p>Hype Bot if you want one coin, long and short, fully automated; we suggest a 1x size. Tide if you want many small dip-buying positions across coins and stocks. Accumulator if you invest for the long term and place your own orders.</p></details>
         <details><summary>What does it cost?</summary><p>Hype Bot $49 a month. Tide $19 (sizes up to $2,500) or $49. Accumulator $7. All with a 7-day free trial and no profit share. $49 a month is $588 a year: 58.8% of a $1,000 account, 29.4% of $2,000, 19.6% of $3,000, 11.8% of $5,000 and 5.9% of $10,000. We recommend at least $3,000 for the $49 plans; under that, Tide Starter.</p></details>
-        <details><summary>Can I lose money?</summary><p>Yes. Hype Bot and Tide trade leveraged perpetual futures, and every bot has losing trades and losing months. Each product page lists its worst drop and how its losses happen, and every trade is published so you can check.</p></details>
+        <details><summary>Can I lose money?</summary><p>Yes. Hype Bot and Tide trade leveraged perpetual futures, and every bot has losing trades and losing months. Hype Bot's deepest drawdown since going live is <span data-hype="mdd">−13.6%</span> at 1x; at 2x a single full stop takes 20% of the account. Each product page lists its worst drop and how its losses happen, and every trade is published so you can check.</p></details>
         <details><summary>How fast can I start?</summary><p>About ten minutes: subscribe, connect a trade-only key, pick the bot. Accumulator is faster: subscribe and join the Telegram channel.</p></details>
       </div>
     </div>
@@ -416,10 +417,24 @@
   fetch('https://accumulator.soomariostrategies.com/api/portfolio_value?group=mag14&t=' + Date.now(), { cache: 'no-store' })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
-      var t = d && d.metrics && d.metrics.twr_pct;
+      var m = d && d.metrics, t = m && m.twr_pct, c = m && m.return_on_contributed_pct;
       if (typeof t !== 'number' || !isFinite(t)) return;
-      document.getElementById('accBig').textContent = (t >= 0 ? '+' : '−') + Math.abs(t).toFixed(1) + '%';
-      document.getElementById('accCap').textContent = 'model portfolio of 14 assets, live since 9 Feb 2026';
+      var f = function (x) { return (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1) + '%'; };
+      document.getElementById('accBig').textContent = f(t);
+      document.getElementById('accCap').textContent = 'time-weighted, model portfolio live since 9 Feb 2026' +
+        (typeof c === 'number' && isFinite(c) && c > -99.9 ? ' · your money’s return ' + f(c) : '');   // -100% is a feed glitch
+    })
+    .catch(function () {});
+
+  // Tide's card shows the live record next to the backtest, from the feed its record page reads.
+  fetch('https://soomario-dca-production.up.railway.app/api/performance', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      var m = d && d.metrics; if (!m || typeof m.return_pct !== 'number') return;
+      var f = function (x) { return (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1) + '%'; };
+      var li = document.getElementById('tideLive');
+      li.innerHTML = 'Live since 8 Oct 2026: <a href="dashboards/tide.html">' + f(m.return_pct) + '</a>' +
+        (typeof m.max_dd_pct === 'number' ? ', worst drop −' + Math.abs(m.max_dd_pct).toFixed(1) + '%' : '');
     })
     .catch(function () {});
 </script>

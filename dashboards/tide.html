@@ -93,7 +93,7 @@
         <h2 class="section-title">The latest closed ladders</h2>
       </div>
       <div class="tt-wrap"><table class="tt">
-        <thead><tr><th>Closed (UTC)</th><th>Market</th><th>Held</th><th>Rungs bought</th><th>Exit</th><th>On the ladder</th></tr></thead>
+        <thead><tr><th>Closed (UTC)</th><th>Market</th><th>Held</th><th>How deep it bought</th><th>Exit</th><th>On the ladder</th></tr></thead>
         <tbody id="rows"><tr><td colspan="6" style="text-align:center">Loading…</td></tr></tbody>
       </table></div>
       <div class="dash-links">
@@ -187,13 +187,18 @@
       : '';
   }
 
+  // how far down the ladder bought, in words: the number of steps stays private
+  function depth(t) {
+    var f = t.rungs_total > 0 ? t.rungs_filled / t.rungs_total : null;
+    return f == null ? '—' : f < 0.4 ? 'shallow' : f < 0.75 ? 'partway' : 'deep';
+  }
   function trades(list) {
     var rows = list.slice().sort(function (a, b) { return b.closed_at - a.closed_at; }).slice(0, 40).map(function (t) {
       var gain = t.peak_notional > 0 ? t.pnl / t.peak_notional * 100 : null;
       var hold = t.hold_days < 1 ? Math.round(t.hold_days * 24) + ' h' : t.hold_days.toFixed(1) + ' d';
       var exit = /stop/i.test(t.reason) ? 'stop' : /take/i.test(t.reason) ? 'take-profit' : t.reason;
       return '<tr><td>' + utc(t.closed_at) + '</td><td>' + t.symbol + '</td><td>' + hold + '</td>' +
-        '<td>' + t.rungs_filled + ' of ' + t.rungs_total + '</td><td>' + exit + '</td>' +
+        '<td>' + depth(t) + '</td><td>' + exit + '</td>' +
         '<td class="' + (gain >= 0 ? 'up' : 'down') + '">' + pct(gain, 2) + '</td></tr>';
     }).join('');
     $('rows').innerHTML = rows || '<tr><td colspan="6" style="text-align:center">No ladder has closed yet.</td></tr>';

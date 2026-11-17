@@ -58,24 +58,17 @@
       <p>Smart DCA keeps the core principle of regular investing but adds a quantitative layer that adjusts <strong>when</strong> you buy and <strong>how much</strong>. Instead of buying every day, you buy only when indicators confirm the asset is genuinely oversold. And instead of buying a fixed amount, you scale your buy size based on how oversold the asset is.</p>
 
       <h3>Measuring "Oversold"</h3>
-      <p>A smart DCA engine needs an objective way to decide whether an asset is genuinely worth buying. Three classic measures illustrate the idea:</p>
+      <p>A smart DCA engine needs an objective way to decide whether an asset is genuinely worth buying: how far and how fast it has fallen, and whether the selling looks exhausted. There are many textbook ways to measure this. Soomario's engine blends several of them into one proprietary signal; the exact inputs and settings are private.</p>
 
-      <p><strong>RSI (Relative Strength Index)</strong> measures momentum on a 0–100 scale. Below 30 is generally considered "oversold" — selling pressure is exhausting.</p>
-
-      <p><strong>Volume Z-Score</strong> measures whether current selling volume is statistically extreme compared to recent history. A high z-score on down-volume means capitulation selling — the kind of exhaustion that often precedes a reversal.</p>
-
-      <p><strong>Price vs Moving Average</strong> measures how far the current price has fallen below its long-term average. The further below, the more "on sale" the asset is relative to its trend.</p>
-
-      <h3>Signal Strength &amp; Multipliers</h3>
-      <p>Soomario's engine blends several measures of this kind — the exact inputs and settings are private — into a single <strong>signal strength score</strong> from 0–100%. Higher scores mean the asset is more oversold across multiple dimensions, not just one.</p>
-      <p>Signal strength determines the <strong>buy multiplier</strong> — a 1x to 5x scaling factor. A weak signal (barely oversold) triggers a 1x buy. A strong signal (deeply oversold on all indicators) triggers up to 5x the base amount.</p>
+      <h3>Signal Strength and Buy Size</h3>
+      <p>The stronger the signal, the more of your budget a buy uses: a mild dip gets a small buy, a deep sell-off a larger one. Your monthly budget sets a safe daily rate, so a run of strong signals cannot spend the month's money too fast.</p>
 
       <div class="callout">
-        <p><strong>Example:</strong> Your monthly budget is $1,000. Your safe daily rate is about $11. A 50% strength signal triggers a 2.5x multiplier — you buy $27.50 of that asset. A 90% strength signal triggers a 4.5x multiplier — you buy $49.50. A day with no signal? You buy nothing and save your capital for a better entry.</p>
+        <p><strong>Example:</strong> with a $1,000 monthly budget, a day with no signal buys nothing and keeps the money for a better entry. A mild dip buys a little. A deep sell-off buys more, within the budget. The Telegram alert tells you the dollar amount each time.</p>
       </div>
 
-      <h2 class="gradient-text">Why Smart DCA Outperforms</h2>
-      <p>The advantage is intuitive: you deploy more capital when prices are depressed and less when they're extended. Over hundreds of signals, this systematically lowers your average entry price compared to basic DCA.</p>
+      <h2 class="gradient-text">Why Smart DCA Can Do Better</h2>
+      <p>The advantage is intuitive: you deploy more capital when prices are depressed and less when they're extended. Over hundreds of signals, this systematically lowers your average entry price compared to basic DCA. A lower average price is not the same as a bigger pot, though: it comes from spending more during sell-offs, and with spending held to the same savings the result can land close to plain DCA.</p>
       <p>Smart DCA also avoids buying into strength. If an asset has rallied 30% in a week, no signal fires — your capital stays dry for the next pullback. Basic DCA would have bought at the top.</p>
       <p>This doesn't mean every signal is a winner. Individual buys can be early (the asset drops further) or the market can enter a prolonged downturn. But over the long term, buying systematically at oversold conditions has a statistical edge over buying at random intervals.</p>
 

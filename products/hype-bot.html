@@ -42,12 +42,13 @@
       <p class="phero__sub">
         Hype Bot trades HYPE in both directions, one position at a time, on your own exchange account.
         Since it went live in November 2025 it has made <strong data-hype="ret">+115.5%</strong> after fees,
-        through a 66% fall in HYPE along the way. Every trade is on the public record, the losing ones too.
+        through a 66% fall in HYPE along the way. Every one of its <span data-hype="n">151</span> live trades is on the
+        public record, the losing ones too.
       </p>
       <div class="phero__stats">
         <div><b data-hype="ret">+115.5%</b><span>since going live, after fees, at 1x</span></div>
         <div><b>+53%</b><span>while HYPE fell 66%, Sep 2025 – Jan 2026</span></div>
-        <div><b data-hype="n">151</b><span>live trades published, wins and losses</span></div>
+        <div><b data-hype="mdd">−13.6%</b><span>worst drawdown since going live, at 1x</span></div>
         <div><b>10%</b><span>stop resting on the exchange, every trade</span></div>
       </div>
       <div class="phero__cta">
@@ -61,6 +62,29 @@
       </p>
     </div>
   </header>
+
+  <!-- ═══ MONTH BY MONTH ═══ -->
+  <section class="section" id="months">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:2rem;">
+        <div class="section-label">MONTH BY MONTH</div>
+        <h2 class="section-title"><span class="gradient-text">Every month since going live</span></h2>
+        <p class="section-subtitle" style="margin:1rem auto 0;max-width:640px;">
+          Each month's return next to the worst drop the account took during that month, at 1x after the
+          0.12% round-trip cost. The deepest drawdown since going live is <strong data-hype="mdd">−13.6%</strong>.
+        </p>
+      </div>
+      <div class="tt-wrap months-wrap"><table class="tt">
+        <thead><tr><th>Month</th><th>Trades</th><th>Return</th><th>Worst drop that month</th></tr></thead>
+        <tbody data-hype="months"><tr><td colspan="4">Loading the record&hellip;</td></tr></tbody>
+      </table></div>
+      <p class="dash-note" style="max-width:760px;margin:12px auto 0;font-size:14.5px;color:var(--ink-3);">
+        Worst drop: how far the account fell below its highest point of that month (the month's start included),
+        measured at each trade's close. Built from the published record, rebuilt once a month. Past performance
+        does not guarantee future results.
+      </p>
+    </div>
+  </section>
 
   <!-- ═══ THE EDGE ═══ -->
   <section class="section section--alt">
@@ -141,7 +165,7 @@
           <p class="card__text" style="margin-bottom:1.25rem;">
             Subscribe, paste a trade-only API key from Hyperliquid, Bybit, Binance, OKX or Pacifica, and the
             Soomario engine runs the Hype Bot on your balance: same signal, same trail, same hard stop resting
-            on the exchange. Flat fee, no profit share; the equity allocation and the leverage (1x to 3x) are yours to set.
+            on the exchange. Flat fee, no profit share; the equity allocation and the leverage are yours to set, and we suggest a 1x size (<a href="#sizes">see the table below</a>).
           </p>
           <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;">
             your keys &middot; no withdrawal permission &middot; cancel any time
@@ -150,6 +174,22 @@
           <a href="own-account.html" style="display:block;text-align:center;margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);">How it works, custody, venues &rarr;</a>
         </div>
 
+      </div>
+
+      <div class="feecost sizes" id="sizes">
+        <div class="feecost__t">Pick a size you can sit through</div>
+        <div class="sizes__wrap"><table>
+          <thead><tr><th>Size</th><th>One full stop-loss costs</th><th>Worst drop in the live record, scaled</th><th>Chance of a &minus;30% drop within a year</th><th>Chance of a &minus;50% drop within a year</th></tr></thead>
+          <tbody>
+            <tr><td>0.5x</td><td>&minus;5%</td><td>&asymp; &minus;7%</td><td>2%</td><td>~0%</td></tr>
+            <tr class="pick"><td>1x (suggested)</td><td>&minus;10%</td><td>&asymp; &minus;14%</td><td>44%</td><td>4%</td></tr>
+            <tr><td>1.5x</td><td>&minus;15%</td><td>&asymp; &minus;20%</td><td>86%</td><td>25%</td></tr>
+            <tr><td>2x</td><td>&minus;20%</td><td>&asymp; &minus;27%</td><td>99%</td><td>57%</td></tr>
+          </tbody>
+        </table></div>
+        <p>Size is the position as a multiple of your account: equity allocation   <p>Size is the position as a multiple of your account: equity allocation &times; leverage. The suggested size is <strong>1x</strong>, a position worth about your balance (for example 50% of equity at 2x leverage). You can choose 0.5x, 1x, 1.5x or 2x; pick the one whose drops you can sit through.</p>times; leverage. The suggested size is <strong>1x</strong>, a position worth about your balance (for example 50% of equity at 2x leverage). You can choose 0.5x, 1x, 1.5x or 2x; pick the one whose drops you can sit through.</p>
+        <p class="warn">At 2x a single full stop takes 20% of your account; in our model a 50% drop within a year is more likely than not.</p>
+        <p>The chances come from our planning model, which assumes the edge is half what the live record shows. They warn about losses; they are not a forecast of returns.</p>
       </div>
 
       <div class="feecost">
@@ -258,10 +298,6 @@
         <a href="accumulator.html" class="card r-acc">
           <div class="card__title">Accumulator &rarr;</div>
           <p class="card__text">No exchange account needed: buy-the-dip signals for 14 stocks and coins, sent to Telegram, for long-term investing. $7/mo.</p>
-        </a>
-        <a href="libration.html" class="card">
-          <div class="card__title">Libration &rarr;</div>
-          <p class="card__text">The same kind of swing engine across a basket of volatile coins, one position per coin.</p>
         </a>
       </div>
     </div>

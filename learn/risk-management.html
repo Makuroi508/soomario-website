@@ -45,13 +45,13 @@
       <h2 class="gradient-text">What Can Go Wrong</h2>
 
       <h3>Drawdowns</h3>
-      <p>A drawdown is the peak-to-trough decline in your account before a new high is reached. Every strategy experiences drawdowns — the question is how large and how long. Soomario's strategies have observed max drawdowns ranging from ~4.5% (Libration backtest, measured on closed trades) to 28.1% (AVAX v3 backtest over 3 years). A 25% drawdown means a $10,000 account temporarily drops to $7,500 before recovering.</p>
+      <p>A drawdown is the peak-to-trough decline in your account before a new high is reached. Every strategy experiences drawdowns — the question is how large and how long. The Hype Bot's deepest drawdown since going live is −13.6% at 1x. Tide's backtest fell about 22% at its worst, and we tell members to plan for about 37%. A 25% drawdown means a $10,000 account temporarily drops to $7,500 before recovering.</p>
 
       <h3>Leverage Amplification</h3>
-      <p>Most Soomario vault strategies use leverage (2x–8x). Leverage multiplies both gains and losses. A 5% move against you at 5x leverage is a 25% loss on your capital. This is why stop-losses and position sizing are critical — and why the Accumulator ($7/mo, no leverage) is the lowest-risk entry point.</p>
+      <p>The Hype Bot and Tide trade leveraged perpetual futures. Leverage multiplies both gains and losses. A 5% move against you at 5x leverage is a 25% loss on your capital. At the suggested 1x size, one full Hype Bot stop costs about 10% of the account; at 2x it takes 20%. This is why stop-losses and position sizing are critical — and why the Accumulator ($7/mo, no leverage) is the lowest-risk entry point.</p>
 
       <h3>Market Regime Changes</h3>
-      <p>Strategies that work in one market environment may underperform in another. A momentum strategy thrives in trending markets but suffers in choppy, range-bound conditions. Soomario mitigates this by running multiple strategy types (momentum, reversal, DCA, grid farming) — but no single product is immune to regime changes.</p>
+      <p>Strategies that work in one market environment may underperform in another. A momentum strategy thrives in trending markets but suffers in choppy, range-bound conditions. Soomario's three bots have different shapes (momentum on one coin, dip-buying ladders, long-term DCA signals), but no single product is immune to regime changes.</p>
 
       <h3>Backtesting vs Reality</h3>
       <p>Backtested results are calculated on historical data. Live trading faces challenges that backtests don't: slippage (your execution price differs from the signal price), liquidity gaps (especially in crypto during extreme volatility), exchange downtime, and network latency. Soomario publishes both backtested and live results so you can compare.</p>
@@ -59,16 +59,16 @@
       <h2 class="gradient-text">How Soomario Manages Risk</h2>
 
       <h3>Stop-Losses on Every Position</h3>
-      <p>Every leveraged position has a hard stop-loss. For the Hype Bot and Libration it rests on the exchange the moment the position opens (10% on most coins, calibrated per coin in Libration). No position is ever left unprotected.</p>
+      <p>Every leveraged position has a stop-loss resting on the exchange the moment it opens: a 10% hard stop on every Hype Bot trade, and a stop under every Tide ladder. No position is ever left unprotected.</p>
 
       <h3>Position Sizing</h3>
-      <p>No single trade risks the entire account. Strategies allocate a fixed percentage of capital per trade (typically 2–5%), so even a string of losses doesn't destroy the account.</p>
+      <p>Size decides what one loss costs. On the Hype Bot you choose it: at the suggested 1x a full stop costs about 10% of the account, at 2x about 20%. Tide spreads the account over up to 20 small ladders, so one stopped ladder costs about 8%, up to about 12% when a coin collapses straight through its stop.</p>
 
       <h3>Diversification</h3>
-      <p>Libration trades eight coins, one position each, with HYPE at the largest share. This diversification means a bad trade on one coin is balanced by performance across others — the strategies behave independently.</p>
+      <p>The Hype Bot trades one coin, so it is not diversified: when HYPE is quiet or choppy, it has nothing else to trade. Tide spreads across many coins and stocks, but in a broad sell-off they tend to fall together, which is when its stops happen.</p>
 
       <h3>Transparent Metrics</h3>
-      <p>Every product page publishes detailed risk metrics: max drawdown, Sharpe ratio (risk-adjusted return), Sortino ratio (downside risk), profit factor (gross gains / gross losses), and win rate. These aren't hidden — they're front and center so you can make an informed decision.</p>
+      <p>Every bot publishes its record, losing trades included, with its worst drawdown, win rate and profit factor (gross gains / gross losses). They aren't hidden, so you can make an informed decision.</p>
 
       <h2 class="gradient-text">How to Think About Your Own Risk</h2>
 
@@ -76,13 +76,13 @@
         <p><strong>Rule 1:</strong> Never invest more than you can afford to lose entirely. Algo trading is not a savings account.</p>
       </div>
 
-      <p><strong>Start small.</strong> The Accumulator at $7/mo with no leverage is the lowest-risk way to experience signal-driven trading. If you move to vault strategies, start with a small deposit and increase only after you've seen how the strategy performs over weeks or months.</p>
+      <p><strong>Start small.</strong> The Accumulator at $7/mo with no leverage is the lowest-risk way to experience signal-driven trading. If you move to an automated bot, start small and increase only after you've seen how the strategy performs over weeks or months.</p>
 
-      <p><strong>Understand your product's risk level.</strong> Accumulator (low risk, no leverage) is fundamentally different from the Hype Bot (higher risk: leveraged perpetual futures). Make sure the product matches your risk tolerance.</p>
+      <p><strong>Understand your product's risk level.</strong> Accumulator (lower risk, no leverage) is fundamentally different from the Hype Bot and Tide (higher risk: leveraged perpetual futures). Make sure the product matches your risk tolerance.</p>
 
       <p><strong>Check the drawdown numbers.</strong> If a strategy has a backtested max drawdown of 25%, assume live drawdowns could be 30–40% in the worst case. Can you emotionally and financially handle watching your account drop by that much before recovering? If not, choose a lower-risk product.</p>
 
-      <p><strong>Diversify across strategies.</strong> Don't put 100% into one vault. Spreading capital across different strategy types (DCA, momentum, zone farming) reduces your exposure to any single approach underperforming.</p>
+      <p><strong>Diversify across strategies.</strong> Don't put everything into one bot. Spreading capital across different strategy types (DCA, momentum, dip-buying) reduces your exposure to any single approach underperforming.</p>
 
       <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-subtle);">
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">

@@ -226,7 +226,9 @@
   (function () {
     var PLANS = { starter: { fee: 19, cap: 2500, name: 'Tide Starter' }, full: { fee: 49, cap: null, name: 'Tide' },
                   none: { fee: 0, cap: null, name: 'No subscription' } };
-    var D = null, chart = null, last = null;
+    var D = null, LV = null, chart = null, last = null;
+    // Tide's live record, the same public feed the Tide dashboard reads
+    var LIVE_API = 'https://soomario-dca-production.up.railway.app';
     var $ = function (id) { return document.getElementById(id); };
     var fmtUsd = function (v) { return (v < 0 ? '-' : '') + '$' + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); };
     var fmtPct = function (v, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + '%'; };
@@ -295,7 +297,7 @@
     function bookTrades(key) {
       var b = D.books[key], tr = b.trades.slice(), end = b.stats.to;
       // the live bot's ladders closed after the backtest ends carry it on
-      D.live.trades.forEach(function (t) { if (t.c.slice(0, 10) > end) tr.push({ o: t.o, c: t.c, s: t.s, r: t.r, x: t.x, live: true }); });
+      LV.trades.forEach(function (t) { if (t.c.slice(0, 10) > end) tr.push({ o: t.o, c: t.c, s: t.s, r: t.r, x: t.x, live: true }); });
       return tr;
     }
 
@@ -354,7 +356,8 @@
       $('hc-ref').innerHTML = 'Reference: <strong>' + st.ladders.toLocaleString('en-US') + ' backtest ladders</strong> on ' + st.markets + ' markets, ' + fmtDay(st.from) + ' to ' + fmtDay(st.to) +
         ', the run whose result is the median of 8 (they range ' + st.cagr_seeds[0] + '% to ' + st.cagr_seeds[st.cagr_seeds.length - 1] + '% a year). ' + st.stops + ' hit the stop. With open ladders marked to market the backtest\'s worst drop was <strong>' + st.max_dd + '%</strong> and its worst month ' + st.worst_month + '%; this replay books ladders when they close, so it shows less. ' +
         (nLive ? '<strong style="color:#4ade80">+' + nLive + ' live ladder' + (nLive > 1 ? 's' : '') + '</strong> closed by the live bot since then are appended. ' : '') +
-        'Live, the bot has made ' + fmtPct(D.live.return_pct, 2) + ' in ' + Math.round(D.live.days) + ' days on ' + D.live.trades.length + ' ladders with ' + D.live.stops + ' stops (on Binance, our own account, since ' + fmtDay(D.live.since) + ').';
+        'Live, the bot has made ' + fmtPct(LV.return_pct, 2) + ' in ' + Math.round(LV.days) + ' days on ' + LV.n + ' closed ladders with ' + LV.stops + ' stops, deepest drop ' + fmtPct(LV.max_dd_pct, 1) +
+        ' (our own account, since ' + fmtDay(LV.since) + (LV.feed ? ', live feed' : ', snapshot of ' + fmtDay(D.generated.slice(0, 10)) + ': the live feed was out of reach') + ').';
 
       // months
       var rows = '';
@@ -383,14 +386,15 @@
     }
 
     function renderLive() {
-      var lv = D.live, rows = '';
+      var lv = LV, rows = '';
       lv.trades.slice().reverse().forEach(function (t) {
         rows += '<tr><td>' + t.c.slice(0, 16).replace('T', ' ') + '</td><td>' + t.s + '</td><td>' + exitTag(t.x) +
           '</td><td class="' + (t.r >= 0 ? 'up' : 'down') + '">' + fmtPct(t.r * 100, 3) + '</td><td class="' + (t.r >= 0 ? 'up' : 'down') + '">' + fmtPct(t.r * 50, 3) + '</td></tr>';
       });
       $('hc-live-title').textContent = 'Live ladders · ' + lv.trades.length + ' closed since ' + fmtDay(lv.since);
-      $('hc-live').innerHTML = '<p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.5rem;">Every ladder the live bot has closed on our own account (Binance, since ' + fmtDay(lv.since) +
-        '), as published on ' + fmtDay(D.generated.slice(0, 10)) + '. Too short to judge; it is here so the backtest can be checked against it as it grows. The live record, open ladders priced at the market, is on <a href="../dashboards/tide.html" style="color:var(--brass-hi)">the Tide dashboard</a>.</p>' +
+      $('hc-live').innerHTML = '<p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.5rem;">Every ladder the live bot has closed on our own account since ' + fmtDay(lv.since) +
+        (lv.feed ? ', read from the live record as this page loaded.' : '. The live feed was out of reach, so this is the snapshot of ' + fmtDay(D.generated.slice(0, 10)) + '.') +
+        ' Too short to judge; it is here so the backtest can be checked against it as it grows. The live record, open ladders priced at the market, is on <a href="../dashboards/tide.html" style="color:var(--brass-hi)">the Tide dashboard</a>.</p>' +
         '<table class="hc-table"><thead><tr><th>Closed (UTC)</th><th>Market</th><th>Ended</th><th>On its budget</th><th>On the account</th></tr></thead><tbody>' + rows + '</tbody></table>';
     }
 
@@ -399,9 +403,32 @@
     });
     $('hc-book').addEventListener('change', function () { $('hc-from').value = D.books[$('hc-book').value].stats.from; render(); });
 
-    fetch('../dashboards/tide-trades.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.json(); })
-      .then(function (d) { D = d; renderLive(); render(); })
+    function getJson(u) { return fetch(u, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw r.status; return r.json(); }); }
+    function iso(t) { return new Date(t * 1000).toISOString().slice(0, 16); }
+    // live ladders from the feed, in the file's form: r is the profit on the ladder's share of the
+    // account (balance × leverage ÷ slots), the same unit the backtest ladders use
+    function fromFeed(P, T) {
+      if (!P || !P.metrics || !T || !T.trades) return null;
+      var m = P.metrics, trades = T.trades.filter(function (t) { return t.closed_at && typeof t.pnl === 'number'; }).map(function (t) {
+        var share = t.sizing_base > 0 ? t.sizing_base * D.leverage / D.slots : t.reserve;
+        return { o: iso(t.opened_at), c: iso(t.closed_at), s: t.symbol, r: share > 0 ? t.pnl / share : 0,
+                 x: /stop/i.test(t.reason) ? 'stop' : /take/i.test(t.reason) ? 'tp' : 'time' };
+      }).sort(function (a, b) { return a.c < b.c ? -1 : a.c > b.c ? 1 : 0; });
+      var since = P.curve && P.curve.length ? iso(P.curve[0].t).slice(0, 10) : D.live.since;
+      return { feed: true, since: since, return_pct: m.return_pct, max_dd_pct: m.max_dd_pct, days: m.days, stops: m.stops, n: m.trades, trades: trades };
+    }
+
+    getJson('../dashboards/tide-trades.json?t=' + Date.now())
+      .then(function (d) {
+        D = d;
+        return Promise.all([getJson(LIVE_API + '/api/performance').catch(function () { return null; }),
+                            getJson(LIVE_API + '/api/trades').catch(function () { return null; })]);
+      })
+      .then(function (r) {
+        LV = fromFeed(r[0], r[1]);
+        if (!LV) { var L = D.live; LV = { feed: false, since: L.since, return_pct: L.return_pct, max_dd_pct: L.max_dd_pct, days: L.days, stops: L.stops, n: L.trades.length, trades: L.trades }; }
+        renderLive(); render();
+      })
       .catch(function (e) { $('hc-kpis').innerHTML = '<div class="hc-warn">Could not load the ladder list (' + e + ').</div>'; });
   })();
   </script>

@@ -61,8 +61,8 @@
       <div class="phero__stats">
         <div><b>+41.7%</b><span>a year, backtest with the losers left in</span></div>
         <div><b>99.8%</b><span>of 1,946 ladders closed in profit</span></div>
-        <div><b>&minus;22%</b><span>worst drop</span></div>
-        <div><b>$19</b><span>a month, sizes up to $2,500</span></div>
+        <div><b>&minus;22%</b><span>worst drop in the backtest</span></div>
+        <div><b id="hvRet">Live</b><span id="hvCap">on our own account since 8 Oct 2026, <a href="../dashboards/tide.html">see the live record</a></span></div>
       </div>
       <div class="beta">
         <strong>Beta offer:</strong> the first 10 members get <strong>3 months free</strong> with code <code>TIDEBETA</code>
@@ -74,8 +74,9 @@
       </div>
       <p class="phero__note">
         Backtest Nov 2023 to Oct 2026, on the coins and stocks Hyperliquid lists, after fees and funding, with
-        the coins that later collapsed included. Live on our own account since 8 October 2026. Every ladder of both
-        is published.
+        the coins that later collapsed included. Live on our own account since 8 October 2026; the live figure is
+        the real result so far and is fed straight from the live record. Every ladder of both is published.
+        From $19 a month (sizes up to $2,500).
       </p>
     </div>
   </header>
@@ -277,6 +278,11 @@
         document.getElementById('lvDD').textContent = f(m.max_dd_pct);
         document.getElementById('lvN').textContent = m.trades;
         document.getElementById('lvStops').textContent = m.stops;
+        // the hero shows the same live figure next to the backtest
+        var h = document.getElementById('hvRet'), hc = document.getElementById('hvCap');
+        h.textContent = (m.return_pct >= 0 ? '+' : '−') + Math.abs(m.return_pct).toFixed(1) + '%';
+        hc.innerHTML = 'live since 8 Oct 2026' + (m.max_dd_pct != null ? ', worst drop −' + Math.abs(m.max_dd_pct).toFixed(1) + '%' : '') +
+          ' (<a href="../dashboards/tide.html">record</a>)';
       })
       .catch(function () {});
   </script>

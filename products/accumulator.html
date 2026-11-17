@@ -42,8 +42,8 @@
         is connected.
       </p>
       <div class="phero__stats">
-        <div><b id="accRet">Live</b><span>model portfolio since 9 Feb 2026</span></div>
-        <div><b>14</b><span>stocks and coins watched</span></div>
+        <div><b id="accRet">Live</b><span>strategy return, time-weighted, model portfolio since 9 Feb 2026</span></div>
+        <div><b id="accRoc">&mdash;</b><span>your money's return: what the dollars put in have made</span></div>
         <div><b>0</b><span>accounts connected: you place the orders</span></div>
         <div><b>$7</b><span>a month, cancel any time</span></div>
       </div>
@@ -134,7 +134,7 @@
       <div style="max-width:720px;margin:2rem auto 0;padding:1.5rem;background:rgba(201,169,97,0.04);border-left:2px solid var(--gold);">
         <div style="font-family:var(--font-display);font-size:0.7rem;color:var(--gold);letter-spacing:0.16em;margin-bottom:0.6rem;text-transform:uppercase;">Honest context</div>
         <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.7;margin:0;">
-          The live record starts in February 2026, and much of its early run fired during a strong AI sector uptrend. Treat the early returns and Sharpe as a "best plausible case", not the expected forward baseline. As the sample grows and markets cycle through less favorable regimes, the numbers will normalize. What should hold up over longer timeframes is the structural edge: buying oversold quality assets at scaled sizes beats blind DCA. The magnitude of outperformance will vary. The FAQ below addresses skepticism directly.
+          There are two returns here and they can differ a lot. The strategy return is time-weighted: it shows how well the buys were priced, the way a fund is measured. Your money's return is what the dollars actually put in have made, and it is the one your own account would show. It has been the lower of the two, at times below zero, because the signals buy most when prices are falling and more money goes in during sell-offs. The record starts in February 2026, is less than a year old and is not a forecast. The FAQ below explains both.
         </p>
       </div>
 
@@ -220,16 +220,16 @@
       <div style="display:flex;flex-direction:column;gap:1.25rem;">
 
         <div class="card">
-          <div class="card__title" style="color:var(--gold);margin-bottom:0.75rem;">Why are the metrics so good? Should I be skeptical?</div>
+          <div class="card__title" style="color:var(--gold);margin-bottom:0.75rem;">Why are there two returns, and which one is mine?</div>
           <p class="card__text">
-            Healthy skepticism is the right instinct. The numbers you see are real trades with real prices since February 2026 — but much of the early record fired during an AI sector uptrend. A very high early win rate is not a sustainable baseline forecast; it will regress as the sample grows and the market cycles through less favorable conditions. What you're seeing is "the best plausible case" for this strategy, not the expected case. What should hold up over longer timeframes is the structural edge: buying oversold quality assets at scaled sizes tends to outperform blind DCA. The magnitude of that outperformance will vary.
+            The strategy return is time-weighted: it measures how good each buy's price was, ignoring when and how much money went in. Your money's return is the gain or loss on the dollars actually invested, and it is the figure your own account would show, so budget on that one. The two differ because the Accumulator spends more when assets sell off, and a sell-off can keep going after you have bought. Its strength is the price it pays per share; in our own tests, with spending held to the same savings as a plain monthly purchase, it has come out roughly level with simple monthly buying, ahead in some periods and behind in others. Every buy since February 2026 is on the public dashboard, and the record is too short to be a forecast.
           </p>
         </div>
 
         <div class="card">
           <div class="card__title" style="color:var(--gold);margin-bottom:0.75rem;">What happens during a market crash?</div>
           <p class="card__text">
-            A broad crash triggers multiple 5× maximum-strength signals across many assets on the same day. The budget math is specifically designed for this — your safe daily rate is calculated so that even worst-case crash allocation doesn't drain your monthly budget too fast. In practice you'll buy aggressively on the way down, which is what you want. The bot holds no position management on exits; it's a pure accumulation system, so "what if prices keep falling?" just means you keep getting more attractive entry signals until the crash ends.
+            A broad crash triggers strong signals across many assets on the same day. The budget math is specifically designed for this — your safe daily rate is calculated so that even worst-case crash allocation doesn't drain your monthly budget too fast. In practice you'll buy aggressively on the way down, which is what you want. The bot holds no position management on exits; it's a pure accumulation system, so "what if prices keep falling?" just means you keep getting more attractive entry signals until the crash ends.
           </p>
         </div>
 
@@ -314,19 +314,15 @@
   <!-- ═══ 6. RELATED ═══ -->
   <section class="section section--alt">
     <div class="container">
-      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">WANT MORE HANDS-OFF?</div></div>
-      <div class="grid-3">
-        <a href="aphelion.html" class="card" style="text-decoration:none;">
-          <div class="card__title">Aphelion →</div>
-          <p class="card__text">Same buy-the-dip philosophy, automated execution. 19 US equity perpetuals on Binance USD-M futures. Live.</p>
+      <div class="text-center" style="margin-bottom:2rem;"><div class="section-label">ALSO FROM SOOMARIO</div></div>
+      <div class="pp-related">
+        <a href="hype-bot.html" class="card r-hype">
+          <div class="card__title">Hype Bot &rarr;</div>
+          <p class="card__text">Fully automated on your own exchange account: trades HYPE long and short, one position at a time, with a 10% stop resting on every trade. $49/mo, every trade published.</p>
         </a>
-        <a href="tide.html" class="card" style="text-decoration:none;">
+        <a href="tide.html" class="card r-tide">
           <div class="card__title">Tide &rarr;</div>
-          <p class="card__text">Buys dips in steps across the top coins and 17 large stocks and sells the bounce, on your own Hyperliquid account. From $19/mo.</p>
-        </a>
-        <a href="libration.html" class="card" style="text-decoration:none;">
-          <div class="card__title">Libration Vault →</div>
-          <p class="card__text">Momentum swing engine across a basket of volatile perps, long and short, from one self-custody Hyperliquid vault.</p>
+          <p class="card__text">Buys dips in steps across the top coins and 17 large stocks and sells the bounce, automated on your own Hyperliquid account. From $19/mo.</p>
         </a>
       </div>
     </div>
@@ -426,9 +422,10 @@
     fetch('https://accumulator.soomariostrategies.com/api/portfolio_value?group=mag14&t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        var v = d && d.metrics && d.metrics.twr_pct;
-        if (typeof v !== 'number' || !isFinite(v)) return;
-        document.getElementById('accRet').textContent = (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1) + '%';
+        var m = d && d.metrics, v = m && m.twr_pct, c = m && m.return_on_contributed_pct;
+        var f = function (x) { return (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1) + '%'; };
+        if (typeof v === 'number' && isFinite(v)) document.getElementById('accRet').textContent = f(v);
+        if (typeof c === 'number' && isFinite(c) && c > -99.9) document.getElementById('accRoc').textContent = f(c);   // -100% is a feed glitch
       })
       .catch(function () {});
   </script>
