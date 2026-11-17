@@ -10,13 +10,13 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0f0a1a">
-  <meta name="description" content="AUREUS Whitepaper v1.5 — live on Arbitrum One. Bi-weekly USDC distributions to AUR stakers. 80/5/5/10 reward split, verified on-chain. First epoch close Friday June 5, 2026.">
-  <meta property="og:title" content="AUREUS Whitepaper v1.5 | Soomario Strategies">
+  <meta name="description" content="AUREUS Whitepaper v1.6 — live on Arbitrum One. Bi-weekly USDC distributions to AUR stakers. 80/5/5/10 reward split, verified on-chain. First epoch close Friday June 5, 2026.">
+  <meta property="og:title" content="AUREUS Whitepaper v1.6 | Soomario Strategies">
   <meta property="og:description" content="Live on Arbitrum One. Bi-weekly USDC distributions. Verified on-chain.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://soomariostrategies.com/aureus/whitepaper.html">
   <meta property="og:image" content="https://soomariostrategies.com/og-image.png">
-  <title>AUREUS Whitepaper v1.5 | Soomario Strategies</title>
+  <title>AUREUS Whitepaper v1.6 | Soomario Strategies</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -91,7 +91,7 @@
 
     <!-- Header -->
     <header>
-      <div class="wp__eyebrow">WHITEPAPER · VERSION 1.5 · JUNE 2026</div>
+      <div class="wp__eyebrow">WHITEPAPER · VERSION 1.6 · NOVEMBER 2026</div>
       <h1 class="wp__title">AUREUS</h1>
       <p class="wp__subtitle">A tokenized fund protocol on Arbitrum One. Bi-weekly USDC distributions to AUR stakers, verifiable on-chain.</p>
       <div class="wp__meta">Soomario Strategies</div>
@@ -99,7 +99,7 @@
 
     <!-- Live status card -->
     <div class="wp__status-card">
-      <strong>Status as of June 2026.</strong> AUREUS is deployed on Arbitrum One mainnet. Contracts are paused pending the public unpause, with a controlled-growth phase of capped deposits over the first 90 days. The first epoch close is scheduled for <strong>Friday, June 5, 2026 at 00:00 UTC</strong> (09:00 KST), with bi-weekly closes thereafter. This is a publicly observable, on-chain protocol — all addresses below are verifiable on Arbiscan.
+      <strong>Status as of June 2026.</strong> AUREUS is deployed on Arbitrum One mainnet. Contracts are paused pending the public unpause. The first epoch close is scheduled for <strong>Friday, June 5, 2026 at 00:00 UTC</strong> (09:00 KST), with bi-weekly closes thereafter. This is a publicly observable, on-chain protocol — all addresses below are verifiable on Arbiscan.
     </div>
 
     <!-- TOC -->
@@ -109,7 +109,7 @@
         <li><a href="#s1">Live contract addresses</a></li>
         <li><a href="#s2">Live wallet addresses</a></li>
         <li><a href="#s3">How AUREUS works</a></li>
-        <li><a href="#s4">Controlled growth phase</a></li>
+        <li><a href="#s4">Deposits</a></li>
         <li><a href="#s5">Epoch schedule</a></li>
         <li><a href="#s6">Operator authority — what the multisig can and cannot do</a></li>
         <li><a href="#s7">Reserves architecture</a></li>
@@ -172,7 +172,7 @@
       </table>
     </div>
 
-    <p>The third signer is an external trusted community member; their address is held off-chain to preserve their privacy. <strong>A fourth cold-storage signer will be added in the first 30 days</strong>, taking the configuration to 2-of-4.</p>
+    <p>The third signer is an external trusted community member; their address is held off-chain to preserve their privacy.</p>
 
     <p>The protocol multisig has been verified on-chain as the <code>owner()</code> of both the <strong>Forge</strong> and the <strong>AureusRedemption</strong> contract, so every owner-gated operation routes through the 2-of-3 Safe.</p>
 
@@ -270,18 +270,10 @@ hardNav = hardReserves / totalSupply(AUR)</code></pre>
 
     <p>A separate soft layer reports live Hyperliquid trading account state. The keeper posts this at minimum every 24 hours. The soft layer is capped at 10× the hard reserves to prevent runaway misreports. The dashboard surfaces both hard and soft views.</p>
 
-    <!-- ═══ 4. CONTROLLED GROWTH ═══ -->
-    <h2 id="s4"><span class="wp__h2-num">§4</span>Controlled growth phase (first 90 days)</h2>
+    <!-- ═══ 4. DEPOSITS ═══ -->
+    <h2 id="s4"><span class="wp__h2-num">§4</span>Deposits</h2>
 
-    <p>To match the soft launch posture and protect early members, deposits are capped during the first 90 days:</p>
-    <ul>
-      <li><strong>Total deposits capped at $250,000 USDC in aggregate</strong></li>
-      <li><strong>Per-member positions capped at $50,000 USDC</strong></li>
-    </ul>
-
-    <p>These caps are enforced <strong>operationally</strong>, not contractually. The Forge accepts deposits permissionlessly; the multisig monitors aggregate exposure and per-member positions and will use its pause authority to gate access before either threshold is breached.</p>
-
-    <p>After 90 days (Friday September 4, 2026 — three months from public launch), the caps will be reviewed against operational performance, audit progress, and community input. They may be raised, lowered, or removed by multisig action. The intent is to scale deposits in line with the protocol's demonstrated reliability, not to maintain caps indefinitely.</p>
+    <p>The Forge accepts USDC deposits permissionlessly. The multisig can pause deposits (see §6).</p>
 
     <!-- ═══ 5. EPOCH SCHEDULE ═══ -->
     <h2 id="s5"><span class="wp__h2-num">§5</span>Epoch schedule</h2>
@@ -373,7 +365,7 @@ hardNav = hardReserves / totalSupply(AUR)</code></pre>
 
     <p>AUREUS launched with internal <strong>RED_TEAM</strong> review (three passes, all findings dispositioned with regression tests; 81 tests passing in <code>test/AureusV2.t.sol</code>). The Sepolia retest cycle validated the architecture end-to-end before mainnet broadcast, including catching one deploy-script gap that would have bricked the first epoch close — exactly the catch the retest exists for.</p>
 
-    <p><strong>Formal external audit</strong> (Sherlock, Trail of Bits, OpenZeppelin, or equivalent firm) is planned for <strong>Months 2–6 post-launch</strong>. The controlled-growth phase ($250K aggregate cap) is structured so that aggregate Member exposure during the audit-pending window is structurally bounded.</p>
+    <p><strong>Formal external audit</strong> (Sherlock, Trail of Bits, OpenZeppelin, or equivalent firm) is planned for <strong>Months 2–6 post-launch</strong>.</p>
 
     <p>This sequence — internal red team → live deploy → external audit during operations — is a deliberate choice. It avoids the trap of paying for an audit on code that subsequently changes during real-world stress testing, and lets the audit be informed by actual operational data rather than only theory.</p>
 
@@ -383,8 +375,8 @@ hardNav = hardReserves / totalSupply(AUR)</code></pre>
     <p>This section is not exhaustive; deposit only what you can afford to lose.</p>
 
     <ul>
-      <li><strong>Smart contract risk.</strong> RED_TEAM passed three times but is not a substitute for external audit. The 90-day caps mitigate aggregate exposure.</li>
-      <li><strong>Operator key risk.</strong> The multisig holds significant authority. 2-of-3 reduces single-key compromise risk; the upgrade to 2-of-4 in the first 30 days reduces it further.</li>
+      <li><strong>Smart contract risk.</strong> RED_TEAM passed three times but is not a substitute for external audit.</li>
+      <li><strong>Operator key risk.</strong> The multisig holds significant authority. 2-of-3 reduces single-key compromise risk.</li>
       <li><strong>Trading strategy risk.</strong> Profits are not guaranteed; epochs can close at flat or negative NAV. The 15% per-close rate limit bounds single-epoch reporting risk but not actual loss.</li>
       <li><strong>Hyperliquid platform risk.</strong> Trading happens on Hyperliquid; HL platform outages, bugs, or insolvency would affect AUREUS reserves.</li>
       <li><strong>Bridge risk.</strong> Capital in transit between Arbitrum and Hyperliquid is exposed to bridge-contract risk.</li>
@@ -457,6 +449,9 @@ hardNav = hardReserves / totalSupply(AUR)</code></pre>
     <!-- ═══ 14. CHANGELOG ═══ -->
     <h2 id="s14"><span class="wp__h2-num">§14</span>Changelog</h2>
 
+    <h3>v1.6 (November 2026)</h3>
+    <p>Removed the first-90-days deposit-cap section (§4 now covers deposits only) and the planned fourth signer; the multisig stays 2-of-3.</p>
+
     <h3>v1.5 (June 2026) — Operations version</h3>
     <p>Added §12 documenting the admin dashboard (Safe App, read-only console, four gated write actions: pause/unpause, depositRewards, closeEpoch, processRedemptions). Added §13 with the on-chain verification table confirming the 80/5/5/10 split, 2%/5% redemption fees, 15% NAV rate limit, $350K recovery target, $1.00 launch NAV, and both contracts owned by the multisig. Corrected the §3 exit-paths line to state fees explicitly (2% EOE / 5% ASAP / 0.5% OTC) and added the <code>minUsdcOut</code> slippage-floor note. Added the reward-pool derivation formula (<code>ForgeUSDC − owedToStakers</code>) and the staker-residual rounding note. Clarified the launch sequence: operator unpauses and validates a real first epoch close with personal capital before public announcement.</p>
 
@@ -471,7 +466,7 @@ hardNav = hardReserves / totalSupply(AUR)</code></pre>
     <!-- Final disclaimer -->
     <div class="wp__final-note">
       This document is descriptive. It is not a solicitation, offer, prospectus, or financial advice. AUREUS is a public smart contract protocol on a permissionless blockchain; participation is voluntary and at your own risk. All on-chain claims in this document can be verified directly against Arbitrum One contract state at the addresses listed in §1 and §2.<br><br>
-      <em>Last updated: June 2026 · Soomario Strategies</em>
+      <em>Last updated: November 2026 · Soomario Strategies</em>
     </div>
 
   </article>
