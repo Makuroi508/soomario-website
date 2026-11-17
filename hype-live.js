@@ -4,7 +4,7 @@
 // ("+115.5%"), [data-hype="n"] with the number of live trades and [data-hype="mdd"] with the
 // deepest live drawdown; if the file is unreachable the figures written in the page stay.
 // A <tbody data-hype="months"> gets one row per month: that month's return and that month's
-// worst drop below its own high (month start included), both at 1x after the 0.12% cost,
+// worst drop below its own high (month start included), both at 1x after the 0.12% cost, months in KST,
 // measured trade by trade at each close.
 (function () {
   var base = document.currentScript ? document.currentScript.src : location.href;
@@ -17,7 +17,7 @@
     var c = h.curve || [], out = [], cur = null, idx = 1, peak = 1, mdd = 0;
     for (var i = 1; i < c.length; i++) {
       if (c[i].phase !== 'live') continue;
-      var g = c[i].v / c[i - 1].v - 1, m = c[i].d.slice(0, 7);
+      var g = c[i].v / c[i - 1].v - 1, m = c[i].mk || c[i].d.slice(0, 7);   // KST month, as the monthly reports
       if (!cur || cur.m !== m) { cur = { m: m, start: idx, hi: idx, dd: 0, n: 0 }; out.push(cur); }
       idx *= 1 + g; cur.n++; cur.end = idx;
       cur.hi = Math.max(cur.hi, idx); cur.dd = Math.min(cur.dd, (idx / cur.hi - 1) * 100);
